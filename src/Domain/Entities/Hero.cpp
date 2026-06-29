@@ -1,5 +1,7 @@
 #include "Domain/Entities/Hero.h" 
- 
+#include <cstdlib>
+#include <algorithm>
+
 int Hero::GetHP()const{
    return this->Hp;
 }
@@ -53,4 +55,17 @@ void Hero::Heal(int heal){
 
 bool Hero::IsAlive()const{
    return this-> Hp > 0;
+}
+
+
+void Hero::AddCardToHand(Card card){
+   this->Hand.push_back(card);
+}
+Card Hero::GetRandomCard(){
+   int RandomIndex=rand()%this->Deck.size();
+   Card card=Deck[RandomIndex];
+
+   std::swap(Deck[RandomIndex],Deck[Deck.size()-1]);
+   Deck.pop_back();
+   return card;
 }

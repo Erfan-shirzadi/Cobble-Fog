@@ -2,7 +2,7 @@
 #define HERO_H
 #include <string>
 #include <vector>
-
+#include "Domain/Entities/Card.h"
 class Hero {
   
     int MaxHp;
@@ -14,6 +14,8 @@ class Hero {
     int node;
 
 
+    std::vector <Card> Hand;
+    std::vector <Card> Deck;
     public:
     void SetName(std::string);
     void SetHP(int );
@@ -30,6 +32,9 @@ class Hero {
     void TakeDamge(int damage);
     void Heal(int heal);
     bool IsAlive()const;
+
+    void AddCardToHand(Card);
+    Card GetRandomCard();
     
 
 };
