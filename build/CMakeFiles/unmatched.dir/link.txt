@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/unmatched.dir/main.cpp.o CMakeFiles/unmatched.dir/src/Domain/Entities/Hero.cpp.o CMakeFiles/unmatched.dir/src/Domain/Entities/Graph.cpp.o CMakeFiles/unmatched.dir/src/Application/UseCases/Manever.cpp.o -o unmatched 
