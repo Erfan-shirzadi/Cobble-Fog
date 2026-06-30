@@ -36,6 +36,26 @@ void Hero::SetNode(int newNode){
    this->node=newNode;
 }
 
+
+void Hero::SetBoost(int boost){
+   this->CurrentBoost=boost;
+}
+
+
+int Hero::GetBoost()const{
+   return CurrentBoost;
+}
+
+Card Hero::GetCard(int index){
+      return this->Hand[index-1];
+}
+
+void Hero::RemoveCardHand(int index){
+      std::swap(Hand[index-1],Hand[Hand.size()-1]);
+      this->Hand.pop_back();
+}
+
+
 int Hero::GetNode()const{
    return this->node;
 }
@@ -69,3 +89,5 @@ Card Hero::GetRandomCard(){
    Deck.pop_back();
    return card;
 }
+
+

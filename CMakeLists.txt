@@ -11,7 +11,11 @@ set(
     ./main.cpp
     src/Domain/Entities/Hero.cpp
     src/Domain/Entities/Graph.cpp
+    src/Domain/Entities/Card.cpp
+
     src/Application/UseCases/ManeverUseCase.cpp
+    src/Application/UseCases/DrawingCardUseCase.cpp
+    src/Application/UseCases/DiscardingCardUseCase.cpp
 
 )
 

@@ -12,7 +12,13 @@ class Card{
     CardCategory category;
     PlayTiming timing;
 
+    int Boost;
+
     public:
+
+    void SetBoost(int);
+     
+    int GetBoost()const;
 
 };
 

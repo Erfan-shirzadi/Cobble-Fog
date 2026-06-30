@@ -10,7 +10,8 @@ class Hero {
     std::string Name ;
     int Move;
     int Range;
-    int Boost;
+    int BaseBoost;
+    int CurrentBoost;
     int node;
 
 
@@ -21,9 +22,16 @@ class Hero {
     void SetHP(int );
     void SetRange(int);
     void SetMove(int);
+    void SetBoost(int);
+    
+
     int GetHP()const;
     std::string GetName()const;
     int GetMove()const;
+    int GetBoost() const;
+    Card GetCard(int index);
+
+    void RemoveCardHand(int index);
 
     void SetNode(int);
     int GetNode()const;
