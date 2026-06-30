@@ -1,0 +1,13 @@
+#ifndef HOLMES_H
+#define HOLMES_H
+#include "Domain/Entities/Hero.h"
+#include <memory>
+class Holmes : public Hero{
+
+    std::unique_ptr<Fighter> DrWatson;
+    public:
+    Holmes();
+    void SpecialAbility()override{};
+};
+
+#endif /* HOLMES_H */
