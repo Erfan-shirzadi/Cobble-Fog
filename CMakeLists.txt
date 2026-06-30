@@ -9,12 +9,12 @@ set(
     SOURCES
     
     ./main.cpp
-    src/Domain/Entiteis/Fighter.cpp
+    src/Domain/Entities/Fighter.cpp
     src/Domain/Entities/Hero.cpp
     src/Domain/Entities/Graph.cpp
     src/Domain/Entities/Card.cpp
     src/Domain/Entities/Heroes/Dracula.cpp
-    src/Domain/Entities/Heroes/SherlockHolmes.cpp
+    src/Domain/Entities/Heroes/Holmes.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
