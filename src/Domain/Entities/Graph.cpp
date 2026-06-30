@@ -3,7 +3,7 @@
 Graph::Graph(){
 
     SetNodes();
-    graph[1]={2,3,4};
+    graph[1]={2,4};
     graph[2]={1,3,5};
     graph[3]={1,2,4,31};
     graph[4]={1,3,6,7,19,20};
