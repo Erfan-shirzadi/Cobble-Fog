@@ -21,7 +21,7 @@ class Hero :public Fighter{
     void AddCardToHand(Card);
     Card GetRandomCard();
 
-    virtual void SpecialAbility()=0;
+    //virtual void SpecialAbility()=0;
     
 
 };

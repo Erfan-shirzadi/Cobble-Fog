@@ -10,7 +10,7 @@ class Dracula :public Hero{
 
     public:
     Dracula();
-    void SpecialAbility()override{};
+    //void SpecialAbility()override{};
 
 };
 

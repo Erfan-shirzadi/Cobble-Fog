@@ -8,7 +8,7 @@
 class Card{
 
     std::string Name;
-    Fighter owner;
+    FighterType owner;
     CardCategory category;
     PlayTiming timing;
 

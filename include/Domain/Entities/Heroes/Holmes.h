@@ -7,7 +7,7 @@ class Holmes : public Hero{
     std::unique_ptr<Fighter> DrWatson;
     public:
     Holmes();
-    void SpecialAbility()override{};
+    //void SpecialAbility()override{};
 };
 
 #endif /* HOLMES_H */
