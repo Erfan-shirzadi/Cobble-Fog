@@ -1,5 +1,10 @@
 #include "Domain/Entities/Fighter.h"
 
+
+Fighter::Fighter(std::string name,int Hp, int move ,FighterType Type):Name(name),
+    MaxHp(Hp),Move(move),fightertype(Type){}
+
+
 int Fighter::GetHP()const{
    return this->Hp;
 }

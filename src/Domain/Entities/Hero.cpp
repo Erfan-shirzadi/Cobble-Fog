@@ -3,6 +3,9 @@
 #include <algorithm>
 
 
+ Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
+ }
+
 Card Hero::GetCard(int index){
       return this->Hand[index-1];
 }

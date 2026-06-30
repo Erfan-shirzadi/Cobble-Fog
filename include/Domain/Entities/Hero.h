@@ -13,14 +13,15 @@ class Hero :public Fighter{
     std::vector <Card> Deck;
 
     public:
-   
+    Hero(std::string name ,int hp ,int move, FighterType type);
     Card GetCard(int index);
 
     void RemoveCardHand(int index);
 
-
     void AddCardToHand(Card);
     Card GetRandomCard();
+
+    virtual void SpecialAbility()=0;
     
 
 };
