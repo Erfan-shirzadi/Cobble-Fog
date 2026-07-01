@@ -8,6 +8,8 @@ struct CombatParticipant
     Hero & hero;
     Fighter & fighter;
     Card & card;
+    int DamageOrDeffend=0;
+
 };
 
 #endif /* COMBAT_PARTICIPANT */
