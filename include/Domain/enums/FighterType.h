@@ -2,7 +2,7 @@
 #define FIGHTERTYPE_H
 
 enum class FighterType{
-    DERACULA,
+    DRACULA,
     SHERLOCK,
     DR_WATSON,
     SISTERS
