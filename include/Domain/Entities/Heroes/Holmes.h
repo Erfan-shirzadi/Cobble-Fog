@@ -8,6 +8,7 @@ class Holmes : public Hero{
     public:
     Holmes();
     //void SpecialAbility()override{};
+    Fighter * GetSideKick();
 };
 
 #endif /* HOLMES_H */

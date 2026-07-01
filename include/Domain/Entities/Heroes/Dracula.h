@@ -11,6 +11,7 @@ class Dracula :public Hero{
     public:
     Dracula();
     //void SpecialAbility()override{};
+    Fighter * GetSideKick(int node);
 
 };
 
