@@ -83,3 +83,7 @@ Node Graph::GetNode(int node)const{
 std::vector<int> Graph::GetNeighbors(int node)const{
     return this->graph.at(node);
 }
+
+std::vector<Area> Graph::GetArea(int node)const{
+    return Nodes.at(node).areas;
+}
