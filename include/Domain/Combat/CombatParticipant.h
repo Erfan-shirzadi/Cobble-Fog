@@ -2,12 +2,12 @@
 #define COMBAT_PARTICIPANT
 #include "Domain/Entities/Fighter.h"
 #include "Domain/Entities/Hero.h"
-#include "Domain/Entities/Card.h"
+#include "Domain/Entities/CombatCard.h"
 struct CombatParticipant
 {
     Hero & hero;
     Fighter & fighter;
-    Card & card;
+    CombatCard & card;
     int DamageOrDeffend=0;
 
 };
