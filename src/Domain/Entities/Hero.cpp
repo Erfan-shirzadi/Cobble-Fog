@@ -30,6 +30,6 @@ Card Hero::GetRandomCard(){
    return card;
 }
 
- Fighter * Hero::GetSideKick(){
-      return nullptr;
+std::vector<Fighter *> Hero::GetSideKicks(){
+      return {nullptr};
  }

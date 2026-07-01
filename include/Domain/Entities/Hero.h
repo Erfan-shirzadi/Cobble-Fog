@@ -20,7 +20,7 @@ class Hero :public Fighter{
 
     void AddCardToHand(Card);
     Card GetRandomCard();
-    virtual Fighter * GetSideKick();
+    virtual std::vector<Fighter *> GetSideKicks();
     //virtual void SpecialAbility()=0;
     
 

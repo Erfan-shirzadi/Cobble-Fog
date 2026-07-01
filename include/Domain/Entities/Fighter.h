@@ -11,7 +11,7 @@ class Fighter{
     int Range;
     int BaseBoost;
     int CurrentBoost;
-    int node;
+    int node=0;
 
     FighterType fightertype;
 

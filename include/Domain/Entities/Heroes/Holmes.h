@@ -8,7 +8,7 @@ class Holmes : public Hero{
     public:
     Holmes();
     //void SpecialAbility()override{};
-    Fighter * GetSideKick();
+    std::vector<Fighter *> GetSideKicks()override;
 };
 
 #endif /* HOLMES_H */
