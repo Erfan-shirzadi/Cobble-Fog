@@ -37,6 +37,8 @@ class Fighter{
     void Heal(int heal);
     bool IsAlive()const;
 
+    FighterType GetFighterType();
+
 };
 
 #endif /* FIGHTER_H */

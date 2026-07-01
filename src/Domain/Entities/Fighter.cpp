@@ -70,3 +70,8 @@ void Fighter::Heal(int heal){
 bool Fighter::IsAlive()const{
    return this-> Hp > 0;
 }
+
+
+FighterType Fighter::GetFighterType(){
+   return this->fightertype;
+}
