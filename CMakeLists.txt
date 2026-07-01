@@ -19,6 +19,7 @@ set(
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
     src/Application/UseCases/DiscardingCardUseCase.cpp
+    src/Domain/Entities/Board.cpp
 
 )
 
