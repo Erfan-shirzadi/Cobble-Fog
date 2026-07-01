@@ -20,7 +20,7 @@ class Hero :public Fighter{
 
     void AddCardToHand(Card);
     Card GetRandomCard();
-
+    virtual Fighter * GetSideKick();
     //virtual void SpecialAbility()=0;
     
 

@@ -30,4 +30,6 @@ Card Hero::GetRandomCard(){
    return card;
 }
 
-
+ Fighter * Hero::GetSideKick(){
+      return nullptr;
+ }

@@ -22,8 +22,8 @@ class Card{
     int GetBoost()const;
 
 
-    virtual PlayTiming GetCardPlayTiming()const=0;
-    virtual FighterType GetOwner()const=0;
+    // virtual PlayTiming GetCardPlayTiming()const=0;
+    // virtual FighterType GetOwner()const=0;
 
 };
 
