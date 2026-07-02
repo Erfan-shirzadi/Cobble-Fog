@@ -10,10 +10,10 @@ class Board {
     Graph map;
     public:
     
-    bool Isoccupied(int node)const;
     void Move(Fighter& fihgter,int node)const;
     std::vector<int> adjacentCells(int node)const;
     std::vector <int> reachableNodes(Hero & fighters, Hero & enemy ,int distance,int HeroNode)const;
+    bool IsAnArea(int node1, int node2)const;
 };
 
 #endif /* BOARD_H */

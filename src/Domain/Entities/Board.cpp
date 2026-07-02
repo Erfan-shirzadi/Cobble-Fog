@@ -63,3 +63,15 @@ std::vector <int> Board::reachableNodes(Hero & fighter, Hero & enemy ,int distan
     return res;
 }
 
+
+bool Board::IsAnArea(int node1, int node2)const{
+     std::vector<Area>Area1=map.GetArea(node1);
+     std::vector<Area>Area2=map.GetArea(node2);
+     for(Area area:Area1)
+        for(Area items:Area2)
+            if(area==items)
+                return true;
+
+    return false;
+
+}
