@@ -7,9 +7,10 @@ class FeedingFrenzy :public CombatCard{
 
     public:
     FeedingFrenzy();
-    int Play(Dracula * attacker,Fighter * deffender,Graph map);
-    PlayTiming GetCardPlayTiming()const override ;
-    FighterType GetOwner()const override;
+     void Play(CombatContext & )const;
+     PlayTiming GetCardPlayTiming()const;
+     FighterType GetOwner()const;
+
 
 
 };

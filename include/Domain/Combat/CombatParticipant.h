@@ -5,8 +5,8 @@
 #include "Domain/Entities/CombatCard.h"
 struct CombatParticipant
 {
-    Hero & hero;
-    Fighter & fighter;
+    Hero * hero;
+    Fighter * fighter;
     CombatCard & card;
     int DamageOrDeffend=0;
 

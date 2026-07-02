@@ -4,10 +4,9 @@
 #include "Domain/Entities/Board.h"
 #include "Domain/Combat/CombatResult.h"
 struct CombatContext{
-    CombatParticipant attaker;
-    CombatParticipant deffender;
+    CombatParticipant * Current;
+    CombatParticipant *Opponent;
     Board & board;
-    CombatResult result;
     bool MoveAttacker=false;
     bool MoveDeffender=false;
     bool IsActiveCardEffectAttaker=true;
