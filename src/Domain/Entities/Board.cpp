@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <queue>
 #include <iostream>
+#include <stdexcept>
 
 void Board::Move(Fighter& fihgter,int node)const{
 
@@ -96,7 +97,8 @@ bool Board::isOccupied(int node)const{
     return false;
 }
 
-void Board::AddFighter(Fighter* newfighter){
+void Board::AddFighter(Fighter* newfighter,int node){
+    newfighter->SetNode(node);
     this->allFighters.push_back(newfighter);
 }
 

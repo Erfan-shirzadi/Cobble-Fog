@@ -10,7 +10,7 @@ class Board {
     Graph map;
     std::vector<Fighter *> allFighters;
     public:
-    void AddFighter(Fighter*);
+    void AddFighter(Fighter*,int node);
     bool isOccupied(int node)const;
     void Move(Fighter& fihgter,int node)const;
     std::vector<int> adjacentCells(int node)const;

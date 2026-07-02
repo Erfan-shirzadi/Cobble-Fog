@@ -20,7 +20,14 @@ void PlaceMentUseCase::PlaceHero(GameState & gamestate){
                 flag=true;
         if(!flag)
             std::cout<< " Please Selecte a curroct node"<<std::endl;
-        else break;
+        else if(gamestate.board.isOccupied(Nodeset)){
+            std::cout<<" in this node exists a fighter allready"<<std::endl;
+        }
+        else {
+            gamestate.board.AddFighter(dynamic_cast<Fighter*>(hero),Nodeset);
+            break;
+        }
+
     }
     hero->SetNode(Nodeset);
 
@@ -41,10 +48,17 @@ void PlaceMentUseCase::PlaceSideKicks(GameState & gamestate){
 
             if(!flag)
                 std::cout<< " Please Selecte a curroct node"<<std::endl;
-            else break;
+            else if(gamestate.board.isOccupied(Nodeset)){
+            std::cout<<" in this node exists a fighter allready"<<std::endl;
+            }
+            else{
+                gamestate.board.AddFighter(fighter,Nodeset);
+                break;
+            }
 
             
         }
+        
     }
 
 
