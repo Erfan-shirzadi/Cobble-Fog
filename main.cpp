@@ -15,6 +15,7 @@ using namespace std;
 int main(){
 
    
+   
     GameState gamestate;
     
     Player a;
@@ -31,6 +32,25 @@ int main(){
     PlaceMentUseCase plaecment;
 
     plaecment.PlaceHero(gamestate);
+    plaecment.PlaceSideKicks(gamestate);
+
+
+    Hero * hero=a.GetHero();
+    
+    cout << "dracula node "<<hero->GetNode()<<endl;
+    cout << "sidekicks "<<endl;
+    for(Fighter * fighter:hero->GetSideKicks())
+        cout<<fighter->GetNode();
+
+    std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+    plaecment.PlaceHero(gamestate);
+    plaecment.PlaceSideKicks(gamestate);
+    cout << "Holmes node "<<hero->GetNode()<<endl;
+    cout << "sidekicks "<<endl;
+    for(Fighter * fighter:hero->GetSideKicks())
+        cout<<fighter->GetNode();
+
+
 
 
 
