@@ -8,8 +8,10 @@
 class Board {
 
     Graph map;
+    std::vector<Fighter *> allFighters;
     public:
-    
+    void AddFighter(Fighter*);
+    bool isOccupied(int node)const;
     void Move(Fighter& fihgter,int node)const;
     std::vector<int> adjacentCells(int node)const;
     std::vector <int> reachableNodes(Hero & fighters, Hero & enemy ,int distance,int HeroNode)const;

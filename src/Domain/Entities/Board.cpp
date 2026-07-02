@@ -86,3 +86,16 @@ bool Board::IsAnArea(int node1, int node2)const{
     return false;
 
 }
+
+
+bool Board::isOccupied(int node)const{
+    for( Fighter* fighter: this->allFighters)
+        if(fighter->GetNode()==node)
+            return true;
+
+    return false;
+}
+
+void Board::AddFighter(Fighter* newfighter){
+    this->allFighters.push_back(newfighter);
+}
