@@ -2,6 +2,7 @@
 #include  <vector>
 #include <unordered_map>
 #include <queue>
+#include <iostream>
 
 void Board::Move(Fighter& fihgter,int node)const{
 
@@ -67,10 +68,20 @@ std::vector <int> Board::reachableNodes(Hero & fighter, Hero & enemy ,int distan
 bool Board::IsAnArea(int node1, int node2)const{
      std::vector<Area>Area1=map.GetArea(node1);
      std::vector<Area>Area2=map.GetArea(node2);
-     for(Area area:Area1)
-        for(Area items:Area2)
-            if(area==items)
+     
+    // std::cout<<"size1: "<<Area1.size()<<std::endl;
+    // std::cout<<"size2: "<<Area2.size()<<std::endl;
+
+    // for(Area area:Area1)std::cout<<(int)area<<std::endl;
+    // std::cout<< "((((()))))"<<std::endl;
+    // for(Area area:Area2)std::cout<<(int)area<<std::endl;
+
+     for(Area area:Area1){
+        for(Area items:Area2){
+            if((int)area==(int)items)
                 return true;
+        }
+    }
 
     return false;
 

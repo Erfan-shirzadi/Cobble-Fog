@@ -7,9 +7,9 @@ class FeedingFrenzy :public CombatCard{
 
     public:
     FeedingFrenzy();
-     void Play(CombatContext & )const;
-     PlayTiming GetCardPlayTiming()const;
-     FighterType GetOwner()const;
+     void Play(CombatContext & )const override;
+     PlayTiming GetCardPlayTiming()const override;
+     FighterType GetOwner()const override;
 
 
 

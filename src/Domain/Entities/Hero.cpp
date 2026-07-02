@@ -6,8 +6,8 @@
  Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
  }
 
-Card Hero::GetCard(int index){
-      return this->Hand[index-1];
+Card* Hero::GetCard(int index){
+      return this->Hand[index-1].get();
 }
 
 void Hero::RemoveCardHand(int index){
@@ -18,17 +18,17 @@ void Hero::RemoveCardHand(int index){
 
 
 
-void Hero::AddCardToHand(Card card){
-   this->Hand.push_back(card);
+void Hero::AddCardToHand(std::unique_ptr<Card> card){
+      this->Hand.push_back(std::move(card));
 }
-Card Hero::GetRandomCard(){
-   int RandomIndex=rand()%this->Deck.size();
-   Card card=Deck[RandomIndex];
+// Card  Hero::GetRandomCard(){
+//    int RandomIndex=rand()%this->Deck.size();
+//    Card * card=&Deck[RandomIndex];
 
-   std::swap(Deck[RandomIndex],Deck[Deck.size()-1]);
-   Deck.pop_back();
-   return card;
-}
+//    std::swap(Deck[RandomIndex],Deck[Deck.size()-1]);
+//    Deck.pop_back();
+//    return card;
+// }
 
 std::vector<Fighter *> Hero::GetSideKicks(){
       return {nullptr};

@@ -13,8 +13,12 @@ set(
     src/Domain/Entities/Hero.cpp
     src/Domain/Entities/Graph.cpp
     src/Domain/Entities/Card.cpp
+    src/Domain/Entities/CombatCard.cpp
     src/Domain/Entities/Heroes/Dracula.cpp
     src/Domain/Entities/Heroes/Holmes.cpp
+
+
+    src/Domain/Entities/Cards/FeedingFrenzy.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp

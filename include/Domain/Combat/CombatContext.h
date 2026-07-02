@@ -5,8 +5,8 @@
 #include "Domain/Combat/CombatResult.h"
 struct CombatContext{
     CombatParticipant * Current;
-    CombatParticipant *Opponent;
-    Board & board;
+    CombatParticipant * Opponent;
+    Board * board;
     bool MoveAttacker=false;
     bool MoveDeffender=false;
     bool IsActiveCardEffectAttaker=true;

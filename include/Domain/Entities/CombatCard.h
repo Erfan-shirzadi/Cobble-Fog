@@ -1,7 +1,7 @@
 #ifndef COMBAT_CARD
 #define COMBAT_CARD
 #include "Domain/Entities/Card.h"
-#include "Domain/Combat/CombatContext.h"
+struct CombatContext;
 class CombatCard :public Card{
 
     int DamageOrDeffend;
@@ -9,6 +9,8 @@ class CombatCard :public Card{
     void SetDamageOrDeffend(int amount );
     int GetDamgeOrDeffend()const;
     virtual void Play(CombatContext & )const=0;
+    virtual PlayTiming GetCardPlayTiming()const=0;
+    virtual FighterType GetOwner()const=0;
 
 };
 
