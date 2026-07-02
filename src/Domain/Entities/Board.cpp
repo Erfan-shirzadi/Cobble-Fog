@@ -99,3 +99,12 @@ bool Board::isOccupied(int node)const{
 void Board::AddFighter(Fighter* newfighter){
     this->allFighters.push_back(newfighter);
 }
+
+std::vector<int> Board::GetNodeofArea(int node)const{
+    std::vector<int> res;
+    for(int i{1};i<=32;i++)
+        if(IsAnArea(node,i))
+            res.push_back(i);    
+
+    return res;
+}

@@ -16,6 +16,7 @@ set(
     src/Domain/Entities/CombatCard.cpp
     src/Domain/Entities/Heroes/Dracula.cpp
     src/Domain/Entities/Heroes/Holmes.cpp
+    src/Domain/Player.cpp
 
 
     src/Domain/Entities/Cards/FeedingFrenzy.cpp
@@ -23,6 +24,7 @@ set(
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
     src/Application/UseCases/DiscardingCardUseCase.cpp
+    src/Application/UseCases/PlaceMentUseCase.cpp
     src/Domain/Entities/Board.cpp
 
 )
