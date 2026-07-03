@@ -5,7 +5,7 @@
 struct CombatParticipant{
     Hero  *hero;
     Fighter * fighter;
-    CombatCard *card;
+    Card *card;
     int DamageOrDeffend=0;
 
 };

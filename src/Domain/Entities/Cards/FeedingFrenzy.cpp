@@ -6,7 +6,7 @@ FeedingFrenzy::FeedingFrenzy(){
     SetDamageOrDeffend(2);
     SetBoost(3);
     SetName("FeedingFrenzy");
-    AddCategory(CardCategory::ATTACK);
+    SetCategory(CardCategory::ATTACK);
 }
 
 void FeedingFrenzy::Play(CombatContext &  combatcontext)const{

@@ -9,18 +9,18 @@
 class Card{
 
     std::string Name;
-    std::vector<CardCategory> category;
+    CardCategory category;
     
     int Boost;
+    int DamageOrDeffend=0;
 
     public:
     void SetName(std::string);
     std::string GetName()const;
-    std::vector<CardCategory> GetCategories()const;
-    void AddCategory(CardCategory);
+    CardCategory GetCategory()const;
+    void SetCategory(CardCategory);
     void SetBoost(int);
     int GetBoost()const;
-
 
     virtual PlayTiming GetCardPlayTiming()const=0;
     virtual FighterType GetOwner()const=0;

@@ -37,11 +37,8 @@ std::vector<Fighter *> Hero::GetSideKicks(){
 
 bool Hero::IsExistCardInHand(CardCategory askcategory){
       for(int i{};i<Hand.size();i++){
-            for(CardCategory category:Hand[i].get()->GetCategories()){
-                  if(category==askcategory){
-                        return true;
-                  }
-            }
+            if(Hand[i].get()->GetCategory()==askcategory)
+                  return true;
       }
 
       return false;

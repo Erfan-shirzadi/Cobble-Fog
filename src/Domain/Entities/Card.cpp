@@ -16,9 +16,10 @@ void Card::SetName(std::string  name){
 std::string Card::GetName()const{
     return this->Name;
 }
-std::vector<CardCategory> Card::GetCategories()const{
+CardCategory Card::GetCategory()const{
     return this->category;
 }
-void Card::AddCategory(CardCategory cat){
-    category.push_back(cat);
+void Card::SetCategory(CardCategory cat){
+    this->category=cat;
 }
+

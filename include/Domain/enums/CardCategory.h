@@ -3,8 +3,9 @@
 
 enum class CardCategory{
     ATTACK,
-    DEFENSE,
-    SCHEME
+    DEFFENSE,
+    SCHEME,
+    ATTACKANDDEFFENS
 };
 
 #endif /* CARD_CATEGORY */
