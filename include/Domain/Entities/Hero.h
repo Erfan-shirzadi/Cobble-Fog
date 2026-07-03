@@ -23,6 +23,7 @@ class Hero :public Fighter{
     Card GetRandomCard();
     virtual std::vector<Fighter *> GetSideKicks();
     //virtual void SpecialAbility()=0;
+    bool IsExistCardInHand(CardCategory);
     
 
 };

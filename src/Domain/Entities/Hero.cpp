@@ -33,3 +33,16 @@ void Hero::AddCardToHand(std::unique_ptr<Card> card){
 std::vector<Fighter *> Hero::GetSideKicks(){
       return {nullptr};
  }
+
+
+bool Hero::IsExistCardInHand(CardCategory askcategory){
+      for(int i{};i<Hand.size();i++){
+            for(CardCategory category:Hand[i].get()->GetCategories()){
+                  if(category==askcategory){
+                        return true;
+                  }
+            }
+      }
+
+      return false;
+}
