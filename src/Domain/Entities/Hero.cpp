@@ -46,3 +46,11 @@ bool Hero::IsExistCardInHand(CardCategory askcategory){
 void Hero::DrawCard(){
      this->Hand.push_back(std::move(this->Deck[Deck.size()]));
 }
+
+std::vector<Card * > Hero::GetHand()const{
+      std::vector<Card *> hand;
+      for(int i{};i<Hand.size();i++){
+            hand.push_back(Hand[i].get());
+      }
+      return hand;
+}

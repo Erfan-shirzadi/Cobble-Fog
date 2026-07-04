@@ -23,6 +23,7 @@ class Hero :public Fighter{
     bool IsExistCardInHand(CardCategory);
     int GetSizeHand()const;
     void DrawCard();
+    std::vector<Card * > GetHand()const;
     
 
 };

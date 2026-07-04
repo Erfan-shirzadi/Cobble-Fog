@@ -32,6 +32,7 @@ set(
     src/Domain/Entities/Cards/Holmes/DeduceStrategy.cpp
     src/Domain/Entities/Cards/Holmes/EducationNeverEnds.cpp
     src/Domain/Entities/Cards/Holmes/TheGameIsAfoot.cpp
+    src/Domain/Entities/Cards/Holmes/StudyMethods.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
