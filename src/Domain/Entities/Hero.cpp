@@ -13,6 +13,9 @@ Card* Hero::GetCard(int index){
 }
 
 void Hero::RemoveCardHand(int index){
+      if(index<1 ||index>Hand.size())
+            throw std::runtime_error("Enter a correct number ");
+            
       std::swap(Hand[index-1],Hand[Hand.size()-1]);
       this->Hand.pop_back();
 }
