@@ -11,7 +11,7 @@ struct CombatContext{
     bool MoveDeffender=false;
     bool IsActiveCardEffectAttaker=true;
     bool IsActiveCardEffectDeffender=true;
-
+    CombatResult result;
 
 };
 

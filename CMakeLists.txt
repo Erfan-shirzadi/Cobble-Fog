@@ -25,6 +25,7 @@ set(
     src/Application/UseCases/DrawingCardUseCase.cpp
     src/Application/UseCases/DiscardingCardUseCase.cpp
     src/Application/UseCases/PlaceMentUseCase.cpp
+    src/Application/UseCases/CombatUseCase.cpp
     src/Domain/Entities/Board.cpp
 
 )
