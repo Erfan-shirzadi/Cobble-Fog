@@ -26,6 +26,7 @@ set(
     src/Domain/Entities/Cards/Dracula/LookIntoMyEyes.cpp
     src/Domain/Entities/Cards/Dracula/Feint.cpp
     src/Domain/Entities/Cards/Dracula/ThirstForSustenance.cpp
+    src/Domain/Entities/Cards/Dracula/Exploit.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp

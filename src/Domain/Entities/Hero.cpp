@@ -41,3 +41,8 @@ bool Hero::IsExistCardInHand(CardCategory askcategory){
 
       return false;
 }
+
+
+void Hero::DrawCard(){
+     this->Hand.push_back(std::move(this->Deck[Deck.size()]));
+}

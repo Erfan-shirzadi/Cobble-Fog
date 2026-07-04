@@ -11,19 +11,18 @@ class Hero :public Fighter{
 
 
     std::vector <std::unique_ptr<Card>> Hand;
-    std::vector <Card> Deck;
+    std::vector <std::unique_ptr<Card>> Deck;
 
     public:
     Hero(std::string name ,int hp ,int move, FighterType type);
     Card* GetCard(int index);
-
     void RemoveCardHand(int index);
-
     void AddCardToHand(std::unique_ptr<Card> card);
     virtual std::vector<Fighter *> GetSideKicks();
     //virtual void SpecialAbility()=0;
     bool IsExistCardInHand(CardCategory);
     int GetSizeHand()const;
+    void DrawCard();
     
 
 };
