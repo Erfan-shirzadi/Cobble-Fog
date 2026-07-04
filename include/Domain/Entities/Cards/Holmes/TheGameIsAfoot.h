@@ -1,0 +1,17 @@
+#ifndef THEGAMEISAFOOT_H
+#define THEGAMEISAFOOT_H
+#include "Domain/Entities/CombatCard.h"
+
+class TheGameIsAfoot : public CombatCard{
+
+    public:
+    TheGameIsAfoot();
+     void Play(CombatContext & )const override;
+     PlayTiming GetCardPlayTiming()const override;
+     FighterType GetOwner()const override;
+
+
+
+};
+
+#endif /* THEGAMEISAFOOT_H */
