@@ -1,12 +1,14 @@
 #include "Domain/Entities/Hero.h" 
 #include <cstdlib>
 #include <algorithm>
-
+#include <stdexcept>
 
  Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
  }
 
 Card* Hero::GetCard(int index){
+      if(index<1 ||index>Hand.size())
+            throw std::runtime_error("Enter a correct number ");
       return this->Hand[index-1].get();
 }
 
@@ -15,20 +17,16 @@ void Hero::RemoveCardHand(int index){
       this->Hand.pop_back();
 }
 
+Card* Hero::GetRandomCardOfHand(){
+      int randomindex= rand()%Hand.size();
+      return Hand[randomindex].get();
+}
 
 
 
 void Hero::AddCardToHand(std::unique_ptr<Card> card){
       this->Hand.push_back(std::move(card));
 }
-// Card  Hero::GetRandomCard(){
-//    int RandomIndex=rand()%this->Deck.size();
-//    Card * card=&Deck[RandomIndex];
-
-//    std::swap(Deck[RandomIndex],Deck[Deck.size()-1]);
-//    Deck.pop_back();
-//    return card;
-// }
 
 std::vector<Fighter *> Hero::GetSideKicks(){
       return {nullptr};

@@ -5,7 +5,11 @@ enum class FighterType{
     DRACULA,
     SHERLOCK,
     DR_WATSON,
-    SISTERS
+    SISTER_1,
+    SISTER_2,
+    SISTER_3,
+    ANY
+
 };
 
 #endif /* FIGHTERTYPE_H */
