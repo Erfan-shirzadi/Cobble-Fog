@@ -17,12 +17,9 @@ void Hero::RemoveCardHand(int index){
       this->Hand.pop_back();
 }
 
-Card* Hero::GetRandomCardOfHand(){
-      int randomindex= rand()%Hand.size();
-      return Hand[randomindex].get();
+int Hero::GetSizeHand()const{
+      return Hand.size();
 }
-
-
 
 void Hero::AddCardToHand(std::unique_ptr<Card> card){
       this->Hand.push_back(std::move(card));

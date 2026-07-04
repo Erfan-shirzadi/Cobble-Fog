@@ -20,10 +20,10 @@ class Hero :public Fighter{
     void RemoveCardHand(int index);
 
     void AddCardToHand(std::unique_ptr<Card> card);
-    Card* GetRandomCardOfHand();
     virtual std::vector<Fighter *> GetSideKicks();
     //virtual void SpecialAbility()=0;
     bool IsExistCardInHand(CardCategory);
+    int GetSizeHand()const;
     
 
 };
