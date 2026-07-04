@@ -6,23 +6,23 @@
 #include <stdexcept>
 
 void Board::Move(Fighter& fihgter,int node)const{
-
+    
 }
 std::vector<int> Board::adjacentCells(int node)const{
 
 }
-std::vector <int> Board::reachableNodes(Hero & fighter, Hero & enemy ,int distance,int HeroNode)const{
+std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distance,int HeroNode){
     std::vector <int >res;
     std::vector<int> EnemiesNode;
     std::vector<int> AllyNodes;
-    if(fighter.GetNode()!=HeroNode)
-        AllyNodes.push_back(fighter.GetNode());
-    for(Fighter * f:fighter.GetSideKicks())
-        if(fighter.GetNode()!=HeroNode)
+    if(fighter->GetNode()!=HeroNode)
+        AllyNodes.push_back(fighter->GetNode());
+    for(Fighter * f:fighter->GetSideKicks())
+        if(fighter->GetNode()!=HeroNode)
             AllyNodes.push_back(f->GetNode());
 
-    EnemiesNode.push_back(enemy.GetNode());
-    for(Fighter * f:enemy.GetSideKicks())
+    EnemiesNode.push_back(enemy->GetNode());
+    for(Fighter * f:enemy->GetSideKicks())
         EnemiesNode.push_back(f->GetNode());
 
 

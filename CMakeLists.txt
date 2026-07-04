@@ -22,6 +22,7 @@ set(
     src/Domain/Entities/Cards/Dracula/FeedingFrenzy.cpp
     src/Domain/Entities/Cards/Dracula/Ambush.cpp
     src/Domain/Entities/Cards/Dracula/BeastForm.cpp
+    src/Domain/Entities/Cards/Dracula/Dash.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
