@@ -5,7 +5,7 @@
 DeduceStrategy::DeduceStrategy(){
     SetDamageOrDeffend(3);
     SetBoost(1);
-    SetName("CounterPunch");
+    SetName("DeduceStrategy");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
 
 }
