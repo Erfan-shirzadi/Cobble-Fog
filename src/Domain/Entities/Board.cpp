@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 void Board::Move(Fighter& fihgter,int node)const{
-    
+
 }
 std::vector<int> Board::adjacentCells(int node)const{
 
@@ -109,4 +109,17 @@ std::vector<int> Board::GetNodeofArea(int node)const{
             res.push_back(i);    
 
     return res;
+}
+
+
+std::vector<int> Board::GetReachableNighbors(int node){
+    std::vector<int> nodes=map.GetNeighbors(node);
+    for(int i{};i<nodes.size();i++)
+        for(Fighter *  fihgter: this->allFighters)
+            if(fihgter->GetNode()==nodes[i] && fihgter->IsAlive()){
+                std::swap(nodes[i],nodes[nodes.size()]);
+                nodes.pop_back();
+            }
+
+    return nodes;
 }

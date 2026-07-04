@@ -7,6 +7,7 @@ struct CombatParticipant{
     Fighter * fighter;
     CombatCard *card;
     int DamageOrDeffend=0;
+    bool Won=false;
 
 };
 
