@@ -18,13 +18,15 @@ void Dash::Play(CombatContext & combatcontext )const {
     std::vector<int> nodes=combatcontext.board->reachableNodes(hero,enemy,3,fighter->GetNode());
     std::cout<< " Show rechable nodes "<<std::endl;
     int choice;
-    while (true){
+    bool flag=true;
+    while (flag){
         std::cout <<"Enter: ";
         std::cin >>choice;
         for(int node: nodes)
             if(node==choice)
-                break;
-        std:: cout << "Enter Correct plese "<<std::endl;
+                flag=false;
+        if(flag)
+            std:: cout << "Enter Correct plese "<<std::endl;
     }
     fighter->SetNode(choice);
     
