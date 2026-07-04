@@ -27,28 +27,45 @@ int main(){
     Board board;
     gamestate.board=board;
 
+    CombatContext combat;
+    CombatParticipant dracula ;
+    dracula.card=new FeedingFrenzy;
+    dracula.fighter=a.GetHero();
+    dracula.hero=a.GetHero();
+
+    CombatParticipant holmes;
+    holmes.fighter=b.GetHero();
+    holmes.hero=b.GetHero();
+    holmes.card=nullptr;
+
+    combat.Current=&dracula;
+    combat.Opponent=&holmes;
+    combat.board=&board;
+
+    
 
 
-    PlaceMentUseCase plaecment;
 
-    plaecment.PlaceHero(gamestate);
-    plaecment.PlaceSideKicks(gamestate);
+    // PlaceMentUseCase plaecment;
+
+    // plaecment.PlaceHero(gamestate);
+    // plaecment.PlaceSideKicks(gamestate);
 
 
     Hero * hero=a.GetHero();
     
-    cout << "dracula node "<<hero->GetNode()<<endl;
-    cout << "sidekicks "<<endl;
-    for(Fighter * fighter:hero->GetSideKicks())
-        cout<<fighter->GetNode();
+    // cout << "dracula node "<<hero->GetNode()<<endl;
+    // cout << "sidekicks "<<endl;
+    // for(Fighter * fighter:hero->GetSideKicks())
+    //     cout<<fighter->GetNode();
 
-    std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-    plaecment.PlaceHero(gamestate);
-    plaecment.PlaceSideKicks(gamestate);
-    cout << "Holmes node "<<hero->GetNode()<<endl;
-    cout << "sidekicks "<<endl;
-    for(Fighter * fighter:hero->GetSideKicks())
-        cout<<fighter->GetNode();
+    // std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+    // plaecment.PlaceHero(gamestate);
+    // plaecment.PlaceSideKicks(gamestate);
+    // cout << "Holmes node "<<hero->GetNode()<<endl;
+    // cout << "sidekicks "<<endl;
+    // for(Fighter * fighter:hero->GetSideKicks())
+    //     cout<<fighter->GetNode();
 
 
 
