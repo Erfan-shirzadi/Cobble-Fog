@@ -38,12 +38,12 @@ void CombatUseCase::DuringCombat(CombatContext & combatcontext){
 
    int resDamage=damageAttacker-damageDeffender;
 
-   if(resDamage<=0)
-    combatcontext.result=CombatResult::WON_DEFFENDER;
-    else {
-        combatcontext.result=CombatResult::WON_DEFFENDER;
-        combatcontext.Opponent->fighter->TakeDamge(resDamage);
-    }
+//    if(resDamage<=0)
+//     combatcontext.result=CombatResult::WON_DEFFENDER;
+//     else {
+//         combatcontext.result=CombatResult::WON_DEFFENDER;
+//         combatcontext.Opponent->fighter->TakeDamge(resDamage);
+//     }
 
 
 }

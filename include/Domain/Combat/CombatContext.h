@@ -7,11 +7,6 @@ struct CombatContext{
     CombatParticipant * Current;
     CombatParticipant * Opponent;
     Board * board;
-    bool MoveAttacker=false;
-    bool MoveDeffender=false;
-    bool IsActiveCardEffectAttaker=true;
-    bool IsActiveCardEffectDeffender=true;
-    CombatResult result;
 
 };
 

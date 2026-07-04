@@ -8,6 +8,8 @@ struct CombatParticipant{
     CombatCard *card;
     int DamageOrDeffend=0;
     bool Won=false;
+    bool IsActiveCardEffect=true;
+
 
 };
 
