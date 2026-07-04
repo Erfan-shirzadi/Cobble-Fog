@@ -30,6 +30,8 @@ set(
 
     src/Domain/Entities/Cards/Holmes/CounterPunch.cpp
     src/Domain/Entities/Cards/Holmes/DeduceStrategy.cpp
+    src/Domain/Entities/Cards/Holmes/EducationNeverEnds.cpp
+
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
