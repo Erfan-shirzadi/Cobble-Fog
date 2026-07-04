@@ -5,7 +5,7 @@
 #include <vector>
 #include "Domain/Entities/Board.h"
 #include "Domain/Combat/CombatContext.h"
-#include "Domain/Entities/Cards/FeedingFrenzy.h"
+#include "Domain/Entities/Cards/Dracula/FeedingFrenzy.h"
 #include "Domain/Combat/CombatParticipant.h"
 #include "Application/UseCases/PlaceMentUseCase.h"
 #include "Domain/Player.h"

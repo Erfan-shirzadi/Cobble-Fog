@@ -19,7 +19,7 @@ set(
     src/Domain/Player.cpp
 
 
-    src/Domain/Entities/Cards/FeedingFrenzy.cpp
+    src/Domain/Entities/Cards/Dracula/FeedingFrenzy.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
