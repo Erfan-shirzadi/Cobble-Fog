@@ -123,3 +123,12 @@ std::vector<int> Board::GetReachableNighbors(int node){
 
     return nodes;
 }
+
+bool Board::AreAdjacent(int node1,int node2)const{
+   for( int x:map.GetNeighbors(node1)){
+        if(x==node2) return true;
+   }
+   return false;
+}
+
+

@@ -18,6 +18,7 @@ class Board {
     std::vector<int> GetNodeofArea(int node)const;
     std::vector<int> GetReachableNighbors(int node);
     bool IsAnArea(int node1, int node2)const;
+    bool AreAdjacent(int node1,int node2)const;
 };
 
 #endif /* BOARD_H */

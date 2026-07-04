@@ -28,6 +28,9 @@ set(
     src/Domain/Entities/Cards/Dracula/ThirstForSustenance.cpp
     src/Domain/Entities/Cards/Dracula/Exploit.cpp
 
+    src/Domain/Entities/Cards/Holmes/CounterPunch.cpp
+
+
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
     src/Application/UseCases/DiscardingCardUseCase.cpp
