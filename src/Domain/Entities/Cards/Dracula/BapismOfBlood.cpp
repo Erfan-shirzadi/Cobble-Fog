@@ -21,9 +21,9 @@ void BapismOfBlood::Play(Hero * hero,Hero * enemy , Board *  board){
             
         }
     }
-    
+
 }
 FighterType BapismOfBlood::GetOwner()const{
-
+    return FighterType::DRACULA;
 }
 
