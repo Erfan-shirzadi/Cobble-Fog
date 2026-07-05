@@ -13,6 +13,8 @@ class Hero :public Fighter{
     std::vector <std::unique_ptr<Card>> Hand;
     std::vector <std::unique_ptr<Card>> Deck;
 
+    int ActionRemaining=2;
+
     public:
     Hero(std::string name ,int hp ,int move, FighterType type);
     Card* GetCard(int index);

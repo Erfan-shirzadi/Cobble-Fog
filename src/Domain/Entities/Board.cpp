@@ -132,3 +132,11 @@ bool Board::AreAdjacent(int node1,int node2)const{
 }
 
 
+
+std::vector<int> Board::AllFullNodes(){
+   std::vector<int> res;
+   for(int i{};i<this->allFighters.size();i++)
+        res.push_back(allFighters[i]->GetNode());
+
+    return res;
+}
