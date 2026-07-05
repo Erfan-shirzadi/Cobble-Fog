@@ -6,6 +6,8 @@ class AdministerAid: public SchemeCard{
 
     public:
         void Play(Hero * ,Hero * , Board *);
+        FighterType GetOwner()const;
+
 
 };
 

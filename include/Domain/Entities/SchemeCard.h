@@ -7,6 +7,8 @@ class SchemeCard : public Card{
 
     public:
     virtual void Play(Hero * ,Hero * , Board *)=0;
+    virtual FighterType GetOwner()const =0;
+
 };
 
 #endif /* SCHEME_CARD */

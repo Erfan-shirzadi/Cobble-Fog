@@ -27,3 +27,8 @@ void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){
 
     
 }
+
+FighterType AdministerAid::GetOwner()const{
+    return FighterType::DR_WATSON;
+}
+
