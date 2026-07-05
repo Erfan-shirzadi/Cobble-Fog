@@ -33,6 +33,10 @@ set(
     src/Domain/Entities/Cards/Holmes/EducationNeverEnds.cpp
     src/Domain/Entities/Cards/Holmes/TheGameIsAfoot.cpp
     src/Domain/Entities/Cards/Holmes/StudyMethods.cpp
+    src/Domain/Entities/Cards/Holmes/ServiceRevolver.cpp
+    src/Domain/Entities/Cards/Holmes/FixedPointInAChangingAge.cpp
+    src/Domain/Entities/Cards/Holmes/EliminateTheImpossible.cpp
+    src/Domain/Entities/Cards/Holmes/MasterOfDisguise.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
