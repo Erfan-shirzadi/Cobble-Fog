@@ -27,6 +27,9 @@ set(
     src/Domain/Entities/Cards/Dracula/Feint.cpp
     src/Domain/Entities/Cards/Dracula/ThirstForSustenance.cpp
     src/Domain/Entities/Cards/Dracula/Exploit.cpp
+    src/Domain/Entities/Cards/Dracula/PreyUpon.cpp
+    src/Domain/Entities/Cards/Dracula/MistForm.cpp
+    src/Domain/Entities/Cards/Dracula/BapismOfBlood.cpp
 
     src/Domain/Entities/Cards/Holmes/CounterPunch.cpp
     src/Domain/Entities/Cards/Holmes/DeduceStrategy.cpp
