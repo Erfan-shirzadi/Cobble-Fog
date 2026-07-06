@@ -5,8 +5,9 @@
 class PeryUpon :public SchemeCard{
 
     public:
-        void Play(Hero * ,Hero * , Board *);
-        FighterType GetOwner()const;
+    PeryUpon();
+        void Play(Hero * ,Hero * , Board *) override;
+        FighterType GetOwner()const override;
 
 };
 

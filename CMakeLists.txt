@@ -42,6 +42,7 @@ set(
     src/Domain/Entities/Cards/Holmes/FixedPointInAChangingAge.cpp
     src/Domain/Entities/Cards/Holmes/EliminateTheImpossible.cpp
     src/Domain/Entities/Cards/Holmes/MasterOfDisguise.cpp
+    src/Domain/Entities/Cards/Holmes/AdministerAid.cpp
 
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp

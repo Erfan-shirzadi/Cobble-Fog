@@ -1,5 +1,12 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
  #include <vector>
+
+PeryUpon::PeryUpon(){
+    SetName("PeryUpon");
+    SetBoost(4);
+    SetCategory(CardCategory::SCHEME);
+}
+
 void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){
     std::vector<Fighter *> AllFighters;
     AllFighters.push_back(enemy);

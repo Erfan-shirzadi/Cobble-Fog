@@ -1,5 +1,13 @@
 #include "Domain/Entities/Cards/Dracula/RaveningSeduction.h"
 #include <iostream>
+
+RaveningSeduction::RaveningSeduction(){
+    SetName("RaveningSeduction");
+    SetBoost(2);
+    SetCategory(CardCategory::SCHEME);
+}
+
+
 void RaveningSeduction::Play(Hero * hero ,Hero * enemy, Board * board){
     std::vector<Fighter *> AllFighters=GetAllFighter(hero,enemy);
    

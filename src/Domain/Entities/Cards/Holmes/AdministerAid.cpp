@@ -1,6 +1,13 @@
 #include "Domain/Entities/Cards/Holmes/AdministerAid.h"
 #include <iostream>
 #include <vector>
+
+AdministerAid::AdministerAid(){
+    SetName("AdministerAid");
+    SetCategory(CardCategory::SCHEME);
+    SetBoost(2);
+}
+
 void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){
     int nodeHolmes=hero->GetNode();
     std::vector<int> Adjacences=board->GetReachableNighbors(nodeHolmes);

@@ -1,5 +1,12 @@
 #include "Domain/Entities/Cards/Dracula/BapismOfBlood.h"
  #include <iostream>
+
+BapismOfBlood::BapismOfBlood(){
+    SetName("BapismOfBlood");
+    SetBoost(2);
+    SetCategory(CardCategory::SCHEME);
+}
+
 void BapismOfBlood::Play(Hero * hero,Hero * enemy , Board *  board){
 
     hero->Heal(2);

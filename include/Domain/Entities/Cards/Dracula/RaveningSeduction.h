@@ -5,8 +5,9 @@
 class RaveningSeduction : public SchemeCard{
 
     public :
-        void Play(Hero * ,Hero * , Board *);
-        FighterType GetOwner()const;
+    RaveningSeduction();
+        void Play(Hero * ,Hero * , Board *) override;
+        FighterType GetOwner()const override;
         std::vector<Fighter*> GetAllFighter(Hero * hero, Hero * enemy);
         int SelectNode(std::vector<int> ReachbleNodes);
         Fighter * SelectFighter(std::vector<Fighter*> AllFighters);

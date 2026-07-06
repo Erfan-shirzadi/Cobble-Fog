@@ -1,5 +1,11 @@
 #include "Domain/Entities/Cards/Dracula/MistForm.h"
 #include <iostream>
+MistForm::MistForm(){
+    SetName("MistForm");
+    SetBoost(2);
+    SetCategory(CardCategory::SCHEME);
+}
+
 void MistForm::Play(Hero * hero,Hero * enemy, Board * board){
     
     std::vector<int> Fullnodes=board->AllFullNodes();

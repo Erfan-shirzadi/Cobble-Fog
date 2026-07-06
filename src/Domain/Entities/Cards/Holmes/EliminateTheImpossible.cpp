@@ -2,6 +2,12 @@
 #include <vector>
 #include <iostream>
 
+EliminateTheImpossible::EliminateTheImpossible(){
+    SetName("EliminateTheImpossible");
+    SetBoost(2);
+    SetCategory(CardCategory::SCHEME);
+}
+
 void EliminateTheImpossible::Play(Hero * hero,Hero * enemy , Board * board){
     std::vector<Card *> cards=enemy->GetHand();
     for( int i{ };i<cards.size();i++)

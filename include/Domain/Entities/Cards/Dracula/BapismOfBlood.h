@@ -5,8 +5,9 @@
 class BapismOfBlood : public SchemeCard{
 
     public:
-        void Play(Hero * ,Hero * , Board *);
-        FighterType GetOwner()const;
+    BapismOfBlood();
+        void Play(Hero * ,Hero * , Board *) override;
+        FighterType GetOwner()const override;
 
 };
 

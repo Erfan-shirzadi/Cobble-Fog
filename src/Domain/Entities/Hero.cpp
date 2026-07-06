@@ -54,3 +54,8 @@ std::vector<Card * > Hero::GetHand()const{
       }
       return hand;
 }
+
+void Hero::AddCardToDeck(std::unique_ptr<Card> card,int count){
+      for(int i{};i<count;i++)
+            this->deck.Add(std::move(card));
+}

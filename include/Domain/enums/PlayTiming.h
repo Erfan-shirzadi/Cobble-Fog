@@ -4,6 +4,7 @@
 enum class PlayTiming{
     IMMEDIATE,
     DURING_COMBAT,
-    ATFER_COMBAT
+    ATFER_COMBAT,
+    ANY
 };
 #endif /* PLAY_TIMING */
