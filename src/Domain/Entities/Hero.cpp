@@ -44,7 +44,7 @@ bool Hero::IsExistCardInHand(CardCategory askcategory){
 
 
 void Hero::DrawCard(){
-     this->Hand.push_back(std::move(this->Deck[Deck.size()]));
+     this->Hand.push_back(std::move(deck.Draw()));
 }
 
 std::vector<Card * > Hero::GetHand()const{

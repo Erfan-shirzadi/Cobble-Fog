@@ -17,6 +17,7 @@ set(
     src/Domain/Entities/Heroes/Dracula.cpp
     src/Domain/Entities/Heroes/Holmes.cpp
     src/Domain/Player.cpp
+    src/Domain/Entities/Deck.cpp
 
 
     src/Domain/Entities/Cards/Dracula/FeedingFrenzy.cpp

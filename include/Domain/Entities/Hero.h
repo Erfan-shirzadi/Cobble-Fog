@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "Domain/Entities/Card.h"
+#include "Domain/Entities/Deck.h"
 #include "Domain/Entities/Fighter.h"
 class Hero :public Fighter{
   
@@ -11,8 +12,7 @@ class Hero :public Fighter{
 
 
     std::vector <std::unique_ptr<Card>> Hand;
-    std::vector <std::unique_ptr<Card>> Deck;
-
+    Deck deck;
     int ActionRemaining=2;
 
     public:
