@@ -26,7 +26,8 @@ class Hero :public Fighter{
     int GetSizeHand()const;
     void DrawCard();
     std::vector<Card * > GetHand()const;
-    void AddCardToDeck(std::unique_ptr<Card> card,int count);
+    void AddCardToDeck(std::unique_ptr<Card> card);
+    void ShuffelDeck();
     
 
 };

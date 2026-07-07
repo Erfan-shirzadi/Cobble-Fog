@@ -8,6 +8,7 @@
 #include "Domain/Entities/Cards/Dracula/FeedingFrenzy.h"
 #include "Domain/Combat/CombatParticipant.h"
 #include "Application/UseCases/PlaceMentUseCase.h"
+#include "Application/UseCases/SetUpGameUseCase.h"
 #include "Domain/Player.h"
 
 using namespace std;
@@ -15,32 +16,65 @@ using namespace std;
 int main(){
 
    
+
+    
+
+
+
+
+
+
    
     GameState gamestate;
     
     Player a;
-    a.SetHero(std::make_unique<Dracula>());
     Player b;
-    b.SetHero(std::make_unique<Holmes>());
     gamestate.currnetPlayer=&a;
-    gamestate.opponentPlayre=&b;
+    gamestate.opponentPlayre=&b; 
     Board board;
     gamestate.board=board;
+    SetUpGameUseCase setup;
+    setup.execute(gamestate);       
 
-    CombatContext combat;
-    CombatParticipant dracula ;
-    dracula.card=new FeedingFrenzy;
-    dracula.fighter=a.GetHero();
-    dracula.hero=a.GetHero();
+    // a.SetHero(std::make_unique<Dracula>());
+    // b.SetHero(std::make_unique<Holmes>());
+    
+    Hero * one= gamestate.currnetPlayer->GetHero();
+    Hero * two =gamestate.opponentPlayre->GetHero();
 
-    CombatParticipant holmes;
-    holmes.fighter=b.GetHero();
-    holmes.hero=b.GetHero();
-    holmes.card=nullptr;
+    for(auto hand: one->GetHand()){
+        std::cout<< hand->GetName()<<"       ";
+    }
+    std::cout<< std::endl;
+    for(auto hand: two->GetHand()){
+        std::cout<< hand->GetName()<<"       ";
+    }
+    
+    //  cout << one->GetName()<<" node "<<one->GetNode()<<endl;
+    //  cout << "sidekicks "<<endl;
+    //  for(Fighter * fighter:one->GetSideKicks())
+    //      cout<<fighter->GetNode();
+    // cout << two->GetName()<<" node "<<one->GetNode()<<endl;
+    //  cout << "sidekicks "<<endl;
+    //  for(Fighter * fighter:two->GetSideKicks())
+    //      cout<<fighter->GetNode();
 
-    combat.Current=&dracula;
-    combat.Opponent=&holmes;
-    combat.board=&board;
+
+
+    // CombatContext combat;
+    // CombatParticipant dracula ;
+    // dracula.card=new FeedingFrenzy;
+    // dracula.fighter=a.GetHero();
+    // dracula.hero=a.GetHero();
+
+    // CombatParticipant holmes;
+    // holmes.fighter=b.GetHero();
+    // holmes.hero=b.GetHero();
+    // holmes.card=nullptr;
+
+    // combat.Current=&dracula;
+    // combat.Opponent=&holmes;
+    // combat.board=&board;
 
     
 
@@ -52,7 +86,7 @@ int main(){
     // plaecment.PlaceSideKicks(gamestate);
 
 
-    Hero * hero=a.GetHero();
+    //Hero * hero=a.GetHero();
     
     // cout << "dracula node "<<hero->GetNode()<<endl;
     // cout << "sidekicks "<<endl;

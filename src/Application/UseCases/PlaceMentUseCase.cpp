@@ -1,6 +1,13 @@
 #include "Application/UseCases/PlaceMentUseCase.h"
 #include <vector>
 #include <iostream>
+
+void PlaceMentUseCase::execute(GameState & gamestate){
+    PlaceHero(gamestate);
+    PlaceSideKicks(gamestate);
+}
+
+
 void PlaceMentUseCase::PlaceHero(GameState & gamestate){
     Hero * hero=gamestate.currnetPlayer->GetHero();
     int Nodeset;
@@ -64,5 +71,5 @@ void PlaceMentUseCase::PlaceSideKicks(GameState & gamestate){
 
 }
 bool PlaceMentUseCase::finished()const{
-
+    return true;
 }

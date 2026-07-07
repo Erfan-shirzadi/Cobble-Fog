@@ -49,6 +49,7 @@ set(
     src/Application/UseCases/DiscardingCardUseCase.cpp
     src/Application/UseCases/PlaceMentUseCase.cpp
     src/Application/UseCases/CombatUseCase.cpp
+    src/Application/UseCases/SetUpGameUseCase.cpp
     src/Domain/Entities/Board.cpp
 
 )

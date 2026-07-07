@@ -18,18 +18,49 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
 
-    AddCardToDeck(std::make_unique<Ambush>(),2);
-    AddCardToDeck(std::make_unique<BapismOfBlood>(),2);
-    AddCardToDeck(std::make_unique<BestForm>(),2);
-    AddCardToDeck(std::make_unique<Dash>(),3);
-    AddCardToDeck(std::make_unique<Exploit>(),3);
-    AddCardToDeck(std::make_unique<FeedingFrenzy>(),2);
-    AddCardToDeck(std::make_unique<Feint>(),3);
-    AddCardToDeck(std::make_unique<LookIntoMyEyes>(),3);
-    AddCardToDeck(std::make_unique<MistForm>(),2);
-    AddCardToDeck(std::make_unique<PeryUpon>(),2);
-    AddCardToDeck(std::make_unique<RaveningSeduction>(),3);
-    AddCardToDeck(std::make_unique<ThirstForSustenance>(),3);
+    AddCardToDeck(std::make_unique<Ambush>());
+    AddCardToDeck(std::make_unique<Ambush>());
+
+    AddCardToDeck(std::make_unique<BapismOfBlood>());
+    AddCardToDeck(std::make_unique<BapismOfBlood>());
+
+    AddCardToDeck(std::make_unique<BestForm>());
+    AddCardToDeck(std::make_unique<BestForm>());
+
+    AddCardToDeck(std::make_unique<Dash>());
+    AddCardToDeck(std::make_unique<Dash>());
+    AddCardToDeck(std::make_unique<Dash>());
+
+    AddCardToDeck(std::make_unique<Exploit>());
+    AddCardToDeck(std::make_unique<Exploit>());
+    AddCardToDeck(std::make_unique<Exploit>());
+
+    AddCardToDeck(std::make_unique<FeedingFrenzy>());
+    AddCardToDeck(std::make_unique<FeedingFrenzy>());
+
+    AddCardToDeck(std::make_unique<Feint>());
+    AddCardToDeck(std::make_unique<Feint>());
+    AddCardToDeck(std::make_unique<Feint>());
+
+    AddCardToDeck(std::make_unique<LookIntoMyEyes>());
+    AddCardToDeck(std::make_unique<LookIntoMyEyes>());
+    AddCardToDeck(std::make_unique<LookIntoMyEyes>());
+
+    AddCardToDeck(std::make_unique<MistForm>());
+    AddCardToDeck(std::make_unique<MistForm>());
+
+    AddCardToDeck(std::make_unique<PeryUpon>());
+    AddCardToDeck(std::make_unique<PeryUpon>());
+
+    AddCardToDeck(std::make_unique<RaveningSeduction>());
+    AddCardToDeck(std::make_unique<RaveningSeduction>());
+    AddCardToDeck(std::make_unique<RaveningSeduction>());
+
+    AddCardToDeck(std::make_unique<ThirstForSustenance>());
+    AddCardToDeck(std::make_unique<ThirstForSustenance>());
+    AddCardToDeck(std::make_unique<ThirstForSustenance>());
+
+    
 }
 
 std::vector<Fighter *> Dracula::GetSideKicks(){

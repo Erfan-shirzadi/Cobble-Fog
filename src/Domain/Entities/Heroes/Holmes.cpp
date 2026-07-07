@@ -15,17 +15,42 @@ Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
 
     this->DrWatson=std::make_unique<Fighter>("Dr Watson",8,2,FighterType::DR_WATSON);
 
-    AddCardToDeck(std::make_unique<AdministerAid>(),2);
-    AddCardToDeck(std::make_unique<CounterPunch>(),3);
-    AddCardToDeck(std::make_unique<DeduceStrategy>(),3);
-    AddCardToDeck(std::make_unique<EducationNeverEnds>(),2);
-    AddCardToDeck(std::make_unique<EliminateTheImpossible>(),2);
-    AddCardToDeck(std::make_unique<Feint>(),3);
-    AddCardToDeck(std::make_unique<FixedPointInAChangingAge>(),2);
-    AddCardToDeck(std::make_unique<MasterOfDisguise>(),2);
-    AddCardToDeck(std::make_unique<ServiceRevolver>(),2);
-    AddCardToDeck(std::make_unique<StudyMethods>(),2);
-    AddCardToDeck(std::make_unique<TheGameIsAfoot>(),2);
+    AddCardToDeck(std::make_unique<AdministerAid>());
+        AddCardToDeck(std::make_unique<AdministerAid>());
+
+    AddCardToDeck(std::make_unique<CounterPunch>());
+    AddCardToDeck(std::make_unique<CounterPunch>());
+    AddCardToDeck(std::make_unique<CounterPunch>());
+
+    AddCardToDeck(std::make_unique<DeduceStrategy>());
+        AddCardToDeck(std::make_unique<DeduceStrategy>());
+    AddCardToDeck(std::make_unique<DeduceStrategy>());
+
+    AddCardToDeck(std::make_unique<EducationNeverEnds>());
+        AddCardToDeck(std::make_unique<EducationNeverEnds>());
+
+    AddCardToDeck(std::make_unique<EliminateTheImpossible>());
+        AddCardToDeck(std::make_unique<EliminateTheImpossible>());
+
+    AddCardToDeck(std::make_unique<Feint>());
+        AddCardToDeck(std::make_unique<Feint>());
+    AddCardToDeck(std::make_unique<Feint>());
+
+    AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
+        AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
+
+    AddCardToDeck(std::make_unique<MasterOfDisguise>());
+        AddCardToDeck(std::make_unique<MasterOfDisguise>());
+
+    AddCardToDeck(std::make_unique<ServiceRevolver>());
+        AddCardToDeck(std::make_unique<ServiceRevolver>());
+
+    AddCardToDeck(std::make_unique<StudyMethods>());
+        AddCardToDeck(std::make_unique<StudyMethods>());
+
+    AddCardToDeck(std::make_unique<TheGameIsAfoot>());
+        AddCardToDeck(std::make_unique<TheGameIsAfoot>());
+
 
 }
 

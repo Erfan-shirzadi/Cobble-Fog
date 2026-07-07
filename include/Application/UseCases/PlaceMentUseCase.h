@@ -5,6 +5,7 @@
 class PlaceMentUseCase{
 
     public:
+    void execute(GameState &);
     void PlaceHero(GameState & );
     void PlaceSideKicks(GameState &);
     bool finished()const;
