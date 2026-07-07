@@ -10,46 +10,46 @@
 #include "Application/UseCases/PlaceMentUseCase.h"
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "Domain/Player.h"
+#include "Domain/Game/GameEngine.h"
 
 using namespace std;
 
 int main(){
 
+   GameEngine a;
+   a.run();
+
+    
+    
+
+
+
+
+
    
+    // GameState gamestate;
+    
+    // Player a;
+    // Player b;
+    // gamestate.currnetPlayer=&a;
+    // gamestate.opponentPlayre=&b; 
+    // Board board;
+    // gamestate.board=board;
+    // SetUpGameUseCase setup;
+    // setup.execute(gamestate);       
 
     
+    // Hero * one= gamestate.currnetPlayer->GetHero();
+    // Hero * two =gamestate.opponentPlayre->GetHero();
 
-
-
-
-
-
-   
-    GameState gamestate;
-    
-    Player a;
-    Player b;
-    gamestate.currnetPlayer=&a;
-    gamestate.opponentPlayre=&b; 
-    Board board;
-    gamestate.board=board;
-    SetUpGameUseCase setup;
-    setup.execute(gamestate);       
-
-    // a.SetHero(std::make_unique<Dracula>());
-    // b.SetHero(std::make_unique<Holmes>());
-    
-    Hero * one= gamestate.currnetPlayer->GetHero();
-    Hero * two =gamestate.opponentPlayre->GetHero();
-
-    for(auto hand: one->GetHand()){
-        std::cout<< hand->GetName()<<"       ";
-    }
-    std::cout<< std::endl;
-    for(auto hand: two->GetHand()){
-        std::cout<< hand->GetName()<<"       ";
-    }
-    
+    // for(auto hand: one->GetHand()){
+    //     std::cout<< hand->GetName()<<"       ";
+    // }
+    // std::cout<< std::endl;
+    // for(auto hand: two->GetHand()){
+    //     std::cout<< hand->GetName()<<"       ";
+    // }
+    // std::cout <<"finished ";
     //  cout << one->GetName()<<" node "<<one->GetNode()<<endl;
     //  cout << "sidekicks "<<endl;
     //  for(Fighter * fighter:one->GetSideKicks())

@@ -50,6 +50,8 @@ set(
     src/Application/UseCases/PlaceMentUseCase.cpp
     src/Application/UseCases/CombatUseCase.cpp
     src/Application/UseCases/SetUpGameUseCase.cpp
+    src/Application/UseCases/TurnUseCase.cpp
+    src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 
 )

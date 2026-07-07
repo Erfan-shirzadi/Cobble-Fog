@@ -11,7 +11,7 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
 #include "Domain/Entities/Cards/Dracula/RaveningSeduction.h"
 #include "Domain/Entities/Cards/Dracula/ThirstForSustenance.h"
-
+#include <iostream>
 Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
 
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
@@ -60,7 +60,7 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
 
-    
+    std::cout<< "Dracuallllllllllll";
 }
 
 std::vector<Fighter *> Dracula::GetSideKicks(){
