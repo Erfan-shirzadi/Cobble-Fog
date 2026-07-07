@@ -62,3 +62,14 @@ void Hero::AddCardToDeck(std::unique_ptr<Card> card){
 void Hero::ShuffelDeck(){
       this->deck.Shuffle();
 }
+
+
+int Hero::GetRemainingAction(){
+      return this->RemainingAction;
+}
+void Hero::SetRemainingAction(int amount ){
+      this->RemainingAction=amount;
+}
+void Hero::AddAction(){
+      ++this->RemainingAction;
+}

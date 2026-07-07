@@ -13,7 +13,7 @@ class Hero :public Fighter{
 
     std::vector <std::unique_ptr<Card>> Hand;
     Deck deck;
-    int ActionRemaining=2;
+    int RemainingAction=2;
 
     public:
     Hero(std::string name ,int hp ,int move, FighterType type);
@@ -28,7 +28,10 @@ class Hero :public Fighter{
     std::vector<Card * > GetHand()const;
     void AddCardToDeck(std::unique_ptr<Card> card);
     void ShuffelDeck();
-    
+
+    int GetRemainingAction();
+    void SetRemainingAction(int );
+    void AddAction();
 
 };
 
