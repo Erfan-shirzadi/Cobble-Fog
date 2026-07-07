@@ -61,3 +61,8 @@ std::vector<Fighter *>  Holmes::GetSideKicks(){
 
         return sidekick;
 }
+
+bool Holmes::IsAliveAnySideKick(){
+    return this->DrWatson->IsAlive();
+}
+

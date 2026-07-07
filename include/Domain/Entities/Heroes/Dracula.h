@@ -12,6 +12,8 @@ class Dracula :public Hero{
     Dracula();
     //void SpecialAbility()override{};
     std::vector<Fighter *> GetSideKicks() override;
+    bool IsAliveAnySideKick()override;
+
 
 };
 

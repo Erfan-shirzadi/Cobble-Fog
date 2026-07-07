@@ -32,6 +32,8 @@ class Hero :public Fighter{
     int GetRemainingAction();
     void SetRemainingAction(int );
     void AddAction();
+    std::vector<Card* > GetAllCardOf(CardCategory)const;
+    virtual bool IsAliveAnySideKick();
 
 };
 

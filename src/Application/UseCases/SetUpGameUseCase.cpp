@@ -10,7 +10,7 @@ void SetUpGameUseCase::execute(GameState & gamestate){
         CreateHero(gamestate.currnetPlayer);
         ShuffelDecks(gamestate.currnetPlayer->GetHero());
         DrawInitialCards(gamestate.currnetPlayer->GetHero());
-       // placement.execute(gamestate);
+        placement.execute(gamestate);
         std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
     }
 

@@ -55,6 +55,15 @@ std::vector<Card * > Hero::GetHand()const{
       return hand;
 }
 
+std::vector<Card* > Hero::GetAllCardOf(CardCategory cardcategory)const{
+      std::vector<Card *> res;
+      for(int i{};i<Hand.size();i++){
+            if(Hand[i].get()->GetCategory()==cardcategory)
+                  res.push_back(Hand[i].get());
+      }
+      return res;
+}
+
 void Hero::AddCardToDeck(std::unique_ptr<Card> card){
       this->deck.Add(std::move(card));
 }
@@ -72,4 +81,8 @@ void Hero::SetRemainingAction(int amount ){
 }
 void Hero::AddAction(){
       ++this->RemainingAction;
+}
+
+bool Hero::IsAliveAnySideKick(){
+      return false;
 }

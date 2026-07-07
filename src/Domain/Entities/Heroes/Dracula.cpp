@@ -71,3 +71,11 @@ std::vector<Fighter *> Dracula::GetSideKicks(){
 
     return sidekicks;
 }
+
+bool Dracula::IsAliveAnySideKick(){
+    for(int i{};i<3;i++)
+        if(this->SideKicks[i].get()->IsAlive())
+            return true;
+
+    return false;
+};
