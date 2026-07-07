@@ -12,6 +12,7 @@ class Hero :public Fighter{
 
 
     std::vector <std::unique_ptr<Card>> Hand;
+    std::vector<std::unique_ptr<Card>> DiscardCards;
     Deck deck;
     int RemainingAction=2;
 
