@@ -36,6 +36,6 @@ void TurnUseCase::execute(GameState & gamestate){
         
      }
 
-    std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+    //std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
     
 }

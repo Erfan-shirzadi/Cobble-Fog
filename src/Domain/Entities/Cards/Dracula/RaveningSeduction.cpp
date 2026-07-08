@@ -15,8 +15,8 @@ void RaveningSeduction::Play(Hero * hero ,Hero * enemy, Board * board){
     std::vector<Fighter *> AllFighters=GetAllFighter(hero,enemy);
    
 
-    for(int i{1};i<=AllFighters.size();i++){
-        std::cout<<i <<" ."<<AllFighters[i-1]->GetName()<<std::endl;
+    for(int i{};i<=AllFighters.size();i++){
+        std::cout<<i <<" ."<<AllFighters[i]->GetName()<<std::endl;
     }
    
     Fighter * target=SelectFighter(AllFighters);
