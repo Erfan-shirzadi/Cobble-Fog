@@ -1,5 +1,6 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
  #include <vector>
+ #include <iostream>
 
 PeryUpon::PeryUpon(){
     SetName("PeryUpon");
@@ -8,6 +9,7 @@ PeryUpon::PeryUpon(){
 }
 
 void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){
+    std::cout<<" Pery Upon Card is playing "<<std::endl;
     std::vector<Fighter *> AllFighters;
     AllFighters.push_back(enemy);
     for( auto fighter: enemy->GetSideKicks()){

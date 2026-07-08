@@ -1,6 +1,6 @@
 #include "Application/UseCases/TurnUseCase.h"
 #include "Application/UseCases/SchemeUseCase.h"
-
+#include <iostream>
 void TurnUseCase::execute(GameState & gamestate){
     Hero* Current=gamestate.currnetPlayer->GetHero();
     Current->SetRemainingAction(2);
@@ -8,7 +8,11 @@ void TurnUseCase::execute(GameState & gamestate){
     // while (Current->GetRemainingAction()>0){
         
         SchemeUseCase a;
-        a.execute(gamestate);
+
+        if(a.execute(gamestate)){
+            std::cout<< " Succesfull "<<std::endl;
+        }
+        else std::cout<<" can not do scheme "<<std::endl;
         
     // }
 

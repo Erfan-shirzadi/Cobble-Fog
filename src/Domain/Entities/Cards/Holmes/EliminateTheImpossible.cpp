@@ -9,6 +9,7 @@ EliminateTheImpossible::EliminateTheImpossible(){
 }
 
 void EliminateTheImpossible::Play(Hero * hero,Hero * enemy , Board * board){
+    std::cout<< "Eliminate The Impossible card is Playing "<<std::endl;
     std::vector<Card *> cards=enemy->GetHand();
     for( int i{ };i<cards.size();i++)
         std::cout<<i<<" ." <<cards[i]->GetName()<<std::endl;

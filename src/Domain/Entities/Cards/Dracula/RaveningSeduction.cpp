@@ -9,6 +9,9 @@ RaveningSeduction::RaveningSeduction(){
 
 
 void RaveningSeduction::Play(Hero * hero ,Hero * enemy, Board * board){
+
+
+    std::cout<< " Revening Seduction card is playing "<<std::endl;
     std::vector<Fighter *> AllFighters=GetAllFighter(hero,enemy);
    
 

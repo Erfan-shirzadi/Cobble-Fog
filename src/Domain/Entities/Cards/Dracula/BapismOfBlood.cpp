@@ -8,7 +8,7 @@ BapismOfBlood::BapismOfBlood(){
 }
 
 void BapismOfBlood::Play(Hero * hero,Hero * enemy , Board *  board){
-
+    std::cout<< " Bapism of blood is playing "<<std::endl;
     hero->Heal(2);
     bool Recovered=false;
     for(auto fighter:hero->GetSideKicks()){

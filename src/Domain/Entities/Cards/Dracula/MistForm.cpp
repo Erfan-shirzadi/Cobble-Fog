@@ -7,7 +7,7 @@ MistForm::MistForm(){
 }
 
 void MistForm::Play(Hero * hero,Hero * enemy, Board * board){
-    
+    std::cout<<"Mist form card is playing "<<std::endl;
     std::vector<int> Fullnodes=board->AllFullNodes();
     int choice;
     bool flag=true;

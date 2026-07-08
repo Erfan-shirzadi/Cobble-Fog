@@ -9,6 +9,7 @@ AdministerAid::AdministerAid(){
 }
 
 void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){
+    std::cout<< "Play card Administer aid";
     int nodeHolmes=hero->GetNode();
     std::vector<int> Adjacences=board->GetReachableNighbors(nodeHolmes);
     
@@ -29,6 +30,7 @@ void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){
     }
     hero->Heal(1);
     hero->DrawCard();
+
 
 
 

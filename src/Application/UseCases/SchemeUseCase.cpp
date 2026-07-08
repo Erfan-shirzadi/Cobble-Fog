@@ -56,5 +56,5 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
         }
     }
 
-    return cards[choice];
+    return hero->GetCard(choice);
 }
