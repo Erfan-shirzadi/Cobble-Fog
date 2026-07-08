@@ -38,6 +38,7 @@ int ManeverUseCase::BoostMovement(Hero * hero ){
         cin>> choice;
         if(choice<0 || choice >= cards.size())   
             cout<<" Enter a correct card  please "<<endl;
+        else break;
     }
     Card * card= hero ->GetCard(choice);
     return card->GetBoost();

@@ -14,7 +14,7 @@ void GameEngine::run(){
     while (true)
     {   
         turnusecase.execute(gamestate);
-        
+        std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
     }
     
 

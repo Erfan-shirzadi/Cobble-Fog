@@ -44,7 +44,7 @@ std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distan
             bool Isreachable=true;
             for(int node:AllyNodes)
                 if(curr==node) Isreachable =false;
-            if(Isreachable)
+            if(Isreachable && (!isOccupied(curr)))
                 res.push_back(curr);
 
             for (int x:map.GetNeighbors(curr)){

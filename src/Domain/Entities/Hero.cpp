@@ -93,3 +93,6 @@ void Hero::AddAction(){
 bool Hero::IsAliveAnySideKick(){
       return false;
 }
+void Hero::reduceRemainingAction(){
+      --this->RemainingAction;
+}

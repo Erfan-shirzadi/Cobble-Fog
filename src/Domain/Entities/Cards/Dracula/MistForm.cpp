@@ -9,6 +9,10 @@ MistForm::MistForm(){
 void MistForm::Play(Hero * hero,Hero * enemy, Board * board){
     std::cout<<"Mist form card is playing "<<std::endl;
     std::vector<int> Fullnodes=board->AllFullNodes();
+    std::cout<< " Nodes that can not go :"<<std::endl;
+    for(int x: Fullnodes){
+        std::cout<< x<<std::endl;
+    }
     int choice;
     bool flag=true;
     while(flag){
