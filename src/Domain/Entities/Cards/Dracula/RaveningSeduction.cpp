@@ -68,13 +68,17 @@ Fighter * RaveningSeduction::SelectFighter(std::vector<Fighter*> AllFighters){
 int RaveningSeduction::SelectNode(std::vector<int> ReachbleNodes){
    int Nodetarget;
     bool flag=true;
-    while(true){
+    std::cout<< "rechable node "<<std::endl;
+    for(int x: ReachbleNodes){
+        std::cout<< x <<"\t";
+    }
+    while(flag){
         std::cout<< " Select A node :";
         std::cin>>Nodetarget;
         for(int x:ReachbleNodes)
             if(x==Nodetarget)flag=false;
 
-        if(!flag)
+        if(flag)
             std::cout<< "Enter A correct Number Please "<<std::endl;
 
     }

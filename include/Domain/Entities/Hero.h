@@ -25,7 +25,7 @@ class Hero :public Fighter{
     //virtual void SpecialAbility()=0;
     bool IsExistCardInHand(CardCategory);
     int GetSizeHand()const;
-    void DrawCard();
+    bool DrawCard();
     std::vector<Card * > GetHand()const;
     void AddCardToDeck(std::unique_ptr<Card> card);
     void ShuffelDeck();

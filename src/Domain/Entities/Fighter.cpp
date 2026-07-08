@@ -41,15 +41,6 @@ void Fighter::SetNode(int newNode){
 }
 
 
-void Fighter::SetBoost(int boost){
-   this->CurrentBoost=boost;
-}
-
-
-int Fighter::GetBoost()const{
-   return CurrentBoost;
-}
-
 
 int Fighter::GetNode()const{
    return this->node;

@@ -7,12 +7,9 @@ class Fighter{
     int MaxHp;
     int Hp=MaxHp;
     std::string Name ;
-    int Move;
+    int Move=2;
     int Range;
-    int BaseBoost;
-    int CurrentBoost;
     int node=0;
-
     FighterType fightertype;
 
     public:
