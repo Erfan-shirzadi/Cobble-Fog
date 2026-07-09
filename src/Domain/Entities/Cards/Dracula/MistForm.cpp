@@ -26,6 +26,7 @@ void MistForm::Play(Hero * hero,Hero * enemy, Board * board){
             }
     }
     hero->SetNode(choice);
+    hero->AddAction();
 
 }
 FighterType MistForm::GetOwner()const{
