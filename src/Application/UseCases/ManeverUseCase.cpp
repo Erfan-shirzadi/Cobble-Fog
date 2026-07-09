@@ -74,6 +74,7 @@ int ManeverUseCase::GetTargetNode(GameState & gamestate, int movment,Fighter * f
     Hero * enemy=gamestate.opponentPlayre->GetHero();
     vector<int> rechbleNodse=gamestate.board.reachableNodes(hero
     ,enemy,movment,fighter->GetNode());
+    cout<<" CUrrent node :"<<fighter->GetNode()<<endl;
         cout<<" rechable nodes :"<<endl;
     
     for(int i{};i<rechbleNodse.size();i++){

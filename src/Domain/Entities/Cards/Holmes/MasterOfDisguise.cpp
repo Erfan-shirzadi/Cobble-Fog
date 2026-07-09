@@ -8,8 +8,10 @@ MasterOfDisguise::MasterOfDisguise(){
 
 void MasterOfDisguise::Play(Hero * hero ,Hero * enemy , Board * board){
     std::cout<< " Master Of Disguise card is Playing "<<std::endl;
-    hero->SetNode(enemy->GetNode());
-    enemy->SetNode(hero->GetNode());
+    int enemynode=enemy->GetNode();
+    int heronode=hero->GetNode();
+    hero->SetNode(enemynode);
+    enemy->SetNode(heronode);
     enemy->TakeDamge(1);
 
 }

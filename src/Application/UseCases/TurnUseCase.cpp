@@ -30,9 +30,10 @@ void TurnUseCase::execute(GameState & gamestate){
 
             }
             
-
+            
 
         }
+        gamestate.board.GetGraph();
         
      }
 

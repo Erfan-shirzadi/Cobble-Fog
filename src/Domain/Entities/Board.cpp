@@ -13,6 +13,7 @@ std::vector<int> Board::adjacentCells(int node)const{
 }
 std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distance,int HeroNode){
     std::vector <int >res;
+    res.push_back(HeroNode);
     std::vector<int> EnemiesNode;
     std::vector<int> AllyNodes;
     if(fighter->GetNode()!=HeroNode)
@@ -139,4 +140,19 @@ std::vector<int> Board::AllFullNodes(){
         res.push_back(allFighters[i]->GetNode());
 
     return res;
+}
+
+std::string Board::GetGraph(){
+    for(int i{1};i<=32;i++){
+
+        int indexFighter;
+        for(int j{};j<this->allFighters.size();j++)
+            if(i==allFighters[j]->GetNode())
+                indexFighter=j;
+        if(isOccupied(i)){
+            std::cout<< i<<"  ( "<<allFighters[indexFighter]->GetName() <<" )"<<std::endl;
+        }
+        else {std::cout<< i<<"  ( empty )"<<std::endl;}
+    }
+    return "";
 }

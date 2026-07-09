@@ -20,6 +20,8 @@ class Board {
     bool IsAnArea(int node1, int node2)const;
     bool AreAdjacent(int node1,int node2)const;
     std::vector<int> AllFullNodes();
+
+    std::string GetGraph();
 };
 
 #endif /* BOARD_H */

@@ -15,7 +15,7 @@ void RaveningSeduction::Play(Hero * hero ,Hero * enemy, Board * board){
     std::vector<Fighter *> AllFighters=GetAllFighter(hero,enemy);
    
 
-    for(int i{};i<=AllFighters.size();i++){
+    for(int i{};i<AllFighters.size();i++){
         std::cout<<i <<" ."<<AllFighters[i]->GetName()<<std::endl;
     }
    
@@ -24,7 +24,7 @@ void RaveningSeduction::Play(Hero * hero ,Hero * enemy, Board * board){
     int Nodetarget=SelectNode(ReachbleNodes);
     
     target->SetNode(Nodetarget);
-     for( auto fighter: enemy->GetSideKicks()){
+     for( auto fighter: hero->GetSideKicks()){
             if(fighter->IsAlive()){
                 if(board->AreAdjacent(target->GetNode(),fighter->GetNode()))
                     target->TakeDamge(1);
@@ -41,6 +41,7 @@ FighterType RaveningSeduction::GetOwner()const{
 std::vector<Fighter*> RaveningSeduction::GetAllFighter(Hero * hero, Hero * enemy){
     std::vector<Fighter *> AllFighters;
     AllFighters.push_back(enemy);
+    AllFighters.push_back(hero);
     for( auto fighter: enemy->GetSideKicks()){
             if(fighter->IsAlive())
                 AllFighters.push_back(fighter);
@@ -54,11 +55,11 @@ std::vector<Fighter*> RaveningSeduction::GetAllFighter(Hero * hero, Hero * enemy
 
 Fighter * RaveningSeduction::SelectFighter(std::vector<Fighter*> AllFighters){
     int Fighterchoice;
-    
+    std::cout<<" in funcction select fighter ";
     while(true){
         std::cout<< "Select A fihgter :";
         std::cin>> Fighterchoice;
-        if(Fighterchoice>=1 &&Fighterchoice<=AllFighters.size())
+        if(Fighterchoice>=0 &&Fighterchoice<AllFighters.size())
             break;
         else std::cout<<" enter Correct Please "<<std::endl;
     }
