@@ -22,6 +22,8 @@ class Board {
     std::vector<int> AllFullNodes();
 
     std::string GetGraph();
+
+    NodeType GetNodeType(int node);
 };
 
 #endif /* BOARD_H */

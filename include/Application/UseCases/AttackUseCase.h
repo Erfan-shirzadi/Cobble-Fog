@@ -10,6 +10,8 @@ class AttackUseCase{
     public:
     void execute(GameState & );
     void ChooseCardAttaker(GameState &)const;
+    bool CanAttack(GameState &)const;
+    bool IsInChanceAttack(Fighter * fighter,Hero * ,Board borad)const;
 };
 
 #endif /* ATTACK_USECASE */

@@ -156,3 +156,14 @@ std::string Board::GetGraph(){
     }
     return "";
 }
+
+// PathWay Board::GetPathType(int node1,int node2){
+//     if(map.GetNodeType(node1)==NodeType::SECREST && map.GetNodeType(node2)==NodeType::SECREST)
+//         return PathWay::SECRETPATH;
+//     if(map.GetNodeType(node1)==NodeType::SECREST && map.GetNodeType(node2)==NodeType::SIMPLE)
+// }
+
+
+NodeType Board::GetNodeType(int node){
+    return map.GetNodeType(node);
+}
