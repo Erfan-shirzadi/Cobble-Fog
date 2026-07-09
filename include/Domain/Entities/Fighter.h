@@ -2,13 +2,14 @@
 #define FIGHTER_H
 #include <string>
 #include "Domain/enums/FighterType.h"
+#include "Domain/enums/Attack.h"
 class Fighter{
 
     int MaxHp;
     int Hp=MaxHp;
     std::string Name ;
     int Move=2;
-    int Range;
+    Attack attack;
     int node=0;
     FighterType fightertype;
 
@@ -17,16 +18,14 @@ class Fighter{
 
     void SetName(std::string);
     void SetHP(int );
-    void SetRange(int);
+    void SetAttack(Attack);
     void SetMove(int);
-    void SetBoost(int);
     
 
     int GetHP()const;
     std::string GetName()const;
     int GetMove()const;
-    int GetBoost() const;
-
+    Attack GetAttack()const;
     void SetNode(int);
     int GetNode()const;
 

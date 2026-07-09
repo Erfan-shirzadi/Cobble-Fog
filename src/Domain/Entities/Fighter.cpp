@@ -15,6 +15,14 @@ int Fighter::GetMove()const{
    return this->Move;
 }
 
+Attack Fighter::GetAttack()const{
+   return attack;
+}
+
+
+void Fighter::SetAttack(Attack attack_){
+   this->attack=attack_;
+}
 
 void Fighter::SetName(std::string name){
    this->Name=name;
@@ -28,11 +36,6 @@ void Fighter::SetHP(int hp){
 void Fighter::SetMove(int move){
    this->Move=move;
 }
-
-void Fighter::SetRange(int range){
-   this->Range=range;
-}
-
 
 
 void Fighter::SetNode(int newNode){
@@ -69,3 +72,4 @@ bool Fighter::IsAlive()const{
 FighterType Fighter::GetFighterType(){
    return this->fightertype;
 }
+

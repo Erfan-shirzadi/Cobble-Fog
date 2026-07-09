@@ -17,6 +17,10 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
+    SideKicks[0]->SetAttack(Attack::MELEE);
+    SideKicks[1]->SetAttack(Attack::MELEE);
+    SideKicks[2]->SetAttack(Attack::MELEE);
+    this->SetAttack(Attack::MELEE);
 
     AddCardToDeck(std::make_unique<Ambush>());
     AddCardToDeck(std::make_unique<Ambush>());

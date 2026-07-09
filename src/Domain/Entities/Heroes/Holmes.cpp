@@ -14,7 +14,9 @@
 Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
 
     this->DrWatson=std::make_unique<Fighter>("Dr Watson",8,2,FighterType::DR_WATSON);
-
+    DrWatson->SetAttack(Attack::RANGED);
+    this->SetAttack(Attack::MELEE);
+    
     AddCardToDeck(std::make_unique<AdministerAid>());
         AddCardToDeck(std::make_unique<AdministerAid>());
 
