@@ -11,6 +11,7 @@ class Graph{
     Graph();
     void SetNodes();
     Node GetNode(int)const;
+    NodeType GetNodeType(int )const;
     std::vector<Area> GetArea(int)const;
     std::vector<int> GetNeighbors(int node)const;
 
