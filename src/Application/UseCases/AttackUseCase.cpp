@@ -6,18 +6,30 @@ using namespace std;
 bool AttackUseCase::execute(GameState & GameState){
 
     if(!CanAttack(GameState))return false;
-
-    context.Opponent->hero=GameState.opponentPlayre->GetHero();
-    context.board=&GameState.board;
+    // cout<<" Here Com?"<<endl;
+    // try{
+    // context.Opponent->hero=GameState.opponentPlayre->GetHero();
+    // }
+    // catch (...){
+    //     std::cout<<"Fuuuuuuuuuuuck it"<<endl;
+    // }
+    // cout<<" this is a problem?"<<endl;
+     context.board=&GameState.board;
 
     FighterSelection(GameState.currnetPlayer->GetHero(),
     GameState.opponentPlayre->GetHero(),GameState.board);
 
     ChooseCardAttaker();
-    TargetSelection();
+    context.Opponent=std::make_unique<CombatParticipant>();
+    context.Opponent->hero=GameState.opponentPlayre->GetHero();
+    TargetSelection(GameState.opponentPlayre->GetHero());
+    cout<<context.Opponent->fighter->GetName()<<endl;
+
     ChooseCardDeffender();
     CombatUseCase combat;
     combat.execute(context);
+    
+    return true;
 
 
 
@@ -56,21 +68,22 @@ void AttackUseCase::ChooseCardAttaker(){
 
 bool AttackUseCase::CanAttack(GameState & gamestate)const{
     Hero * hero=gamestate.currnetPlayer->GetHero();
-   std::vector<Card *> cards= gamestate.currnetPlayer->GetHero()->GetHand();
 
     if(!(hero->IsExistCardInHand(CardCategory::ATTACK) ||
     hero->IsExistCardInHand(CardCategory::ATTACKANDDEFFENS)))return false;
-
+    std::cout<<" in hand have attack or attack and deffend card"<<std::endl;
     std::vector<Card *> Attackcards=hero->GetAllCardOf(CardCategory::ATTACK);
     std::vector<Card *> AttackAndDeffenscards=hero->GetAllCardOf(CardCategory::ATTACKANDDEFFENS);
     Hero * enemy=gamestate.opponentPlayre->GetHero();
 
+    cout<<" %%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
     for(auto card : Attackcards){
-        if(card->GetOwner()==hero->GetFighterType()){
+        if(card->GetOwner()==hero->GetFighterType()|| card->GetOwner()==FighterType::ANY){
             if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate.board))
                 return true;
         }
     }
+    cout<<"*****************"<<endl;
     for(auto card : Attackcards)
     {
         if(card->GetOwner()!=hero->GetFighterType())
@@ -78,14 +91,15 @@ bool AttackUseCase::CanAttack(GameState & gamestate)const{
                 if(IsInChanceAttack(fighter,enemy,gamestate.board))
                     return true;
     }
-
+    cout<<" ########################"<<endl;
     
     for(auto card : AttackAndDeffenscards){
-        if(card->GetOwner()==hero->GetFighterType()){
+        if(card->GetOwner()==hero->GetFighterType() || card->GetOwner()==FighterType::ANY){
             if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate.board))
                 return true;
         }
     }
+    cout<<" &&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
     for(auto card : AttackAndDeffenscards){
         if(card->GetOwner()!=hero->GetFighterType()){
             for(auto fighter: hero->GetSideKicks())
@@ -93,6 +107,7 @@ bool AttackUseCase::CanAttack(GameState & gamestate)const{
                     return true;
         }
     }
+    cout<<" )))))))))))))))))))))))))))))"<<endl;
     return false;
 
 }
@@ -102,13 +117,19 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & bor
     std::vector<Fighter*> enemies=enemy->GetSideKicks();
     enemies.push_back(dynamic_cast<Fighter*>(enemy));
 
+    std::cout<< " cheking chance attack "<<fighter->GetName()<<endl;
     int nodeFighter=fighter->GetNode();
     if(type==Attack::MELEE){
         for(auto ENEMY:enemies){
-            if(borad.AreAdjacent(nodeFighter,ENEMY->GetNode()))
+            if(borad.AreAdjacent(nodeFighter,ENEMY->GetNode())){
+                cout<<fighter->GetName()<< " and "<<ENEMY->GetName()<<"are hamsaye"<<endl;
                 if(!(borad.GetNodeType(nodeFighter)==NodeType::SECREST &&
-                    borad.GetNodeType(ENEMY->GetNode())==NodeType::SECREST))
+                    borad.GetNodeType(ENEMY->GetNode())==NodeType::SECREST)){
+                        cout<<" returned true"<<endl;
                         return true;
+                    }
+                        
+            }
         }
     }
     else if(type==Attack::RANGED){
@@ -117,6 +138,7 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & bor
                 return true;
         }
     }
+    cout<<" This is a test "<<endl;
     return false;
 }
 
@@ -143,15 +165,15 @@ void AttackUseCase::FighterSelection(Hero * hero ,Hero * enemy ,Board & borad){
         }
         else break;
     }
-
+    context.Current=std::make_unique<CombatParticipant>();
     this->context.Current->fighter=fighters[choice];
     this->context.Current->hero=hero;
 
 }
 
-void AttackUseCase::TargetSelection(){
+void AttackUseCase::TargetSelection(Hero *enemy){
 
-    Hero * enemy=context.Opponent->hero;
+    // Hero * enemy=c;
     Board * board=context.board;
     Fighter * fighter=context.Current->fighter;
 
@@ -176,19 +198,19 @@ void AttackUseCase::TargetSelection(){
             board->GetNodeType(enemies[choice]->GetNode())==NodeType::SECREST)
             cout<<" You can not attack from secrect path "<<endl;
             else{
+                cout<<" breaked"<<endl;
                 break;
             }
         }
     }
-
     context.Opponent->fighter=enemies[choice];
-
+    cout<< " end of Terget selection"<<endl;
 }
 
 
 
 void AttackUseCase::ChooseCardDeffender(){
-
+    cout<< " Enter : ppppppp;lewaseesssee"<<endl;
     Hero * hero=context.Opponent->hero;
     if(!(hero->IsExistCardInHand(CardCategory::DEFFENSE )|| hero->IsExistCardInHand(CardCategory::ATTACKANDDEFFENS))){
         cout<<" Deffend broken . you havenot any card for deffend "<<endl;

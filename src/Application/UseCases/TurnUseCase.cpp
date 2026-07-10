@@ -29,7 +29,7 @@ void TurnUseCase::execute(GameState & gamestate){
                 ManeverUseCase b;
                 b.execute(gamestate);
                Current->reduceRemainingAction();
-
+                break;
             }
             case 2:
             {
@@ -39,12 +39,13 @@ void TurnUseCase::execute(GameState & gamestate){
                 }else {
                     std::cout<< "Can not do attack "<<std::endl;
                 }
-                
+                break;
             }
             
             
 
         }
+        std::cout<<  " After action "<<std::endl;
         gamestate.board.GetGraph();
         
      }

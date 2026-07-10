@@ -14,7 +14,7 @@ class AttackUseCase{
     bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
     void FighterSelection(Hero * , Hero * , Board &  );
     void ChooseCardDeffender();
-    void TargetSelection();
+    void TargetSelection(Hero *);
 };
 
 #endif /* ATTACK_USECASE */

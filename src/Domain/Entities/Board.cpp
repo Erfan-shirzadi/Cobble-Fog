@@ -165,5 +165,6 @@ std::string Board::GetGraph(){
 
 
 NodeType Board::GetNodeType(int node){
+    std::cout<<"its ok ?"<<std::endl;
     return map.GetNodeType(node);
 }

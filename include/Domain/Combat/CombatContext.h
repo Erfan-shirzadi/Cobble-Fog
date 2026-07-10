@@ -3,9 +3,10 @@
 #include "Domain/Combat/CombatParticipant.h"
 #include "Domain/Entities/Board.h"
 #include "Domain/Combat/CombatResult.h"
+#include <memory>
 struct CombatContext{
-    CombatParticipant * Current;
-    CombatParticipant * Opponent;
+    std::unique_ptr< CombatParticipant > Current;
+    std::unique_ptr< CombatParticipant > Opponent;
     Board * board;
 
 };
