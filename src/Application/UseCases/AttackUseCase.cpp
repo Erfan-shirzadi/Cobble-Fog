@@ -1,25 +1,59 @@
 #include "Application/UseCases/AttackUseCase.h"
+#include "Application/UseCases/CombatUseCase.h"
 #include <iostream>
-void AttackUseCase::ChooseCardAttaker(GameState & gamestate)const{
-    Hero * hero=gamestate.currnetPlayer->GetHero();
-    // std::cout<< " show hand : "<<std::endl;
-    // int choose;
-    // while (true){
-    //     std::cin>>choose;
-    //     Card * cardd=hero->GetCard(choose);
-    //     CombatCard * card=dynamic_cast<CombatCard * > (cardd);
-    //     if(card){
-    //         if(card->GetCategory()==CardCategory::ATTACK ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
-    //             this->context.Current->card=cardd;
-    //             break;
-    //         }
-    //         else std::cout<< " Select A Correct card ";
-    //     }
-    //     else std::cout<< " Select A Correct card ";
+using namespace std;
+
+bool AttackUseCase::execute(GameState & GameState){
+
+    if(!CanAttack(GameState))return false;
+
+    context.Opponent->hero=GameState.opponentPlayre->GetHero();
+    context.board=&GameState.board;
+
+    FighterSelection(GameState.currnetPlayer->GetHero(),
+    GameState.opponentPlayre->GetHero(),GameState.board);
+
+    ChooseCardAttaker();
+    TargetSelection();
+    ChooseCardDeffender();
+    CombatUseCase combat;
+    combat.execute(context);
+
+
+
+
+}
+
+
+void AttackUseCase::ChooseCardAttaker(){
+    Hero * hero=context.Current->hero;
+    std::vector<Card *>cards=hero->GetHand();
+    for(int i{};i<cards.size();i++)
+        cout<<i<< ".  "<<cards[i]->GetName()<<endl;
+
+    int choose;
+    while (true){
+        cout<<" Enter: ";
+        std::cin>>choose;
+
+        if(choose<0 || choose>=cards.size()){
+            cout<<" Enter A Correct number Please"<<endl;
+        }
+        else if(!(cards[choose]->GetCategory()==CardCategory::ATTACK ||
+                cards[choose]->GetCategory()==CardCategory::ATTACKANDDEFFENS)){
+                    cout<<" Please Enter A Attack card or Attack and Deffens "<<endl;
+        }
+        else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Current->fighter->GetFighterType()){
+            cout<<" you cann't Use this Card its for another fighter "<<endl;
+        }
+        else break;
         
-    // }
+    }
+
+    context.Current->card=dynamic_cast<CombatCard *>(cards[choose]);
     
 }
+
 bool AttackUseCase::CanAttack(GameState & gamestate)const{
     Hero * hero=gamestate.currnetPlayer->GetHero();
    std::vector<Card *> cards= gamestate.currnetPlayer->GetHero()->GetHand();
@@ -63,7 +97,7 @@ bool AttackUseCase::CanAttack(GameState & gamestate)const{
 
 }
 
-bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board borad)const{
+bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & borad)const{
     Attack type=fighter->GetAttack();
     std::vector<Fighter*> enemies=enemy->GetSideKicks();
     enemies.push_back(dynamic_cast<Fighter*>(enemy));
@@ -85,3 +119,130 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board borad
     }
     return false;
 }
+
+
+
+void AttackUseCase::FighterSelection(Hero * hero ,Hero * enemy ,Board & borad){
+
+    std::vector<Fighter * > fighters=hero->GetSideKicks();
+    fighters.push_back(dynamic_cast<Fighter *>(hero));
+
+    cout<<" your Fighters :"<<endl;
+    for( int i{};i<fighters.size();i++){
+        cout<< i <<".  "<<fighters[i]->GetName()<<endl;
+    }
+    int choice ;
+
+    while(true){
+        cout<<"Enter :";
+        cin>>choice;
+        if(choice<0 ||choice>=fighters.size())
+            cout<<" Entetr a correct number please "<<endl;
+        else if(!IsInChanceAttack(fighters[choice],enemy,borad)){
+            cout<<" can not attack with this Fighter "<<endl;
+        }
+        else break;
+    }
+
+    this->context.Current->fighter=fighters[choice];
+    this->context.Current->hero=hero;
+
+}
+
+void AttackUseCase::TargetSelection(){
+
+    Hero * enemy=context.Opponent->hero;
+    Board * board=context.board;
+    Fighter * fighter=context.Current->fighter;
+
+    std::vector<Fighter *> enemies=enemy->GetSideKicks();
+    enemies.push_back(dynamic_cast<Fighter *>(enemy));
+    cout<<" Enemies: "<<endl;
+    for(int i{};i<enemies.size();i++){
+        cout<<i<< ".  "<<enemies[i]->GetName();
+    }
+    int choice;
+    while(true){
+        cout<<"Enter:";
+        cin>>choice;
+
+        if(choice<0 || choice>=enemies.size())
+            cout<<" ENter A correct number Please "<<endl;
+        else if(!board->AreAdjacent(fighter->GetNode(),enemies[choice]->GetNode())){
+            cout<<" you can not attack this fighter "<<endl;
+        }
+        else if(board->AreAdjacent(fighter->GetNode(),enemies[choice]->GetNode())){
+            if(board->GetNodeType(fighter->GetNode())==NodeType::SECREST &&
+            board->GetNodeType(enemies[choice]->GetNode())==NodeType::SECREST)
+            cout<<" You can not attack from secrect path "<<endl;
+            else{
+                break;
+            }
+        }
+    }
+
+    context.Opponent->fighter=enemies[choice];
+
+}
+
+
+
+void AttackUseCase::ChooseCardDeffender(){
+
+    Hero * hero=context.Opponent->hero;
+    if(!(hero->IsExistCardInHand(CardCategory::DEFFENSE )|| hero->IsExistCardInHand(CardCategory::ATTACKANDDEFFENS))){
+        cout<<" Deffend broken . you havenot any card for deffend "<<endl;
+    }else{
+            bool canDeffend=false;
+            std::vector<Card *> Deffensecards=hero->GetAllCardOf(CardCategory::DEFFENSE);
+            std::vector<Card *> AttackAndDeffenscards=hero->GetAllCardOf(CardCategory::ATTACKANDDEFFENS);
+            for(auto card:Deffensecards){
+                if(card->GetOwner()==context.Opponent->fighter->GetFighterType())
+                    canDeffend=true;
+            }
+            for(auto card: AttackAndDeffenscards){
+                if(card->GetOwner()==context.Opponent->fighter->GetFighterType())
+                    canDeffend=true;
+            }
+        if(canDeffend){
+            std::string temp;
+            cout<< " Do you wnat deffend ? (Y/N)";
+            cin>> temp;
+
+            if(temp=="Y"){
+    
+            std::vector<Card *>cards=hero->GetHand();
+            for(int i{};i<cards.size();i++)
+                cout<<i<< ".  "<<cards[i]->GetName()<<endl;
+
+            int choose;
+            while (true){
+                cout<<" Enter: ";
+                std::cin>>choose;
+
+                if(choose<0 || choose>=cards.size()){
+                    cout<<" Enter A Correct number Please"<<endl;
+                }
+                else if(!(cards[choose]->GetCategory()==CardCategory::DEFFENSE ||
+                        cards[choose]->GetCategory()==CardCategory::ATTACKANDDEFFENS)){
+                            cout<<" Please Enter A Deffens card or Attack and Deffens "<<endl;
+                }
+                else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Current->fighter->GetFighterType()){
+                    cout<<" you cann't Use this Card its for another fighter "<<endl;
+                }
+                else break;
+                
+            }
+
+            context.Opponent->card=dynamic_cast<CombatCard *>(cards[choose]);
+            }
+        }
+        else {
+            std::cout<< " you Dont have for deffend that belong to you "<<std::endl;
+        }
+    }
+
+}
+
+
+

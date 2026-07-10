@@ -8,10 +8,13 @@ class AttackUseCase{
     CombatContext context;
     
     public:
-    void execute(GameState & );
-    void ChooseCardAttaker(GameState &)const;
+    bool execute(GameState & );
+    void ChooseCardAttaker();
     bool CanAttack(GameState &)const;
-    bool IsInChanceAttack(Fighter * fighter,Hero * ,Board borad)const;
+    bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
+    void FighterSelection(Hero * , Hero * , Board &  );
+    void ChooseCardDeffender();
+    void TargetSelection();
 };
 
 #endif /* ATTACK_USECASE */

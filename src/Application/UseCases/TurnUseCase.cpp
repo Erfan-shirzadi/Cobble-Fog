@@ -1,6 +1,7 @@
 #include "Application/UseCases/TurnUseCase.h"
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Application/UseCases/ManeverUseCase.h"
+#include "Application/UseCases/AttackUseCase.h"
 #include <iostream>
 void TurnUseCase::execute(GameState & gamestate){
     Hero* Current=gamestate.currnetPlayer->GetHero();
@@ -10,7 +11,8 @@ void TurnUseCase::execute(GameState & gamestate){
         std::cout<<" Turn " <<Current->GetName()<<std::endl;
         std::cout<< " Choose A Action : "<<std::endl;
         std::cout<<R"(0. scheme 
-1. Manever )";
+1. Manever
+2. Attack )";
         std::cin>>action;
         switch(action)
         {
@@ -28,6 +30,16 @@ void TurnUseCase::execute(GameState & gamestate){
                 b.execute(gamestate);
                Current->reduceRemainingAction();
 
+            }
+            case 2:
+            {
+                AttackUseCase c;
+                if(c.execute(gamestate)){
+                    std::cout<<" succesfull "<<std::endl;
+                }else {
+                    std::cout<< "Can not do attack "<<std::endl;
+                }
+                
             }
             
             
