@@ -62,7 +62,7 @@ void AttackUseCase::ChooseCardAttaker(){
         
     }
 
-    context.Current->card=dynamic_cast<CombatCard *>(cards[choose]);
+    context.Current->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
     
 }
 
@@ -134,8 +134,17 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & bor
     }
     else if(type==Attack::RANGED){
         for(auto ENEMY: enemies){
-            if(borad.IsAnArea(ENEMY->GetNode(),nodeFighter))
+            if(borad.IsAnArea(ENEMY->GetNode(),nodeFighter)){
                 return true;
+            }
+            else if(borad.AreAdjacent(ENEMY->GetNode(),nodeFighter)){
+                    if(!(borad.GetNodeType(nodeFighter)==NodeType::SECREST &&
+                           borad.GetNodeType(ENEMY->GetNode())==NodeType::SECREST)){
+                            cout<<" returned true"<<endl;
+                            return true;
+                    }
+            }
+                
         }
     }
     cout<<" This is a test "<<endl;
@@ -219,11 +228,11 @@ void AttackUseCase::ChooseCardDeffender(){
             std::vector<Card *> Deffensecards=hero->GetAllCardOf(CardCategory::DEFFENSE);
             std::vector<Card *> AttackAndDeffenscards=hero->GetAllCardOf(CardCategory::ATTACKANDDEFFENS);
             for(auto card:Deffensecards){
-                if(card->GetOwner()==context.Opponent->fighter->GetFighterType())
+                if(card->GetOwner()==context.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
                     canDeffend=true;
             }
             for(auto card: AttackAndDeffenscards){
-                if(card->GetOwner()==context.Opponent->fighter->GetFighterType())
+                if(card->GetOwner()==context.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
                     canDeffend=true;
             }
         if(canDeffend){
@@ -256,7 +265,7 @@ void AttackUseCase::ChooseCardDeffender(){
                 
             }
 
-            context.Opponent->card=dynamic_cast<CombatCard *>(cards[choose]);
+            context.Opponent->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
             }
         }
         else {
