@@ -258,7 +258,7 @@ void AttackUseCase::ChooseCardDeffender(){
                         cards[choose]->GetCategory()==CardCategory::ATTACKANDDEFFENS)){
                             cout<<" Please Enter A Deffens card or Attack and Deffens "<<endl;
                 }
-                else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Current->fighter->GetFighterType()){
+                else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Opponent->fighter->GetFighterType()){
                     cout<<" you cann't Use this Card its for another fighter "<<endl;
                 }
                 else break;
