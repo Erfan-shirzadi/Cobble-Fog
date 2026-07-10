@@ -10,7 +10,7 @@ FeedingFrenzy::FeedingFrenzy(){
 }
 
 void FeedingFrenzy::Play(CombatContext &  combatcontext)const{
-
+    std::cout<< " Feeding frenzy is playing  commmme on mannnnnnnn"<<std::endl;
     Hero * hero =combatcontext.Current->hero;
     Fighter * enemy=combatcontext.Opponent->fighter;
     std::vector<Fighter*> sisters=hero->GetSideKicks();
@@ -19,9 +19,9 @@ void FeedingFrenzy::Play(CombatContext &  combatcontext)const{
         if(combatcontext.board->IsAnArea(sidekick->GetNode(),enemy->GetNode()));
             increaseDamage++;
     }
-    std::cout << increaseDamage;
+    std::cout << "increase Damge :"<<increaseDamage<<std::endl;
     
-    combatcontext.Current->DamageOrDeffend=increaseDamage+this->GetDamgeOrDeffend();
+    combatcontext.Current->DamageOrDeffend+=increaseDamage;
 }
 
 PlayTiming FeedingFrenzy::GetCardPlayTiming()const{

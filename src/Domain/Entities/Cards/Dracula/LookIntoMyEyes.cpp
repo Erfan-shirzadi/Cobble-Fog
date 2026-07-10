@@ -1,5 +1,6 @@
 #include "Domain/Entities/Cards/Dracula/LookIntoMyEyes.h"
 #include "Domain/Combat/CombatContext.h"
+#include <iostream>
 LookIntoMyEyes::LookIntoMyEyes(){
     SetDamageOrDeffend(1);
     SetBoost(2);
@@ -9,9 +10,8 @@ LookIntoMyEyes::LookIntoMyEyes(){
 
 }
 void LookIntoMyEyes::Play(CombatContext &  combatcontext)const {
-    combatcontext.Current->DamageOrDeffend=combatcontext.Opponent->card->GetBoost()
-        +
-        this->GetDamgeOrDeffend();
+    std::cout<<"LookIntoMyEyes is palying "<<std::endl;
+    combatcontext.Current->DamageOrDeffend+=combatcontext.Opponent->card->GetBoost();
 }
 PlayTiming LookIntoMyEyes::GetCardPlayTiming()const {
     return PlayTiming::DURING_COMBAT;

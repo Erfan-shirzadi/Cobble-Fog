@@ -37,6 +37,8 @@ class Hero :public Fighter{
     std::vector<Card* > GetAllCardOf(CardCategory)const;
     virtual bool IsAliveAnySideKick();
 
+
+    std::string GetHandCards()const;
 };
 
 

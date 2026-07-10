@@ -1,6 +1,6 @@
 #include "Domain/Entities/Cards/Dracula/Feint.h"
 #include "Domain/Combat/CombatContext.h"
-
+#include <iostream>
 Feint::Feint(){
     SetDamageOrDeffend(2);
     SetBoost(2);
@@ -9,6 +9,7 @@ Feint::Feint(){
 
 }
 void Feint::Play(CombatContext & combatcontext )const {
+    std::cout<<"Feint card is playing "<<std::endl;
     combatcontext.Opponent->IsActiveCardEffect=false;
 }
 PlayTiming Feint::GetCardPlayTiming()const {

@@ -9,6 +9,7 @@ BestForm::BestForm(){
     SetCategory(CardCategory::ATTACK);
 }
 void BestForm::Play(CombatContext & combatcontext )const {
+    std::cout<< " Beast Form card iS playing "<<std::endl;
     Hero * hero=combatcontext.Current->hero;
     std::string command;
     int removedCard=0;
@@ -19,7 +20,7 @@ void BestForm::Play(CombatContext & combatcontext )const {
         while (command=="Y" && hero->GetSizeHand()>0)
         {
             
-            std::cout<< "Show Hand "<<std::endl;
+            std::cout<< hero->GetHandCards()<<std::endl;
             std::cin>>choose;
             try{
                 hero->RemoveCardHand(choose);
@@ -30,8 +31,7 @@ void BestForm::Play(CombatContext & combatcontext )const {
             }
         }
     }
-    int damage=combatcontext.Current->card->GetDamgeOrDeffend();
-    combatcontext.Current->DamageOrDeffend=damage+removedCard;
+    combatcontext.Current->DamageOrDeffend+=removedCard;
 }
 PlayTiming BestForm::GetCardPlayTiming()const {
     return PlayTiming::DURING_COMBAT;

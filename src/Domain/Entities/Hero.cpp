@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 
  Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
  }
@@ -96,3 +97,13 @@ bool Hero::IsAliveAnySideKick(){
 void Hero::reduceRemainingAction(){
       --this->RemainingAction;
 }
+
+
+std::string Hero::GetHandCards()const{
+      std::stringstream out;
+      for(int i{};i<Hand.size();i++){
+            out<< i <<".   "<<Hand[i]->GetName()<<std::endl;
+      }
+
+      return out.str();
+}     
