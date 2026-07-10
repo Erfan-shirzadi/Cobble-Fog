@@ -14,7 +14,7 @@ void DeduceStrategy::Play(CombatContext & combatcontext )const{
     std::cout<< " Do you wnat to change amount to Boost ? (Y/N) ";
     std::cin>> command;
     if(command=="Y")
-        combatcontext.Opponent->card->SetDamageOrDeffend(combatcontext.Opponent->card->GetBoost()); 
+        combatcontext.Opponent->DamageOrDeffend=combatcontext.Opponent->card->GetBoost(); 
 }
 PlayTiming DeduceStrategy::GetCardPlayTiming()const {
     return PlayTiming::DURING_COMBAT;

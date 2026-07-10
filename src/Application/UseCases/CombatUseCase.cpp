@@ -16,10 +16,10 @@ void CombatUseCase::execute(CombatContext & combatcontext){
     cout<< combatcontext.Opponent->fighter->GetName()<<"  "<<combatcontext.Opponent->fighter->GetHP()<<endl;
 
     if(combatcontext.Current->Won){
-        cout<< combatcontext.Current->hero->GetName()<< " won the combat "<<endl;
+        cout<< combatcontext.Current->fighter->GetName()<< " won the combat "<<endl;
     }
     else{
-        cout<< combatcontext.Opponent->hero->GetName()<< " won the combat "<<endl;
+        cout<< combatcontext.Opponent->fighter->GetName()<< " won the combat "<<endl;
     }
     cout<< "Combat finished "<<endl;
 }
