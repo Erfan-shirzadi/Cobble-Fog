@@ -92,7 +92,7 @@ bool Board::IsAnArea(int node1, int node2)const{
 
 bool Board::isOccupied(int node)const{
     for( Fighter* fighter: this->allFighters)
-        if(fighter->GetNode()==node)
+        if(fighter->GetNode()==node && fighter->IsAlive())
             return true;
 
     return false;
