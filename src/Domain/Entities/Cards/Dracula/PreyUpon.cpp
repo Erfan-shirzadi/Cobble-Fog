@@ -16,10 +16,7 @@ void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){
             if(fighter->IsAlive())
                 AllFighters.push_back(fighter);
     }
-    for(auto fighter: hero->GetSideKicks()){
-            if(fighter->IsAlive())
-                AllFighters.push_back(fighter);
-    }
+   
 
     int nodeHero=hero->GetNode();
     for(auto fighter:AllFighters){
