@@ -33,7 +33,12 @@ void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){
     sidekicks[0]->SetNode(choice);
     }
     hero->Heal(1);
-    hero->DrawCard();
+    if(hero->DrawCard()){
+        for(auto fighter: hero->GetSideKicks())
+            fighter->TakeDamge(2);
+        hero->TakeDamge(2);
+    }
+    
 
 
 

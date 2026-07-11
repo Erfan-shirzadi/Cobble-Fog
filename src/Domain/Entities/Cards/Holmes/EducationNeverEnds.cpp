@@ -9,13 +9,22 @@ EducationNeverEnds::EducationNeverEnds(){
 
 }
 void EducationNeverEnds::Play(CombatContext & combatcontext )const {
-
+    Hero * hero=combatcontext.Opponent->hero;
     if(combatcontext.Current->Won){
-        combatcontext.Opponent->hero->DrawCard();
+        if(hero->DrawCard()){
+        for(auto fighter: hero->GetSideKicks())
+            fighter->TakeDamge(2);
+            hero->TakeDamge(2);
+          }
     }
     else {
-        combatcontext.Current->hero->DrawCard();
-        combatcontext.Current->hero->DrawCard();
+        hero=combatcontext.Current->hero;
+        for(int i{};i<2;i++)
+            if(hero->DrawCard()){
+              for(auto fighter: hero->GetSideKicks())
+                 fighter->TakeDamge(2);
+                hero->TakeDamge(2);
+            }
     }
 }
 PlayTiming EducationNeverEnds::GetCardPlayTiming()const {
