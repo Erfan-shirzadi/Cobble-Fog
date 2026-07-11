@@ -6,6 +6,7 @@
 #include "Domain/Entities/Card.h"
 #include "Domain/Entities/Deck.h"
 #include "Domain/Entities/Fighter.h"
+struct GameState;
 class Hero :public Fighter{
   
 
@@ -22,7 +23,8 @@ class Hero :public Fighter{
     void RemoveCardHand(int index);
     void AddCardToHand(std::unique_ptr<Card> card);
     virtual std::vector<Fighter *> GetSideKicks();
-    //virtual void SpecialAbility()=0;
+    virtual void Ability(GameState&)=0;
+    virtual bool CanUseCability(GameState)=0;
     bool IsExistCardInHand(CardCategory);
     int GetSizeHand()const;
     bool DrawCard();

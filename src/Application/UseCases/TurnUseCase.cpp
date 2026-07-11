@@ -6,6 +6,15 @@ void TurnUseCase::execute(GameState & gamestate){
     Hero* Current=gamestate.currnetPlayer->GetHero();
     Current->SetRemainingAction(2);
     int action;
+
+    if(Current->CanUseCability(gamestate)){
+        std::string temp;
+        std::cout<<"Do you want use Ability? (Y/N)";
+        std::cin>>temp;
+        if(temp=="Y")
+            Current->Ability(gamestate);
+    }
+
     while (Current->GetRemainingAction()>0){
         std::cout<<" Turn " <<Current->GetName()<<std::endl;
         std::cout<< " Choose A Action : "<<std::endl;

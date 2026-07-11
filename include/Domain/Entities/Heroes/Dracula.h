@@ -10,7 +10,9 @@ class Dracula :public Hero{
 
     public:
     Dracula();
-    //void SpecialAbility()override{};
+    virtual void Ability(GameState&);
+    bool CanUseCability(GameState);
+
     std::vector<Fighter *> GetSideKicks() override;
     bool IsAliveAnySideKick()override;
 

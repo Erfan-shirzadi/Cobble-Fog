@@ -11,6 +11,7 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
 #include "Domain/Entities/Cards/Dracula/RaveningSeduction.h"
 #include "Domain/Entities/Cards/Dracula/ThirstForSustenance.h"
+#include "Domain/Game/GameState.h"
 #include <iostream>
 Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
 
@@ -83,3 +84,52 @@ bool Dracula::IsAliveAnySideKick(){
 
     return false;
 };
+
+void Dracula::Ability(GameState& gamestate){
+    Board board=gamestate.board;
+    std::vector<Fighter* > fighters;
+    for(auto fighter: this->GetSideKicks()){
+        if(board.AreAdjacent(fighter->GetNode(),this->GetNode()))fighters.push_back(fighter);
+    }
+    for(auto fighter:gamestate.opponentPlayre->GetHero()->GetSideKicks()){
+        if(board.AreAdjacent(fighter->GetNode(),this->GetNode()))fighters.push_back(fighter);
+    }
+        if(board.AreAdjacent(gamestate.opponentPlayre->GetHero()->GetNode(),this->GetNode()))
+            fighters.push_back(dynamic_cast<Fighter* > (gamestate.opponentPlayre->GetHero()));
+
+    int choice;
+    for(int i{};i<fighters.size();i++){
+        std::cout<< i << fighters[i]->GetName()<<std::endl;
+    }
+
+    while (true)
+    {
+        std::cin>>choice;
+        if(choice<0 || choice>=fighters.size())
+            std::cout<<" Enter A correct NUmber Please "<<std::endl;
+        else break;
+        
+    }
+    
+    fighters[choice]->TakeDamge(1);
+    this->DrawCard();
+
+
+
+}
+
+bool Dracula::CanUseCability(GameState GameState){
+    Board board=GameState.board;
+    for(auto fighter: this->GetSideKicks()){
+        if(board.AreAdjacent(fighter->GetNode(),this->GetNode()))
+            return true;
+    }
+    for(auto fighter: GameState.opponentPlayre->GetHero()->GetSideKicks()){
+        if(board.AreAdjacent(fighter->GetNode(),this->GetNode()))
+            return true;
+    }
+    if(board.AreAdjacent(GameState.opponentPlayre->GetHero()->GetNode(),this->GetNode()))
+        return true;
+
+    return false;
+}
