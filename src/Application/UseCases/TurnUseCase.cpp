@@ -49,6 +49,30 @@ void TurnUseCase::execute(GameState & gamestate){
         gamestate.board.GetGraph();
      }
      ManageHandSize(Current);
+<<<<<<< HEAD
+=======
+    
+}
+
+
+void TurnUseCase::ManageHandSize(Hero * hero){
+
+    int choice;
+    while (hero->GetSizeHand()>7)
+    {
+        std::cout<< " You most Discard Card From your Hand "<<std::endl;
+        std::cout<< hero->GetHandCards()<<std::endl;
+        std::cout<< " Enter A number :";
+        std::cin>> choice;
+
+        if(choice<0 || choice> hero->GetSizeHand())
+            std::cout<< "Enter Correct please "<<std::endl;
+        else{
+            hero->RemoveCardHand(choice);
+        }
+
+    }
+>>>>>>> ba986fe (fix : manager Hand Size)
     
 }
 
