@@ -29,6 +29,10 @@ void BestForm::Play(CombatContext & combatcontext )const {
             catch (std::runtime_error &e){
                 std::cout<<e.what()<<std::endl;
             }
+            if(hero->GetSizeHand()>0){
+            std::cout<<" DO you want continue ? (Y/N)";
+            std::cin>>command;
+            }
         }
     }
     combatcontext.Current->DamageOrDeffend+=removedCard;

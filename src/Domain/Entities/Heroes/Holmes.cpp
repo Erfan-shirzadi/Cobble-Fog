@@ -55,6 +55,15 @@ Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
         AddCardToDeck(std::make_unique<TheGameIsAfoot>());
 
 
+
+            AddCardToDeck(std::make_unique<CounterPunch>());
+                AddCardToDeck(std::make_unique<DeduceStrategy>());
+                        AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
+
+
+
+
+
 }
 
 std::vector<Fighter *>  Holmes::GetSideKicks(){

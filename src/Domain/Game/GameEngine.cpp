@@ -13,11 +13,26 @@ void GameEngine::run(){
     
     gamestate.board.GetGraph();
     
-    while (true)
+    while (!turnusecase.GameOver(gamestate))
     {   
         turnusecase.execute(gamestate);
         std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
     }
+
+    GameResult(gamestate);
     
 
+}
+
+
+void GameEngine::GameResult(GameState & gamestate){
+    Hero* current=gamestate.currnetPlayer->GetHero();
+    Hero* opponent=gamestate.opponentPlayre->GetHero();
+
+    if(current->IsAlive()){
+        std::cout<< current->GetName()<< " Won The Game "<<std::endl;
+    }
+    else {
+        std::cout<< opponent->GetName()<< "Won The Game"<<std::endl;
+    }
 }
