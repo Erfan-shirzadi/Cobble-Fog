@@ -5,6 +5,7 @@ class TurnUseCase{
 
     public:
     void execute(GameState & );
+    void ManageHandSize(Hero *);
 };
 
 #endif /* TURN_USECASE */

@@ -46,11 +46,29 @@ void TurnUseCase::execute(GameState & gamestate){
             
 
         }
-        std::cout<<  " After action "<<std::endl;
         gamestate.board.GetGraph();
-        
      }
+     ManageHandSize(Current);
+    
+}
 
-    //std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+
+void TurnUseCase::ManageHandSize(Hero * hero){
+
+    int choice;
+    while (hero->GetSizeHand()>7)
+    {
+        std::cout<< " You most Discard Card From your Hand "<<std::endl;
+        std::cout<< hero->GetHandCards()<<std::endl;
+        std::cout<< " Enter A number :";
+        std::cin>> choice;
+
+        if(choice<0 || choice> hero->GetSizeHand())
+            std::cout<< "Enter Correct please "<<std::endl;
+        else{
+            hero->RemoveCardHand(choice);
+        }
+
+    }
     
 }
