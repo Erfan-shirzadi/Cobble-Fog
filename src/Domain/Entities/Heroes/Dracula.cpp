@@ -141,3 +141,12 @@ bool Dracula::CanUseCability(GameState GameState){
 
     return false;
 }
+
+
+Fighter * Dracula::GetDeadSideKick()const {
+  for(int i{};i<3;i++){
+    if(!this->SideKicks[i]->IsAlive())
+        return SideKicks[i].get();
+  }
+  return nullptr;
+}

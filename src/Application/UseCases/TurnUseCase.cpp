@@ -7,7 +7,6 @@ void TurnUseCase::execute(GameState & gamestate){
     Hero* Current=gamestate.currnetPlayer->GetHero();
     Current->SetRemainingAction(2);
     int action;
-<<<<<<< HEAD
 
     if(Current->CanUseCability(gamestate)){
         std::string temp;
@@ -17,10 +16,8 @@ void TurnUseCase::execute(GameState & gamestate){
             Current->Ability(gamestate);
     }
 
-    while (Current->GetRemainingAction()>0){
-=======
+
     while (Current->GetRemainingAction()>0 && (!GameOver(gamestate))){
->>>>>>> bugfix/cards
         std::cout<<" Turn " <<Current->GetName()<<std::endl;
         std::cout<< " Choose A Action : "<<std::endl;
         std::cout<<R"(0. scheme 
@@ -62,30 +59,6 @@ void TurnUseCase::execute(GameState & gamestate){
         gamestate.board.GetGraph();
      }
      ManageHandSize(Current);
-<<<<<<< HEAD
-=======
-    
-}
-
-
-void TurnUseCase::ManageHandSize(Hero * hero){
-
-    int choice;
-    while (hero->GetSizeHand()>7)
-    {
-        std::cout<< " You most Discard Card From your Hand "<<std::endl;
-        std::cout<< hero->GetHandCards()<<std::endl;
-        std::cout<< " Enter A number :";
-        std::cin>> choice;
-
-        if(choice<0 || choice> hero->GetSizeHand())
-            std::cout<< "Enter Correct please "<<std::endl;
-        else{
-            hero->RemoveCardHand(choice);
-        }
-
-    }
->>>>>>> ba986fe (fix : manager Hand Size)
     
 }
 
