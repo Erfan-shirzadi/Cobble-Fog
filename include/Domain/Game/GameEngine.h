@@ -10,6 +10,7 @@ class GameEngine {
     Board board;
     public:
     void run();
+    void GameResult(GameState &);
 
 };
 #endif /*GAMEENGINE_H */

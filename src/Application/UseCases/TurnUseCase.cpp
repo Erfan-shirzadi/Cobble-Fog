@@ -7,7 +7,7 @@ void TurnUseCase::execute(GameState & gamestate){
     Hero* Current=gamestate.currnetPlayer->GetHero();
     Current->SetRemainingAction(2);
     int action;
-    while (Current->GetRemainingAction()>0){
+    while (Current->GetRemainingAction()>0 && (!GameOver(gamestate))){
         std::cout<<" Turn " <<Current->GetName()<<std::endl;
         std::cout<< " Choose A Action : "<<std::endl;
         std::cout<<R"(0. scheme 
@@ -71,4 +71,14 @@ void TurnUseCase::ManageHandSize(Hero * hero){
 
     }
     
+}
+
+bool TurnUseCase::GameOver(GameState &GameState ){
+    Hero* current=GameState.currnetPlayer->GetHero();
+    Hero* opponent=GameState.opponentPlayre->GetHero();
+
+    if(!current->IsAlive() || !opponent->IsAlive())
+        return true;
+    return false;
+
 }
