@@ -7,7 +7,10 @@ class Holmes : public Hero{
     std::unique_ptr<Fighter> DrWatson;
     public:
     Holmes();
-    //void SpecialAbility()override{};
+    virtual void Ability(GameState&);
+    bool CanUseCability(GameState);
+
+
     std::vector<Fighter *> GetSideKicks()override;
     bool IsAliveAnySideKick()override;
 

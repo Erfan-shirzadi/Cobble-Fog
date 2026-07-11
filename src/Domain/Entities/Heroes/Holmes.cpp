@@ -10,6 +10,7 @@
 #include "Domain/Entities/Cards/Holmes/StudyMethods.h"
 #include "Domain/Entities/Cards/Holmes/TheGameIsAfoot.h"
 #include "Domain/Entities/Cards/Dracula/Feint.h"
+#include "Domain/Game/GameState.h"
 
 Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
 
@@ -68,3 +69,10 @@ bool Holmes::IsAliveAnySideKick(){
     return this->DrWatson->IsAlive();
 }
 
+void Holmes::Ability(GameState&){
+
+}
+
+bool Holmes::CanUseCability(GameState){
+    return false;
+}
