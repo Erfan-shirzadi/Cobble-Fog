@@ -16,9 +16,7 @@ void FeedingFrenzy::Play(CombatContext &  combatcontext)const{
     std::vector<Fighter*> sisters=hero->GetSideKicks();
     int increaseDamage=0;
     for(Fighter * sidekick: sisters){
-        std::cout<<"sister Node :"<<sidekick->GetNode()<<std::endl;
-        std::cout<<"Fighter Node :"<<enemy->GetNode()<<std::endl;
-        if(combatcontext.board->IsAnArea(sidekick->GetNode(),enemy->GetNode()));
+        if(combatcontext.board->IsAnArea(sidekick->GetNode(),enemy->GetNode()))
             increaseDamage++;
     }
     std::cout << "increase Damge :"<<increaseDamage<<std::endl;
