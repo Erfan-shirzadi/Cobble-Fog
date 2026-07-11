@@ -35,6 +35,7 @@ void TurnUseCase::execute(GameState & gamestate){
             {
                 AttackUseCase c;
                 if(c.execute(gamestate)){
+                    Current->reduceRemainingAction();
                     std::cout<<" succesfull "<<std::endl;
                 }else {
                     std::cout<< "Can not do attack "<<std::endl;

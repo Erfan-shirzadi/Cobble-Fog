@@ -107,3 +107,7 @@ std::string Hero::GetHandCards()const{
 
       return out.str();
 }     
+
+Fighter * Hero::GetDeadSideKick()const{
+      return nullptr;
+}

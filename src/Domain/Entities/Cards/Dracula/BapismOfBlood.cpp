@@ -11,23 +11,29 @@ void BapismOfBlood::Play(Hero * hero,Hero * enemy , Board *  board){
     std::cout<< " Bapism of blood is playing "<<std::endl;
     hero->Heal(2);
     bool Recovered=false;
-    for(auto fighter:hero->GetSideKicks()){
-        if(!fighter->IsAlive() && Recovered==false){
+        if(hero->GetDeadSideKick()){
+            Fighter* fighter=hero->GetDeadSideKick();
             fighter->Heal(1);
+            std::vector<int> rechableNodes=board->GetNodeofArea(hero->GetNode());
+            for(int i{ };i<rechableNodes.size();i++){
+                std::cout<<i << ".  "<<rechableNodes[i]<<std::endl;
+            }
             int choice;
             while (true)
             {
                 std::cout<<" Select A node :";
                 std::cin>>choice;
-                if(board->IsAnArea(hero->GetNode(),choice) && (!board->isOccupied(choice))){
-                    fighter->SetNode(choice);
-                    Recovered=true;
+                if(!(choice<0 || choice>=rechableNodes.size())){
+                    fighter->SetNode(rechableNodes[choice]);
                     break;
+                }else{
+                    std::cout<< " Enter correct please"<<std::endl;
                 }
+                
             }
             
         }
-    }
+    
 
 }
 FighterType BapismOfBlood::GetOwner()const{

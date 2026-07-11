@@ -91,3 +91,11 @@ bool Dracula::IsAliveAnySideKick(){
 
     return false;
 };
+
+Fighter * Dracula::GetDeadSideKick()const{
+    for(int i{};i<3;i++){
+        if(!SideKicks[i]->IsAlive())
+            return SideKicks[i].get();
+    }
+    return nullptr;
+}
