@@ -20,7 +20,8 @@ void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){
 
     int nodeHero=hero->GetNode();
     for(auto fighter:AllFighters){
-        if(board->AreAdjacent(nodeHero,fighter->GetNode())){
+        if(board->AreAdjacent(nodeHero,fighter->GetNode())&&
+         !(board->GetNodeType(nodeHero)==NodeType::SECREST &&board->GetNodeType(fighter->GetNode())==NodeType::SECREST)){
             fighter->TakeDamge(1);
             hero->Heal(1);
         }

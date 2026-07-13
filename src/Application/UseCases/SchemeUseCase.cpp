@@ -35,9 +35,7 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
     std::vector<Card * > cards=hero->GetHand();
 
     cout<< "Hand : \n";
-    for( auto card: cards)
-        cout<< card->GetName()<<endl;
-
+    cout<< hero->GetHandCards()<<endl;
     int choice;
     while(true){
         cout<< "Enter a number :";

@@ -97,7 +97,9 @@ void Dracula::Ability(GameState& gamestate){
     for(auto fighter:gamestate.opponentPlayre->GetHero()->GetSideKicks()){
         if(board.AreAdjacent(fighter->GetNode(),this->GetNode()))fighters.push_back(fighter);
     }
-        if(board.AreAdjacent(gamestate.opponentPlayre->GetHero()->GetNode(),this->GetNode()))
+    Hero* enemy=gamestate.opponentPlayre->GetHero();
+        if(board.AreAdjacent(enemy->GetNode(),this->GetNode())
+         && !(board.GetNodeType(enemy->GetNode())==NodeType::SECREST && board.GetNodeType(enemy->GetNode())==NodeType::SECREST))
             fighters.push_back(dynamic_cast<Fighter* > (gamestate.opponentPlayre->GetHero()));
 
     int choice;

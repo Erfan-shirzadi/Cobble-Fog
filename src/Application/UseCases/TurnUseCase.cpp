@@ -19,6 +19,7 @@ void TurnUseCase::execute(GameState & gamestate){
 
     while (Current->GetRemainingAction()>0 && (!GameOver(gamestate))){
         std::cout<<" Turn " <<Current->GetName()<<std::endl;
+        std::cout<< Current->GetHandCards()<<std::endl;
         std::cout<< " Choose A Action : "<<std::endl;
         std::cout<<R"(0. scheme 
 1. Manever
