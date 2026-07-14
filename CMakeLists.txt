@@ -56,7 +56,18 @@ set(
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 
+
+
+    src/presentation/console/GameView.cpp
+
 )
+find_package(ftxui REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    ftxui::screen
+    ftxui::dom
+    ftxui::component
+)

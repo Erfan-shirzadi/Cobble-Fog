@@ -11,11 +11,13 @@
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "Domain/Player.h"
 #include "Domain/Game/GameEngine.h"
+#include "presentation/console/GameView.h"
 
 using namespace std;
 
 int main(){
 
+   
    GameEngine a;
    a.run();
 
