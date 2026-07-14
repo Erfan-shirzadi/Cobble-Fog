@@ -3,6 +3,7 @@
 
 enum class ContinueStatus{
     CONTINUE,
+    NEEDMENU,
     FINISHED,
 };
 

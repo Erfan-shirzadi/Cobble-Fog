@@ -56,3 +56,32 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 
     return hero->GetCard(choice);
 }
+
+
+ContinueResult SchemeUseCase::Continue(int input){
+
+    switch (this->step)
+    {
+    case Step::CHOOSECARD:
+       
+        break;
+    case Step::EXECUTECARD:
+
+    break;
+        
+    case Step::FINISHED:
+
+    break;
+    }
+
+}
+
+
+ContinueResult SchemeUseCase::ChooseCard(int input){
+    ContinueResult result;
+    result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.title="Choose Shceme Card";
+}
+
+
+SchemeUseCase::SchemeUseCase(GameState & gamestate):gamestate(gamestate){}
