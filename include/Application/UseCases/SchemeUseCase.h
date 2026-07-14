@@ -12,6 +12,7 @@ class SchemeUseCase{
 
     Step step;
     GameState gamestate;
+    Card * card=nullptr;
     public:
     explicit SchemeUseCase(GameState &);
     bool execute(GameState & gamestate);

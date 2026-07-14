@@ -62,8 +62,9 @@ ContinueResult SchemeUseCase::Continue(int input){
 
     switch (this->step)
     {
+    
     case Step::CHOOSECARD:
-       
+      return ChooseCard(input);
         break;
     case Step::EXECUTECARD:
 
@@ -78,9 +79,23 @@ ContinueResult SchemeUseCase::Continue(int input){
 
 
 ContinueResult SchemeUseCase::ChooseCard(int input){
-    ContinueResult result;
-    result.status=ContinueStatus::NEEDMENU;
-    result.menu_request.title="Choose Shceme Card";
+     ContinueResult result;
+     Hero * hero=gamestate.currnetPlayer->GetHero();
+     if(input==-1){
+        result.status=ContinueStatus::NEEDMENU;
+        result.menu_request.title="Choose Shceme Card";
+
+        for(auto card: hero->GetHand()){
+            result.menu_request.options.push_back(card->GetName());
+        }
+        return result;
+
+    }
+    
+    this->card=hero->GetCard(input);
+    step=Step::EXECUTECARD;
+    return Continue();
+
 }
 
 
