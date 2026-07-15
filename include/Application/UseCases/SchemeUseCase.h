@@ -3,6 +3,7 @@
 #include "Domain/Game/GameState.h"
 #include "Application/interaction/ContinueResult.h"
 #include "presentation/console/GameView.h"
+#include "Application/interaction/ActionContext.h"
 
 enum class Step{
     CHOOSECARD,
@@ -15,7 +16,6 @@ class SchemeUseCase{
     GameState gamestate;
     Card * card=nullptr;
     ActionContext context;
-    GameView view;
     public:
     explicit SchemeUseCase(GameState &);
     bool execute(GameState & gamestate);

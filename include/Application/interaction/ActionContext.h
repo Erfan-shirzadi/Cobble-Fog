@@ -9,7 +9,7 @@ struct ActionContext{
     Hero * opponentHero;
     Fighter * fighter;
 
-    int SelectedNode;
+    int Selected;
 };
 
 #endif /* ACTION_CONTEXT */

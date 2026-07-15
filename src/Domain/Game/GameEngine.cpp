@@ -36,3 +36,28 @@ void GameEngine::GameResult(GameState & gamestate){
         std::cout<< opponent->GetName()<< "Won The Game"<<std::endl;
     }
 }
+
+void GameEngine::Start(){
+     this->turnusecase.Start(context);
+    Process();
+}
+void GameEngine::Process(){
+
+    while (true){
+        ContinueResult result=turnusecase.Continue(context);
+        if(result.status==ContinueStatus::NEEDMENU){
+            view.ShowMenu(result.menu_request.options);
+            break;
+        }
+        if(result.status==ContinueStatus::FINISHED){
+            std::swap(this->gamestate.currnetPlayer,gamestate.opponentPlayre);
+            break;
+        }
+    }
+    
+
+}
+void GameEngine::OnSelection(int selection){
+    context.Selected=selection;
+    Process();
+}

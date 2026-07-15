@@ -29,7 +29,7 @@ void TurnUseCase::execute(GameState & gamestate){
         {
             case 0:{
                     SchemeUseCase a(gamestate);
-            if(a.execute(gamestate)){
+            if(a.CanDoAction(gamestate)){
                std::cout<< " Succesfull "<<std::endl;
                Current->reduceRemainingAction();
              }
@@ -91,5 +91,48 @@ bool TurnUseCase::GameOver(GameState &GameState ){
     if(!current->IsAlive() || !opponent->IsAlive())
         return true;
     return false;
+
+}
+
+ContinueResult TurnUseCase::Continue(ActionContext& context){
+
+    switch (step)
+    {
+    case 0:
+        return ChooseAction(context);
+        break;
+    case 1:
+        return ExecuteAction(context);
+        break;
+    case 2:
+        return FinishedResult();
+        break;
+    }
+}
+
+void TurnUseCase::Start(ActionContext& context){
+    context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
+    step=0;
+}
+
+ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
+
+    ContinueResult result;
+    
+    if(result.status ==ContinueStatus::FINISHED){
+        Hero * current=context.Gamestate->currnetPlayer->GetHero();
+        current->reduceRemainingAction();
+
+        if(current->GetRemainingAction()==0)
+            step=2;
+        else
+            step=0;
+    }
+
+}
+ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
+
+}
+ContinueResult TurnUseCase::FinishedResult(){
 
 }

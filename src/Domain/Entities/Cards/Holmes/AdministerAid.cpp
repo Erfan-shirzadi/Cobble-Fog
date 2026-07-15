@@ -98,12 +98,12 @@ ContinueResult AdministerAid::RequestNodeSelection(ActionContext & act){
 
 ContinueResult AdministerAid::MoveWatson(ActionContext & context){
 
-    Hero * holmes=context.Gamestate->currnetPlayer->GetHero();
-    std::vector<Fighter* > watson=holmes->GetSideKicks();
-    int indexNode=context.SelectedNode;
+    // Hero * holmes=context.Gamestate->currnetPlayer->GetHero();
+    // std::vector<Fighter* > watson=holmes->GetSideKicks();
+    // int indexNode=context.SelectedNode;
 
-    watson[0]->SetNode(this->RechableNodes[indexNode]);
-    this->step=2;
+    // watson[0]->SetNode(this->RechableNodes[indexNode]);
+    // this->step=2;
 
     return Continue(context);
 }
