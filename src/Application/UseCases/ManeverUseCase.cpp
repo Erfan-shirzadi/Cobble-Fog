@@ -92,3 +92,6 @@ int ManeverUseCase::GetTargetNode(GameState & gamestate, int movment,Fighter * f
     return rechbleNodse[choice];
 }
 
+ContinueResult ManeverUseCase::Continue(ActionContext&){
+    
+}

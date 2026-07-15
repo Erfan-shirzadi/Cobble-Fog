@@ -277,3 +277,6 @@ void AttackUseCase::ChooseCardDeffender(){
 
 
 
+ContinueResult AttackUseCase::Continue(ActionContext&){
+    
+}

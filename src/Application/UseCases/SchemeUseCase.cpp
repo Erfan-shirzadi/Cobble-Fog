@@ -59,64 +59,68 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 }
 
 
-ContinueResult SchemeUseCase::Continue(int input){
+// ContinueResult SchemeUseCase::Continue(int input){
 
-    switch (this->step)
-    {
+//     switch (this->step)
+//     {
     
-    case Step::CHOOSECARD:
-      return ChooseCard(input);
+//     case Step::CHOOSECARD:
+//       return ChooseCard(input);
         
-    case Step::EXECUTECARD:
-        return ExecuteCard();
-    break;
+//     case Step::EXECUTECARD:
+//         return ExecuteCard();
+//     break;
         
-    case Step::FINISHED:{
-        ContinueResult a;
-        a.status=ContinueStatus::FINISHED;
-        return a;
-    }
+//     case Step::FINISHED:{
+//         ContinueResult a;
+//         a.status=ContinueStatus::FINISHED;
+//         return a;
+//     }
 
-    break;
-    }
+//     break;
+//     }
     
+
+// }
+
+
+// ContinueResult SchemeUseCase::ChooseCard(int input){
+//      ContinueResult result;
+//      Hero * hero=gamestate.currnetPlayer->GetHero();
+//      if(input==-1){
+//         result.status=ContinueStatus::NEEDMENU;
+//         result.menu_request.title="Choose Shceme Card";
+
+//         for(auto card: hero->GetHand()){
+//             result.menu_request.options.push_back(card->GetName());
+//         }
+//         return result;
+
+//     }
+    
+//     this->card=hero->GetCard(input);
+//     step=Step::EXECUTECARD;
+//     // return Continue();
+
+// }
+
+
+// SchemeUseCase::SchemeUseCase(GameState & gamestate):gamestate(gamestate){}
+
+// ContinueResult SchemeUseCase::ExecuteCard(){
+    
+//     AdministerAid * card=dynamic_cast<AdministerAid *>(this->card);
+//     ContinueResult result=card->Continue(this->context);
+
+//     if(result.status==ContinueStatus::FINISHED){
+
+//         this->step=Step::FINISHED;
+//         return Continue();
+//     }
+
+//     return result;
+// } 
+
+ContinueResult SchemeUseCase::Continue(ActionContext&){
 
 }
-
-
-ContinueResult SchemeUseCase::ChooseCard(int input){
-     ContinueResult result;
-     Hero * hero=gamestate.currnetPlayer->GetHero();
-     if(input==-1){
-        result.status=ContinueStatus::NEEDMENU;
-        result.menu_request.title="Choose Shceme Card";
-
-        for(auto card: hero->GetHand()){
-            result.menu_request.options.push_back(card->GetName());
-        }
-        return result;
-
-    }
-    
-    this->card=hero->GetCard(input);
-    step=Step::EXECUTECARD;
-    return Continue();
-
-}
-
-
-SchemeUseCase::SchemeUseCase(GameState & gamestate):gamestate(gamestate){}
-
-ContinueResult SchemeUseCase::ExecuteCard(){
-    
-    AdministerAid * card=dynamic_cast<AdministerAid *>(this->card);
-    ContinueResult result=card->Continue(this->context);
-
-    if(result.status==ContinueStatus::FINISHED){
-
-        this->step=Step::FINISHED;
-        return Continue();
-    }
-
-    return result;
-} 

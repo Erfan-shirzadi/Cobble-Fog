@@ -4,27 +4,28 @@
 #include "Application/interaction/ContinueResult.h"
 #include "presentation/console/GameView.h"
 #include "Application/interaction/ActionContext.h"
-
+#include "Application/UseCases/IUseCase.h"
 enum class Step{
     CHOOSECARD,
     EXECUTECARD,
     FINISHED
 };
-class SchemeUseCase{
+class SchemeUseCase : public IUseCase{
 
     Step step=Step::CHOOSECARD;
     GameState gamestate;
     Card * card=nullptr;
     ActionContext context;
     public:
-    explicit SchemeUseCase(GameState &);
+    // explicit SchemeUseCase(GameState &);
     bool execute(GameState & gamestate);
     bool CanDoAction(GameState & gamestate);
     Card * CardSelection(Hero * hero);
 
 
+    ContinueResult Continue(ActionContext&)override;
 
-    ContinueResult Continue(int input=-1);
+    // ContinueResult Continue(int input=-1);
     ContinueResult ChooseCard(int input);
     ContinueResult ExecuteCard();    
 };

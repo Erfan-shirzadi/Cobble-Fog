@@ -2,8 +2,9 @@
 #define ATTACK_USECASE
 #include "Domain/Game/GameState.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/UseCases/IUseCase.h"
 
-class AttackUseCase{
+class AttackUseCase : public IUseCase {
     
     CombatContext context;
     
@@ -15,6 +16,11 @@ class AttackUseCase{
     void FighterSelection(Hero * , Hero * , Board &  );
     void ChooseCardDeffender();
     void TargetSelection(Hero *);
+
+
+
+    ContinueResult Continue(ActionContext&)override;
+
 };
 
 #endif /* ATTACK_USECASE */

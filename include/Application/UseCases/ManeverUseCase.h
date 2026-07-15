@@ -3,13 +3,17 @@
 #include "Domain/Entities/Hero.h"
 #include <vector>
 #include "Domain/Game/GameState.h"
-class ManeverUseCase{
+#include "Application/UseCases/IUseCase.h"
+
+class ManeverUseCase : public IUseCase{
 
     public:
     void execute(GameState & );
     int BoostMovement(Hero *);
     int GetTargetNode(GameState &, int,Fighter *);
     Fighter * FighterSelection(Hero*);
+     ContinueResult Continue(ActionContext&)override;
+
 };
 
 #endif /* MANEVER_USECASE */

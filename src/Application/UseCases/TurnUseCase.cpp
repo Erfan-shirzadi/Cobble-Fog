@@ -25,39 +25,39 @@ void TurnUseCase::execute(GameState & gamestate){
 1. Manever
 2. Attack )";
         std::cin>>action;
-        switch(action)
-        {
-            case 0:{
-                    SchemeUseCase a(gamestate);
-            if(a.CanDoAction(gamestate)){
-               std::cout<< " Succesfull "<<std::endl;
-               Current->reduceRemainingAction();
-             }
-             else std::cout<<" can not do scheme "<<std::endl;
-             break;
-            }
-            case 1:{
-                ManeverUseCase b;
-                b.execute(gamestate);
-               Current->reduceRemainingAction();
-                break;
-            }
-            case 2:
-            {
-                AttackUseCase c;
-                if(c.execute(gamestate)){
-                    Current->reduceRemainingAction();
-                    std::cout<<" succesfull "<<std::endl;
-                }else {
-                    std::cout<< "Can not do attack "<<std::endl;
-                }
-                break;
-            }
+        // switch(action)
+        // {
+        //     case 0:{
+        //             // SchemeUseCase a(gamestate);
+        //     if(a.CanDoAction(gamestate)){
+        //        std::cout<< " Succesfull "<<std::endl;
+        //        Current->reduceRemainingAction();
+        //      }
+        //      else std::cout<<" can not do scheme "<<std::endl;
+        //      break;
+        //     }
+        //     case 1:{
+        //         // ManeverUseCase b;
+        //         b.execute(gamestate);
+        //        Current->reduceRemainingAction();
+        //         break;
+        //     }
+        //     case 2:
+        //     {
+        //         // AttackUseCase c;
+        //         if(c.execute(gamestate)){
+        //             Current->reduceRemainingAction();
+        //             std::cout<<" succesfull "<<std::endl;
+        //         }else {
+        //             std::cout<< "Can not do attack "<<std::endl;
+        //         }
+        //         break;
+        //     }
             
             
 
-        }
-        gamestate.board.GetGraph();
+        // }
+        // gamestate.board.GetGraph();
      }
      ManageHandSize(Current);
     
@@ -132,7 +132,45 @@ ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
 }
 ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
 
+    if(context.Selected!=-1){
+            
+        SetUseCase(context.Selected);
+        step=1;
+        ContinueResult a;
+        a.status=ContinueStatus::CONTINUE;
+        return a;
+
+    }
+
+    ContinueResult result;
+    result.status=ContinueStatus::NEEDMENU;
+    result.menu_request=BuildActionMenu();
 }
 ContinueResult TurnUseCase::FinishedResult(){
 
+}
+
+void TurnUseCase::SetUseCase(int index){
+    switch (index)
+    {
+    case 0:
+        this->CurrentUseCase=new SchemeUseCase;
+        break;
+    case 1:
+         this->CurrentUseCase=new ManeverUseCase;
+        break;
+    case 2:
+        this->CurrentUseCase=new AttackUseCase;
+
+        break;
+    }
+}   
+
+MenuRequest TurnUseCase::BuildActionMenu(){
+    MenuRequest temp;
+    temp.title="Action";
+    temp.options.push_back("Scheme");
+    temp.options.push_back("Manever");
+    temp.options.push_back("Attack");
+    return temp;
 }
