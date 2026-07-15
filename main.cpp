@@ -19,7 +19,7 @@ int main(){
 
    
    GameEngine a;
-   a.run();
+   //a.run();
 
     
     

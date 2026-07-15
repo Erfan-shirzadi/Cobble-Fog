@@ -98,21 +98,25 @@ ContinueResult TurnUseCase::Continue(ActionContext& context){
 
     switch (step)
     {
-    case 0:
+    case TurnStep::CHOOSE_ACTION:
         return ChooseAction(context);
         break;
-    case 1:
+    case TurnStep::EXECUTE_USECASE:
         return ExecuteAction(context);
         break;
-    case 2:
+    case TurnStep::FINISHED:
         return FinishedResult(context);
         break;
+    default :{
+        ContinueResult a;
+        return a;
+    }
     }
 }
 
 void TurnUseCase::Start(ActionContext& context){
     context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
-    step=0;
+    step=TurnStep::CHOOSE_ACTION;
 }
 
 ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
@@ -124,10 +128,11 @@ ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
         current->reduceRemainingAction();
 
         if(current->GetRemainingAction()==0)
-            step=2;
+            step=TurnStep::FINISHED;
         else
-            step=0;
+            step=TurnStep::CHOOSE_ACTION;
     }
+    return result;
 
 }
 ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
@@ -136,7 +141,7 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
             
         SetUseCase(context.Selected);
         context.Selected=-1;
-        step=1;
+        step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
         return a;
@@ -151,13 +156,12 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
 ContinueResult TurnUseCase::FinishedResult(ActionContext & context){
     this->CurrentUseCase=nullptr;
     Hero * CurrentHero=context.Gamestate->currnetPlayer->GetHero();
-    CurrentHero->reduceRemainingAction();
     ContinueResult result;
     if(CurrentHero->GetRemainingAction()==0){
         result.status=ContinueStatus::FINISHED;
     }
     else{
-        step=0;
+        step=TurnStep::CHOOSE_ACTION;
         result.status=ContinueStatus::CONTINUE;
     }
     return result;

@@ -8,18 +8,18 @@ void GameEngine::run(){
     gamestate.opponentPlayre=&player2;
     gamestate.board=board;
 
-    TurnUseCase turnusecase;
-    setup.execute(gamestate);
+     setup.execute(gamestate);
     
-    gamestate.board.GetGraph();
+    Start();
+    // gamestate.board.GetGraph();
     
-    while (!turnusecase.GameOver(gamestate))
-    {   
-        turnusecase.execute(gamestate);
-        std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-    }
+    // while (!turnusecase.GameOver(gamestate))
+    // {   
+    //     turnusecase.execute(gamestate);
+    //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+    // }
 
-    GameResult(gamestate);
+    // GameResult(gamestate);
     
 
 }
@@ -46,12 +46,13 @@ void GameEngine::Process(){
     while (true){
         ContinueResult result=turnusecase.Continue(context);
         if(result.status==ContinueStatus::NEEDMENU){
-            view.ShowMenu(result.menu_request.options);
-            break;
+            view.SetMenu(result.menu_request);
+            return;
         }
         if(result.status==ContinueStatus::FINISHED){
             std::swap(this->gamestate.currnetPlayer,gamestate.opponentPlayre);
-            break;
+            turnusecase.Start(context);
+            continue;
         }
     }
     

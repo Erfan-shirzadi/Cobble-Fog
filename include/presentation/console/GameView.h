@@ -4,8 +4,11 @@
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/component_base.hpp>
+#include <ftxui/component/component_options.hpp>
+#include <ftxui/component/event.hpp>
 #include <ftxui/dom/flexbox_config.hpp>
 #include <vector>
+#include "Application/interaction/MenuRequest.h"
 
 
 struct GameState;
@@ -13,14 +16,25 @@ struct GameState;
 class GameView{
 
     public:
+    GameView();
+    // void run(GameState & state);
+    // void Close();
+    // int ShowMenu(std::vector<std::string>);
+    void SetMenu(const MenuRequest &);
+    ftxui::Element render();
+    ftxui::Element renderMenu();
+    void SetOnSelection(std::function<void(int)>callback);
 
-    void run(GameState & state);
-    void Close();
-    int ShowMenu(std::vector<std::string>);
 
     private:
-    ftxui::Element render(const GameState & state);
     ftxui::ScreenInteractive screen=ftxui::ScreenInteractive::TerminalOutput();
+    std::vector<std::string> menuOptions;
+    // bool CatchEvent(ftxui::Event event);
+    int selected=0;
+    ftxui::Component menu;
+    ftxui::Component root;
+
+    std::function<void(int)>Onselection;
 
 };
 

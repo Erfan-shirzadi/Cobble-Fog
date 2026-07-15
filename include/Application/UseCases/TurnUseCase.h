@@ -8,9 +8,14 @@
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Application/UseCases/ManeverUseCase.h"
 
+enum class TurnStep{
+    CHOOSE_ACTION,
+    EXECUTE_USECASE,
+    FINISHED,
+};
 class TurnUseCase{
 
-    int step=0;
+    TurnStep step=TurnStep::CHOOSE_ACTION;
     IUseCase * CurrentUseCase=nullptr;
 
     ManeverUseCase manever;
