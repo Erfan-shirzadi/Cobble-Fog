@@ -105,7 +105,7 @@ ContinueResult TurnUseCase::Continue(ActionContext& context){
         return ExecuteAction(context);
         break;
     case 2:
-        return FinishedResult();
+        return FinishedResult(context);
         break;
     }
 }
@@ -117,7 +117,7 @@ void TurnUseCase::Start(ActionContext& context){
 
 ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
 
-    ContinueResult result;
+    ContinueResult result=CurrentUseCase->Continue(context);
     
     if(result.status ==ContinueStatus::FINISHED){
         Hero * current=context.Gamestate->currnetPlayer->GetHero();
@@ -135,6 +135,7 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
     if(context.Selected!=-1){
             
         SetUseCase(context.Selected);
+        context.Selected=-1;
         step=1;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
@@ -145,23 +146,34 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request=BuildActionMenu();
+    return result;
 }
-ContinueResult TurnUseCase::FinishedResult(){
-
+ContinueResult TurnUseCase::FinishedResult(ActionContext & context){
+    this->CurrentUseCase=nullptr;
+    Hero * CurrentHero=context.Gamestate->currnetPlayer->GetHero();
+    CurrentHero->reduceRemainingAction();
+    ContinueResult result;
+    if(CurrentHero->GetRemainingAction()==0){
+        result.status=ContinueStatus::FINISHED;
+    }
+    else{
+        step=0;
+        result.status=ContinueStatus::CONTINUE;
+    }
+    return result;
 }
 
 void TurnUseCase::SetUseCase(int index){
     switch (index)
     {
     case 0:
-        this->CurrentUseCase=new SchemeUseCase;
+        this->CurrentUseCase= &scheme;
         break;
     case 1:
-         this->CurrentUseCase=new ManeverUseCase;
+         this->CurrentUseCase=& manever;
         break;
     case 2:
-        this->CurrentUseCase=new AttackUseCase;
-
+        this->CurrentUseCase=& attack;
         break;
     }
 }   
