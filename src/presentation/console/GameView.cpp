@@ -59,3 +59,16 @@ using namespace ftxui;
 //     screen.Loop(component);
 //     return selected;
 // }
+
+void GameView::Close(){
+    this->screen.ExitLoopClosure();
+}
+
+int GameView::ShowMenu(std::vector<std::string> a){
+    int selected=0;
+    auto menu =Menu(&a,&selected);
+
+    this->screen.Loop(menu);
+
+    return selected;
+}

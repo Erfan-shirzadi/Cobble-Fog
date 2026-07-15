@@ -7,6 +7,7 @@
 #include <ftxui/dom/flexbox_config.hpp>
 #include <vector>
 
+
 struct GameState;
 
 class GameView{
@@ -14,6 +15,8 @@ class GameView{
     public:
 
     void run(GameState & state);
+    void Close();
+    int ShowMenu(std::vector<std::string>);
 
     private:
     ftxui::Element render(const GameState & state);
