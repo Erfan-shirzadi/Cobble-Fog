@@ -1,5 +1,6 @@
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Domain/Entities/SchemeCard.h"
+#include "Domain/Entities/Cards/Holmes/AdministerAid.h"
 #include <iostream>
 
 using namespace std;
@@ -65,15 +66,20 @@ ContinueResult SchemeUseCase::Continue(int input){
     
     case Step::CHOOSECARD:
       return ChooseCard(input);
-        break;
+        
     case Step::EXECUTECARD:
-
+        return ExecuteCard();
     break;
         
-    case Step::FINISHED:
+    case Step::FINISHED:{
+        ContinueResult a;
+        a.status=ContinueStatus::FINISHED;
+        return a;
+    }
 
     break;
     }
+    
 
 }
 
@@ -100,3 +106,17 @@ ContinueResult SchemeUseCase::ChooseCard(int input){
 
 
 SchemeUseCase::SchemeUseCase(GameState & gamestate):gamestate(gamestate){}
+
+ContinueResult SchemeUseCase::ExecuteCard(){
+    
+    AdministerAid * card=dynamic_cast<AdministerAid *>(this->card);
+    ContinueResult result=card->Continue(this->context);
+
+    if(result.status==ContinueStatus::FINISHED){
+
+        this->step=Step::FINISHED;
+        return Continue();
+    }
+
+    return result;
+} 

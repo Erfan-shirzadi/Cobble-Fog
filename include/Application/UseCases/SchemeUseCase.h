@@ -10,9 +10,10 @@ enum class Step{
 };
 class SchemeUseCase{
 
-    Step step;
+    Step step=Step::CHOOSECARD;
     GameState gamestate;
     Card * card=nullptr;
+    ActionContext context;
     public:
     explicit SchemeUseCase(GameState &);
     bool execute(GameState & gamestate);
@@ -23,6 +24,6 @@ class SchemeUseCase{
 
     ContinueResult Continue(int input=-1);
     ContinueResult ChooseCard(int input);
-    
+    ContinueResult ExecuteCard();    
 };
 #endif /* SCHEME_USECASE */

@@ -28,7 +28,7 @@ void TurnUseCase::execute(GameState & gamestate){
         switch(action)
         {
             case 0:{
-                    SchemeUseCase a;
+                    SchemeUseCase a(gamestate);
             if(a.execute(gamestate)){
                std::cout<< " Succesfull "<<std::endl;
                Current->reduceRemainingAction();
