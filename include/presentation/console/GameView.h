@@ -34,6 +34,7 @@ class GameView{
     int selected=0;
     ftxui::Component menu;
     ftxui::Component root;
+    ftxui::Component container=ftxui::Container::Vertical({});
 
     std::function<void(int)>Onselection;
 

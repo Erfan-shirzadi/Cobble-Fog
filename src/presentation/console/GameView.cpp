@@ -74,18 +74,18 @@ using namespace ftxui;
 // }
 
 GameView::GameView(){
-    root =Renderer([&]{
+   
+    root =CatchEvent(Renderer(container,[&]{
         return render();
-    });
-
-    root=CatchEvent(root,[&](Event event){
-
-        if(event==Event::Return){
-            Onselection(selected);
-            return true;
+    }),
+        [&](Event event){
+            if(event==Event::Return){
+                Onselection(selected);
+                return true;
+            }
+            return false;
         }
-        return false;
-    });
+    );
 }
 
 ftxui::Element GameView::render(){
@@ -104,6 +104,9 @@ ftxui::Element GameView::renderMenu(){
 void GameView::SetMenu(const MenuRequest & menu){
     this->menuOptions=menu.options;
     this->menu=Menu(&menuOptions, &selected);
+    container->DetachAllChildren();
+     container->Add(this->menu);
+    this->menu->TakeFocus();
 }
 
 void GameView::SetOnSelection(std::function<void(int)>callback){

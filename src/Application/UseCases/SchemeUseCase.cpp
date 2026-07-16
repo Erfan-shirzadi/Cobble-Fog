@@ -121,12 +121,12 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 //     return result;
 // } 
 
-ContinueResult SchemeUseCase::Continue(ActionContext&){
+ContinueResult SchemeUseCase::Continue(ActionContext&context){
 
     switch (step)
     {
     case SchemeStep::CHOOSECARD:
-        /* code */
+        return ChooseCard(context);
         break;
 
     case SchemeStep::EXECUTECARD:
