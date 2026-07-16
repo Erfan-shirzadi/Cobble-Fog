@@ -26,7 +26,8 @@ class SchemeUseCase : public IUseCase{
 
     // ContinueResult Continue(int input=-1);
     ContinueResult ChooseCard(ActionContext&);
-    ContinueResult ExecuteCard(ActionContext&);   
+    ContinueResult ExecuteCard(ActionContext&); 
+    ContinueResult Finished(ActionContext &);  
     MenuRequest BuildCardMenu(ActionContext&); 
 };
 #endif /* SCHEME_USECASE */

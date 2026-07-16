@@ -174,4 +174,16 @@ MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
 
 ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
      ContinueResult result=SelectedCard->Continue(context);
+     if(result.status == ContinueStatus::FINISHED){
+        step=SchemeStep::FINISHED;
+        return result;
+     }
+     return result;
 }   
+
+ContinueResult SchemeUseCase::Finished(ActionContext &){
+    this->SelectedCard=nullptr;
+    ContinueResult result;
+    result.status=ContinueStatus::FINISHED;
+    return result;
+}
