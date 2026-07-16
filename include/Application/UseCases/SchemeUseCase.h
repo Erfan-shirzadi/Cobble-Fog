@@ -5,17 +5,16 @@
 #include "presentation/console/GameView.h"
 #include "Application/interaction/ActionContext.h"
 #include "Application/UseCases/IUseCase.h"
-enum class Step{
+enum class SchemeStep{
     CHOOSECARD,
     EXECUTECARD,
     FINISHED
 };
 class SchemeUseCase : public IUseCase{
 
-    Step step=Step::CHOOSECARD;
-    GameState gamestate;
-    Card * card=nullptr;
-    ActionContext context;
+    SchemeStep step=SchemeStep::CHOOSECARD;
+    Card * SelectedCard=nullptr;
+    
     public:
     // explicit SchemeUseCase(GameState &);
     bool execute(GameState & gamestate);
@@ -26,7 +25,8 @@ class SchemeUseCase : public IUseCase{
     ContinueResult Continue(ActionContext&)override;
 
     // ContinueResult Continue(int input=-1);
-    ContinueResult ChooseCard(int input);
-    ContinueResult ExecuteCard();    
+    ContinueResult ChooseCard(ActionContext&);
+    ContinueResult ExecuteCard(ActionContext&);   
+    MenuRequest BuildCardMenu(ActionContext&); 
 };
 #endif /* SCHEME_USECASE */

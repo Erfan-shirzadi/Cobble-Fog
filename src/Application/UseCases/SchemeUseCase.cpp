@@ -123,4 +123,51 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 
 ContinueResult SchemeUseCase::Continue(ActionContext&){
 
+    switch (step)
+    {
+    case SchemeStep::CHOOSECARD:
+        /* code */
+        break;
+
+    case SchemeStep::EXECUTECARD:
+        /* code */
+        break;
+
+    case SchemeStep::FINISHED:
+        /* code */
+        break;
+    
+    }
+}
+
+
+ContinueResult SchemeUseCase::ChooseCard(ActionContext& context){
+
+    if(context.Selected==-1){
+        ContinueResult result;
+        result.status=ContinueStatus::NEEDMENU;
+        result.menu_request=BuildCardMenu(context);
+        return result;
+    }
+
+    SelectedCard=context.Gamestate->currnetPlayer->GetHero()->GetCard(context.Selected);
+    context.Selected=-1;
+    step=SchemeStep::EXECUTECARD;
+
+    ContinueResult res;
+    res.status=ContinueStatus::CONTINUE;
+    return res;
+
+}
+
+
+MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
+    MenuRequest request;
+    std::vector<string> options;
+    for(auto card : context.Gamestate->currnetPlayer->GetHero()->GetHand()){
+        options.push_back(card->GetName());
+    }
+    request.options=options;
+    request.title="Scheme Card ";
+    return request;
 }

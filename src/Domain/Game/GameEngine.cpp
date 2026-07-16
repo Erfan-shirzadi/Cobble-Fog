@@ -7,10 +7,18 @@ void GameEngine::run(){
     gamestate.currnetPlayer=&player1;
     gamestate.opponentPlayre=&player2;
     gamestate.board=board;
+    context.Gamestate=&gamestate;
+    context.Selected=-1;
 
      setup.execute(gamestate);
-    
+    view.SetOnSelection([this](int selected){
+        this->OnSelection(selected);
+    });
+    std::cout<<" ********"<<std::endl;
+
     Start();
+    view.Run();
+
     // gamestate.board.GetGraph();
     
     // while (!turnusecase.GameOver(gamestate))

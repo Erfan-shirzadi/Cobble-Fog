@@ -97,7 +97,7 @@ ftxui::Element GameView::renderMenu(){
     return vbox({
         text("Menu"),
         separator(),
-        menu->Render()
+        menu ? menu->Render():text("Loding ....")
     });
 }
 
@@ -108,4 +108,8 @@ void GameView::SetMenu(const MenuRequest & menu){
 
 void GameView::SetOnSelection(std::function<void(int)>callback){
     Onselection=std::move(callback);
+}
+
+void GameView::Run(){
+    screen.Loop(root);
 }

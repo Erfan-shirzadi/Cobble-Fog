@@ -24,6 +24,7 @@ class GameView{
     ftxui::Element render();
     ftxui::Element renderMenu();
     void SetOnSelection(std::function<void(int)>callback);
+    void Run();
 
 
     private:
