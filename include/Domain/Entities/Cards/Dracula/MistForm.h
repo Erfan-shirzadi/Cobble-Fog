@@ -8,6 +8,7 @@ class MistForm : public SchemeCard{
     MistForm();
         void Play(Hero * ,Hero * , Board *)override;
         FighterType GetOwner()const override;
+        ContinueResult Continue(ActionContext&);
 
 
 };

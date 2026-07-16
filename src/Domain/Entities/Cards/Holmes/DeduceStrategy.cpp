@@ -1,5 +1,7 @@
 #include "Domain/Entities/Cards/Holmes/DeduceStrategy.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
 #include <iostream>
 
 DeduceStrategy::DeduceStrategy(){
@@ -24,3 +26,6 @@ FighterType DeduceStrategy::GetOwner()const {
     return FighterType::SHERLOCK;
 }
 
+ContinueResult DeduceStrategy::Continue(ActionContext &){
+    
+}

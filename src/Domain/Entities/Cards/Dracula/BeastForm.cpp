@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/BeastForm.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 
 BestForm::BestForm(){
@@ -42,4 +46,8 @@ PlayTiming BestForm::GetCardPlayTiming()const {
 }
 FighterType BestForm::GetOwner()const {
     return FighterType::DRACULA;
+}
+
+ContinueResult BestForm::Continue(ActionContext &){
+    
 }

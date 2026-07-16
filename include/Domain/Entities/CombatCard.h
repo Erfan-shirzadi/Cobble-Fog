@@ -11,6 +11,8 @@ class CombatCard :public Card{
     virtual void Play(CombatContext & )const=0;
     virtual PlayTiming GetCardPlayTiming()const=0;
     virtual FighterType GetOwner()const=0;
+    virtual ContinueResult Continue(ActionContext&)=0;
+
 
 };
 

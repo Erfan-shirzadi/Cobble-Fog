@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/ThirstForSustenance.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <vector>
 #include<iostream>
 ThirstForSustenance::ThirstForSustenance(){
@@ -36,3 +40,6 @@ FighterType ThirstForSustenance::GetOwner()const {
     return FighterType::SISTER;
 }
 
+ContinueResult ThirstForSustenance::Continue(ActionContext &){
+    
+}

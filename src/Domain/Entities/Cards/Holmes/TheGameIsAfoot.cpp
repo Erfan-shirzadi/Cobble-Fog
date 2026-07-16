@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Holmes/TheGameIsAfoot.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 TheGameIsAfoot::TheGameIsAfoot(){
 
@@ -35,3 +39,7 @@ PlayTiming TheGameIsAfoot::GetCardPlayTiming()const {
 FighterType TheGameIsAfoot::GetOwner()const {
  return FighterType::SHERLOCK;
 }   
+
+ContinueResult TheGameIsAfoot::Continue(ActionContext &){
+    
+}

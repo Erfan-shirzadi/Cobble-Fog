@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Dracula/BapismOfBlood.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
  #include <iostream>
 
 BapismOfBlood::BapismOfBlood(){
@@ -40,3 +44,6 @@ FighterType BapismOfBlood::GetOwner()const{
     return FighterType::DRACULA;
 }
 
+ContinueResult BapismOfBlood::Continue(ActionContext &){
+    
+}

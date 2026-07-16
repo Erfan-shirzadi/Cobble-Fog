@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Holmes/StudyMethods.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <vector>
 #include <iostream>
 
@@ -27,3 +31,7 @@ FighterType StudyMethods::GetOwner()const {
     return FighterType::ANY;
 }
 
+
+ContinueResult StudyMethods::Continue(ActionContext &){
+    
+}

@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Holmes/EducationNeverEnds.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 EducationNeverEnds::EducationNeverEnds(){
     SetDamageOrDeffend(3);
     SetBoost(1);
@@ -34,3 +38,6 @@ FighterType EducationNeverEnds::GetOwner()const {
     return FighterType::ANY;
 }
 
+ContinueResult EducationNeverEnds::Continue(ActionContext &){
+    
+}

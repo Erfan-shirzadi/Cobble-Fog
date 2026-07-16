@@ -6,6 +6,8 @@
 #include "Domain/enums/CardCategory.h"
 #include "Domain/enums/PlayTiming.h"
 
+struct ActionContext;
+struct ContinueResult;
 class Card{
 
     std::string Name;
@@ -24,6 +26,7 @@ class Card{
 
     virtual PlayTiming GetCardPlayTiming()const=0;
     virtual FighterType GetOwner()const=0;
+    virtual ContinueResult Continue(ActionContext&)=0;
 
 };
 

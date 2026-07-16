@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Holmes/EliminateTheImpossible.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <vector>
 #include <iostream>
 
@@ -32,3 +36,6 @@ FighterType EliminateTheImpossible::GetOwner()const{
     return FighterType::SHERLOCK;
 }
 
+ContinueResult EliminateTheImpossible::Continue(ActionContext &){
+    
+}

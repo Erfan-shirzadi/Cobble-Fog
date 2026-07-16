@@ -171,3 +171,7 @@ MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
     request.title="Scheme Card ";
     return request;
 }
+
+ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
+     ContinueResult result=SelectedCard->Continue(context);
+}   

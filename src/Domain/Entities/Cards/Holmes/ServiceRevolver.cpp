@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Holmes/ServiceRevolver.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 
 ServiceRevolver::ServiceRevolver(){
 
@@ -16,4 +20,8 @@ PlayTiming ServiceRevolver::GetCardPlayTiming()const {
 }
 FighterType ServiceRevolver::GetOwner()const {
     return FighterType::DR_WATSON;
+}
+
+ContinueResult ServiceRevolver::Continue(ActionContext &){
+    
 }

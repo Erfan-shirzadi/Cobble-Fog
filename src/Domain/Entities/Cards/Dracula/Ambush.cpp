@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/Ambush.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <cstdlib>
 #include <iostream>
 Ambush::Ambush(){
@@ -28,4 +32,8 @@ PlayTiming Ambush::GetCardPlayTiming()const {
 }
 FighterType Ambush::GetOwner()const {
     return FighterType::ANY;
+}
+
+ContinueResult Ambush::Continue(ActionContext &){
+    
 }

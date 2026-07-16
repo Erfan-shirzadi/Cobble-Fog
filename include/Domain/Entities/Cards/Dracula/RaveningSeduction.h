@@ -11,6 +11,7 @@ class RaveningSeduction : public SchemeCard{
         std::vector<Fighter*> GetAllFighter(Hero * hero, Hero * enemy);
         int SelectNode(std::vector<int> ReachbleNodes);
         Fighter * SelectFighter(std::vector<Fighter*> AllFighters);
+        ContinueResult Continue(ActionContext&);
 
 
 

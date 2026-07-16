@@ -8,6 +8,7 @@ class MasterOfDisguise :public SchemeCard{
     MasterOfDisguise();
         void Play(Hero * ,Hero * , Board *) override;
         FighterType GetOwner()const override;
+        ContinueResult Continue(ActionContext&);
 
 
 };

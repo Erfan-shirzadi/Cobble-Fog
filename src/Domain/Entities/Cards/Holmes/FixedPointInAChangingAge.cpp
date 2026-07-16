@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Holmes/FixedPointInAChangingAge.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include "Domain/Combat/CombatContext.h"
 
 FixedPointInAChangingAge::FixedPointInAChangingAge(){
@@ -22,4 +26,8 @@ PlayTiming FixedPointInAChangingAge::GetCardPlayTiming()const {
 }
 FighterType FixedPointInAChangingAge::GetOwner()const {
  return FighterType::DR_WATSON;
+}
+
+ContinueResult FixedPointInAChangingAge::Continue(ActionContext &){
+    
 }

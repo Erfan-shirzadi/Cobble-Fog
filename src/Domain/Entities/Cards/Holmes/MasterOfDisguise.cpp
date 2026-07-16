@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Holmes/MasterOfDisguise.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 MasterOfDisguise::MasterOfDisguise(){
     SetName("MasterOfDisguise");
@@ -19,3 +23,6 @@ FighterType MasterOfDisguise::GetOwner()const{
     return FighterType::SHERLOCK;
 }
 
+ContinueResult MasterOfDisguise::Continue(ActionContext &){
+    
+}

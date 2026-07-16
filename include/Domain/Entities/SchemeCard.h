@@ -9,6 +9,8 @@ class SchemeCard : public Card{
     virtual void Play(Hero * ,Hero * , Board *)=0;
     virtual FighterType GetOwner()const =0;
     PlayTiming GetCardPlayTiming()const{return PlayTiming::ANY;};
+    virtual ContinueResult Continue(ActionContext&)=0;
+
 
 
 };

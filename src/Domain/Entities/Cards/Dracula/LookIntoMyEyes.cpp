@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/LookIntoMyEyes.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 LookIntoMyEyes::LookIntoMyEyes(){
     SetDamageOrDeffend(1);
@@ -19,4 +23,6 @@ PlayTiming LookIntoMyEyes::GetCardPlayTiming()const {
 FighterType LookIntoMyEyes::GetOwner()const {
     return FighterType::DRACULA;
 }
-
+ContinueResult LookIntoMyEyes::Continue(ActionContext &){
+    
+}

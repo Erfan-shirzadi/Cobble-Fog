@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/Dash.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <vector>
 #include <iostream>
 
@@ -39,4 +43,8 @@ PlayTiming Dash::GetCardPlayTiming()const {
 }
 FighterType Dash::GetOwner()const {
     return FighterType::ANY;
+}
+
+ContinueResult Dash::Continue(ActionContext &){
+    
 }

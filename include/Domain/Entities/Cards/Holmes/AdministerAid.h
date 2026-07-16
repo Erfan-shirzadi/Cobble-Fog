@@ -12,11 +12,13 @@ class AdministerAid: public SchemeCard{
     AdministerAid();
         void Play(Hero * ,Hero * , Board *) override;
         FighterType GetOwner()const override;
-        ContinueResult Continue(ActionContext& );
+        // ContinueResult Continue(ActionContext& );
         ContinueResult RequestNodeSelection(ActionContext&);
         ContinueResult MoveWatson(ActionContext &);
         ContinueResult HealHolmes(ActionContext &);
         ContinueResult DrawCard(ActionContext &);
+        ContinueResult Continue(ActionContext&);
+
 
 };
 

@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Dracula/FeedingFrenzy.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <vector>
 #include "Domain/Combat/CombatContext.h"
 #include <iostream>
@@ -29,4 +33,8 @@ PlayTiming FeedingFrenzy::GetCardPlayTiming()const{
 }
 FighterType FeedingFrenzy::GetOwner()const{
     return FighterType::DRACULA;
+}
+
+ContinueResult FeedingFrenzy::Continue(ActionContext &){
+    
 }

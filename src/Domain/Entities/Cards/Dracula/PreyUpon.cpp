@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
  #include <vector>
  #include <iostream>
 
@@ -32,3 +36,6 @@ FighterType PeryUpon::GetOwner()const{
     return FighterType::DRACULA;
 }
 
+ContinueResult PeryUpon::Continue(ActionContext &){
+    
+}

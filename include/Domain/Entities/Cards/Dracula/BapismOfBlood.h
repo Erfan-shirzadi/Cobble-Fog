@@ -8,6 +8,8 @@ class BapismOfBlood : public SchemeCard{
     BapismOfBlood();
         void Play(Hero * ,Hero * , Board *) override;
         FighterType GetOwner()const override;
+        ContinueResult Continue(ActionContext&);
+
 
 };
 

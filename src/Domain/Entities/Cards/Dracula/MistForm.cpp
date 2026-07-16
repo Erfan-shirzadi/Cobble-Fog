@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Dracula/MistForm.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 MistForm::MistForm(){
     SetName("MistForm");
@@ -31,4 +35,8 @@ void MistForm::Play(Hero * hero,Hero * enemy, Board * board){
 }
 FighterType MistForm::GetOwner()const{
     return FighterType::DRACULA;
+}
+
+ContinueResult MistForm::Continue(ActionContext &){
+    
 }

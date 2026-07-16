@@ -1,5 +1,9 @@
 #include "Domain/Entities/Cards/Dracula/Feint.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 Feint::Feint(){
     SetDamageOrDeffend(2);
@@ -17,5 +21,9 @@ PlayTiming Feint::GetCardPlayTiming()const {
 }
 FighterType Feint::GetOwner()const {
  return FighterType::ANY;
+}
+
+ContinueResult Feint::Continue(ActionContext &){
+    
 }
 

@@ -1,4 +1,8 @@
 #include "Domain/Entities/Cards/Dracula/RaveningSeduction.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
+
+
 #include <iostream>
 
 RaveningSeduction::RaveningSeduction(){
@@ -84,4 +88,9 @@ int RaveningSeduction::SelectNode(std::vector<int> ReachbleNodes){
 
     }
     return Nodetarget;
+}
+
+
+ContinueResult RaveningSeduction::Continue(ActionContext &){
+    
 }

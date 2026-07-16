@@ -1,5 +1,7 @@
 #include "Domain/Entities/Cards/Holmes/CounterPunch.h"
 #include "Domain/Combat/CombatContext.h"
+#include "Application/interaction/ActionContext.h"
+#include "Application/interaction/ContinueResult.h"
 
 CounterPunch::CounterPunch(){
     SetDamageOrDeffend(3);
@@ -22,3 +24,7 @@ FighterType CounterPunch::GetOwner()const {
     return FighterType::SHERLOCK;
 }
 
+
+ContinueResult CounterPunch::Continue(ActionContext&){
+
+}
