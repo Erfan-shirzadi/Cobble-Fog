@@ -279,8 +279,51 @@ void AttackUseCase::ChooseCardDeffender(){
 
 ContinueResult AttackUseCase::Continue(ActionContext&){
     
+    switch (attackstep)
+    {
+    case AttackStep::SETUP:
+        /* code */
+        break;
+    case AttackStep::COMBAT:
+
+        break;
+    case AttackStep::FINISHED:
+
+        break;
+    }
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 }
 
-void AttackUseCase::Start(ActionContext&){
+void AttackUseCase::Start(ActionContext& context){
+    context.Selected=-1;
+    setupstep=SetUpStep::CHOOSE_ATTACKER;
+    attackstep=AttackStep::SETUP;
+}
+
+
+ContinueResult AttackUseCase::SetUp(ActionContext&context){
+
+    switch (setupstep)
+    {
+    case SetUpStep::CHOOSE_ATTACKER:
+        /* code */
+        break;
+    case SetUpStep::CHOOSE_ATTACKER_CARD:
+        /* code */
+        break;
+    case SetUpStep::CHOOSE_DEFFENDER:
+        /* code */
+        break;
+    case SetUpStep::CHOOSE_DEFFENDER_CARD:
+        /* code */
+        break;
+
+    default:
+        break;
+    }
 
 }
+ContinueResult Finished(ActionContext&);
+ContinueResult Combat(ActionContext&);
