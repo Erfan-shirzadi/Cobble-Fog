@@ -14,20 +14,20 @@ bool AttackUseCase::execute(GameState & GameState){
     //     std::cout<<"Fuuuuuuuuuuuck it"<<endl;
     // }
     // cout<<" this is a problem?"<<endl;
-     context.board=&GameState.board;
+     combatcontext.board=&GameState.board;
 
     FighterSelection(GameState.currnetPlayer->GetHero(),
     GameState.opponentPlayre->GetHero(),GameState.board);
 
     ChooseCardAttaker();
-    context.Opponent=std::make_unique<CombatParticipant>();
-    context.Opponent->hero=GameState.opponentPlayre->GetHero();
+    combatcontext.Opponent=std::make_unique<CombatParticipant>();
+    combatcontext.Opponent->hero=GameState.opponentPlayre->GetHero();
     TargetSelection(GameState.opponentPlayre->GetHero());
-    cout<<context.Opponent->fighter->GetName()<<endl;
+    cout<<combatcontext.Opponent->fighter->GetName()<<endl;
 
     ChooseCardDeffender();
     CombatUseCase combat;
-    combat.execute(context);
+    combat.execute(combatcontext);
     
     return true;
 
@@ -38,7 +38,7 @@ bool AttackUseCase::execute(GameState & GameState){
 
 
 void AttackUseCase::ChooseCardAttaker(){
-    Hero * hero=context.Current->hero;
+    Hero * hero=combatcontext.Current->hero;
     std::vector<Card *>cards=hero->GetHand();
     for(int i{};i<cards.size();i++)
         cout<<i<< ".  "<<cards[i]->GetName()<<endl;
@@ -55,14 +55,14 @@ void AttackUseCase::ChooseCardAttaker(){
                 cards[choose]->GetCategory()==CardCategory::ATTACKANDDEFFENS)){
                     cout<<" Please Enter A Attack card or Attack and Deffens "<<endl;
         }
-        else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Current->fighter->GetFighterType()){
+        else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=combatcontext.Current->fighter->GetFighterType()){
             cout<<" you cann't Use this Card its for another fighter "<<endl;
         }
         else break;
         
     }
 
-    context.Current->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
+    combatcontext.Current->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
     
 }
 
@@ -174,17 +174,17 @@ void AttackUseCase::FighterSelection(Hero * hero ,Hero * enemy ,Board & borad){
         }
         else break;
     }
-    context.Current=std::make_unique<CombatParticipant>();
-    this->context.Current->fighter=fighters[choice];
-    this->context.Current->hero=hero;
+    combatcontext.Current=std::make_unique<CombatParticipant>();
+    this->combatcontext.Current->fighter=fighters[choice];
+    this->combatcontext.Current->hero=hero;
 
 }
 
 void AttackUseCase::TargetSelection(Hero *enemy){
 
     // Hero * enemy=c;
-    Board * board=context.board;
-    Fighter * fighter=context.Current->fighter;
+    Board * board=combatcontext.board;
+    Fighter * fighter=combatcontext.Current->fighter;
 
     std::vector<Fighter *> enemies=enemy->GetSideKicks();
     enemies.push_back(dynamic_cast<Fighter *>(enemy));
@@ -212,7 +212,7 @@ void AttackUseCase::TargetSelection(Hero *enemy){
             }
         }
     }
-    context.Opponent->fighter=enemies[choice];
+    combatcontext.Opponent->fighter=enemies[choice];
     cout<< " end of Terget selection"<<endl;
 }
 
@@ -220,7 +220,7 @@ void AttackUseCase::TargetSelection(Hero *enemy){
 
 void AttackUseCase::ChooseCardDeffender(){
     cout<< " Enter : ppppppp;lewaseesssee"<<endl;
-    Hero * hero=context.Opponent->hero;
+    Hero * hero=combatcontext.Opponent->hero;
     if(!(hero->IsExistCardInHand(CardCategory::DEFFENSE )|| hero->IsExistCardInHand(CardCategory::ATTACKANDDEFFENS))){
         cout<<" Deffend broken . you havenot any card for deffend "<<endl;
     }else{
@@ -228,11 +228,11 @@ void AttackUseCase::ChooseCardDeffender(){
             std::vector<Card *> Deffensecards=hero->GetAllCardOf(CardCategory::DEFFENSE);
             std::vector<Card *> AttackAndDeffenscards=hero->GetAllCardOf(CardCategory::ATTACKANDDEFFENS);
             for(auto card:Deffensecards){
-                if(card->GetOwner()==context.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
+                if(card->GetOwner()==combatcontext.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
                     canDeffend=true;
             }
             for(auto card: AttackAndDeffenscards){
-                if(card->GetOwner()==context.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
+                if(card->GetOwner()==combatcontext.Opponent->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY)
                     canDeffend=true;
             }
         if(canDeffend){
@@ -258,14 +258,14 @@ void AttackUseCase::ChooseCardDeffender(){
                         cards[choose]->GetCategory()==CardCategory::ATTACKANDDEFFENS)){
                             cout<<" Please Enter A Deffens card or Attack and Deffens "<<endl;
                 }
-                else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=context.Opponent->fighter->GetFighterType()){
+                else if( cards[choose]->GetOwner()!=FighterType::ANY && cards[choose]->GetOwner()!=combatcontext.Opponent->fighter->GetFighterType()){
                     cout<<" you cann't Use this Card its for another fighter "<<endl;
                 }
                 else break;
                 
             }
 
-            context.Opponent->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
+            combatcontext.Opponent->card=dynamic_cast<CombatCard *>(hero->GetCard(choose));
             }
         }
         else {
@@ -327,3 +327,41 @@ ContinueResult AttackUseCase::SetUp(ActionContext&context){
 }
 ContinueResult Finished(ActionContext&);
 ContinueResult Combat(ActionContext&);
+
+
+ContinueResult AttackUseCase::BuildAttakerMenu(ActionContext & context){
+    ContinueResult result;
+    Hero* attaker=context.Gamestate->currnetPlayer->GetHero();
+    Hero * Deffender=context.Gamestate->opponentPlayre->GetHero();
+    std::vector<Fighter*> allattacker;
+    allattacker.push_back(dynamic_cast<Fighter*>(attaker));
+    for(auto sidekick:attaker->GetSideKicks()){
+        allattacker.push_back(sidekick);
+    }
+
+    for(auto fighter: allattacker){
+        if(IsInChanceAttack(fighter,Deffender,context.Gamestate->board)){
+            Attacker.push_back(fighter);
+            result.menu_request.options.push_back(fighter->GetName());
+        }
+    }
+    result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.title="Fighters in Chance";
+
+    return result;
+
+    
+} 
+
+ContinueResult AttackUseCase::ChooseAttaker(ActionContext & context ){
+    if(context.Selected==-1) return BuildAttakerMenu(context);
+
+    
+    combatcontext.Current=std::make_unique<CombatParticipant>();
+    combatcontext.Current->hero=context.Gamestate->currnetPlayer->GetHero();
+    combatcontext.Current->fighter=Attacker[context.Selected];
+    ContinueResult result;
+    setupstep=SetUpStep::CHOOSE_ATTACKER_CARD;
+
+    return result;
+}

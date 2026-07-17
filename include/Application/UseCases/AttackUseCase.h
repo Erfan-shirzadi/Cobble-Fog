@@ -19,11 +19,13 @@ enum class SetUpStep{
 };
 class AttackUseCase : public IUseCase {
     
-    CombatContext context;
+    CombatContext combatcontext;
     CombatUseCase combat;
 
     SetUpStep setupstep;
     AttackStep attackstep;
+
+    std::vector<Fighter*> Attacker;
 
     
     public:
@@ -44,6 +46,9 @@ class AttackUseCase : public IUseCase {
     ContinueResult Combat(ActionContext&);
 
 
+    ContinueResult BuildAttakerMenu(ActionContext &);
+    ContinueResult ChooseAttaker(ActionContext & );
+    
 };
 
 #endif /* ATTACK_USECASE */
