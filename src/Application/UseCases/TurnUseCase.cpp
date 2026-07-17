@@ -129,8 +129,10 @@ ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
 
         if(current->GetRemainingAction()==0)
             step=TurnStep::FINISHED;
-        else
+        else{
             step=TurnStep::CHOOSE_ACTION;
+            result.status=ContinueStatus::CONTINUE;
+        }
     }
     return result;
 
