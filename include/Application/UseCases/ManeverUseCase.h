@@ -6,6 +6,7 @@
 #include "Application/UseCases/IUseCase.h"
 
 enum class ManeverStep{
+    DRAW_CARD,
     ASK_INCREASE_MOVEMENT,
     INCRESE_MOVEMENT,
     CHOOSE_CARD,
@@ -17,7 +18,7 @@ enum class ManeverStep{
 class ManeverUseCase : public IUseCase{
 
 
-    ManeverStep step=ManeverStep::ASK_INCREASE_MOVEMENT;
+    ManeverStep step=ManeverStep::DRAW_CARD;
     Fighter* selectedHero=nullptr;
     int IncreseMovment=0;
     std::vector<Fighter*> fighters;
@@ -38,6 +39,7 @@ class ManeverUseCase : public IUseCase{
      ContinueResult ChooseDestination(ActionContext&);
      ContinueResult Move(ActionContext&);
      ContinueResult Finished(ActionContext&);
+     ContinueResult DrawCard(ActionContext&);
 
      ContinueResult BuildAskIncreaseMovmentMenu();
      ContinueResult BuildCardChoosingMunu(ActionContext&);

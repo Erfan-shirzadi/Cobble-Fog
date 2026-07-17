@@ -96,6 +96,9 @@ ContinueResult ManeverUseCase::Continue(ActionContext&context){
     
     switch (step)
     {
+    case ManeverStep::DRAW_CARD:
+        return DrawCard(context);
+        break;
     case ManeverStep::ASK_INCREASE_MOVEMENT:
         return AskIncreseMovment(context);
         break;
@@ -248,7 +251,7 @@ ContinueResult ManeverUseCase::BuildNodesMenu(ActionContext& context){
     return result;
 }
 
-void ManeverUseCase::Start(ActionContext&context ){
+void ManeverUseCase::Start(ActionContext & context ){
     context.Selected=-1;
     this->step=ManeverStep::ASK_INCREASE_MOVEMENT;
     selectedHero=nullptr;
@@ -256,3 +259,13 @@ void ManeverUseCase::Start(ActionContext&context ){
     rechableNode.clear();
     fighters.clear();
 }
+
+ContinueResult ManeverUseCase::DrawCard(ActionContext & context){
+    context.Gamestate->currnetPlayer->GetHero()->DrawCard();
+    step=ManeverStep::ASK_INCREASE_MOVEMENT;
+
+    ContinueResult res;
+    res.status=ContinueStatus::CONTINUE;
+    return res;
+}
+ 
