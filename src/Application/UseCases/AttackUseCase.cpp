@@ -308,7 +308,7 @@ ContinueResult AttackUseCase::SetUp(ActionContext&context){
     switch (setupstep)
     {
     case SetUpStep::CHOOSE_ATTACKER:
-        /* code */
+        return BuildAttakerMenu(context);
         break;
     case SetUpStep::CHOOSE_ATTACKER_CARD:
         /* code */
@@ -360,8 +360,39 @@ ContinueResult AttackUseCase::ChooseAttaker(ActionContext & context ){
     combatcontext.Current=std::make_unique<CombatParticipant>();
     combatcontext.Current->hero=context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.Selected];
+    context.Selected=-1;
     ContinueResult result;
+    result.status=ContinueStatus::CONTINUE;
     setupstep=SetUpStep::CHOOSE_ATTACKER_CARD;
 
     return result;
+}
+
+ContinueResult AttackUseCase::BuildAttackerCardMenu(ActionContext & ){
+    Hero * hero=combatcontext.Current->hero;
+    ContinueResult result;
+    for(auto card: hero->GetHand()){
+        if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
+            if(card->GetOwner()==combatcontext.Current->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY){
+                result.menu_request.options.push_back(card->GetName());
+                AttackerCards.push_back(card);
+            }
+    }
+    result.menu_request.title="Cards";
+    result.status=ContinueStatus::NEEDMENU;
+    return result;
+}
+
+ContinueResult AttackUseCase::ChooseAttckerCard(ActionContext & context ){
+    if(context.Selected==-1) return BuildAttackerCardMenu(context);
+
+    combatcontext.Current->card=dynamic_cast<CombatCard*>(AttackerCards[context.Selected]);
+    setupstep=SetUpStep::CHOOSE_DEFFENDER;
+    context.Selected=-1;
+    ContinueResult result;
+    result.status=ContinueStatus::CONTINUE;
+
+    return result;
+
+
 }
