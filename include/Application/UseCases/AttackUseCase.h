@@ -27,6 +27,7 @@ class AttackUseCase : public IUseCase {
 
     std::vector<Fighter*> Attacker;
     std::vector<Card*> AttackerCards;
+    std::vector<Card*> DeffenderCards;
 
     std::vector<Fighter*> enemiescanAttack;
 
@@ -52,11 +53,14 @@ class AttackUseCase : public IUseCase {
     ContinueResult ChooseAttaker(ActionContext & );
     ContinueResult ChooseAttckerCard(ActionContext & );
     ContinueResult ChooseDeffender(ActionContext &);
+    ContinueResult ChooseDeffenderCard(ActionContext &);
 
 
     ContinueResult BuildAttakerMenu(ActionContext &);
     ContinueResult BuildAttackerCardMenu(ActionContext & );
     ContinueResult BuildDeffenderMenu(ActionContext &);
+    ContinueResult BuildDeffenerCardMenu(ActionContext&);
+    void SetDeffenderCards();
     
 };
 

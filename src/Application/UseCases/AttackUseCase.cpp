@@ -273,12 +273,12 @@ void AttackUseCase::ChooseCardDeffender(){
 
 
 
-ContinueResult AttackUseCase::Continue(ActionContext&){
+ContinueResult AttackUseCase::Continue(ActionContext& context){
     
     switch (attackstep)
     {
     case AttackStep::SETUP:
-        /* code */
+        return SetUp(context);
         break;
     case AttackStep::COMBAT:
 
@@ -304,16 +304,16 @@ ContinueResult AttackUseCase::SetUp(ActionContext&context){
     switch (setupstep)
     {
     case SetUpStep::CHOOSE_ATTACKER:
-        return BuildAttakerMenu(context);
+        return ChooseAttaker(context);
         break;
     case SetUpStep::CHOOSE_ATTACKER_CARD:
-        /* code */
+        return ChooseAttckerCard(context);
         break;
     case SetUpStep::CHOOSE_DEFFENDER:
-        /* code */
+        return ChooseDeffender(context);
         break;
     case SetUpStep::CHOOSE_DEFFENDER_CARD:
-        /* code */
+        return ChooseDeffenderCard(context);
         break;
 
     default:
@@ -444,10 +444,6 @@ ContinueResult AttackUseCase::ChooseDeffender(ActionContext & context){
 }
 
 
-
-
-
-
 ContinueResult AttackUseCase::BuildDeffenderMenu(ActionContext & context){
     ContinueResult result;
     this->GetFighterCanAttackIt(context.Gamestate->board);
@@ -457,4 +453,44 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(ActionContext & context){
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.title="Enemies";
     return result;
+}
+
+ContinueResult AttackUseCase::ChooseDeffenderCard(ActionContext & context){
+    if(context.Selected==-1) return BuildDeffenerCardMenu(context) ;
+
+    combatcontext.Opponent->card=dynamic_cast<CombatCard*>(DeffenderCards[context.Selected]);
+    ContinueResult result;
+    context.Selected=-1;
+    result.status=ContinueStatus::CONTINUE;
+    this->attackstep=AttackStep::COMBAT;
+
+    return result;
+
+}
+
+
+ContinueResult AttackUseCase::BuildDeffenerCardMenu(ActionContext& context){
+    ContinueResult result;
+    SetDeffenderCards();
+    for(auto card: DeffenderCards){
+        result.menu_request.options.push_back(card->GetName());
+    }
+    result.menu_request.title="cards";
+    result.status=ContinueStatus::NEEDMENU;
+    return result;
+
+}
+
+void AttackUseCase::SetDeffenderCards(){
+
+    Hero * hero=combatcontext.Opponent->hero;
+
+    for(auto card: hero->GetHand()){
+        if(combatcontext.Opponent->fighter->GetFighterType()==card->GetOwner() ||
+            card->GetOwner()==FighterType::ANY){
+            if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
+                DeffenderCards.push_back(card);
+            
+        }
+    }
 }
