@@ -117,15 +117,12 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & bor
     std::vector<Fighter*> enemies=enemy->GetSideKicks();
     enemies.push_back(dynamic_cast<Fighter*>(enemy));
 
-    std::cout<< " cheking chance attack "<<fighter->GetName()<<endl;
     int nodeFighter=fighter->GetNode();
     if(type==Attack::MELEE){
         for(auto ENEMY:enemies){
             if(borad.AreAdjacent(nodeFighter,ENEMY->GetNode())){
-                cout<<fighter->GetName()<< " and "<<ENEMY->GetName()<<"are hamsaye"<<endl;
                 if(!(borad.GetNodeType(nodeFighter)==NodeType::SECREST &&
                     borad.GetNodeType(ENEMY->GetNode())==NodeType::SECREST)){
-                        cout<<" returned true"<<endl;
                         return true;
                     }
                         
@@ -147,7 +144,6 @@ bool AttackUseCase::IsInChanceAttack(Fighter * fighter,Hero * enemy ,Board & bor
                 
         }
     }
-    cout<<" This is a test "<<endl;
     return false;
 }
 
@@ -358,6 +354,8 @@ ContinueResult AttackUseCase::ChooseAttaker(ActionContext & context ){
 
     
     combatcontext.Current=std::make_unique<CombatParticipant>();
+    combatcontext.Opponent=std::make_unique<CombatParticipant>();
+    combatcontext.Opponent->hero=context.Gamestate->opponentPlayre->GetHero();
     combatcontext.Current->hero=context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.Selected];
     context.Selected=-1;
@@ -395,4 +393,68 @@ ContinueResult AttackUseCase::ChooseAttckerCard(ActionContext & context ){
     return result;
 
 
+}
+
+void AttackUseCase::GetFighterCanAttackIt(Board & board){
+    Fighter * fighter=combatcontext.Current->fighter;
+    Hero * enemy=combatcontext.Opponent->hero;
+    Attack type=fighter->GetAttack();
+    std::vector<Fighter*> enemies=enemy->GetSideKicks();
+    enemies.push_back(dynamic_cast<Fighter*>(enemy));
+
+    int nodeFighter=fighter->GetNode();
+    if(type==Attack::MELEE){
+        for(auto ENEMY:enemies){
+            if(board.AreAdjacent(nodeFighter,ENEMY->GetNode())){
+                if(!(board.GetNodeType(nodeFighter)==NodeType::SECREST &&
+                    board.GetNodeType(ENEMY->GetNode())==NodeType::SECREST)){
+                        this->enemiescanAttack.push_back(ENEMY);
+                    }
+                        
+            }
+        }
+    }
+    else if(type==Attack::RANGED){
+        for(auto ENEMY: enemies){
+            if(board.IsAnArea(ENEMY->GetNode(),nodeFighter)){
+                this->enemiescanAttack.push_back(ENEMY);
+            }
+            else if(board.AreAdjacent(ENEMY->GetNode(),nodeFighter)){
+                    if(!(board.GetNodeType(nodeFighter)==NodeType::SECREST &&
+                           board.GetNodeType(ENEMY->GetNode())==NodeType::SECREST)){
+                        this->enemiescanAttack.push_back(ENEMY);
+                    }
+            }
+                
+        }
+    }
+
+}
+
+ContinueResult AttackUseCase::ChooseDeffender(ActionContext & context){
+    if(context.Selected==-1) return BuildDeffenderMenu(context);
+
+    combatcontext.Opponent->fighter=enemiescanAttack[context.Selected];
+    context.Selected=-1;
+    ContinueResult result;
+    setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
+    result.status=ContinueStatus::CONTINUE;
+    return result;
+
+}
+
+
+
+
+
+
+ContinueResult AttackUseCase::BuildDeffenderMenu(ActionContext & context){
+    ContinueResult result;
+    this->GetFighterCanAttackIt(context.Gamestate->board);
+    for(auto fihgter:this->enemiescanAttack){
+        result.menu_request.options.push_back(fihgter->GetName());
+    }
+    result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.title="Enemies";
+    return result;
 }

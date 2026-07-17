@@ -28,12 +28,15 @@ class AttackUseCase : public IUseCase {
     std::vector<Fighter*> Attacker;
     std::vector<Card*> AttackerCards;
 
+    std::vector<Fighter*> enemiescanAttack;
+
     
     public:
     bool execute(GameState & );
     void ChooseCardAttaker();
     bool CanAttack(GameState &)const;
     bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
+    void GetFighterCanAttackIt(Board & board);
     void FighterSelection(Hero * , Hero * , Board &  );
     void ChooseCardDeffender();
     void TargetSelection(Hero *);
@@ -48,10 +51,12 @@ class AttackUseCase : public IUseCase {
 
     ContinueResult ChooseAttaker(ActionContext & );
     ContinueResult ChooseAttckerCard(ActionContext & );
+    ContinueResult ChooseDeffender(ActionContext &);
 
 
     ContinueResult BuildAttakerMenu(ActionContext &);
     ContinueResult BuildAttackerCardMenu(ActionContext & );
+    ContinueResult BuildDeffenderMenu(ActionContext &);
     
 };
 
