@@ -140,7 +140,7 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
     if(context.Selected!=-1){
             
         SetUseCase(context.Selected);
-        context.Selected=-1;
+        CurrentUseCase->Start(context);
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;

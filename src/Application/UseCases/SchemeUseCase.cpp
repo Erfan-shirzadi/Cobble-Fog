@@ -130,11 +130,11 @@ ContinueResult SchemeUseCase::Continue(ActionContext&context){
         break;
 
     case SchemeStep::EXECUTECARD:
-        /* code */
+        return ExecuteCard(context);
         break;
 
     case SchemeStep::FINISHED:
-        /* code */
+        return Finished(context);
         break;
     
     }
@@ -181,9 +181,16 @@ ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
      return result;
 }   
 
-ContinueResult SchemeUseCase::Finished(ActionContext &){
+ContinueResult SchemeUseCase::Finished(ActionContext &context){
     this->SelectedCard=nullptr;
+    context.Selected=-1;
     ContinueResult result;
     result.status=ContinueStatus::FINISHED;
     return result;
+}
+
+void SchemeUseCase::Start(ActionContext& context ){
+        context.Selected=-1;
+        step=SchemeStep::CHOOSECARD;
+        SelectedCard=nullptr;
 }

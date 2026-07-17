@@ -29,5 +29,6 @@ class SchemeUseCase : public IUseCase{
     ContinueResult ExecuteCard(ActionContext&); 
     ContinueResult Finished(ActionContext &);  
     MenuRequest BuildCardMenu(ActionContext&); 
+    void Start(ActionContext& );
 };
 #endif /* SCHEME_USECASE */

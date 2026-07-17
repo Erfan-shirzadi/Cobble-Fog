@@ -280,3 +280,7 @@ void AttackUseCase::ChooseCardDeffender(){
 ContinueResult AttackUseCase::Continue(ActionContext&){
     
 }
+
+void AttackUseCase::Start(ActionContext&){
+
+}

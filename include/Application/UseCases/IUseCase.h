@@ -7,6 +7,7 @@ class IUseCase{
 
     public:
     virtual ContinueResult Continue(ActionContext&)=0;
+    virtual void Start(ActionContext &)=0;
 
 };
 

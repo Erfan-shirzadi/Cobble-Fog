@@ -20,6 +20,8 @@ class AttackUseCase : public IUseCase {
 
 
     ContinueResult Continue(ActionContext&)override;
+    void Start(ActionContext&)override;
+
 
 };
 
