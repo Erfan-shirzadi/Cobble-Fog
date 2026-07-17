@@ -524,3 +524,17 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
     res.status=ContinueStatus::NEEDMENU;
     return res;
 }
+
+
+
+ContinueResult AttackUseCase::Finished(ActionContext & context){
+    context.Selected=-1;
+    this->Attacker.clear();
+    this->AttackerCards.clear();
+    this->DeffenderCards.clear();
+    this->enemiescanAttack.clear();
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
+    
+}
