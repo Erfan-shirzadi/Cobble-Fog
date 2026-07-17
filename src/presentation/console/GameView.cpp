@@ -98,7 +98,7 @@ ftxui::Element GameView::renderMenu(){
         text("Menu"),
         separator(),
         menu ? menu->Render():text("Loding ....")
-    });
+    })|border;
 }
 
 void GameView::SetMenu(const MenuRequest & menu){

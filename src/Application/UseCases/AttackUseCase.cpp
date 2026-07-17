@@ -311,13 +311,18 @@ ContinueResult AttackUseCase::SetUp(ActionContext&context){
         break;
     case SetUpStep::CHOOSE_DEFFENDER:
         return ChooseDeffender(context);
+    case SetUpStep::ASK_FOR_DEFFEND:
+        return AskForDeffend(context);
         break;
     case SetUpStep::CHOOSE_DEFFENDER_CARD:
         return ChooseDeffenderCard(context);
         break;
 
-    default:
-        break;
+    default:{
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+        return res;
+    }
     }
 
 }
@@ -437,7 +442,11 @@ ContinueResult AttackUseCase::ChooseDeffender(ActionContext & context){
     combatcontext.Opponent->fighter=enemiescanAttack[context.Selected];
     context.Selected=-1;
     ContinueResult result;
-    setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
+    if(CanDeffendDffender())
+        setupstep=SetUpStep::ASK_FOR_DEFFEND;
+    else{
+        attackstep=AttackStep::COMBAT;
+    }
     result.status=ContinueStatus::CONTINUE;
     return result;
 
@@ -471,7 +480,6 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(ActionContext & context){
 
 ContinueResult AttackUseCase::BuildDeffenerCardMenu(ActionContext& context){
     ContinueResult result;
-    SetDeffenderCards();
     for(auto card: DeffenderCards){
         result.menu_request.options.push_back(card->GetName());
     }
@@ -493,4 +501,33 @@ void AttackUseCase::SetDeffenderCards(){
             
         }
     }
+}
+
+bool AttackUseCase::CanDeffendDffender(){
+    SetDeffenderCards();
+    return DeffenderCards.size()>0;
+}
+
+
+ContinueResult AttackUseCase::AskForDeffend(ActionContext & context){
+    if(context.Selected==-1) return BuildAskDeffendMenu();
+    
+    if(context.Selected==0)
+        setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
+    else if(context.Selected==1) attackstep=AttackStep::COMBAT;
+
+    context.Selected=-1;
+    ContinueResult res;
+    res.status=ContinueStatus::CONTINUE;
+
+    return res;
+}
+
+
+ContinueResult AttackUseCase::BuildAskDeffendMenu(){
+    ContinueResult res;
+    res.menu_request.options.push_back("Deffend");
+    res.menu_request.options.push_back("Continue");
+    res.status=ContinueStatus::NEEDMENU;
+    return res;
 }

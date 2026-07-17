@@ -15,7 +15,8 @@ enum class SetUpStep{
     CHOOSE_ATTACKER,
     CHOOSE_ATTACKER_CARD,
     CHOOSE_DEFFENDER,
-    CHOOSE_DEFFENDER_CARD
+    ASK_FOR_DEFFEND,
+    CHOOSE_DEFFENDER_CARD,
 };
 class AttackUseCase : public IUseCase {
     
@@ -54,13 +55,16 @@ class AttackUseCase : public IUseCase {
     ContinueResult ChooseAttckerCard(ActionContext & );
     ContinueResult ChooseDeffender(ActionContext &);
     ContinueResult ChooseDeffenderCard(ActionContext &);
+    ContinueResult AskForDeffend(ActionContext &);
 
 
     ContinueResult BuildAttakerMenu(ActionContext &);
     ContinueResult BuildAttackerCardMenu(ActionContext & );
     ContinueResult BuildDeffenderMenu(ActionContext &);
     ContinueResult BuildDeffenerCardMenu(ActionContext&);
+    ContinueResult BuildAskDeffendMenu();
     void SetDeffenderCards();
+    bool CanDeffendDffender();
     
 };
 
