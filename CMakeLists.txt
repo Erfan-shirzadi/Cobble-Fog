@@ -65,6 +65,7 @@ set(
     src/Application/CardEffect/FeintEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/RaveningSeductionEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/PreyUpon.cpp
+    src/Application/CardEffect/DraculaCardsEffect/LookIntoMyEyesEffect.cpp
     
     src/presentation/console/GameView.cpp
 
