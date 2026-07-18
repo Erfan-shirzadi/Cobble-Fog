@@ -48,6 +48,7 @@ ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
 
     context.combatcontext->Current->hero->GetCard(context.context.Selected);
     context.combatcontext->Current->card->IncreseDamageOfDeffend(1);
+    context.context.Selected=-1;
     ContinueResult res;
      res.status=ContinueStatus::CONTINUE;
      step=BeastFormStep::ASK_FOR_DISCADINGCARD;

@@ -67,6 +67,7 @@ set(
     src/Application/CardEffect/DraculaCardsEffect/PreyUpon.cpp
     src/Application/CardEffect/DraculaCardsEffect/LookIntoMyEyesEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/BeastFormEffect.cpp
+    src/Application/CardEffect/DraculaCardsEffect/ExploitEffect.cpp
     
     src/presentation/console/GameView.cpp
 
