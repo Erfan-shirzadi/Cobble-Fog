@@ -61,6 +61,7 @@ set(
     src/Application/CardEffect/DraculaCardsEffect/FeedingFrenzyEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/MistFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/AmbushEffect.cpp
+    src/Application/CardEffect/DraculaCardsEffect/BapismOfBloodEffect.cpp
 
     src/presentation/console/GameView.cpp
 
