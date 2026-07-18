@@ -1,0 +1,35 @@
+ #include "Application/CardEffect/DraculaCardsEffect/ThirstEffect.h"
+
+ContinueResult ThirstEffect::Continue(EffectContext & context ){
+    if(context.context.Selected==-1) return BuildReachableNodes(context);
+
+    Hero*hero=context.context.Gamestate->currnetPlayer->GetHero();
+    hero->SetNode(rechabenode[context.context.Selected]);
+    context.context.Selected=-1;
+
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+
+    return res;
+
+
+}
+
+
+ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
+    ContinueResult res;
+    Board board=context.context.Gamestate->board;
+    Hero * enemy=context.context.Gamestate->opponentPlayre->GetHero();
+    this->rechabenode=board.GetReachableNighbors(enemy->GetNode());
+    if(rechabenode.empty())res.status=ContinueStatus::FINISHED;
+
+    for(int x: rechabenode){
+        res.menu_request.options.push_back(std::to_string(x));
+    }
+    res.menu_request.title="Reachable Nodes";
+
+    res.status=ContinueStatus::NEEDMENU;
+
+    return res;
+     
+}
