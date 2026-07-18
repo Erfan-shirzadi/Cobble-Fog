@@ -69,6 +69,8 @@ set(
     src/Application/CardEffect/DraculaCardsEffect/BeastFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/ExploitEffect.cpp
     src/Application/CardEffect/Move3Effect.cpp
+
+    src/Application/CardEffect/HolmesCardsEffect/AdministerAidEffect.cpp
     
     src/presentation/console/GameView.cpp
 
