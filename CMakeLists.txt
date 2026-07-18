@@ -68,6 +68,7 @@ set(
     src/Application/CardEffect/DraculaCardsEffect/LookIntoMyEyesEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/BeastFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/ExploitEffect.cpp
+    src/Application/CardEffect/Move3Effect.cpp
     
     src/presentation/console/GameView.cpp
 
