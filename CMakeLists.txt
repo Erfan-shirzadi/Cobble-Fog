@@ -74,6 +74,8 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/CounterPunchEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/DeduceStrategyEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/EliminateTheImpossibleEffect.cpp
+    src/Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.cpp
+
     src/presentation/console/GameView.cpp
 
 )
