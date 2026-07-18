@@ -8,6 +8,7 @@ class CombatCard :public Card{
     public:
     void SetDamageOrDeffend(int amount );
     int GetDamgeOrDeffend()const;
+    void IncreseDamageOfDeffend(int);
     virtual void Play(CombatContext & )const=0;
     virtual PlayTiming GetCardPlayTiming()const=0;
     virtual FighterType GetOwner()const=0;

@@ -7,7 +7,7 @@
 class CardEffectFactory{
 
     public :
-    static CardEffect CreatCardEffect(CardId);
+    static std::unique_ptr<CardEffect> CreatCardEffect(CardId);
 };
 
 #endif /* CARD_EFFECTFACTORY */

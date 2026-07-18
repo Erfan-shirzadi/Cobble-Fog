@@ -6,3 +6,6 @@ void CombatCard::SetDamageOrDeffend(int amount ){
 int CombatCard::GetDamgeOrDeffend()const{
     return DamageOrDeffend;
 }
+void CombatCard::IncreseDamageOfDeffend(int amount){
+    this->DamageOrDeffend+=amount;
+}
