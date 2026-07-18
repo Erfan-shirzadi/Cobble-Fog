@@ -12,6 +12,7 @@ Dash::Dash(){
     SetBoost(1);
     SetName("Dash");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+    SetId(CardId::DASH);
 
 }
 void Dash::Play(CombatContext & combatcontext )const {

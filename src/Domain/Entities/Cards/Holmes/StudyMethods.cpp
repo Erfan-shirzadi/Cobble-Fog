@@ -13,6 +13,8 @@ StudyMethods::StudyMethods(){
     SetBoost(2);
     SetName("StudyMethods");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+        SetId(CardId::STUDY_METHODS);
+
 
 }
 void StudyMethods::Play(CombatContext & combatcontext)const{

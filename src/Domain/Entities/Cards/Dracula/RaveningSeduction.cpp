@@ -9,6 +9,8 @@ RaveningSeduction::RaveningSeduction(){
     SetName("RaveningSeduction");
     SetBoost(2);
     SetCategory(CardCategory::SCHEME);
+    SetId(CardId::RAVENING_SEDUCTION);
+
 }
 
 

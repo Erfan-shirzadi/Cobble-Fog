@@ -8,6 +8,8 @@ CounterPunch::CounterPunch(){
     SetBoost(1);
     SetName("CounterPunch");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+    SetId(CardId::COUNTER_PUNCH);
+
 
 }
 void CounterPunch::Play(CombatContext & combatcontext)const {

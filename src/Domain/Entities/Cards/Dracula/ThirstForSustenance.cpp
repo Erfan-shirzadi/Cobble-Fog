@@ -11,6 +11,8 @@ ThirstForSustenance::ThirstForSustenance(){
     SetBoost(3);
     SetName("ThirstForSustenance");
     SetCategory(CardCategory::ATTACK);
+    SetId(CardId::THIRST_FOR_SUSTENANCE);
+
 
 }
 void ThirstForSustenance::Play(CombatContext & combatcontext )const {

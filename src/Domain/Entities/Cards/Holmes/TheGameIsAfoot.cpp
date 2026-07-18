@@ -11,6 +11,7 @@ TheGameIsAfoot::TheGameIsAfoot(){
     SetBoost(2);
     SetName("TheGameIsAfoot");
     SetCategory(CardCategory::ATTACK);
+    SetId(CardId::THE_GAME_IS_AFOOT);
 
 
 }

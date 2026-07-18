@@ -11,6 +11,8 @@ BestForm::BestForm(){
     SetBoost(4);
     SetName("BeastForm");
     SetCategory(CardCategory::ATTACK);
+    SetId(CardId::BEASTFORM);
+
 }
 void BestForm::Play(CombatContext & combatcontext )const {
     std::cout<< " Beast Form card iS playing "<<std::endl;

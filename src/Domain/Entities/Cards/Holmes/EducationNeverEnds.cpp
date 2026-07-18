@@ -9,6 +9,8 @@ EducationNeverEnds::EducationNeverEnds(){
     SetBoost(1);
     SetName("EducationNeverEnds");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+        SetId(CardId::EDUCATION_NEVER_ENDS);
+
 
 
 }

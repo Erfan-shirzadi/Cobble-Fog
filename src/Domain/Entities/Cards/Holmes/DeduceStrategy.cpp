@@ -9,6 +9,8 @@ DeduceStrategy::DeduceStrategy(){
     SetBoost(1);
     SetName("DeduceStrategy");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+        SetId(CardId::DEDUCE_STRATEGY);
+
 
 }
 void DeduceStrategy::Play(CombatContext & combatcontext )const{

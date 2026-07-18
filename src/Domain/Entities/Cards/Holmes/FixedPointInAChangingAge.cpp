@@ -10,6 +10,8 @@ FixedPointInAChangingAge::FixedPointInAChangingAge(){
     SetBoost(1);
     SetName("FixedPointInAChangingAge");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
+        SetId(CardId::FIXED_POINT_IN_A_CHANGING_AGE);
+
 
 }
 void FixedPointInAChangingAge::Play(CombatContext & combatcontext )const {

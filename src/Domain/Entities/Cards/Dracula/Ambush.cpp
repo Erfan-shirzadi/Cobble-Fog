@@ -11,6 +11,8 @@ Ambush::Ambush(){
     SetBoost(3);
     SetName("Ambush");
     SetCategory(CardCategory::ATTACK);
+    SetId(CardId::AMBUSH);
+
 
 }
 void Ambush::Play(CombatContext & combatcontext )const {

@@ -10,6 +10,8 @@ EliminateTheImpossible::EliminateTheImpossible(){
     SetName("EliminateTheImpossible");
     SetBoost(2);
     SetCategory(CardCategory::SCHEME);
+        SetId(CardId::ELIMINATE_THE_IMPOSSIBLE);
+
 }
 
 void EliminateTheImpossible::Play(Hero * hero,Hero * enemy , Board * board){

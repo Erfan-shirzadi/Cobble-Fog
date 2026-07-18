@@ -7,7 +7,7 @@ enum class CardId{
     BEASTFORM,
     DASH,
     EXPLOIT,
-    FEEDING_FRENZY,
+    FEEDINGFRENZY,
     FEINT,
     LOOK_INTO_MY_EYES,
     MISTFORM,

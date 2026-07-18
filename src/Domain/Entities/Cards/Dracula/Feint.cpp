@@ -10,7 +10,7 @@ Feint::Feint(){
     SetBoost(2);
     SetName("Feint");
     SetCategory(CardCategory::ATTACKANDDEFFENS);
-
+    SetId(CardId::FEINT);
 }
 void Feint::Play(CombatContext & combatcontext )const {
     std::cout<<"Feint card is playing "<<std::endl;

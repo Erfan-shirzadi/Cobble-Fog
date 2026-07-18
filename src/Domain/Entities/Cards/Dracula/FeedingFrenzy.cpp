@@ -1,7 +1,7 @@
 #include "Domain/Entities/Cards/Dracula/FeedingFrenzy.h"
 #include "Application/interaction/ActionContext.h"
 #include "Application/interaction/ContinueResult.h"
-
+#include "Domain/Entities/Cards/CardId.h"
 
 #include <vector>
 #include "Domain/Combat/CombatContext.h"
@@ -11,6 +11,8 @@ FeedingFrenzy::FeedingFrenzy(){
     SetBoost(3);
     SetName("FeedingFrenzy");
     SetCategory(CardCategory::ATTACK);
+    SetId(CardId::FEEDINGFRENZY);
+
 }
 
 void FeedingFrenzy::Play(CombatContext &  combatcontext)const{

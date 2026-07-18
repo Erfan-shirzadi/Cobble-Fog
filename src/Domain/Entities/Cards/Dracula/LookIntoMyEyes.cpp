@@ -10,6 +10,7 @@ LookIntoMyEyes::LookIntoMyEyes(){
     SetBoost(2);
     SetName("LookIntoMyEyes");
     SetCategory(CardCategory::DEFFENSE);
+    SetId(CardId::LOOK_INTO_MY_EYES);
 
 
 }

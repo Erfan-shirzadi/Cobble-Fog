@@ -8,6 +8,8 @@ MistForm::MistForm(){
     SetName("MistForm");
     SetBoost(2);
     SetCategory(CardCategory::SCHEME);
+    SetId(CardId::MISTFORM);
+
 }
 
 void MistForm::Play(Hero * hero,Hero * enemy, Board * board){

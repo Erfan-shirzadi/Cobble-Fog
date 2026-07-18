@@ -5,6 +5,7 @@
 #include "Domain/enums/FighterType.h"
 #include "Domain/enums/CardCategory.h"
 #include "Domain/enums/PlayTiming.h"
+#include "Domain/Entities/Cards/CardId.h"
 
 struct ActionContext;
 struct ContinueResult;
@@ -12,6 +13,8 @@ class Card{
 
     std::string Name;
     CardCategory category;
+    CardId id;
+    
     
     int Boost;
     int DamageOrDeffend=0;
@@ -23,6 +26,8 @@ class Card{
     void SetCategory(CardCategory);
     void SetBoost(int);
     int GetBoost()const;
+    void SetId(CardId);
+    CardId GetCardId()const;
 
     virtual PlayTiming GetCardPlayTiming()const=0;
     virtual FighterType GetOwner()const=0;

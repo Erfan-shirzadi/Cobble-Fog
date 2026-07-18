@@ -10,6 +10,8 @@ PeryUpon::PeryUpon(){
     SetName("PeryUpon");
     SetBoost(4);
     SetCategory(CardCategory::SCHEME);
+    SetId(CardId::PERYUPON);
+
 }
 
 void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){

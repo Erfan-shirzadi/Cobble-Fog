@@ -6,6 +6,7 @@ AdministerAid::AdministerAid(){
     SetName("AdministerAid");
     SetCategory(CardCategory::SCHEME);
     SetBoost(2);
+    SetId(CardId::ADMINISTER_AID);
 }
 
 void AdministerAid::Play(Hero * hero ,Hero * enemy  , Board * board){

@@ -9,7 +9,9 @@ ServiceRevolver::ServiceRevolver(){
     SetDamageOrDeffend(5);
     SetBoost(3);
     SetName("ServiceRevolver");
-    SetCategory(CardCategory::ATTACK);
+    SetCategory(CardCategory::ATTACK);  
+      SetId(CardId::SERVICE_REVOLVER);
+
 
 }
 void ServiceRevolver::Play(CombatContext & )const {

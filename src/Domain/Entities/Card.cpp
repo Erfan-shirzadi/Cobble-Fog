@@ -27,3 +27,10 @@ void Card::SetCategory(CardCategory cat){
 ContinueResult Card::Continue(ActionContext&){
 
 }
+
+void Card::SetId(CardId id){
+    this->id=id;
+}
+CardId Card::GetCardId()const{
+    return this->id;
+}

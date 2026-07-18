@@ -9,6 +9,8 @@ BapismOfBlood::BapismOfBlood(){
     SetName("BapismOfBlood");
     SetBoost(2);
     SetCategory(CardCategory::SCHEME);
+    SetId(CardId::BAPISM_OF_BLOOD);
+
 }
 
 void BapismOfBlood::Play(Hero * hero,Hero * enemy , Board *  board){

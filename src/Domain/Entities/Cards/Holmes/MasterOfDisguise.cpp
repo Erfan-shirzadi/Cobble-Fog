@@ -8,6 +8,8 @@ MasterOfDisguise::MasterOfDisguise(){
     SetName("MasterOfDisguise");
     SetBoost(2);
     SetCategory(CardCategory::SCHEME);
+        SetId(CardId::MASTER_OF_DISGUISE);
+
 }
 
 void MasterOfDisguise::Play(Hero * hero ,Hero * enemy , Board * board){
