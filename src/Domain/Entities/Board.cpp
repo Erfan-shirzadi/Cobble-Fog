@@ -169,3 +169,13 @@ NodeType Board::GetNodeType(int node){
     std::cout<<"its ok ?"<<std::endl;
     return map.GetNodeType(node);
 }
+
+
+std::vector<int> Board::GetAllEmptyNodes(){
+    std::vector<int> res;
+    for(int i{1};i<=32;i++){
+        if(!isOccupied(i))
+            res.push_back(i);
+    }
+    return res;
+}

@@ -24,6 +24,7 @@ class Board {
     std::string GetGraph();
 
     NodeType GetNodeType(int node);
+    std::vector<int> GetAllEmptyNodes();
 };
 
 #endif /* BOARD_H */

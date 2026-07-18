@@ -7,7 +7,7 @@ enum class FeedinFrenzyEffectStep{
     FINISHED,
 };
 
-class FeedingFrenzyEffect : CardEffect{
+class FeedingFrenzyEffect :public CardEffect{
 
     FeedinFrenzyEffectStep step=FeedinFrenzyEffectStep::INCREASE_DAMAGE;
     public :
