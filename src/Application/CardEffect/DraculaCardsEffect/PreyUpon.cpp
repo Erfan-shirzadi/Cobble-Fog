@@ -1,0 +1,29 @@
+#include "Application/CardEffect/DraculaCardsEffect/PreyUponEffect.h"
+
+ContinueResult PreyUponEffect::Continue(EffectContext & context){
+    Hero* Dracula=context.context.Gamestate->currnetPlayer->GetHero();
+    Hero* enemy=context.context.Gamestate->opponentPlayre->GetHero();
+    Board board=context.context.Gamestate->board;
+    for(auto fighter: enemy->GetSideKicks()){
+        if(board.AreAdjacent(fighter->GetNode(),Dracula->GetNode())){
+            if(!(board.GetNodeType(fighter->GetNode())==NodeType::SECREST &&
+            board.GetNodeType(Dracula->GetNode())==NodeType::SECREST)){
+                fighter->TakeDamge(1);
+                Dracula->Heal(1);
+            }
+        }
+    }
+
+    if(board.AreAdjacent(enemy->GetNode(),Dracula->GetNode())){
+            if(!(board.GetNodeType(enemy->GetNode())==NodeType::SECREST &&
+            board.GetNodeType(Dracula->GetNode())==NodeType::SECREST)){
+                enemy->TakeDamge(1);
+                Dracula->Heal(1);
+            }
+        }
+    
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
+
+}
