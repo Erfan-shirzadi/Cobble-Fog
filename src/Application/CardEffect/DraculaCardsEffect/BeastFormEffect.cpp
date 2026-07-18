@@ -1,0 +1,66 @@
+#include "Application/CardEffect/DraculaCardsEffect/BeastFormEffect.h"
+
+ContinueResult BeastFormEffect::Continue(EffectContext & context){
+
+    switch (step)
+    {
+    case BeastFormStep::ASK_FOR_DISCADINGCARD:
+        return AskForDiscardinCard(context);
+        break;
+    case BeastFormStep::CHOOSE_CARD:
+        return ChooseCard(context);
+        break;
+    }
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
+}
+
+ContinueResult BeastFormEffect::AskForDiscardinCard(EffectContext & context){
+    if(context.combatcontext->Current->hero->GetSizeHand()==0){
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+        return res;
+    }
+
+    if(context.context.Selected==-1){
+        ContinueResult res;
+        res.menu_request.options.push_back("DisCard ");
+        res.menu_request.options.push_back("Skip ");
+        res.status=ContinueStatus::NEEDMENU;
+        return res;
+    }
+
+    if(context.context.Selected==0){
+        step=BeastFormStep::CHOOSE_CARD;
+        ContinueResult res;
+        res.status =ContinueStatus::CONTINUE;
+        return res;
+    }
+
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
+}
+ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
+
+    if(context.context.Selected==-1)return BuildCardMenu(context);
+
+    context.combatcontext->Current->hero->GetCard(context.context.Selected);
+    context.combatcontext->Current->card->IncreseDamageOfDeffend(1);
+    ContinueResult res;
+     res.status=ContinueStatus::CONTINUE;
+     step=BeastFormStep::ASK_FOR_DISCADINGCARD;
+     return res;
+}
+
+ContinueResult BeastFormEffect::BuildCardMenu(EffectContext & context){
+    Hero * dracual=context.combatcontext->Current->hero;
+    ContinueResult res;
+    for(auto card: dracual->GetHand()){
+        res.menu_request.options.push_back(card->GetName());
+    }
+    res.menu_request.title="Cards ";
+
+    return res;
+}
