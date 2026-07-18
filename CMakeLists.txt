@@ -71,7 +71,8 @@ set(
     src/Application/CardEffect/Move3Effect.cpp
 
     src/Application/CardEffect/HolmesCardsEffect/AdministerAidEffect.cpp
-    
+    src/Application/CardEffect/HolmesCardsEffect/CounterPunchEffect.cpp
+
     src/presentation/console/GameView.cpp
 
 )
