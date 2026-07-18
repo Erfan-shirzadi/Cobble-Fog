@@ -73,7 +73,7 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/AdministerAidEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/CounterPunchEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/DeduceStrategyEffect.cpp
-
+    src/Application/CardEffect/HolmesCardsEffect/EliminateTheImpossibleEffect.cpp
     src/presentation/console/GameView.cpp
 
 )
