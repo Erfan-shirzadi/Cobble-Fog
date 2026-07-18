@@ -1,17 +1,17 @@
 #include "Application/CardEffect/DraculaCardsEffect/MistFormEffect.h"
 
-ContinueResult MistFormEffect::Continue(EffectContext &){
+ContinueResult MistFormEffect::Continue(EffectContext &context){
 
     switch (step)
     {
     case MistFormEffectStep::MOVE_DRACULA:
-        /* code */
+        return MoveDracula(context);
         break;
     case MistFormEffectStep::GAIN_ACTION:
-        /* code */
+        return GainAction(context);
         break;
     case MistFormEffectStep::FINISHED:
-        /* code */
+        return Finished(context);
         break; 
     default:{
         ContinueResult res;

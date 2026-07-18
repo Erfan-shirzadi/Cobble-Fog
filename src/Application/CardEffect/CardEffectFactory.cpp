@@ -1,6 +1,6 @@
 #include "Application/CardEffect/CardEffectFactory.h"
 
-CardEffect CardEffectFactory::CreatCardEffect(CardId id){
+std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
     switch (id)
     {

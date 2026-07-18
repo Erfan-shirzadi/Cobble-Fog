@@ -57,8 +57,10 @@ set(
     src/Domain/Entities/Board.cpp
 
 
+    src/Application/CardEffect/CardEffectFactory.cpp
     src/Application/CardEffect/DraculaCardsEffect/FeedingFrenzyEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/MistFormEffect.cpp
+    src/Application/CardEffect/DraculaCardsEffect/AmbushEffect.cpp
 
     src/presentation/console/GameView.cpp
 
