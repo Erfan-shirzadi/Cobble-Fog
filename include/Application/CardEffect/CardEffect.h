@@ -6,7 +6,7 @@
 class CardEffect {
     
     public :
-    virtual ContinueResult Continue(EffectContext & )=0;
+    virtual ContinueResult Continue(EffectContext & ){};
 
 
 };
