@@ -28,6 +28,17 @@ class CombatUseCase{
     ContinueResult DuringCombat(EffectContext &);
     ContinueResult AfterCombat(EffectContext &);
     ContinueResult Finished(EffectContext &);
+
+    ContinueResult BeforCombatEffectDeffender(EffectContext&);
+    ContinueResult BeforCombatEffectAttcker(EffectContext &);
+    ContinueResult DuringCombatEffectDeffender(EffectContext &);
+    ContinueResult DuringCombatEffectAttacker(EffectContext &);
+    ContinueResult AfterCombatEffectDeffender(EffectContext &);
+    ContinueResult AfterCombatEffectAttacker(EffectContext &);
+
+
+    
+
 };
 
 #endif /* COMBAT_USECASE */
