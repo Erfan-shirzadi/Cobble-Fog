@@ -1,6 +1,6 @@
 #include "Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.h"
 
-ContinueResult FixedAPointInChangingAgeEffect::Continue(EffectContext context){
+ContinueResult FixedAPointInChangingAgeEffect::Continue(EffectContext & context){
     Hero * holmes=context.context.Gamestate->currnetPlayer->GetHero();
     std::vector<Fighter*> watson=holmes->GetSideKicks();
     Board board=context.context.Gamestate->board;

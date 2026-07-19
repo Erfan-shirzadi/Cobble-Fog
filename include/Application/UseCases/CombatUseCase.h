@@ -1,7 +1,8 @@
 #ifndef COMBAT_USECASE
 #define COMBAT_USECASE
-#include "Domain/Combat/CombatContext.h"
 #include "Application/interaction/ContinueResult.h"
+#include "Application/interaction/EffectContext.h"
+#include "Application/interaction/Combat/CombatContext.h"
 
 enum class CombatStep{
     BEFOR_COMBAT,
@@ -9,18 +10,23 @@ enum class CombatStep{
     AFTER_COMBAT,
     FINISHED
 };
+
+enum class CardPlayStep{
+    DEFFENDER_CARD,
+    ATTACKER_CARD,
+};
 class CombatUseCase{
 
-    CombatStep step;
-
+    CombatStep combatstep;
+    CardPlayStep cardStep;
     public:
 
 
-    ContinueResult Continue(CombatContext &);
-    void BeforCombat(CombatContext &);
-    void DuringCombat(CombatContext &);
-    void AfterCombat(CombatContext &);
-    void Finished(CombatContext &);
+    ContinueResult Continue(EffectContext &);
+    ContinueResult BeforCombat(EffectContext &);
+    ContinueResult DuringCombat(EffectContext &);
+    ContinueResult AfterCombat(EffectContext &);
+    ContinueResult Finished(EffectContext &);
 };
 
 #endif /* COMBAT_USECASE */

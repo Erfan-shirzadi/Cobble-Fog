@@ -6,9 +6,7 @@ class EliminateTheImpossible : public SchemeCard{
 
     public:
     EliminateTheImpossible();
-        void Play(Hero * ,Hero * , Board *) override;
         FighterType GetOwner()const override;
-        ContinueResult Continue(ActionContext&);
 
 
 };

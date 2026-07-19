@@ -1,10 +1,9 @@
 #ifndef ATTACK_USECASE
 #define ATTACK_USECASE
 #include "Domain/Game/GameState.h"
-#include "Domain/Combat/CombatContext.h"
 #include "Application/UseCases/IUseCase.h"
+#include "Application/interaction/Combat/CombatContext.h"
 #include "Application/UseCases/CombatUseCase.h"
-
 enum class AttackStep{
     SETUP,
     COMBAT,

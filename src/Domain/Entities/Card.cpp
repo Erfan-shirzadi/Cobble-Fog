@@ -1,6 +1,4 @@
 #include "Domain/Entities/Card.h"
-#include "Application/interaction/ActionContext.h"
-#include "Application/interaction/ContinueResult.h"
 void Card::SetBoost(int amount){
     this->Boost=amount;
 }
@@ -22,10 +20,6 @@ CardCategory Card::GetCategory()const{
 }
 void Card::SetCategory(CardCategory cat){
     this->category=cat;
-}
-
-ContinueResult Card::Continue(ActionContext&){
-
 }
 
 void Card::SetId(CardId id){

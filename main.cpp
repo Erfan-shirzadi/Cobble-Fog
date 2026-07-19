@@ -4,14 +4,13 @@
 #include <iostream>
 #include <vector>
 #include "Domain/Entities/Board.h"
-#include "Domain/Combat/CombatContext.h"
-#include "Domain/Entities/Cards/Dracula/FeedingFrenzy.h"
-#include "Domain/Combat/CombatParticipant.h"
 #include "Application/UseCases/PlaceMentUseCase.h"
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "Domain/Player.h"
-#include "Domain/Game/GameEngine.h"
+
 #include "presentation/console/GameView.h"
+
+#include "Domain/Game/GameEngine.h"
 
 using namespace std;
 

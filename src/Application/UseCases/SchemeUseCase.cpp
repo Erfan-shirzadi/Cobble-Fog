@@ -11,7 +11,6 @@ bool SchemeUseCase::execute(GameState & gamestate){
 
     Card * card=CardSelection(gamestate.currnetPlayer->GetHero());
     auto CARD=dynamic_cast<SchemeCard *>(card);
-    CARD->Play(gamestate.currnetPlayer->GetHero(),gamestate.opponentPlayre->GetHero(),&gamestate.board);
     return true;
 }
 
@@ -173,7 +172,7 @@ MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
 }
 
 ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
-     ContinueResult result=SelectedCard->Continue(context);
+     ContinueResult result;
      if(result.status == ContinueStatus::FINISHED){
         step=SchemeStep::FINISHED;
         return result;

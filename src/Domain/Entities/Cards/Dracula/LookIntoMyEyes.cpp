@@ -1,7 +1,4 @@
 #include "Domain/Entities/Cards/Dracula/LookIntoMyEyes.h"
-#include "Domain/Combat/CombatContext.h"
-#include "Application/interaction/ActionContext.h"
-#include "Application/interaction/ContinueResult.h"
 
 
 #include <iostream>
@@ -14,16 +11,9 @@ LookIntoMyEyes::LookIntoMyEyes(){
 
 
 }
-void LookIntoMyEyes::Play(CombatContext &  combatcontext)const {
-    std::cout<<"LookIntoMyEyes is palying "<<std::endl;
-    combatcontext.Current->DamageOrDeffend+=combatcontext.Opponent->card->GetBoost();
-}
 PlayTiming LookIntoMyEyes::GetCardPlayTiming()const {
     return PlayTiming::DURING_COMBAT;
 }
 FighterType LookIntoMyEyes::GetOwner()const {
     return FighterType::DRACULA;
-}
-ContinueResult LookIntoMyEyes::Continue(ActionContext &){
-    
 }

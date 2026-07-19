@@ -6,10 +6,8 @@ class TheGameIsAfoot : public CombatCard{
 
     public:
     TheGameIsAfoot();
-     void Play(CombatContext & )const override;
      PlayTiming GetCardPlayTiming()const override;
      FighterType GetOwner()const override;
-    ContinueResult Continue(ActionContext&);
 
 
 

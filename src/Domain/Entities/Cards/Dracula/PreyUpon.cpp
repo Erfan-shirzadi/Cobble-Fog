@@ -1,8 +1,4 @@
 #include "Domain/Entities/Cards/Dracula/PeryUpon.h"
-#include "Application/interaction/ActionContext.h"
-#include "Application/interaction/ContinueResult.h"
-
-
  #include <vector>
  #include <iostream>
 
@@ -13,31 +9,7 @@ PeryUpon::PeryUpon(){
     SetId(CardId::PERYUPON);
 
 }
-
-void PeryUpon::Play(Hero *hero ,Hero * enemy , Board * board){
-    std::cout<<" Pery Upon Card is playing "<<std::endl;
-    std::vector<Fighter *> AllFighters;
-    AllFighters.push_back(enemy);
-    for( auto fighter: enemy->GetSideKicks()){
-            if(fighter->IsAlive())
-                AllFighters.push_back(fighter);
-    }
-   
-
-    int nodeHero=hero->GetNode();
-    for(auto fighter:AllFighters){
-        if(board->AreAdjacent(nodeHero,fighter->GetNode())&&
-         !(board->GetNodeType(nodeHero)==NodeType::SECREST &&board->GetNodeType(fighter->GetNode())==NodeType::SECREST)){
-            fighter->TakeDamge(1);
-            hero->Heal(1);
-        }
-    }
-    
-}
 FighterType PeryUpon::GetOwner()const{
     return FighterType::DRACULA;
 }
 
-ContinueResult PeryUpon::Continue(ActionContext &){
-    
-}
