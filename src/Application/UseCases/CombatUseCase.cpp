@@ -104,9 +104,12 @@ ContinueResult CombatUseCase::start(EffectContext &context){
 ContinueResult CombatUseCase::BeforCombatEffectDeffender(EffectContext&context){
      ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->card)
-            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
-                res = context.combatcontext->Current->effect->Continue(context); 
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card)
+                if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
+                    res = context.combatcontext->Current->effect->Continue(context);
+        } 
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -119,8 +122,11 @@ ContinueResult CombatUseCase::BeforCombatEffectAttcker(EffectContext &context){
 
             ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
-            res= context.combatcontext->Current->effect->Continue(context);  
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
+                res= context.combatcontext->Current->effect->Continue(context);  
+        }
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -135,9 +141,12 @@ ContinueResult CombatUseCase::BeforCombatEffectAttcker(EffectContext &context){
 ContinueResult CombatUseCase::DuringCombatEffectDeffender(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->card)
-            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
-                res= context.combatcontext->Current->effect->Continue(context);     
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card)
+                if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
+                    res= context.combatcontext->Current->effect->Continue(context); 
+        }    
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -153,8 +162,11 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
 
-        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
-            res= context.combatcontext->Current->effect->Continue(context);        
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
+                res= context.combatcontext->Current->effect->Continue(context);
+        }        
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -170,24 +182,30 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
 ContinueResult CombatUseCase::AfterCombatEffectDeffender(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->card)
-            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
-                res= context.combatcontext->Current->effect->Continue(context);        
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card)
+                if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
+                    res= context.combatcontext->Current->effect->Continue(context);   
+        }     
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
                 this->cardStep=CardPlayStep::ATTACKER_CARD;
 
         }
+        
          return res;  
 
 }
 ContinueResult CombatUseCase::AfterCombatEffectAttacker(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-
-        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
-            res= context.combatcontext->Current->effect->Continue(context);        
+        if(context.combatcontext->Current->IsActiveCardEffect ||
+            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
+            if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
+                res= context.combatcontext->Current->effect->Continue(context); 
+        }       
         if(res.status==ContinueStatus::FINISHED){
             res.status=ContinueStatus::CONTINUE;
             combatstep=CombatStep::FINISHED;
