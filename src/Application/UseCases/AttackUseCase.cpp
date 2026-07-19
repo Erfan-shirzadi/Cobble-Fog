@@ -87,7 +87,7 @@ ContinueResult AttackUseCase::Continue(EffectContext& context){
         return SetUp(context);
         break;
     case AttackStep::COMBAT:
-        return combat.Continue(context);
+        return Combat(context);
         break;
     case AttackStep::FINISHED:
         return Finished(context);
@@ -132,16 +132,16 @@ ContinueResult AttackUseCase::SetUp(EffectContext&context){
     }
 
 }
-ContinueResult Finished(ActionContext&){
- ContinueResult res;
-    res.status=ContinueStatus::FINISHED;
-    return res;
 
-}
+ContinueResult AttackUseCase::Combat(EffectContext & context){
 
-ContinueResult Combat(ActionContext&){
-     ContinueResult res;
-    res.status=ContinueStatus::FINISHED;
+    ContinueResult res= combat.Continue(context);
+
+    if(res.status==ContinueStatus::FINISHED){
+        attackstep=AttackStep::FINISHED;
+        res.status=ContinueStatus::CONTINUE;
+        return res;
+    }
     return res;
 }
 
@@ -357,6 +357,8 @@ ContinueResult AttackUseCase::Finished(EffectContext & context){
     this->AttackerCards.clear();
     this->DeffenderCards.clear();
     this->enemiescanAttack.clear();
+    context.combatcontext->Current.reset();
+    context.combatcontext->Opponent.reset();
     context.combatcontext=nullptr;
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
