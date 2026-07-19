@@ -25,14 +25,16 @@ ContinueResult MistFormEffect::Continue(EffectContext &context){
 ContinueResult MistFormEffect::MoveDracula(EffectContext& context){
     if(context.context.Selected==-1) return BuildDestinationsMunu(context);
 
-    context.combatcontext->Current->hero->SetNode(emptyNodes[context.context.Selected]);
+    context.context.Gamestate->currnetPlayer->GetHero()->SetNode(emptyNodes[context.context.Selected]);
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     step=MistFormEffectStep::GAIN_ACTION;
 
+    return res;
+
 }
 ContinueResult MistFormEffect::GainAction(EffectContext& context){
-    context.combatcontext->Current->hero->AddAction();
+    context.context.Gamestate->currnetPlayer->GetHero()->AddAction();
     step=MistFormEffectStep::FINISHED;
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
