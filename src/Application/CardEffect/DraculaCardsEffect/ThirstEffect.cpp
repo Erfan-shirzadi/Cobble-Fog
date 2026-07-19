@@ -2,12 +2,14 @@
 #include "Application/interaction/EffectContext.h"
 
 ContinueResult ThirstEffect::Continue(EffectContext & context ){
-    if(context.context.Selected==-1) return BuildReachableNodes(context);
 
-    Hero*hero=context.context.Gamestate->currnetPlayer->GetHero();
-    hero->SetNode(rechabenode[context.context.Selected]);
-    context.context.Selected=-1;
+    if(context.combatcontext->Current->Won){
+        if(context.context.Selected==-1) return BuildReachableNodes(context);
 
+        Hero*hero=context.context.Gamestate->currnetPlayer->GetHero();
+        hero->SetNode(rechabenode[context.context.Selected]);
+        context.context.Selected=-1;
+    }
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
 
