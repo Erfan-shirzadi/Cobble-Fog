@@ -31,20 +31,20 @@ class ManeverUseCase : public IUseCase{
     int GetTargetNode(GameState &, int,Fighter *);
     Fighter * FighterSelection(Hero*);
 
-     ContinueResult Continue(ActionContext&)override;
-     void Start(ActionContext&)override;
-     ContinueResult AskIncreseMovment(ActionContext&);
-     ContinueResult ChooseCard(ActionContext&);
-     ContinueResult CooseFighter(ActionContext&);
-     ContinueResult ChooseDestination(ActionContext&);
-     ContinueResult Move(ActionContext&);
-     ContinueResult Finished(ActionContext&);
-     ContinueResult DrawCard(ActionContext&);
+     ContinueResult Continue(EffectContext&)override;
+     void Start(EffectContext&)override;
+     ContinueResult AskIncreseMovment(EffectContext&);
+     ContinueResult ChooseCard(EffectContext&);
+     ContinueResult CooseFighter(EffectContext&);
+     ContinueResult ChooseDestination(EffectContext&);
+     ContinueResult Move(EffectContext&);
+     ContinueResult Finished(EffectContext&);
+     ContinueResult DrawCard(EffectContext&);
 
      ContinueResult BuildAskIncreaseMovmentMenu();
-     ContinueResult BuildCardChoosingMunu(ActionContext&);
-     ContinueResult BuildFightersMenu(ActionContext&);
-     ContinueResult BuildNodesMenu(ActionContext&);
+     ContinueResult BuildCardChoosingMunu(EffectContext&);
+     ContinueResult BuildFightersMenu(EffectContext&);
+     ContinueResult BuildNodesMenu(EffectContext&);
 
 
 

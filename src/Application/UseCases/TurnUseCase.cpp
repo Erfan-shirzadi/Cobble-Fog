@@ -94,7 +94,7 @@ bool TurnUseCase::GameOver(GameState &GameState ){
 
 }
 
-ContinueResult TurnUseCase::Continue(ActionContext& context){
+ContinueResult TurnUseCase::Continue(EffectContext& context){
 
     switch (step)
     {
@@ -114,17 +114,17 @@ ContinueResult TurnUseCase::Continue(ActionContext& context){
     }
 }
 
-void TurnUseCase::Start(ActionContext& context){
-    context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
+void TurnUseCase::Start(EffectContext& context){
+    context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
     step=TurnStep::CHOOSE_ACTION;
 }
 
-ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
+ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 
     ContinueResult result=CurrentUseCase->Continue(context);
     
     if(result.status ==ContinueStatus::FINISHED){
-        Hero * current=context.Gamestate->currnetPlayer->GetHero();
+        Hero * current=context.context.Gamestate->currnetPlayer->GetHero();
         current->reduceRemainingAction();
 
         if(current->GetRemainingAction()==0)
@@ -137,11 +137,11 @@ ContinueResult TurnUseCase::ExecuteAction(ActionContext& context){
     return result;
 
 }
-ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
+ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
-    if(context.Selected!=-1){
+    if(context.context.Selected!=-1){
             
-        SetUseCase(context.Selected);
+        SetUseCase(context.context.Selected);
         CurrentUseCase->Start(context);
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
@@ -155,9 +155,9 @@ ContinueResult TurnUseCase::ChooseAction(ActionContext &context){
     result.menu_request=BuildActionMenu();
     return result;
 }
-ContinueResult TurnUseCase::FinishedResult(ActionContext & context){
+ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     this->CurrentUseCase=nullptr;
-    Hero * CurrentHero=context.Gamestate->currnetPlayer->GetHero();
+    Hero * CurrentHero=context.context.Gamestate->currnetPlayer->GetHero();
     ContinueResult result;
     if(CurrentHero->GetRemainingAction()==0){
         result.status=ContinueStatus::FINISHED;

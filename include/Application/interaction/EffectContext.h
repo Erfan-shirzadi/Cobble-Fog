@@ -3,7 +3,7 @@
 #include "Application/interaction/ActionContext.h"
 #include "Application/interaction/Combat/CombatContext.h"
 struct EffectContext{
-    ActionContext & context;
+    ActionContext  context;
     CombatContext *combatcontext=nullptr;
 };
 

@@ -27,14 +27,14 @@ class TurnUseCase{
     void ManageHandSize(Hero *);
     bool GameOver(GameState &);
 
-    ContinueResult Continue(ActionContext &);
+    ContinueResult Continue(EffectContext &);
 
-    void Start(ActionContext&);
+    void Start(EffectContext&);
 
 
-    ContinueResult ExecuteAction(ActionContext&);
-    ContinueResult ChooseAction(ActionContext &);
-    ContinueResult FinishedResult(ActionContext & );
+    ContinueResult ExecuteAction(EffectContext&);
+    ContinueResult ChooseAction(EffectContext &);
+    ContinueResult FinishedResult(EffectContext & );
 
     void SetUseCase(int index);
 

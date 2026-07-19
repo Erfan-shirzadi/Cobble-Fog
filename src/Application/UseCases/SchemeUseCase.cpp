@@ -2,6 +2,7 @@
 #include "Domain/Entities/SchemeCard.h"
 #include "Domain/Entities/Cards/Holmes/AdministerAid.h"
 #include <iostream>
+#include "Application/interaction/EffectContext.h"
 
 using namespace std;
 
@@ -120,7 +121,7 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 //     return result;
 // } 
 
-ContinueResult SchemeUseCase::Continue(ActionContext&context){
+ContinueResult SchemeUseCase::Continue(EffectContext &context){
 
     switch (step)
     {
@@ -140,17 +141,17 @@ ContinueResult SchemeUseCase::Continue(ActionContext&context){
 }
 
 
-ContinueResult SchemeUseCase::ChooseCard(ActionContext& context){
+ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 
-    if(context.Selected==-1){
+    if(context.context.Selected==-1){
         ContinueResult result;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request=BuildCardMenu(context);
         return result;
     }
 
-    SelectedCard=context.Gamestate->currnetPlayer->GetHero()->GetCard(context.Selected);
-    context.Selected=-1;
+    SelectedCard=context.context.Gamestate->currnetPlayer->GetHero()->GetCard(context.context.Selected);
+    context.context.Selected=-1;
     step=SchemeStep::EXECUTECARD;
 
     ContinueResult res;
@@ -160,10 +161,10 @@ ContinueResult SchemeUseCase::ChooseCard(ActionContext& context){
 }
 
 
-MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
+MenuRequest SchemeUseCase::BuildCardMenu(EffectContext& context){
     MenuRequest request;
     std::vector<string> options;
-    for(auto card : context.Gamestate->currnetPlayer->GetHero()->GetHand()){
+    for(auto card : context.context.Gamestate->currnetPlayer->GetHero()->GetHand()){
         options.push_back(card->GetName());
     }
     request.options=options;
@@ -171,7 +172,7 @@ MenuRequest SchemeUseCase::BuildCardMenu(ActionContext& context){
     return request;
 }
 
-ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
+ContinueResult SchemeUseCase::ExecuteCard(EffectContext& context){
      ContinueResult result;
      if(result.status == ContinueStatus::FINISHED){
         step=SchemeStep::FINISHED;
@@ -180,16 +181,16 @@ ContinueResult SchemeUseCase::ExecuteCard(ActionContext& context){
      return result;
 }   
 
-ContinueResult SchemeUseCase::Finished(ActionContext &context){
+ContinueResult SchemeUseCase::Finished(EffectContext &context){
     this->SelectedCard=nullptr;
-    context.Selected=-1;
+    context.context.Selected=-1;
     ContinueResult result;
     result.status=ContinueStatus::FINISHED;
     return result;
 }
 
-void SchemeUseCase::Start(ActionContext& context ){
-        context.Selected=-1;
+void SchemeUseCase::Start(EffectContext& context ){
+        context.context.Selected=-1;
         step=SchemeStep::CHOOSECARD;
         SelectedCard=nullptr;
 }

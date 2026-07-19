@@ -22,13 +22,13 @@ class SchemeUseCase : public IUseCase{
     Card * CardSelection(Hero * hero);
 
 
-    ContinueResult Continue(ActionContext&)override;
+    ContinueResult Continue(EffectContext&)override;
 
     // ContinueResult Continue(int input=-1);
-    ContinueResult ChooseCard(ActionContext&);
-    ContinueResult ExecuteCard(ActionContext&); 
-    ContinueResult Finished(ActionContext &);  
-    MenuRequest BuildCardMenu(ActionContext&); 
-    void Start(ActionContext& );
+    ContinueResult ChooseCard(EffectContext&);
+    ContinueResult ExecuteCard(EffectContext&); 
+    ContinueResult Finished(EffectContext &);  
+    MenuRequest BuildCardMenu(EffectContext&); 
+    void Start(EffectContext& );
 };
 #endif /* SCHEME_USECASE */

@@ -1,14 +1,15 @@
 #include "Domain/Game/GameEngine.h"
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "Application/UseCases/TurnUseCase.h"
+#include "Application/interaction/EffectContext.h"
 #include <iostream>
 void GameEngine::run(){
     SetUpGameUseCase setup;
     gamestate.currnetPlayer=&player1;
     gamestate.opponentPlayre=&player2;
     gamestate.board=board;
-    context.Gamestate=&gamestate;
-    context.Selected=-1;
+    context.context.Gamestate=&gamestate;
+    context.context.Selected=-1;
 
      setup.execute(gamestate);
     view.SetOnSelection([this](int selected){
@@ -17,18 +18,7 @@ void GameEngine::run(){
     std::cout<<" ********"<<std::endl;
 
     Start();
-    view.Run();
-
-    // gamestate.board.GetGraph();
-    
-    // while (!turnusecase.GameOver(gamestate))
-    // {   
-    //     turnusecase.execute(gamestate);
-    //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-    // }
-
-    // GameResult(gamestate);
-    
+    view.Run();    
 
 }
 
@@ -67,6 +57,6 @@ void GameEngine::Process(){
 
 }
 void GameEngine::OnSelection(int selection){
-    context.Selected=selection;
+    context.context.Selected=selection;
     Process();
 }

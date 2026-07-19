@@ -33,8 +33,6 @@ class AttackUseCase : public IUseCase {
 
     
     public:
-    bool execute(GameState & );
-    void ChooseCardAttaker();
     bool CanAttack(GameState &)const;
     bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
     void GetFighterCanAttackIt(Board & board);
@@ -44,23 +42,23 @@ class AttackUseCase : public IUseCase {
 
 
 
-    ContinueResult Continue(ActionContext&)override;
-    void Start(ActionContext&)override;
-    ContinueResult SetUp(ActionContext&);
-    ContinueResult Finished(ActionContext&);
-    ContinueResult Combat(ActionContext&);
+    ContinueResult Continue(EffectContext&)override;
+    void Start(EffectContext&)override;
+    ContinueResult SetUp(EffectContext&);
+    ContinueResult Finished(EffectContext&);
+    ContinueResult Combat(EffectContext&);
 
-    ContinueResult ChooseAttaker(ActionContext & );
-    ContinueResult ChooseAttckerCard(ActionContext & );
-    ContinueResult ChooseDeffender(ActionContext &);
-    ContinueResult ChooseDeffenderCard(ActionContext &);
-    ContinueResult AskForDeffend(ActionContext &);
+    ContinueResult ChooseAttaker(EffectContext & );
+    ContinueResult ChooseAttckerCard(EffectContext & );
+    ContinueResult ChooseDeffender(EffectContext &);
+    ContinueResult ChooseDeffenderCard(EffectContext &);
+    ContinueResult AskForDeffend(EffectContext &);
 
 
-    ContinueResult BuildAttakerMenu(ActionContext &);
-    ContinueResult BuildAttackerCardMenu(ActionContext & );
-    ContinueResult BuildDeffenderMenu(ActionContext &);
-    ContinueResult BuildDeffenerCardMenu(ActionContext&);
+    ContinueResult BuildAttakerMenu(EffectContext &);
+    ContinueResult BuildAttackerCardMenu(EffectContext & );
+    ContinueResult BuildDeffenderMenu(EffectContext &);
+    ContinueResult BuildDeffenerCardMenu(EffectContext&);
     ContinueResult BuildAskDeffendMenu();
     void SetDeffenderCards();
     bool CanDeffendDffender();

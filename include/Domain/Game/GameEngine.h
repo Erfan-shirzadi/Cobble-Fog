@@ -16,8 +16,7 @@ class GameEngine {
 
     TurnUseCase turnusecase;
 
-    ActionContext context;
-    
+    EffectContext context;
     void Process();
     
     public:
