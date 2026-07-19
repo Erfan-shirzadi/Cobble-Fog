@@ -17,6 +17,7 @@
 #include "Application/CardEffect/HolmesCardsEffect/EliminateTheImpossible.h"
 #include "Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.h"
 #include "Application/CardEffect/HolmesCardsEffect/MasterOfDeisguseEffect.h"
+#include "Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.h"
 #include "Application/CardEffect/NoneEffect.h"
 
 
@@ -70,7 +71,7 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         return std::make_unique<DeduceStrategyEffect>();
         break;
     case CardId::EDUCATION_NEVER_ENDS:
-        // return std::make_unique<>();
+        return std::make_unique<EducationNeverEndsEffect>();
         break;
     case CardId::ELIMINATE_THE_IMPOSSIBLE:
         return std::make_unique<EliminateTheImpossibleEffect>();

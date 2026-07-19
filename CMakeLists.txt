@@ -58,7 +58,7 @@ set(
 
 
     src/Application/CardEffect/CardEffectFactory.cpp
-    
+
     src/Application/CardEffect/DraculaCardsEffect/FeedingFrenzyEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/MistFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/AmbushEffect.cpp
@@ -78,6 +78,7 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/EliminateTheImpossibleEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/MasterOfDisguse.cpp
+    src/Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.cpp
     src/Application/CardEffect/NoneEffect.cpp
 
 
