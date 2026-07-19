@@ -3,86 +3,7 @@
 #include "Application/UseCases/ManeverUseCase.h"
 #include "Application/UseCases/AttackUseCase.h"
 #include <iostream>
-void TurnUseCase::execute(GameState & gamestate){
-    Hero* Current=gamestate.currnetPlayer->GetHero();
-    Current->SetRemainingAction(2);
-    int action;
 
-    if(Current->CanUseCability(gamestate)){
-        std::string temp;
-        std::cout<<"Do you want use Ability? (Y/N)";
-        std::cin>>temp;
-        if(temp=="Y")
-            Current->Ability(gamestate);
-    }
-
-
-    while (Current->GetRemainingAction()>0 && (!GameOver(gamestate))){
-        std::cout<<" Turn " <<Current->GetName()<<std::endl;
-        std::cout<< Current->GetHandCards()<<std::endl;
-        std::cout<< " Choose A Action : "<<std::endl;
-        std::cout<<R"(0. scheme 
-1. Manever
-2. Attack )";
-        std::cin>>action;
-        // switch(action)
-        // {
-        //     case 0:{
-        //             // SchemeUseCase a(gamestate);
-        //     if(a.CanDoAction(gamestate)){
-        //        std::cout<< " Succesfull "<<std::endl;
-        //        Current->reduceRemainingAction();
-        //      }
-        //      else std::cout<<" can not do scheme "<<std::endl;
-        //      break;
-        //     }
-        //     case 1:{
-        //         // ManeverUseCase b;
-        //         b.execute(gamestate);
-        //        Current->reduceRemainingAction();
-        //         break;
-        //     }
-        //     case 2:
-        //     {
-        //         // AttackUseCase c;
-        //         if(c.execute(gamestate)){
-        //             Current->reduceRemainingAction();
-        //             std::cout<<" succesfull "<<std::endl;
-        //         }else {
-        //             std::cout<< "Can not do attack "<<std::endl;
-        //         }
-        //         break;
-        //     }
-            
-            
-
-        // }
-        // gamestate.board.GetGraph();
-     }
-     ManageHandSize(Current);
-    
-}
-
-
-void TurnUseCase::ManageHandSize(Hero * hero){
-
-    int choice;
-    while (hero->GetSizeHand()>7)
-    {
-        std::cout<< " You most Discard Card From your Hand "<<std::endl;
-        std::cout<< hero->GetHandCards()<<std::endl;
-        std::cout<< " Enter A number :";
-        std::cin>> choice;
-
-        if(choice<0 || choice> hero->GetSizeHand())
-            std::cout<< "Enter Correct please "<<std::endl;
-        else{
-            hero->RemoveCardHand(choice);
-        }
-
-    }
-    
-}
 
 bool TurnUseCase::GameOver(GameState &GameState ){
     Hero* current=GameState.currnetPlayer->GetHero();
@@ -107,11 +28,13 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
     case TurnStep::FINISHED:
         return FinishedResult(context);
         break;
-    default :{
-        ContinueResult a;
+    case TurnStep::MANAGE_HAND_SIZE:
+
+        break;
+    }
+    ContinueResult a;
+    a.status=ContinueStatus::FINISHED;
         return a;
-    }
-    }
 }
 
 void TurnUseCase::Start(EffectContext& context){
@@ -160,7 +83,15 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     Hero * CurrentHero=context.context.Gamestate->currnetPlayer->GetHero();
     ContinueResult result;
     if(CurrentHero->GetRemainingAction()==0){
-        result.status=ContinueStatus::FINISHED;
+
+        if(CurrentHero->GetSizeHand()>7){
+            result.status=ContinueStatus::CONTINUE;
+            step=TurnStep::MANAGE_HAND_SIZE;
+        }
+        else {
+            result.status=ContinueStatus::FINISHED;
+            step=TurnStep::CHOOSE_ACTION;
+        }
     }
     else{
         step=TurnStep::CHOOSE_ACTION;
@@ -191,4 +122,26 @@ MenuRequest TurnUseCase::BuildActionMenu(){
     temp.options.push_back("Manever");
     temp.options.push_back("Attack");
     return temp;
+}
+
+ContinueResult TurnUseCase::ManageHandSize(EffectContext & context){
+    Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+    if(context.context.Selected==-1) return BuildHandMenu(hero);
+
+    hero->RemoveCardHand(context.context.Selected);
+
+    ContinueResult result;
+    result.status=ContinueStatus::CONTINUE;
+    return result;
+}
+
+ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
+    ContinueResult result;
+
+    for(auto card: hero->GetHand()){
+        result.menu_request.options.push_back(card->GetName());
+    }
+    result.status=ContinueStatus::NEEDMENU;
+
+    return result;
 }

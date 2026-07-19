@@ -15,7 +15,6 @@ void GameEngine::run(){
     view.SetOnSelection([this](int selected){
         this->OnSelection(selected);
     });
-    std::cout<<" ********"<<std::endl;
 
     Start();
     view.Run();    

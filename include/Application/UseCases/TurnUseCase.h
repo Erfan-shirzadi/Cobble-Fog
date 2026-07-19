@@ -12,6 +12,7 @@ enum class TurnStep{
     CHOOSE_ACTION,
     EXECUTE_USECASE,
     FINISHED,
+    MANAGE_HAND_SIZE
 };
 class TurnUseCase{
 
@@ -23,8 +24,6 @@ class TurnUseCase{
     AttackUseCase attack;
 
     public:
-    void execute(GameState & );
-    void ManageHandSize(Hero *);
     bool GameOver(GameState &);
 
     ContinueResult Continue(EffectContext &);
@@ -35,11 +34,13 @@ class TurnUseCase{
     ContinueResult ExecuteAction(EffectContext&);
     ContinueResult ChooseAction(EffectContext &);
     ContinueResult FinishedResult(EffectContext & );
+    ContinueResult ManageHandSize(EffectContext &);
 
     void SetUseCase(int index);
 
 
     MenuRequest BuildActionMenu();
+    ContinueResult BuildHandMenu(Hero *);
 };
 
 #endif /* TURN_USECASE */
