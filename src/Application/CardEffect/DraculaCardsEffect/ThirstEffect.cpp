@@ -20,7 +20,8 @@ ContinueResult ThirstEffect::Continue(EffectContext & context ){
 ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
     ContinueResult res;
     Board board=context.context.Gamestate->board;
-    Hero * enemy=context.context.Gamestate->opponentPlayre->GetHero();
+    Fighter * enemy=context.combatcontext->Opponent->fighter;;
+
     this->rechabenode=board.GetReachableNighbors(enemy->GetNode());
     if(rechabenode.empty())res.status=ContinueStatus::FINISHED;
 
