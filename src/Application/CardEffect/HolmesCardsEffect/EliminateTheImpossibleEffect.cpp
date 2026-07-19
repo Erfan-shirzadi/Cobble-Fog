@@ -6,7 +6,7 @@ ContinueResult EliminateTheImpossibleEffect::Continue(EffectContext& context){
     if(context.context.Selected==-1) return BuildCardMenu(context);
 
     context.context.Gamestate->opponentPlayre->GetHero()->GetCard(context.context.Selected);
-
+    context.context.Selected=-1;
     ContinueResult res;
      res.status= ContinueStatus::FINISHED;
 
