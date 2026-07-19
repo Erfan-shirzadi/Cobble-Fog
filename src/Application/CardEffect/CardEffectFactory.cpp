@@ -26,70 +26,70 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     switch (id)
     {
     case CardId::AMBUSH:
-        return std::make_unique<AmbushEffect>();
+        return std::move(std::make_unique<AmbushEffect>());
         break;
     case CardId::BAPISM_OF_BLOOD:
-        return std::make_unique<BapismOfBloodEffect>();
+        return std::move(std::make_unique<BapismOfBloodEffect>());
         break;
     case CardId::BEASTFORM:
-        return std::make_unique<BeastFormEffect>();
+        return std::move(std::make_unique<BeastFormEffect>());
         break;
     case CardId::DASH:
-        return std::make_unique<Move3Effect>();
+        return std::move(std::make_unique<Move3Effect>());
         break;
     case CardId::EXPLOIT:
-        return std::make_unique<ExpliotEffect>();
+        return std::move(std::make_unique<ExpliotEffect>());
         break;
     case CardId::FEEDINGFRENZY:
-        return std::make_unique<FeedingFrenzyEffect>();
+        return std::move(std::make_unique<FeedingFrenzyEffect>());
         break;
     case CardId::FEINT:
-        return std::make_unique<FeintEffect>();
+        return std::move(std::make_unique<FeintEffect>());
         break;
     case CardId::LOOK_INTO_MY_EYES:
-        return std::make_unique<LookIntoMyEyesEffect>();
+        return std::move(std::make_unique<LookIntoMyEyesEffect>());
         break;
     case CardId::MISTFORM:
-        return std::make_unique<MistFormEffect>();
+        return std::move(std::make_unique<MistFormEffect>());
         break;
     case CardId::PERYUPON:
-        return std::make_unique<PreyUponEffect>();
+        return std::move(std::make_unique<PreyUponEffect>());
         break;
     case CardId::RAVENING_SEDUCTION:
-        return std::make_unique<RaveningSeductionEffect>();
+        return std::move(std::make_unique<RaveningSeductionEffect>());
         break;
     case CardId::THIRST_FOR_SUSTENANCE:
-        return std::make_unique<ThirstEffect>();
+        return std::move(std::make_unique<ThirstEffect>());
         break;
     case CardId::ADMINISTER_AID:
-        return std::make_unique<AdministerAidEffect>();
+        return std::move(std::make_unique<AdministerAidEffect>());
         break;
     case CardId::COUNTER_PUNCH:
-        return std::make_unique<CounterPunchEffect>();
+        return std::move(std::make_unique<CounterPunchEffect>());
         break;
     case CardId::DEDUCE_STRATEGY:
-        return std::make_unique<DeduceStrategyEffect>();
+        return std::move(std::make_unique<DeduceStrategyEffect>());
         break;
     case CardId::EDUCATION_NEVER_ENDS:
-        return std::make_unique<EducationNeverEndsEffect>();
+        return std::move(std::make_unique<EducationNeverEndsEffect>());
         break;
     case CardId::ELIMINATE_THE_IMPOSSIBLE:
-        return std::make_unique<EliminateTheImpossibleEffect>();
+        return std::move(std::make_unique<EliminateTheImpossibleEffect>());
         break;
     case CardId::FIXED_POINT_IN_A_CHANGING_AGE:
-        return std::make_unique<FixedAPointInChangingAgeEffect>();
+        return std::move(std::make_unique<FixedAPointInChangingAgeEffect>());
         break;
     case CardId::MASTER_OF_DISGUISE:
-        return std::make_unique<MasterOfDeisGuseEffect>();
+        return std::move(std::make_unique<MasterOfDeisGuseEffect>());
         break;
     case CardId::SERVICE_REVOLVER:
-        return std::make_unique<NoneEffect>();
+        return std::move(std::make_unique<NoneEffect>());
         break;
     case CardId::STUDY_METHODS:
         // return std::make_unique<>();
         break;
     case CardId::THE_GAME_IS_AFOOT:
-        return std::make_unique<Move3Effect>();
+        return std::move(std::make_unique<Move3Effect>());
         break;
 
     

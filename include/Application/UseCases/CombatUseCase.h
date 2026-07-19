@@ -5,6 +5,7 @@
 #include "Application/interaction/Combat/CombatContext.h"
 
 enum class CombatStep{
+    START,
     BEFOR_COMBAT,
     DURING_COMBAT,
     AFTER_COMBAT,
@@ -17,11 +18,11 @@ enum class CardPlayStep{
 };
 class CombatUseCase{
 
-    CombatStep combatstep;
+    CombatStep combatstep=CombatStep::START;
     CardPlayStep cardStep;
     public:
 
-
+    ContinueResult start(EffectContext &);
     ContinueResult Continue(EffectContext &);
     ContinueResult BeforCombat(EffectContext &);
     ContinueResult DuringCombat(EffectContext &);

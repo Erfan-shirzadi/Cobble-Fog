@@ -7,6 +7,9 @@ using namespace std;
 ContinueResult CombatUseCase::Continue(EffectContext & context){
     switch (combatstep)
     {
+    case CombatStep::START:{
+        return start(context);
+    }
     case CombatStep::BEFOR_COMBAT:
         return BeforCombat(context);
         break;
@@ -32,11 +35,32 @@ ContinueResult CombatUseCase::BeforCombat(EffectContext & context){
     switch (cardStep)
     {
     case CardPlayStep::DEFFENDER_CARD:{
-        CombatCard* card=context.combatcontext->Opponent->card;
-        
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
+          res = context.combatcontext->Current->effect->Continue(context); 
+        if(res.status==ContinueStatus::FINISHED){
+            std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+            res.status=ContinueStatus::CONTINUE;
+            this->cardStep=CardPlayStep::ATTACKER_CARD;
+
+        }
+        return res;    
     }
     case CardPlayStep::ATTACKER_CARD:{
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
+            res= context.combatcontext->Current->effect->Continue(context);  
+        if(res.status==ContinueStatus::FINISHED){
+            std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+            res.status=ContinueStatus::CONTINUE;
+            combatstep=CombatStep::DURING_COMBAT;
+            this->cardStep=CardPlayStep::DEFFENDER_CARD;
 
+
+        }
+         return res;      
     }
     }
     ContinueResult res;
@@ -48,10 +72,38 @@ ContinueResult CombatUseCase::DuringCombat(EffectContext & context){
         switch (cardStep)
     {
     case CardPlayStep::DEFFENDER_CARD:{
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
+            res= context.combatcontext->Current->effect->Continue(context);     
+        if(res.status==ContinueStatus::FINISHED){
+            std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+            res.status=ContinueStatus::CONTINUE;
+            this->cardStep=CardPlayStep::ATTACKER_CARD;
+
+
+        }
+         return res;      
 
     }
     case CardPlayStep::ATTACKER_CARD:{
+        
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
 
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
+            res= context.combatcontext->Current->effect->Continue(context);        
+        if(res.status==ContinueStatus::FINISHED){
+            std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+            res.status=ContinueStatus::CONTINUE;
+            combatstep=CombatStep::AFTER_COMBAT;
+            this->cardStep=CardPlayStep::DEFFENDER_CARD;
+
+
+
+        }
+         return res;  
     }
     }
     ContinueResult res;
@@ -64,10 +116,32 @@ ContinueResult CombatUseCase::AfterCombat(EffectContext  & context){
     switch (cardStep)
     {
     case CardPlayStep::DEFFENDER_CARD:{
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
 
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
+            res= context.combatcontext->Current->effect->Continue(context);        
+        if(res.status==ContinueStatus::FINISHED){
+            std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+            res.status=ContinueStatus::CONTINUE;
+                this->cardStep=CardPlayStep::ATTACKER_CARD;
+
+        }
+         return res;  
     }
     case CardPlayStep::ATTACKER_CARD:{
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
 
+        if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
+            res= context.combatcontext->Current->effect->Continue(context);        
+        if(res.status==ContinueStatus::FINISHED){
+            res.status=ContinueStatus::CONTINUE;
+            combatstep=CombatStep::FINISHED;
+                this->cardStep=CardPlayStep::DEFFENDER_CARD;
+
+        }
+         return res;  
     }
     }
     ContinueResult res;
@@ -76,5 +150,22 @@ ContinueResult CombatUseCase::AfterCombat(EffectContext  & context){
 
 }
 ContinueResult CombatUseCase::Finished(EffectContext & context){
-    
+     ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
+}
+
+
+ContinueResult CombatUseCase::start(EffectContext &context){
+    context.combatcontext->Opponent->effect=
+        CardEffectFactory::CreatCardEffect(context.combatcontext->Opponent->card->GetCardId());
+        context.combatcontext->Current->effect=
+    CardEffectFactory::CreatCardEffect(context.combatcontext->Current->card->GetCardId());
+    std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
+
+    combatstep=CombatStep::BEFOR_COMBAT;
+    this->cardStep=CardPlayStep::DEFFENDER_CARD;
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 }

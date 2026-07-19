@@ -7,7 +7,7 @@ struct CombatParticipant{
     Hero  *hero;
     Fighter * fighter;
     CombatCard *card;
-    // std::unique_ptr<
+     std::unique_ptr<CardEffect> effect;
 
     int DamageOrDeffend=0;
     bool Won=false;

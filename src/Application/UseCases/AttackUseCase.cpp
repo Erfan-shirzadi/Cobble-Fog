@@ -1,5 +1,6 @@
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/UseCases/CombatUseCase.h"
+#include "Application/CardEffect/CardEffectFactory.h"
 #include <iostream>
 using namespace std;
 
@@ -86,10 +87,10 @@ ContinueResult AttackUseCase::Continue(EffectContext& context){
         return SetUp(context);
         break;
     case AttackStep::COMBAT:
-
+        return combat.Continue(context);
         break;
     case AttackStep::FINISHED:
-
+        return Finished(context);
         break;
     }
     ContinueResult res;
@@ -132,12 +133,16 @@ ContinueResult AttackUseCase::SetUp(EffectContext&context){
 
 }
 ContinueResult Finished(ActionContext&){
-
+ ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 
 }
 
 ContinueResult Combat(ActionContext&){
-    
+     ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 }
 
 
@@ -171,6 +176,7 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     
     combatcontext.Current=std::make_unique<CombatParticipant>();
     combatcontext.Opponent=std::make_unique<CombatParticipant>();
+    context.combatcontext=&combatcontext;
     combatcontext.Opponent->hero=context.context.Gamestate->opponentPlayre->GetHero();
     combatcontext.Current->hero=context.context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.context.Selected];
