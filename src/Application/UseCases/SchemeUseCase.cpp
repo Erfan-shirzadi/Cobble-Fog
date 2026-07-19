@@ -3,6 +3,7 @@
 #include "Domain/Entities/Cards/Holmes/AdministerAid.h"
 #include <iostream>
 #include "Application/interaction/EffectContext.h"
+#include "Application/CardEffect/CardEffectFactory.h"
 
 using namespace std;
 
@@ -59,68 +60,6 @@ Card * SchemeUseCase::CardSelection(Hero * hero){
 }
 
 
-// ContinueResult SchemeUseCase::Continue(int input){
-
-//     switch (this->step)
-//     {
-    
-//     case Step::CHOOSECARD:
-//       return ChooseCard(input);
-        
-//     case Step::EXECUTECARD:
-//         return ExecuteCard();
-//     break;
-        
-//     case Step::FINISHED:{
-//         ContinueResult a;
-//         a.status=ContinueStatus::FINISHED;
-//         return a;
-//     }
-
-//     break;
-//     }
-    
-
-// }
-
-
-// ContinueResult SchemeUseCase::ChooseCard(int input){
-//      ContinueResult result;
-//      Hero * hero=gamestate.currnetPlayer->GetHero();
-//      if(input==-1){
-//         result.status=ContinueStatus::NEEDMENU;
-//         result.menu_request.title="Choose Shceme Card";
-
-//         for(auto card: hero->GetHand()){
-//             result.menu_request.options.push_back(card->GetName());
-//         }
-//         return result;
-
-//     }
-    
-//     this->card=hero->GetCard(input);
-//     step=Step::EXECUTECARD;
-//     // return Continue();
-
-// }
-
-
-// SchemeUseCase::SchemeUseCase(GameState & gamestate):gamestate(gamestate){}
-
-// ContinueResult SchemeUseCase::ExecuteCard(){
-    
-//     AdministerAid * card=dynamic_cast<AdministerAid *>(this->card);
-//     ContinueResult result=card->Continue(this->context);
-
-//     if(result.status==ContinueStatus::FINISHED){
-
-//         this->step=Step::FINISHED;
-//         return Continue();
-//     }
-
-//     return result;
-// } 
-
 ContinueResult SchemeUseCase::Continue(EffectContext &context){
 
     switch (step)
@@ -151,6 +90,7 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
     }
 
     SelectedCard=context.context.Gamestate->currnetPlayer->GetHero()->GetCard(context.context.Selected);
+    cardEffect=CardEffectFactory::CreatCardEffect(SelectedCard->GetCardId());
     context.context.Selected=-1;
     step=SchemeStep::EXECUTECARD;
 
@@ -173,7 +113,7 @@ MenuRequest SchemeUseCase::BuildCardMenu(EffectContext& context){
 }
 
 ContinueResult SchemeUseCase::ExecuteCard(EffectContext& context){
-     ContinueResult result;
+     ContinueResult result=cardEffect->Continue(context);
      if(result.status == ContinueStatus::FINISHED){
         step=SchemeStep::FINISHED;
         return result;
@@ -184,6 +124,7 @@ ContinueResult SchemeUseCase::ExecuteCard(EffectContext& context){
 ContinueResult SchemeUseCase::Finished(EffectContext &context){
     this->SelectedCard=nullptr;
     context.context.Selected=-1;
+    cardEffect=nullptr;
     ContinueResult result;
     result.status=ContinueStatus::FINISHED;
     return result;

@@ -16,7 +16,7 @@ enum class ReturnSisterStep{
 
 class BapismOfBloodEffect : public CardEffect{
     BapismEffectStep bapismstep=BapismEffectStep::HEAL_DRACULA;
-    ReturnSisterStep returnstep=ReturnSisterStep::CHOOSEDESTINATION;
+    ReturnSisterStep returnstep=ReturnSisterStep::HEAL_SISITER;
 
     std::vector<int> reachableNodes;
     Fighter * sister=nullptr;

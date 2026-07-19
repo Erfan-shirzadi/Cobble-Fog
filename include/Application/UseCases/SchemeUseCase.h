@@ -14,6 +14,8 @@ class SchemeUseCase : public IUseCase{
 
     SchemeStep step=SchemeStep::CHOOSECARD;
     Card * SelectedCard=nullptr;
+
+    std::unique_ptr<CardEffect> cardEffect=nullptr;
     
     public:
     // explicit SchemeUseCase(GameState &);
