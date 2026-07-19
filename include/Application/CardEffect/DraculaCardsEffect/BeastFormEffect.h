@@ -1,6 +1,7 @@
 #ifndef BEAST_FORM_EFFECT
 #define BEAST_FORM_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class BeastFormStep{
     ASK_FOR_DISCADINGCARD,

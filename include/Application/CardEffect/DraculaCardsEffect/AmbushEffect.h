@@ -1,6 +1,7 @@
 #ifndef AMBUSH_EFFECT
 #define AMBUSH_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum AmbushEffectStep{
     DRAW_RANDOM_CARD,

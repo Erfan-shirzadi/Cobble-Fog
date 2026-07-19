@@ -1,6 +1,7 @@
 #ifndef EDUCATION_NEVER_ENDS_EFFECT
 #define EDUCATION_NEVER_ENDS_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 class EducationNeverEndsEffect :public CardEffect{
 

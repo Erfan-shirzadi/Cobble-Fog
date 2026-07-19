@@ -1,4 +1,5 @@
  #include "Application/CardEffect/DraculaCardsEffect/ThirstEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult ThirstEffect::Continue(EffectContext & context ){
     if(context.context.Selected==-1) return BuildReachableNodes(context);

@@ -1,6 +1,7 @@
 #ifndef ADMINISTER_AID_EFFECT
 #define ADMINISTER_AID_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class AdministerEffectStep{
     CHOOSE_DESTINATION,

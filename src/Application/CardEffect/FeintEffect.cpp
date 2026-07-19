@@ -1,4 +1,6 @@
 #include "Application/CardEffect/FeintEffect.h"
+#include "Application/interaction/EffectContext.h"
+
 
 ContinueResult FeintEffect::Continue(EffectContext & context){
     ContinueResult result;

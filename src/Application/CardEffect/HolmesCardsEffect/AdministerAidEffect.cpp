@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/AdministerAidEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult AdministerAidEffect::Continue(EffectContext & context){
 

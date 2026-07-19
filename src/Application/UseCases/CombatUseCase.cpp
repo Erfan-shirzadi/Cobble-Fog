@@ -1,5 +1,6 @@
 #include "Application/UseCases/CombatUseCase.h"
 #include <iostream>
+#include "Application/CardEffect/CardEffectFactory.h"
 
 using namespace std;
 
@@ -32,9 +33,7 @@ ContinueResult CombatUseCase::BeforCombat(EffectContext & context){
     {
     case CardPlayStep::DEFFENDER_CARD:{
         CombatCard* card=context.combatcontext->Opponent->card;
-        if(card->GetCardPlayTiming()==PlayTiming::IMMEDIATE){
-            
-        }
+        
     }
     case CardPlayStep::ATTACKER_CARD:{
 
@@ -48,12 +47,12 @@ ContinueResult CombatUseCase::DuringCombat(EffectContext & context){
 
         switch (cardStep)
     {
-    case CardPlayStep::DEFFENDER_CARD:
-        /* code */
-        break;
-    case CardPlayStep::ATTACKER_CARD:
-        /* code */
-        break;
+    case CardPlayStep::DEFFENDER_CARD:{
+
+    }
+    case CardPlayStep::ATTACKER_CARD:{
+
+    }
     }
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
@@ -62,14 +61,14 @@ ContinueResult CombatUseCase::DuringCombat(EffectContext & context){
 }
 ContinueResult CombatUseCase::AfterCombat(EffectContext  & context){
 
-        switch (cardStep)
+    switch (cardStep)
     {
-    case CardPlayStep::DEFFENDER_CARD:
-        /* code */
-        break;
-    case CardPlayStep::ATTACKER_CARD:
-        /* code */
-        break;
+    case CardPlayStep::DEFFENDER_CARD:{
+
+    }
+    case CardPlayStep::ATTACKER_CARD:{
+
+    }
     }
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;

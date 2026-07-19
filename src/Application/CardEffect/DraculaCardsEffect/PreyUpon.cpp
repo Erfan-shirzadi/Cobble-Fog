@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/PreyUponEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult PreyUponEffect::Continue(EffectContext & context){
     Hero* Dracula=context.context.Gamestate->currnetPlayer->GetHero();

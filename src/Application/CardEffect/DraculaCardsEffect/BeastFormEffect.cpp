@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/BeastFormEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult BeastFormEffect::Continue(EffectContext & context){
 

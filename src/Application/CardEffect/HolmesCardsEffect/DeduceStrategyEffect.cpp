@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/DeduceStrategyEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult DeduceStrategyEffect::Continue(EffectContext & context){
 

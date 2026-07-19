@@ -1,6 +1,7 @@
 #ifndef MISTFORM_EFFECT
 #define MISTFORM_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class MistFormEffectStep{
     MOVE_DRACULA,

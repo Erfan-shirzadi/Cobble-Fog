@@ -1,4 +1,5 @@
 #include "Application/CardEffect/Move3Effect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult Move3Effect::Continue(EffectContext &context){
     if(context.context.Selected==-1)return BuildReachableNodes(context);

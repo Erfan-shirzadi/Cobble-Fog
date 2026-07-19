@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/FeedingFrenzyEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult FeedingFrenzyEffect::Continue(EffectContext & context){
 

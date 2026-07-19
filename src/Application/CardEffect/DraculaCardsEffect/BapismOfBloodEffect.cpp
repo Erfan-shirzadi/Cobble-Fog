@@ -1,4 +1,5 @@
 #include  "Application/CardEffect/DraculaCardsEffect/BapismOfBloodEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult BapismOfBloodEffect::Continue(EffectContext &  context){
     switch (this->bapismstep)

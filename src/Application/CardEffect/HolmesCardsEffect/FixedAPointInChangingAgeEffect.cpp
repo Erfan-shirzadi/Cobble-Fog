@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult FixedAPointInChangingAgeEffect::Continue(EffectContext & context){
     Hero * holmes=context.context.Gamestate->currnetPlayer->GetHero();

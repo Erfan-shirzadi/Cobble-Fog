@@ -1,6 +1,7 @@
 #ifndef RAVENEING_SEDUCTION_EFFECT
 #define RAVENEING_SEDUCTION_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class RaveningStep{
     CHOOSE_FIGHTER,

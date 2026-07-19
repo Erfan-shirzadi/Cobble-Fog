@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/RaveningSeductoinEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult RaveningSeductionEffect::Continue(EffectContext &context){
     switch (step)

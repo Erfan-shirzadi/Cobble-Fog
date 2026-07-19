@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult EducationNeverEndsEffect::Continue(EffectContext & context){
     if(context.combatcontext->Current->Won){

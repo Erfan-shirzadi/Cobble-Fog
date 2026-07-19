@@ -1,6 +1,7 @@
 #ifndef BAPISM_OF_BLOOD_EFFECT
 #define BAPISM_OF_BLOOD_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class BapismEffectStep{
     HEAL_DRACULA,

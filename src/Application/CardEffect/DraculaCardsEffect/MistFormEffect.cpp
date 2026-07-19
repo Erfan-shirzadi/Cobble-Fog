@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/MistFormEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult MistFormEffect::Continue(EffectContext &context){
 

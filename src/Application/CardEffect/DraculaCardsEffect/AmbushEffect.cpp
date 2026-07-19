@@ -1,4 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/AmbushEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult AmbushEffect::Continue(EffectContext & context){
     switch (step)

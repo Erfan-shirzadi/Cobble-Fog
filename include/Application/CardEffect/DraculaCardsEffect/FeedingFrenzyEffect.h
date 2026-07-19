@@ -1,6 +1,7 @@
 #ifndef FEEDING_FRENZY_EFFECT
 #define FEEDING_FRENZY_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 enum class FeedinFrenzyEffectStep{
     INCREASE_DAMAGE,

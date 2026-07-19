@@ -1,6 +1,7 @@
 #ifndef THIRST_EFFECT
 #define THIRST_EFFECT
 #include "Application/CardEffect/CardEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 class ThirstEffect :public CardEffect{
 

@@ -1,8 +1,7 @@
 #ifndef CARD_EFFFECT
 #define CARD_EFFFECT
-#include "Application/interaction/EffectContext.h"
 #include "Application/interaction/ContinueResult.h"
-
+struct EffectContext;
 class CardEffect {
     
     public :

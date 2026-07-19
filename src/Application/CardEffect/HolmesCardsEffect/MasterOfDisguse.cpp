@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/MasterOfDeisguseEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult MasterOfDeisGuseEffect::Continue(EffectContext &context){
    Hero * hero= context.context.Gamestate->currnetPlayer->GetHero();

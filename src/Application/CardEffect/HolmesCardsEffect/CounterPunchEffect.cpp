@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/CounterPunchEffect.h"
+#include "Application/interaction/EffectContext.h"
 
 ContinueResult CounterPunchEffect::Continue(EffectContext & context){
         Fighter* fighter=context.combatcontext->Opponent->fighter;

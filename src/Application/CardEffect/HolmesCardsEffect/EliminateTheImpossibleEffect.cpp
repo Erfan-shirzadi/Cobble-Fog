@@ -1,4 +1,5 @@
 #include "Application/CardEffect/HolmesCardsEffect/EliminateTheImpossible.h"
+#include "Application/interaction/EffectContext.h"
 
    
 ContinueResult EliminateTheImpossibleEffect::Continue(EffectContext& context){
