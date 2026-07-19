@@ -49,7 +49,6 @@ bool Hero::IsExistCardInHand(CardCategory askcategory){
 
 
 bool Hero::DrawCard(){
-      std::cout<< "Draw a card from "<<this->GetName()<<std::endl;
       if(deck.Size()==0)return false;
       this->Hand.push_back(std::move(deck.Draw()));
       return true;
@@ -110,4 +109,8 @@ std::string Hero::GetHandCards()const{
 
 Fighter * Hero::GetDeadSideKick()const{
       return nullptr;
+}
+
+int Hero::GetDeckSize(){
+      return deck.Size();
 }

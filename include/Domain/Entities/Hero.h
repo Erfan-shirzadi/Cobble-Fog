@@ -43,6 +43,8 @@ class Hero :public Fighter{
     std::string GetHandCards()const;
 
     virtual Fighter * GetDeadSideKick()const;
+
+    int GetDeckSize();
 };
 
 
