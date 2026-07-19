@@ -58,6 +58,7 @@ set(
 
 
     src/Application/CardEffect/CardEffectFactory.cpp
+    
     src/Application/CardEffect/DraculaCardsEffect/FeedingFrenzyEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/MistFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/AmbushEffect.cpp
@@ -69,6 +70,7 @@ set(
     src/Application/CardEffect/DraculaCardsEffect/BeastFormEffect.cpp
     src/Application/CardEffect/DraculaCardsEffect/ExploitEffect.cpp
     src/Application/CardEffect/Move3Effect.cpp
+    src/Application/CardEffect/DraculaCardsEffect/ThirstEffect.cpp
 
     src/Application/CardEffect/HolmesCardsEffect/AdministerAidEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/CounterPunchEffect.cpp
@@ -76,6 +78,8 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/EliminateTheImpossibleEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/MasterOfDisguse.cpp
+    src/Application/CardEffect/NoneEffect.cpp
+
 
     src/presentation/console/GameView.cpp
 
