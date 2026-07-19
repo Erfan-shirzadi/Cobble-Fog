@@ -11,7 +11,7 @@ ContinueResult AdministerAidEffect::Continue(EffectContext & context){
     case AdministerEffectStep::HEAL_HOLMES:{
             Hero* holmes=context.context.Gamestate->currnetPlayer->GetHero();
             holmes->Heal(1);
-
+            step=AdministerEffectStep::DRAW_CARD;
             ContinueResult res;
             res.status=ContinueStatus::CONTINUE;
             return res;
@@ -19,6 +19,7 @@ ContinueResult AdministerAidEffect::Continue(EffectContext & context){
     case AdministerEffectStep::DRAW_CARD:{
             Hero* holmes=context.context.Gamestate->currnetPlayer->GetHero();
             holmes->DrawCard();
+
             ContinueResult res;
             res.status=ContinueStatus::FINISHED;
             return res;

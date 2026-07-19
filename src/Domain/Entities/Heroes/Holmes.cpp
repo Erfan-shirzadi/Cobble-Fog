@@ -54,6 +54,8 @@ Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
     AddCardToDeck(std::make_unique<TheGameIsAfoot>());
         AddCardToDeck(std::make_unique<TheGameIsAfoot>());
 
+                AddCardToDeck(std::make_unique<AdministerAid>());
+
 
 
 
