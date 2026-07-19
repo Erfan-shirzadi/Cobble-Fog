@@ -4,7 +4,7 @@
 class DrawingCardUseCase{
 
     public :
-    void execute(Hero &);
+    static void DrawCard(Hero *);
 };
 
 
