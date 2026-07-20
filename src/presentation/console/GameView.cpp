@@ -127,7 +127,8 @@ Element GameView::Refresh(){
         RenderPlayer(gamestate.player1)|border|size(WIDTH,EQUAL,30)|flex,
         RenderLog()|border|size(WIDTH,EQUAL,40)|flex,
         RenderPlayer(gamestate.player2)|border|size(WIDTH,EQUAL,30)|flex,
-        })
+        }),
+        RenderMap()|border
         })|border,
         renderMenu()
 });
@@ -184,10 +185,19 @@ ftxui::Element GameView::RenderLog(){
 
     std::vector<Element> elements;
     for(auto log : gamestate.log.GetLogs()){
-        elements.push_back(text(log));
+        elements.push_back(text(log)|center);
     }
-    elements.push_back(text("salam"));
-    elements.push_back(text("herlo"));
-    elements.push_back(text("Fuck you"));
+    elements.push_back(text("salam")|center);
+    elements.push_back(text("herlo")|center);
+    elements.push_back(text("Fuck you")|center);
     return vbox(elements);
+}
+
+ftxui::Element GameView::RenderMap(){
+    std::vector<Element>elements;
+    Board board=gamestate.board;
+    if(gamestate.opponentPlayre)
+        return vbox(text(board.GetGraph()));
+    
+    return vbox(text("Loading map ....."));
 }

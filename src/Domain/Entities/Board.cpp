@@ -4,6 +4,7 @@
 #include <queue>
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 
 void Board::Move(Fighter& fihgter,int node)const{
 
@@ -144,6 +145,7 @@ std::vector<int> Board::AllFullNodes(){
 }
 
 std::string Board::GetGraph(){
+    std::stringstream out;
     for(int i{1};i<=32;i++){
 
         int indexFighter;
@@ -151,11 +153,14 @@ std::string Board::GetGraph(){
             if(i==allFighters[j]->GetNode())
                 indexFighter=j;
         if(isOccupied(i)){
-            std::cout<< i<<"  ( "<<allFighters[indexFighter]->GetName() <<" )"<<std::endl;
+            out<< i<<"-["<<allFighters[indexFighter]->GetName() <<"]      ";
         }
-        else {std::cout<< i<<"  ( empty )"<<std::endl;}
+        else {out<< i<<"-[empty]     ";}
+        if(i==8)out<<std::endl;
+        if(i==16)out<<std::endl;
+        if(i==24)out<<std::endl;
     }
-    return "";
+    return out.str();
 }
 
 // PathWay Board::GetPathType(int node1,int node2){
