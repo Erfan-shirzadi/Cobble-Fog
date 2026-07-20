@@ -124,8 +124,9 @@ Element GameView::Refresh(){
         vbox({
             text("Turn : ...")|center,
         hbox({
-        RenderPlayer(gamestate.player1)|border,
-        RenderPlayer(gamestate.player2)|border,
+        RenderPlayer(gamestate.player1)|border|size(WIDTH,EQUAL,30)|flex,
+        RenderLog()|border|size(WIDTH,EQUAL,40)|flex,
+        RenderPlayer(gamestate.player2)|border|size(WIDTH,EQUAL,30)|flex,
         })
         })|border,
         renderMenu()
@@ -140,10 +141,12 @@ ftxui::Element GameView::RenderPlayer(Player* player){
     elements.push_back(text(hero->GetName()));
     elements.push_back(separator());
     elements.push_back(text("HP : "+std::to_string(hero->GetHP())));
+    elements.push_back(text("Action : "+std::to_string(hero->GetRemainingAction())));
     elements.push_back(separator());
     elements.push_back(text("Hand :"));
     elements.push_back(separator());
-    elements.push_back(vbox({text(hero->GetHandCards())}));
+    if(hero==gamestate.currnetPlayer->GetHero())
+        elements.push_back(vbox({text(hero->GetHandCards())}));
     elements.push_back(separator());
    
     for(auto fighter:hero->GetSideKicks()){
@@ -168,11 +171,23 @@ ftxui::Element GameView::RenderPlayer(Player* player){
     elements.push_back(text("Side Kikcs Loading ......"));
     elements.push_back(separator());
     elements.push_back(text("Hand Size :...."));
-    elements.push_back(text("Hand Size : ....."));
+    elements.push_back(text("Deck Size : ....."));
 
     }
 
 
     return vbox(elements);
     
+}
+
+ftxui::Element GameView::RenderLog(){
+
+    std::vector<Element> elements;
+    for(auto log : gamestate.log.GetLogs()){
+        elements.push_back(text(log));
+    }
+    elements.push_back(text("salam"));
+    elements.push_back(text("herlo"));
+    elements.push_back(text("Fuck you"));
+    return vbox(elements);
 }

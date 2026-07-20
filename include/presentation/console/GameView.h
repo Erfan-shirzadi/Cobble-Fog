@@ -29,6 +29,7 @@ class GameView{
 
     ftxui::Element Refresh();
     ftxui::Element RenderPlayer(Player* player);
+    ftxui::Element RenderLog();
 
 
     private:

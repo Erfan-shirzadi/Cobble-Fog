@@ -85,6 +85,7 @@ set(
 
 
     src/presentation/console/GameView.cpp
+    src/Domain/Game/GameLog.cpp
 
 )
 find_package(ftxui REQUIRED)
