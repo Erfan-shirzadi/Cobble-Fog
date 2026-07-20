@@ -121,16 +121,20 @@ void GameView::Run(){
 
 Element GameView::Refresh(){
     return vbox({
+        vbox({
+            text("Turn : ...")|center,
         hbox({
-        RenderPlayer()|border,
+        RenderPlayer(gamestate.player1)|border,
+        RenderPlayer(gamestate.player2)|border,
+        })
         })|border,
         renderMenu()
 });
 }
 
 
-ftxui::Element GameView::RenderPlayer(){
-        auto hero=gamestate.currnetPlayer->GetHero();
+ftxui::Element GameView::RenderPlayer(Player* player){
+        auto hero=player->GetHero();
     std::vector<Element>elements;
     if(hero){
     elements.push_back(text(hero->GetName()));

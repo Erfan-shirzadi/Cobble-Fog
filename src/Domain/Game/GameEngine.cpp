@@ -9,7 +9,9 @@ GameEngine::GameEngine():view(gamestate){
 
 void GameEngine::run(){
     gamestate.currnetPlayer=&player1;
+    gamestate.player1=&player1;
     gamestate.opponentPlayre=&player2;
+    gamestate.player2=&player2;
     gamestate.board=board;
     context.context.Gamestate=&gamestate;
     context.context.Selected=-1;

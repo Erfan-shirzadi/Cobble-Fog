@@ -28,7 +28,7 @@ class GameView{
     void Run();
 
     ftxui::Element Refresh();
-    ftxui::Element RenderPlayer();
+    ftxui::Element RenderPlayer(Player* player);
 
 
     private:
