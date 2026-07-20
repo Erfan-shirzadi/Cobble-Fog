@@ -38,7 +38,7 @@ class GameEngine {
     void OnSelection(int selection);
 
     void SetUp();
-    // bool GameOver();
+    bool GameOver();
 
 
 };

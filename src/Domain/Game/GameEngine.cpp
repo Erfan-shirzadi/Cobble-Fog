@@ -39,11 +39,20 @@ void GameEngine::Start(){
 void GameEngine::Process(){
 
     while (true){
+        if(GameOver()){
+            this->state=GameEngineState::GAMEOVER;
+            return ;
+        }
         ContinueResult result=turnusecase.Continue(context);
+        if(GameOver()){
+            this->state=GameEngineState::GAMEOVER;
+            return ;
+        }
         if(result.status==ContinueStatus::NEEDMENU){
             view.SetMenu(result.menu_request);
             return;
         }
+
         if(result.status==ContinueStatus::FINISHED){
             std::swap(this->gamestate.currnetPlayer,gamestate.opponentPlayre);
             turnusecase.Start(context);
@@ -94,12 +103,12 @@ void GameEngine::SetUp(){
 }
 
 
-// bool GameEngine::GameOver( ){
-//     Hero* current=gamestate.currnetPlayer->GetHero();
-//     Hero* opponent=gamestate.opponentPlayre->GetHero();
+bool GameEngine::GameOver( ){
+    Hero* current=gamestate.currnetPlayer->GetHero();
+    Hero* opponent=gamestate.opponentPlayre->GetHero();
 
-//     if(!current->IsAlive() || !opponent->IsAlive())
-//         return true;
-//     return false;
+    if(!current->IsAlive() || !opponent->IsAlive())
+        return true;
+    return false;
 
-// }
+}
