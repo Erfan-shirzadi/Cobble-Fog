@@ -5,7 +5,7 @@
 #include "Application/interaction/EffectContext.h"
 
 
-enum class SetUpStep{
+enum class SetUpGameStep{
     CHOOSE_HERO,
     DRAW_5CARD,
     PLACEMENT,
@@ -18,7 +18,7 @@ enum class PlaceMentStep{
 };
 class SetUpGameUseCase{
 
-    SetUpStep step=SetUpStep::CHOOSE_HERO;
+    SetUpGameStep step=SetUpGameStep::CHOOSE_HERO;
     PlaceMentStep placementstep=PlaceMentStep::SET_HERO;
 
     std::vector<int> ReachbleHeroesNodes{1,26};

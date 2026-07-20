@@ -4,19 +4,17 @@
 #include "Application/interaction/EffectContext.h"
 #include <iostream>
 void GameEngine::run(){
-    SetUpGameUseCase setup;
     gamestate.currnetPlayer=&player1;
     gamestate.opponentPlayre=&player2;
     gamestate.board=board;
     context.context.Gamestate=&gamestate;
     context.context.Selected=-1;
 
-     setup.execute(gamestate);
     view.SetOnSelection([this](int selected){
         this->OnSelection(selected);
     });
 
-    Start();
+    SetUp();
     view.Run();    
 
 }
@@ -57,5 +55,40 @@ void GameEngine::Process(){
 }
 void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
-    Process();
+    if(state==GameEngineState::GAME){
+        Process();
+    }
+    else {SetUp();}
+}
+
+void GameEngine::SetUp(){
+
+    while (true)
+    {
+        ContinueResult result= setup.Continue(context);
+        if(result.status==ContinueStatus::NEEDMENU){
+            view.SetMenu(result.menu_request);
+            return;
+        }
+
+        if(result.status==ContinueStatus::FINISHED){
+
+             if(state==GameEngineState::SETUP_PLAYER2){
+                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+                state=GameEngineState::GAME;
+                Start();
+                return;
+            }
+
+            if(state==GameEngineState::SETUP_PLAYER1){
+                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+                state=GameEngineState::SETUP_PLAYER2;
+                continue;
+            }
+
+           
+        }
+
+    }
+    
 }

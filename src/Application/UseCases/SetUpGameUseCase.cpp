@@ -7,17 +7,11 @@
 
 std::unique_ptr <Hero> SetUpGameUseCase::CreateHero(int choice){
     
-    switch (choice)
-    {
-    case 0:
+    if(Heroes[choice]=="Dracula"){
         return std::make_unique<Dracula> ();
-    case 1:
-        return std::make_unique<Holmes> ();
     }
-
-}
-void SetUpGameUseCase::ShuffelDecks(Hero * hero){
-    hero->ShuffelDeck();
+    return std::make_unique<Holmes> ();
+    
 }
 void SetUpGameUseCase::DrawInitialCards(Hero * hero){
     for(int i{};i<5;i++){
@@ -40,7 +34,7 @@ ContinueResult SetUpGameUseCase::ChooseHero(EffectContext & context){
     Heroes.pop_back();
     context.context.Selected=-1;
 
-    step=SetUpStep::DRAW_5CARD;
+    step=SetUpGameStep::DRAW_5CARD;
 
     result.status=ContinueStatus::CONTINUE;
 
@@ -52,21 +46,21 @@ ContinueResult SetUpGameUseCase::Continue(EffectContext & context){
 
     switch (step)
     {
-    case SetUpStep::CHOOSE_HERO:
+    case SetUpGameStep::CHOOSE_HERO:
         return ChooseHero(context);
         break;
-    case SetUpStep::DRAW_5CARD:{
+    case SetUpGameStep::DRAW_5CARD:{
         Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
         hero->ShuffelDeck();
         DrawInitialCards(hero);
-        step=SetUpStep::PLACEMENT;
+        step=SetUpGameStep::PLACEMENT;
         ContinueResult result;
         result.status=ContinueStatus::CONTINUE;
 
         return result;
         
     }
-    case SetUpStep::PLACEMENT:
+    case SetUpGameStep::PLACEMENT:
         return PlaceMent(context);
         break;
     }
@@ -79,11 +73,12 @@ ContinueResult SetUpGameUseCase::PlaceMent(EffectContext & context){
     switch (placementstep)
     {
     case PlaceMentStep::SET_HERO:
-        
+        return HeroPlaceMent(context);
         break;
     case PlaceMentStep::SET_SIDEKICKS:
-
-        break;
+        return SideKickPlaceMent(context);
+    case PlaceMentStep::FINISHED:
+        return Finished(context);
     }
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
@@ -101,15 +96,20 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
 
         return result;
     }
-    
-     Hero* hero=context.context.Gamestate->currnetPlayer->GetHero();
-     hero->SetNode(ReachbleHeroesNodes[context.context.Selected]);
-
+    Board& board =context.context.Gamestate->board;
+    Hero* hero=context.context.Gamestate->currnetPlayer->GetHero();
+    board.AddFighter(dynamic_cast<Fighter*>(hero),ReachbleHeroesNodes[context.context.Selected]);
+    std::swap(ReachbleHeroesNodes[context.context.Selected],ReachbleHeroesNodes.back());
+    ReachbleHeroesNodes.pop_back();
      this->sidekicks=hero->GetSideKicks();
      context.context.Selected=-1;
-     if(!this->sidekicks[index_sideKick]){
+     if(sidekicks.empty()){
         placementstep=PlaceMentStep::FINISHED;
-    }else placementstep=PlaceMentStep::SET_SIDEKICKS;
+    }else {
+        placementstep=PlaceMentStep::SET_SIDEKICKS;
+        Board & board=context.context.Gamestate->board;
+        this->ReachbleSidekickNods=board.GetNodeofArea(hero->GetNode());
+    }
      result.status=ContinueStatus::CONTINUE;
 
      return result;
@@ -118,10 +118,17 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
 ContinueResult SetUpGameUseCase::SideKickPlaceMent(EffectContext & context){
     if(context.context.Selected==-1) return SetRechbleSideKickNodes(context);
 
-    sidekicks[index_sideKick]->SetNode(ReachbleSidekickNods[context.context.Selected]);
+    Board& board =context.context.Gamestate->board;
+
+    board.AddFighter(dynamic_cast<Fighter*>(sidekicks[index_sideKick]),ReachbleSidekickNods[context.context.Selected]);
+
+    std::swap(ReachbleSidekickNods[context.context.Selected],ReachbleSidekickNods.back());
+    ReachbleSidekickNods.pop_back();
     context.context.Selected=-1;
+    
+    
     index_sideKick++;
-     if(!this->sidekicks[index_sideKick]){
+    if(index_sideKick >= sidekicks.size()){
         placementstep=PlaceMentStep::FINISHED;
     }
     ContinueResult result;
@@ -135,10 +142,7 @@ ContinueResult SetUpGameUseCase::SideKickPlaceMent(EffectContext & context){
 
 ContinueResult SetUpGameUseCase::SetRechbleSideKickNodes(EffectContext & context){
     ContinueResult result;
-    Board board=context.context.Gamestate->board;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-    this->ReachbleSidekickNods=board.GetNodeofArea(hero->GetNode());
-
     for(auto x: ReachbleSidekickNods){
         result.menu_request.options.push_back(std::to_string(x));
     }
@@ -155,9 +159,8 @@ ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
     this->index_sideKick=0;
     this->sidekicks.clear();
     this->placementstep=PlaceMentStep::SET_HERO;
-    this->step=SetUpStep::CHOOSE_HERO;
+    this->step=SetUpGameStep::CHOOSE_HERO;
     this->ReachbleSidekickNods.clear();
-    this->ReachbleHeroesNodes.clear();
 
     ContinueResult result;
     result.status=ContinueStatus::FINISHED;

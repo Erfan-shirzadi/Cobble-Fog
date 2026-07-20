@@ -36,9 +36,6 @@ class AttackUseCase : public IUseCase {
     bool CanAttack(GameState &)const;
     bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
     void GetFighterCanAttackIt(Board & board);
-    void FighterSelection(Hero * , Hero * , Board &  );
-    void ChooseCardDeffender();
-    void TargetSelection(Hero *);
 
 
 

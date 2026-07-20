@@ -25,6 +25,8 @@ class Board {
 
     NodeType GetNodeType(int node);
     std::vector<int> GetAllEmptyNodes();
+
+    std::vector<int> GetReachableNodeOfArea(int node);
 };
 
 #endif /* BOARD_H */

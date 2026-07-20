@@ -6,6 +6,12 @@
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "presentation/console/GameView.h"
 #include "Application/interaction/ActionContext.h"
+
+enum class GameEngineState{
+    SETUP_PLAYER1,
+    SETUP_PLAYER2,
+    GAME
+};
 class GameEngine {
 
     GameState gamestate;
@@ -15,7 +21,9 @@ class GameEngine {
     GameView view;
 
     TurnUseCase turnusecase;
+    SetUpGameUseCase setup;
 
+    GameEngineState state=GameEngineState::SETUP_PLAYER1;
     EffectContext context;
     void Process();
     
@@ -27,6 +35,8 @@ class GameEngine {
     void Start();
    
     void OnSelection(int selection);
+
+    void SetUp();
 
 };
 #endif /*GAMEENGINE_H */
