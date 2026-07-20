@@ -81,6 +81,8 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.cpp
     src/Application/CardEffect/NoneEffect.cpp
 
+    src/Application/Ability/DraculaAbility.cpp
+
 
     src/presentation/console/GameView.cpp
 
