@@ -15,8 +15,9 @@ struct GameState;
 
 class GameView{
 
+    GameState & gamestate;
     public:
-    GameView();
+    GameView(GameState & );
     // void run(GameState & state);
     // void Close();
     // int ShowMenu(std::vector<std::string>);

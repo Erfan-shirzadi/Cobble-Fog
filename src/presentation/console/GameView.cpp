@@ -73,8 +73,8 @@ using namespace ftxui;
 //     return selected;
 // }
 
-GameView::GameView(){
-   
+GameView::GameView(GameState & gamestate):gamestate(gamestate){
+    
     root =CatchEvent(Renderer(container,[&]{
         return render();
     }),
