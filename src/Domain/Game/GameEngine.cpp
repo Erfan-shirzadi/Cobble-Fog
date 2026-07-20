@@ -54,6 +54,7 @@ void GameEngine::Process(){
         }
         if(result.status==ContinueStatus::NEEDMENU){
             view.SetMenu(result.menu_request);
+            view.Refresh();
             return;
         }
 

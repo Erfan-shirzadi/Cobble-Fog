@@ -7,8 +7,8 @@ struct GameState{
 
     Board board;
     GamePhase phase;
-    // Player player1;
-    // Player player2;
+    Player player1;
+    Player player2;
     Player * currnetPlayer=nullptr;
     Player * opponentPlayre=nullptr;
     

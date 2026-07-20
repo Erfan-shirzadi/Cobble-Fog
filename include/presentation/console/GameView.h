@@ -27,6 +27,9 @@ class GameView{
     void SetOnSelection(std::function<void(int)>callback);
     void Run();
 
+    ftxui::Element Refresh();
+    ftxui::Element RenderPlayer();
+
 
     private:
     ftxui::ScreenInteractive screen=ftxui::ScreenInteractive::TerminalOutput();

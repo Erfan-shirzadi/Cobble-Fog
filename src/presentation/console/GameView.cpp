@@ -76,7 +76,7 @@ using namespace ftxui;
 GameView::GameView(GameState & gamestate):gamestate(gamestate){
     
     root =CatchEvent(Renderer(container,[&]{
-        return render();
+        return Refresh();
     }),
         [&](Event event){
             if(event==Event::Return){
@@ -115,4 +115,60 @@ void GameView::SetOnSelection(std::function<void(int)>callback){
 
 void GameView::Run(){
     screen.Loop(root);
+}
+
+
+
+Element GameView::Refresh(){
+    return vbox({
+        hbox({
+        RenderPlayer()|border,
+        })|border,
+        renderMenu()
+});
+}
+
+
+ftxui::Element GameView::RenderPlayer(){
+        auto hero=gamestate.currnetPlayer->GetHero();
+    std::vector<Element>elements;
+    if(hero){
+    elements.push_back(text(hero->GetName()));
+    elements.push_back(separator());
+    elements.push_back(text("HP : "+std::to_string(hero->GetHP())));
+    elements.push_back(separator());
+    elements.push_back(text("Hand :"));
+    elements.push_back(separator());
+    elements.push_back(vbox({text(hero->GetHandCards())}));
+    elements.push_back(separator());
+   
+    for(auto fighter:hero->GetSideKicks()){
+        elements.push_back(text(fighter->GetName()+"  HP : "+
+        std::to_string(fighter->GetHP())+"  ("+
+        std::to_string(fighter->GetNode())+")"));
+    }
+    elements.push_back(separator());
+    elements.push_back(text("Hand Size :"+std::to_string(hero->GetSizeHand())));
+    elements.push_back(text("Deck Size :"+std::to_string(hero->GetDeckSize())));
+    }
+    else{
+    elements.push_back(text("...."));
+    elements.push_back(separator());
+    elements.push_back(text("HP : ....."));
+    elements.push_back(separator());
+    elements.push_back(text("Hand :"));
+    elements.push_back(separator());
+    elements.push_back(vbox({text(".....")}));
+    elements.push_back(separator());
+   
+    elements.push_back(text("Side Kikcs Loading ......"));
+    elements.push_back(separator());
+    elements.push_back(text("Hand Size :...."));
+    elements.push_back(text("Hand Size : ....."));
+
+    }
+
+
+    return vbox(elements);
+    
 }
