@@ -3,8 +3,9 @@
 #include "Domain/Entities/Board.h"
 #include "Domain/Game/GamePhase.h"
 #include "Domain/Player.h"
+#include "Domain/Game/GameLog.h"
 struct GameState{
-
+    GameLog log;
     Board board;
     GamePhase phase;
     Player *player1;
