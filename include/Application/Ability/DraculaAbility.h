@@ -19,6 +19,8 @@ class DraculaAbility :public IAbility{
     ContinueResult BuildTargetMenu(EffectContext&);
     ContinueResult ChooseTarget(EffectContext &);
     ContinueResult Finished(EffectContext &);
+    virtual FighterType HeroAbility()=0;
+
 } ;
 
 
