@@ -7,8 +7,10 @@
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Application/UseCases/ManeverUseCase.h"
+#include "Application/Ability/IAbility.h"
 
 enum class TurnStep{
+    START,
     CHOOSE_ACTION,
     EXECUTE_USECASE,
     FINISHED,
@@ -20,9 +22,16 @@ enum class ActoinType{
     MANEVER,
     ATTACK
 };
+
+enum class AbilityStep{
+    ASK_USE_ABILITY,
+    EXECUTE_ABILITY,
+    FINISHED
+};
 class TurnUseCase{
 
     TurnStep step=TurnStep::CHOOSE_ACTION;
+    AbilityStep abilitystep=AbilityStep::ASK_USE_ABILITY;
     IUseCase * CurrentUseCase=nullptr;
     ActoinType currentaction;
     ManeverUseCase manever;
@@ -31,11 +40,14 @@ class TurnUseCase{
 
     std::vector<ActoinType>possibleAction;
 
+    std::unique_ptr<IAbility> ability=nullptr;
+
+
     public:
 
     ContinueResult Continue(EffectContext &);
 
-    void Start(EffectContext&);
+    ContinueResult Start(EffectContext&);
 
 
     ContinueResult ExecuteAction(EffectContext&);
@@ -48,6 +60,9 @@ class TurnUseCase{
 
     MenuRequest BuildActionMenu(EffectContext & context);
     ContinueResult BuildHandMenu(Hero *);
+    ContinueResult AskAbility(EffectContext &);
+    ContinueResult ExecuteAbility(EffectContext &);
+    ContinueResult Ability(EffectContext &);
 };
 
 #endif /* TURN_USECASE */

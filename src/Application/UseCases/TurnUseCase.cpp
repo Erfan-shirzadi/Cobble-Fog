@@ -2,6 +2,7 @@
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Application/UseCases/ManeverUseCase.h"
 #include "Application/UseCases/AttackUseCase.h"
+#include "Application/Ability/HeroAbilityFactory.h"
 #include <iostream>
 
 
@@ -10,6 +11,8 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
 
     switch (step)
     {
+    // case TurnStep::START:
+    //     return Start(context);
     case TurnStep::CHOOSE_ACTION:
         return ChooseAction(context);
         break;
@@ -28,9 +31,23 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
         return a;
 }
 
-void TurnUseCase::Start(EffectContext& context){
+ContinueResult TurnUseCase::Start(EffectContext& context){
+
+     ContinueResult result;
+    // result.status=ContinueStatus::CONTINUE;
+    // if(!ability){
+    //     ability=HeroAbilityFactory::CeateAbility(context.context.Gamestate->currnetPlayer->GetHero()->GetFighterType());
+    // }
+    // if(ability->CanUseAbility())
+    //     result=Ability(context);
+    // if(result.status==ContinueStatus::FINISHED){
+    //     step=TurnStep::CHOOSE_ACTION;
+    //     context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
+    //     result.status=ContinueStatus::CONTINUE;
+    // }
     context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
     step=TurnStep::CHOOSE_ACTION;
+    return result;
 }
 
 ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
@@ -143,4 +160,57 @@ ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     result.status=ContinueStatus::NEEDMENU;
 
     return result;
+}
+
+
+ContinueResult TurnUseCase::AskAbility(EffectContext & context){
+    if(context.context.Selected==-1){
+        ContinueResult res;
+        res.status=ContinueStatus::NEEDMENU;
+        res.menu_request.options.push_back("no");
+        res.menu_request.options.push_back("yes");
+        res.menu_request.title="Do you want to use Ability ?";
+        return res;
+    }
+    if(context.context.Selected==0){
+        ContinueResult res;
+        res.status=ContinueStatus::FINISHED;
+        return res;
+    }
+
+    ContinueResult res;
+    res.status=ContinueStatus::CONTINUE;
+    abilitystep=AbilityStep::EXECUTE_ABILITY;
+    return res;
+}
+
+
+ContinueResult TurnUseCase::ExecuteAbility(EffectContext &context){
+    ContinueResult res;
+    res=ability->Continue(context);
+
+    if(res.status==ContinueStatus::FINISHED){
+        abilitystep=AbilityStep::FINISHED;
+    }
+    return res;
+
+}
+
+ContinueResult TurnUseCase::Ability(EffectContext & context){
+
+    switch (abilitystep)
+    {
+    case AbilityStep::ASK_USE_ABILITY:
+        return AskAbility(context);
+        break;
+    case AbilityStep::EXECUTE_ABILITY:
+        return ExecuteAbility(context);
+        break;
+    case AbilityStep::FINISHED:
+        break;
+    }
+
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 }
