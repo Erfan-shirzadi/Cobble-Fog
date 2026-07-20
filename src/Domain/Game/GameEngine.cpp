@@ -92,3 +92,14 @@ void GameEngine::SetUp(){
     }
     
 }
+
+
+// bool GameEngine::GameOver( ){
+//     Hero* current=gamestate.currnetPlayer->GetHero();
+//     Hero* opponent=gamestate.opponentPlayre->GetHero();
+
+//     if(!current->IsAlive() || !opponent->IsAlive())
+//         return true;
+//     return false;
+
+// }

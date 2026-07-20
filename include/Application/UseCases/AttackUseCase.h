@@ -33,7 +33,7 @@ class AttackUseCase : public IUseCase {
 
     
     public:
-    bool CanAttack(GameState &)const;
+    bool CanAttack(GameState *)const;
     bool IsInChanceAttack(Fighter * fighter,Hero *enemy ,Board & borad)const;
     void GetFighterCanAttackIt(Board & board);
 

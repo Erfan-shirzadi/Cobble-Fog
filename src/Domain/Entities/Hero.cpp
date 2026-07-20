@@ -18,7 +18,6 @@ Card* Hero::GetCard(int index){
 void Hero::RemoveCardHand(int index){
       if(index<0 ||index>=Hand.size())
             throw std::runtime_error("Enter a correct number ");
-      std::cout<< "removed card "<<Hand[index]->GetName()<<std::endl;
       std::swap(Hand[index],Hand.back());
       this->DiscardCards.push_back(std::move(Hand.back()));
       this->Hand.pop_back();
@@ -29,7 +28,6 @@ int Hero::GetSizeHand()const{
 }
 
 void Hero::AddCardToHand(std::unique_ptr<Card> card){
-      std::cout<< " added card "<<card->GetName()<<" to hand "<<std::endl;
       this->Hand.push_back(std::move(card));
 }
 

@@ -39,7 +39,6 @@ void Fighter::SetMove(int move){
 
 
 void Fighter::SetNode(int newNode){
-   std::cout<< this->Name<<" moved from "<< this->node<<" to "<<newNode<<std::endl;
    this->node=newNode;
 }
 
@@ -51,13 +50,11 @@ int Fighter::GetNode()const{
     
 
 void Fighter::TakeDamge(int damage){
-   std::cout<< "taked damge "<<this->Name<<std::endl;
    this->Hp-=damage;
    if(Hp<0)
       this->Hp=0;
 }
 void Fighter::Heal(int heal){
-   std::cout<< "heal "<<this->Name<<std::endl;
    this->Hp+=heal;
    if(this->Hp>this->MaxHp)
       this->Hp=this->MaxHp;

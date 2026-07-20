@@ -14,17 +14,24 @@ enum class TurnStep{
     FINISHED,
     MANAGE_HAND_SIZE
 };
+
+enum class ActoinType{
+    SCHEME,
+    MANEVER,
+    ATTACK
+};
 class TurnUseCase{
 
     TurnStep step=TurnStep::CHOOSE_ACTION;
     IUseCase * CurrentUseCase=nullptr;
-
+    ActoinType currentaction;
     ManeverUseCase manever;
     SchemeUseCase scheme;
     AttackUseCase attack;
 
+    std::vector<ActoinType>possibleAction;
+
     public:
-    bool GameOver(GameState &);
 
     ContinueResult Continue(EffectContext &);
 
@@ -36,10 +43,10 @@ class TurnUseCase{
     ContinueResult FinishedResult(EffectContext & );
     ContinueResult ManageHandSize(EffectContext &);
 
-    void SetUseCase(int index);
+    void SetUseCase();
 
 
-    MenuRequest BuildActionMenu();
+    MenuRequest BuildActionMenu(EffectContext & context);
     ContinueResult BuildHandMenu(Hero *);
 };
 

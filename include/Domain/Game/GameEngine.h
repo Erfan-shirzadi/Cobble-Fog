@@ -10,7 +10,8 @@
 enum class GameEngineState{
     SETUP_PLAYER1,
     SETUP_PLAYER2,
-    GAME
+    GAME,
+    GAMEOVER
 };
 class GameEngine {
 
@@ -37,6 +38,8 @@ class GameEngine {
     void OnSelection(int selection);
 
     void SetUp();
+    // bool GameOver();
+
 
 };
 #endif /*GAMEENGINE_H */

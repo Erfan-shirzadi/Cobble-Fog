@@ -5,15 +5,6 @@
 #include <iostream>
 
 
-bool TurnUseCase::GameOver(GameState &GameState ){
-    Hero* current=GameState.currnetPlayer->GetHero();
-    Hero* opponent=GameState.opponentPlayre->GetHero();
-
-    if(!current->IsAlive() || !opponent->IsAlive())
-        return true;
-    return false;
-
-}
 
 ContinueResult TurnUseCase::Continue(EffectContext& context){
 
@@ -63,8 +54,8 @@ ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
     if(context.context.Selected!=-1){
-            
-        SetUseCase(context.context.Selected);
+        this->currentaction=possibleAction[context.context.Selected];
+        SetUseCase();
         CurrentUseCase->Start(context);
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
@@ -75,7 +66,7 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
-    result.menu_request=BuildActionMenu();
+    result.menu_request=BuildActionMenu(context);
     return result;
 }
 ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
@@ -100,27 +91,35 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     return result;
 }
 
-void TurnUseCase::SetUseCase(int index){
-    switch (index)
+void TurnUseCase::SetUseCase(){
+    switch (currentaction)
     {
-    case 0:
+    case ActoinType::SCHEME:
         this->CurrentUseCase= &scheme;
         break;
-    case 1:
+    case ActoinType::MANEVER:
          this->CurrentUseCase=& manever;
         break;
-    case 2:
+    case ActoinType::ATTACK:
         this->CurrentUseCase=& attack;
         break;
     }
 }   
 
-MenuRequest TurnUseCase::BuildActionMenu(){
+MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     MenuRequest temp;
     temp.title="Action";
-    temp.options.push_back("Scheme");
     temp.options.push_back("Manever");
+    possibleAction.push_back(ActoinType::MANEVER);
+
+    if(scheme.CanDoAction(context.context.Gamestate)){
+        temp.options.push_back("Scheme");
+        possibleAction.push_back(ActoinType::SCHEME);
+    }
+    if(attack.CanAttack(context.context.Gamestate)){
     temp.options.push_back("Attack");
+    possibleAction.push_back(ActoinType::ATTACK);
+    }
     return temp;
 }
 

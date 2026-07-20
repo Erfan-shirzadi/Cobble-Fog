@@ -4,18 +4,18 @@
 #include <iostream>
 using namespace std;
 
-bool AttackUseCase::CanAttack(GameState & gamestate)const{
-    Hero * hero=gamestate.currnetPlayer->GetHero();
+bool AttackUseCase::CanAttack(GameState * gamestate)const{
+    Hero * hero=gamestate->currnetPlayer->GetHero();
 
     if(!(hero->IsExistCardInHand(CardCategory::ATTACK) ||
     hero->IsExistCardInHand(CardCategory::ATTACKANDDEFFENS)))return false;
     std::vector<Card *> Attackcards=hero->GetAllCardOf(CardCategory::ATTACK);
     std::vector<Card *> AttackAndDeffenscards=hero->GetAllCardOf(CardCategory::ATTACKANDDEFFENS);
-    Hero * enemy=gamestate.opponentPlayre->GetHero();
+    Hero * enemy=gamestate->opponentPlayre->GetHero();
 
     for(auto card : Attackcards){
         if(card->GetOwner()==hero->GetFighterType()|| card->GetOwner()==FighterType::ANY){
-            if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate.board))
+            if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate->board))
                 return true;
         }
     }
@@ -23,20 +23,20 @@ bool AttackUseCase::CanAttack(GameState & gamestate)const{
     {
         if(card->GetOwner()!=hero->GetFighterType())
             for(auto fighter: hero->GetSideKicks())
-                if(IsInChanceAttack(fighter,enemy,gamestate.board))
+                if(IsInChanceAttack(fighter,enemy,gamestate->board))
                     return true;
     }
     
     for(auto card : AttackAndDeffenscards){
         if(card->GetOwner()==hero->GetFighterType() || card->GetOwner()==FighterType::ANY){
-            if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate.board))
+            if(IsInChanceAttack(dynamic_cast<Fighter*>(hero),enemy,gamestate->board))
                 return true;
         }
     }
     for(auto card : AttackAndDeffenscards){
         if(card->GetOwner()!=hero->GetFighterType()){
             for(auto fighter: hero->GetSideKicks())
-                if(IsInChanceAttack(fighter,enemy,gamestate.board))
+                if(IsInChanceAttack(fighter,enemy,gamestate->board))
                     return true;
         }
     }

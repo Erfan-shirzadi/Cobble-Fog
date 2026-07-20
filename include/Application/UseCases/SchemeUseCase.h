@@ -18,15 +18,11 @@ class SchemeUseCase : public IUseCase{
     std::unique_ptr<CardEffect> cardEffect=nullptr;
     
     public:
-    // explicit SchemeUseCase(GameState &);
-    bool execute(GameState & gamestate);
-    bool CanDoAction(GameState & gamestate);
-    Card * CardSelection(Hero * hero);
+    bool CanDoAction(GameState * gamestate);
 
 
     ContinueResult Continue(EffectContext&)override;
 
-    // ContinueResult Continue(int input=-1);
     ContinueResult ChooseCard(EffectContext&);
     ContinueResult ExecuteCard(EffectContext&); 
     ContinueResult Finished(EffectContext &);  
