@@ -7,7 +7,10 @@ ContinueResult CounterPunchEffect::Continue(EffectContext & context){
         Board borad=context.context.Gamestate->board;
         
         if(borad.AreAdjacent(fighter->GetNode(),holmes->GetNode())){
-            fighter->TakeDamge(2);
+            if(!(borad.GetNodeType(fighter->GetNode())==NodeType::SECREST &&borad.GetNodeType(holmes->GetNode())==NodeType::SECREST)){
+                fighter->TakeDamge(2);
+                context.context.Gamestate->log.Add(fighter->GetName()+" Toke 2 Damage");
+            }
         }
         ContinueResult res;
          res.status=ContinueStatus::FINISHED;
