@@ -47,12 +47,33 @@ void GameEngine::Process(){
     while (true){
         if(GameOver()){
             this->state=GameEngineState::GAMEOVER;
+            Hero* current=context.context.Gamestate->currnetPlayer->GetHero();
+            Hero* opponent=context.context.Gamestate->currnetPlayer->GetHero();
+
+            if(current->IsAlive())
+                context.context.Gamestate->log.Add( current->GetName()+" WOn The Game");
+            else {
+                context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
+
+            }
+            view.Refresh();
+
             return ;
         }
         view.Refresh();
         ContinueResult result=turnusecase.Continue(context);
         if(GameOver()){
             this->state=GameEngineState::GAMEOVER;
+            Hero* current=context.context.Gamestate->currnetPlayer->GetHero();
+            Hero* opponent=context.context.Gamestate->currnetPlayer->GetHero();
+
+            if(current->IsAlive())
+                context.context.Gamestate->log.Add( current->GetName()+" WOn The Game");
+            else {
+                context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
+
+            }
+            view.Refresh();
             return ;
         }
         if(result.status==ContinueStatus::NEEDMENU){

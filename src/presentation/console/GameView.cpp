@@ -211,3 +211,8 @@ ftxui::Element GameView::RenderTurnBar(){
     }
     else return text("Set Up");
 }
+
+void GameView::ShowGameOver(std::string name){
+        std::string winner=name;
+        state=GameViewState::GAME_OVER;
+}

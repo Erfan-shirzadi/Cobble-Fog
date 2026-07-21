@@ -151,8 +151,8 @@ ContinueResult TurnUseCase::ManageHandSize(EffectContext & context){
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
     if(context.context.Selected==-1) return BuildHandMenu(hero);
 
-    hero->RemoveCardHand(context.context.Selected);
 
+    hero->RemoveCardHand(context.context.Selected);
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     return result;
