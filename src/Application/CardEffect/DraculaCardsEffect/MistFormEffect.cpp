@@ -1,5 +1,6 @@
 #include "Application/CardEffect/DraculaCardsEffect/MistFormEffect.h"
 #include "Application/interaction/EffectContext.h"
+#include "Application/UseCases/MoveUseCase.h"
 
 ContinueResult MistFormEffect::Continue(EffectContext &context){
 
@@ -24,9 +25,8 @@ ContinueResult MistFormEffect::Continue(EffectContext &context){
 }
 ContinueResult MistFormEffect::MoveDracula(EffectContext& context){
     if(context.context.Selected==-1) return BuildDestinationsMunu(context);
-
-    context.context.Gamestate->currnetPlayer->GetHero()->SetNode(emptyNodes[context.context.Selected]);
-    
+    MoveUseCase::Move(dynamic_cast<Fighter*>(context.context.Gamestate->currnetPlayer->GetHero()),
+    emptyNodes[context.context.Selected],context.context.Gamestate->log);
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     step=MistFormEffectStep::GAIN_ACTION;

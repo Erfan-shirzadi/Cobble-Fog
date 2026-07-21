@@ -1,11 +1,13 @@
 #include  "Application/CardEffect/DraculaCardsEffect/BapismOfBloodEffect.h"
 #include "Application/interaction/EffectContext.h"
+#include "Application/UseCases/MoveUseCase.h"
 
 ContinueResult BapismOfBloodEffect::Continue(EffectContext &  context){
     switch (this->bapismstep)
     {
     case BapismEffectStep::HEAL_DRACULA:{
         context.context.Gamestate->currnetPlayer->GetHero()->Heal(2);
+        context.context.Gamestate->log.Add("Healed 2 Dracula ");
         ContinueResult res; 
         res.status=ContinueStatus::CONTINUE;
         this->bapismstep=BapismEffectStep::RETURN_SISTER;
@@ -49,6 +51,7 @@ ContinueResult BapismOfBloodEffect::HealSister(EffectContext & context){
     sister=hero->GetDeadSideKick();
     if(sister){
         sister->Heal(1);
+        context.context.Gamestate->log.Add("Sister 1 Healed");
         returnstep=ReturnSisterStep::CHOOSEDESTINATION;
 
         ContinueResult res;
@@ -68,8 +71,9 @@ ContinueResult BapismOfBloodEffect::HealSister(EffectContext & context){
 }
 ContinueResult BapismOfBloodEffect::ChooseDestinationSister(EffectContext& context){
     if(context.context.Selected==-1) return BuildDestinationMenu(context);
-
-    sister->SetNode(reachableNodes[context.context.Selected]);
+    context.context.Gamestate->log.Add("Sister return");
+    MoveUseCase::Move(sister,reachableNodes[context.context.Selected],context.context.Gamestate->log);
+    context.context.Selected=-1;
     ContinueResult res;
      res.status=ContinueStatus::FINISHED;
      bapismstep=BapismEffectStep::FINISHED;
