@@ -19,44 +19,45 @@ Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
     this->SetAttack(Attack::MELEE);
     
     AddCardToDeck(std::make_unique<AdministerAid>());
-        AddCardToDeck(std::make_unique<AdministerAid>());
+    AddCardToDeck(std::make_unique<AdministerAid>());
 
     AddCardToDeck(std::make_unique<CounterPunch>());
     AddCardToDeck(std::make_unique<CounterPunch>());
     AddCardToDeck(std::make_unique<CounterPunch>());
 
     AddCardToDeck(std::make_unique<DeduceStrategy>());
-        AddCardToDeck(std::make_unique<DeduceStrategy>());
+    AddCardToDeck(std::make_unique<DeduceStrategy>());
     AddCardToDeck(std::make_unique<DeduceStrategy>());
 
     AddCardToDeck(std::make_unique<EducationNeverEnds>());
-        AddCardToDeck(std::make_unique<EducationNeverEnds>());
+    AddCardToDeck(std::make_unique<EducationNeverEnds>());
 
     AddCardToDeck(std::make_unique<EliminateTheImpossible>());
-        AddCardToDeck(std::make_unique<EliminateTheImpossible>());
+    AddCardToDeck(std::make_unique<EliminateTheImpossible>());
 
     AddCardToDeck(std::make_unique<Feint>());
-        AddCardToDeck(std::make_unique<Feint>());
+    AddCardToDeck(std::make_unique<Feint>());
     AddCardToDeck(std::make_unique<Feint>());
 
     AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
-        AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
+    AddCardToDeck(std::make_unique<FixedPointInAChangingAge>());
 
     AddCardToDeck(std::make_unique<MasterOfDisguise>());
-        AddCardToDeck(std::make_unique<MasterOfDisguise>());
+    AddCardToDeck(std::make_unique<MasterOfDisguise>());
 
     AddCardToDeck(std::make_unique<ServiceRevolver>());
-        AddCardToDeck(std::make_unique<ServiceRevolver>());
+    AddCardToDeck(std::make_unique<ServiceRevolver>());
 
     AddCardToDeck(std::make_unique<StudyMethods>());
-        AddCardToDeck(std::make_unique<StudyMethods>());
+    AddCardToDeck(std::make_unique<StudyMethods>());
 
     AddCardToDeck(std::make_unique<TheGameIsAfoot>());
-        AddCardToDeck(std::make_unique<TheGameIsAfoot>());
+    AddCardToDeck(std::make_unique<TheGameIsAfoot>());
 
-                AddCardToDeck(std::make_unique<AdministerAid>());
+    AddCardToDeck(std::make_unique<AdministerAid>());
 
     AddCardToDeck(std::make_unique<EliminateTheImpossible>());
+    AddCardToDeck(std::make_unique<MasterOfDisguise>());
 
 
 
