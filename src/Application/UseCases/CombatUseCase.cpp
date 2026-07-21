@@ -88,16 +88,28 @@ ContinueResult CombatUseCase::Finished(EffectContext & context){
 
 ContinueResult CombatUseCase::start(EffectContext &context){
    context.context.Gamestate->log.Add("Start Combat ");
-       if(context.combatcontext->Opponent->card)
+   CombatCard * deffendercard=context.combatcontext->Opponent->card;
+   CombatCard * attackercard=context.combatcontext->Current->card;
+    
+    context.context.Gamestate->log.Add("Attacker : "+attackercard->GetName());
+    if(deffendercard)
+    context.context.Gamestate->log.Add("Deffender : "+deffendercard->GetName());
+    else context.context.Gamestate->log.Add("Deffender :  None");
+
+
+
+    if(deffendercard)
     context.combatcontext->Opponent->effect=
         CardEffectFactory::CreatCardEffect(context.combatcontext->Opponent->card->GetCardId());
-    if(context.combatcontext->Current->card)
+    if(attackercard)
         context.combatcontext->Current->effect=
     CardEffectFactory::CreatCardEffect(context.combatcontext->Current->card->GetCardId());
     std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
-    Fighter *hero=context.combatcontext->Current->fighter;
-    Fighter * enemy=context.combatcontext->Opponent->fighter;
-    context.context.Gamestate->log.Add(hero->GetName() +" vs "+enemy->GetName());
+
+
+
+
+
     combatstep=CombatStep::BEFOR_COMBAT;
     this->cardStep=CardPlayStep::DEFFENDER_CARD;
     ContinueResult res;
@@ -212,6 +224,8 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
 ContinueResult CombatUseCase::AfterCombatEffectDeffender(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
+        context.context.Gamestate->log.Add("After Combat ");
+
         if(context.combatcontext->Current->card)
             if(context.combatcontext->Current->IsActiveCardEffect ||
                 context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
@@ -231,6 +245,7 @@ ContinueResult CombatUseCase::AfterCombatEffectDeffender(EffectContext &context)
 ContinueResult CombatUseCase::AfterCombatEffectAttacker(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
+
         if(context.combatcontext->Current->card)
         if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){

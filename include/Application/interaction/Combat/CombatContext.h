@@ -6,7 +6,8 @@
 struct CombatContext{
     std::unique_ptr< CombatParticipant > Current;
     std::unique_ptr< CombatParticipant > Opponent;
-    Board * board;
+
+    Board * board=nullptr;
 
 };
 

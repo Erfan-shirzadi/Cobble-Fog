@@ -31,6 +31,7 @@ class GameView{
     ftxui::Element RenderPlayer(Player* player);
     ftxui::Element RenderLog();
     ftxui::Element RenderMap();
+    ftxui::Element RenderTurnBar();
 
 
     private:

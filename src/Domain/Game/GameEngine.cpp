@@ -49,6 +49,7 @@ void GameEngine::Process(){
             this->state=GameEngineState::GAMEOVER;
             return ;
         }
+        view.Refresh();
         ContinueResult result=turnusecase.Continue(context);
         if(GameOver()){
             this->state=GameEngineState::GAMEOVER;

@@ -138,6 +138,7 @@ ContinueResult AttackUseCase::Combat(EffectContext & context){
     ContinueResult res= combat.Continue(context);
 
     if(res.status==ContinueStatus::FINISHED){
+        context.context.Gamestate->log.Add("Finished Combat ");
         attackstep=AttackStep::FINISHED;
         res.status=ContinueStatus::CONTINUE;
         return res;
@@ -181,8 +182,8 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     combatcontext.Current->hero=context.context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.context.Selected];
     context.context.Selected=-1;
-    context.context.Gamestate->log.Add("Combat");
-    context.context.Gamestate->log.Add("Attacker : "+combatcontext.Current->fighter->GetName());
+    context.context.Gamestate->log.Add("Attacker : "+context.combatcontext->Current->fighter->GetName());
+
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     setupstep=SetUpStep::CHOOSE_ATTACKER_CARD;
@@ -259,7 +260,7 @@ ContinueResult AttackUseCase::ChooseDeffender(EffectContext & context){
     if(context.context.Selected==-1) return BuildDeffenderMenu(context);
 
     combatcontext.Opponent->fighter=enemiescanAttack[context.context.Selected];
-    context.context.Gamestate->log.Add("Deffender : "+combatcontext.Opponent->fighter->GetName());
+    context.context.Gamestate->log.Add("Deffender : "+context.combatcontext->Opponent->fighter->GetName());
 
     context.context.Selected=-1;
     ContinueResult result;
