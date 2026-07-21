@@ -47,7 +47,7 @@ bool Hero::IsExistCardInHand(CardCategory askcategory){
 
 
 bool Hero::DrawCard(){
-      if(deck.Size()==0)return false;
+      
       this->Hand.push_back(std::move(deck.Draw()));
       return true;
 }
