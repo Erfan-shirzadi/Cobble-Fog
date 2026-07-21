@@ -58,6 +58,7 @@ Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
 
     AddCardToDeck(std::make_unique<EliminateTheImpossible>());
     AddCardToDeck(std::make_unique<MasterOfDisguise>());
+    AddCardToDeck(std::make_unique<EducationNeverEnds>());
 
 
 

@@ -207,7 +207,7 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
         
         int ResultDamage=context.combatcontext->Opponent->card->GetDamgeOrDeffend();
         if(context.combatcontext->Current->card)
-           ResultDamage-= context.combatcontext->Opponent->card->GetDamgeOrDeffend();
+           ResultDamage-= context.combatcontext->Current->card->GetDamgeOrDeffend();
 
             if(ResultDamage<0) context.combatcontext->Current->Won=true;
             else {

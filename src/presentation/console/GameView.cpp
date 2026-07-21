@@ -125,10 +125,10 @@ Element GameView::Refresh(){
         vbox({
         RenderTurnBar()|center,
         hbox({
-        RenderPlayer(gamestate.player1)|border|size(WIDTH,EQUAL,30)|flex,
-        RenderLog()|border|size(WIDTH,EQUAL,40)|flex,
-        RenderPlayer(gamestate.player2)|border|size(WIDTH,EQUAL,30)|flex,
-        })|size(HEIGHT,EQUAL,20),
+        RenderPlayer(gamestate.player1)|border|flex,
+        RenderLog()|border|flex,
+        RenderPlayer(gamestate.player2)|border|flex,
+        })|flex,
         RenderMap()|border
         })|border,
         renderMenu()
