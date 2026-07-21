@@ -123,3 +123,16 @@ bool Hero::IsExistCardOfFighterInhandForAttack(FighterType fighter){
 
       return false;
 }
+
+
+void Hero::DiscardCard(Card * card){
+
+      for(int i{};i<Hand.size();i++){
+            if(Hand[i].get()==card){
+                  std::swap(Hand[i],Hand.back());
+                  this->DiscardCards.push_back(std::move(Hand.back()));
+                  this->Hand.pop_back();
+                  return;
+            }
+      }
+}

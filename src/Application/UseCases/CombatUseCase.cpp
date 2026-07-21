@@ -90,10 +90,12 @@ ContinueResult CombatUseCase::start(EffectContext &context){
    context.context.Gamestate->log.Add("Start Combat ");
    CombatCard * deffendercard=context.combatcontext->Opponent->card;
    CombatCard * attackercard=context.combatcontext->Current->card;
-    
-    context.context.Gamestate->log.Add("Attacker : "+attackercard->GetName());
+    if(attackercard)
+    context.context.Gamestate->log.Add("Attacker : "+attackercard->GetName()+ "  Damage : "+
+    std::to_string(attackercard->GetDamgeOrDeffend()));
     if(deffendercard)
-    context.context.Gamestate->log.Add("Deffender : "+deffendercard->GetName());
+    context.context.Gamestate->log.Add("Deffender : "+deffendercard->GetName()+"  Deffense : "+
+    std::to_string(deffendercard->GetDamgeOrDeffend()));
     else context.context.Gamestate->log.Add("Deffender :  None");
 
 
@@ -142,6 +144,7 @@ ContinueResult CombatUseCase::BeforCombatEffectDeffender(EffectContext&context){
 ContinueResult CombatUseCase::BeforCombatEffectAttcker(EffectContext &context){
 
             ContinueResult res;
+
 
         res.status=ContinueStatus::FINISHED;
         if(context.combatcontext->Current->card)
@@ -217,7 +220,7 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
                 context.context.Gamestate->log.Add(context.combatcontext->Opponent->fighter->GetName()+" won the Combat ");
             else context.context.Gamestate->log.Add(context.combatcontext->Current->fighter->GetName()+" won the Combat ");
 
-        
+
          return res;  
 
 }

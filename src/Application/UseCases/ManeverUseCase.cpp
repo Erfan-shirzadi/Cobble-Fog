@@ -53,7 +53,6 @@ ContinueResult ManeverUseCase::AskIncreseMovment(EffectContext & context){
 
     int choice=context.context.Selected;
     context.context.Selected=-1;
-    DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
 
     if(choice==0)this->step=ManeverStep::CHOOSE_CARD;
     else step=ManeverStep::CHOOSE_FIHGTER;
@@ -79,6 +78,7 @@ ContinueResult ManeverUseCase::CooseFighter(EffectContext&context){
 
    int choice=context.context.Selected;
    context.context.Selected=-1;
+    DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
 
    this->selectedHero=fighters[choice];
 

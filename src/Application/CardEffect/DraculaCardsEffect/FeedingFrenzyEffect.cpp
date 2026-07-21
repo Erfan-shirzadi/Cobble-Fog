@@ -34,11 +34,11 @@ ContinueResult FeedingFrenzyEffect::IncreseDamage(EffectContext & context){
             increaseDamage++;
     }
 
-    context.combatcontext->Current->DamageOrDeffend+=increaseDamage;
+    // context.combatcontext->Current->DamageOrDeffend+=increaseDamage;
 
     context.combatcontext->Current->card->IncreseDamageOfDeffend(increaseDamage);
     ContinueResult res;
-    res.status=ContinueStatus::CONTINUE;
+    res.status=ContinueStatus::FINISHED;
 
     this->step=FeedinFrenzyEffectStep::FINISHED;
     return res;

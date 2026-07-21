@@ -46,6 +46,7 @@ class Hero :public Fighter{
     virtual Fighter * GetDeadSideKick()const;
 
     int GetDeckSize();
+    void DiscardCard(Card *);
 };
 
 

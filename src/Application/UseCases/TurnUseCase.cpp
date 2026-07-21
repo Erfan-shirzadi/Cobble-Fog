@@ -74,6 +74,8 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
         this->currentaction=possibleAction[context.context.Selected];
         SetUseCase();
         CurrentUseCase->Start(context);
+        context.context.Selected=-1;
+
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
@@ -125,6 +127,8 @@ void TurnUseCase::SetUseCase(){
 
 MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     MenuRequest temp;
+    possibleAction.clear();
+
     temp.title="Action";
     temp.options.push_back("Manever");
     possibleAction.push_back(ActoinType::MANEVER);
