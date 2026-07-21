@@ -80,6 +80,7 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/FixedAPointInChangingAgeEffect.cpp
     src/Application/CardEffect/HolmesCardsEffect/MasterOfDisguse.cpp
     src/Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.cpp
+    src/Application/CardEffect/HolmesCardsEffect/StudyMethodEffect.cpp
     src/Application/CardEffect/NoneEffect.cpp
 
     src/Application/Ability/DraculaAbility.cpp

@@ -19,7 +19,7 @@
 #include "Application/CardEffect/HolmesCardsEffect/MasterOfDeisguseEffect.h"
 #include "Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.h"
 #include "Application/CardEffect/NoneEffect.h"
-
+#include "Application/CardEffect/HolmesCardsEffect/StudyMethod.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -86,7 +86,7 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         return std::move(std::make_unique<NoneEffect>());
         break;
     case CardId::STUDY_METHODS:
-        // return std::make_unique<>();
+        return std::move(std::make_unique<StudyMethod>());
         break;
     case CardId::THE_GAME_IS_AFOOT:
         return std::move(std::make_unique<Move3Effect>());
