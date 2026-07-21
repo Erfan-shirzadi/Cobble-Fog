@@ -5,13 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
-
-void Board::Move(Fighter& fihgter,int node)const{
-
-}
-std::vector<int> Board::adjacentCells(int node)const{
-
-}
 std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distance,int HeroNode){
     std::vector <int >res;
     res.push_back(HeroNode);

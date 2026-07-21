@@ -9,6 +9,8 @@ ContinueResult PreyUponEffect::Continue(EffectContext & context){
         if(board.AreAdjacent(fighter->GetNode(),Dracula->GetNode())){
             if(!(board.GetNodeType(fighter->GetNode())==NodeType::SECREST &&
             board.GetNodeType(Dracula->GetNode())==NodeType::SECREST)){
+                context.context.Gamestate->log.Add(fighter->GetName()+" damage 1");
+                context.context.Gamestate->log.Add("Dracula healed 1");
                 fighter->TakeDamge(1);
                 Dracula->Heal(1);
             }
@@ -18,6 +20,8 @@ ContinueResult PreyUponEffect::Continue(EffectContext & context){
     if(board.AreAdjacent(enemy->GetNode(),Dracula->GetNode())){
             if(!(board.GetNodeType(enemy->GetNode())==NodeType::SECREST &&
             board.GetNodeType(Dracula->GetNode())==NodeType::SECREST)){
+                context.context.Gamestate->log.Add(enemy->GetName()+" damage 1");
+                context.context.Gamestate->log.Add("Dracula healed 1");
                 enemy->TakeDamge(1);
                 Dracula->Heal(1);
             }

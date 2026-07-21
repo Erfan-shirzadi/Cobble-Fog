@@ -12,8 +12,6 @@ class Board {
     public:
     void AddFighter(Fighter*,int node);
     bool isOccupied(int node)const;
-    void Move(Fighter& fihgter,int node)const;
-    std::vector<int> adjacentCells(int node)const;
     std::vector <int> reachableNodes(Hero * fighters, Hero * enemy ,int distance,int HeroNode);
     std::vector<int> GetNodeofArea(int node)const;
     std::vector<int> GetReachableNighbors(int node);
@@ -26,7 +24,6 @@ class Board {
     NodeType GetNodeType(int node);
     std::vector<int> GetAllEmptyNodes();
 
-    std::vector<int> GetReachableNodeOfArea(int node);
 };
 
 #endif /* BOARD_H */

@@ -53,7 +53,10 @@ ContinueResult RaveningSeductionEffect::DamageFighter(EffectContext& context){
 
     for(auto sister:dracula->GetSideKicks()){
         if(board.AreAdjacent(sister->GetNode(),fighter->GetNode())&& sister->GetNode()!=fighter->GetNode())
-            fighter->TakeDamge(1);
+            if(!(board.GetNodeType(sister->GetNode())==NodeType::SECREST && board.GetNodeType(fighter->GetNode())==NodeType::SECREST)){
+                fighter->TakeDamge(1);
+                context.context.Gamestate->log.Add(fighter->GetName()+" damaged 1");
+            }
     }
     ContinueResult result ;
     result.status=ContinueStatus::FINISHED;

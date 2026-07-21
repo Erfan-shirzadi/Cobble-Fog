@@ -42,6 +42,10 @@ ContinueResult SchemeUseCase::Continue(EffectContext &context){
         break;
     
     }
+
+    ContinueResult res;
+    res.status=ContinueStatus::FINISHED;
+    return res;
 }
 
 

@@ -9,7 +9,7 @@ ContinueResult DraculaAbility::Continue(EffectContext & context){
         return ChooseTarget(context);
         break;
     case DraculaAbilityStep::DRAW_CARD:{
-        DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero());
+        DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
         step=DraculaAbilityStep::FINISHED;
         ContinueResult result;
         result.status=ContinueStatus::CONTINUE;
