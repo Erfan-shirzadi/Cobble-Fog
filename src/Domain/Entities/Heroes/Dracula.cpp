@@ -71,6 +71,8 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     AddCardToDeck(std::make_unique<PeryUpon>());
     AddCardToDeck(std::make_unique<RaveningSeduction>());
     AddCardToDeck(std::make_unique<FeedingFrenzy>());
+    AddCardToDeck(std::make_unique<Ambush>());
+
 
 
 
