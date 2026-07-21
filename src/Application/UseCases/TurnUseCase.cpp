@@ -23,7 +23,7 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
         return FinishedResult(context);
         break;
     case TurnStep::MANAGE_HAND_SIZE:
-
+        return ManageHandSize(context);
         break;
     }
     ContinueResult a;
@@ -58,8 +58,10 @@ ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
         Hero * current=context.context.Gamestate->currnetPlayer->GetHero();
         current->reduceRemainingAction();
 
-        if(current->GetRemainingAction()==0)
+        if(current->GetRemainingAction()==0){
             step=TurnStep::FINISHED;
+            result.status=ContinueStatus::CONTINUE;
+        }
         else{
             step=TurnStep::CHOOSE_ACTION;
             result.status=ContinueStatus::CONTINUE;
@@ -93,10 +95,11 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     Hero * CurrentHero=context.context.Gamestate->currnetPlayer->GetHero();
     ContinueResult result;
     if(CurrentHero->GetRemainingAction()==0){
-
+        context.context.Gamestate->log.Add(std::to_string(CurrentHero->GetSizeHand())+" Hand Size ");
         if(CurrentHero->GetSizeHand()>7){
             result.status=ContinueStatus::CONTINUE;
             step=TurnStep::MANAGE_HAND_SIZE;
+            context.context.Selected=-1;
         }
         else {
             result.status=ContinueStatus::FINISHED;
