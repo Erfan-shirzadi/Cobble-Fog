@@ -99,7 +99,7 @@ void Hero::reduceRemainingAction(){
 std::string Hero::GetHandCards()const{
       std::stringstream out;
       for(int i{};i<Hand.size();i++){
-            out<< i <<".   "<<Hand[i]->GetName()<<std::endl;
+            out <<"  "<<Hand[i]->GetName()<<std::endl;
       }
 
       return out.str();
@@ -111,4 +111,15 @@ Fighter * Hero::GetDeadSideKick()const{
 
 int Hero::GetDeckSize(){
       return deck.Size();
+}
+
+
+bool Hero::IsExistCardOfFighterInhandForAttack(FighterType fighter){
+      for(int i{};i<Hand.size();i++){
+            if(Hand[i]->GetCategory()==CardCategory::ATTACK || Hand[i]->GetCategory()==CardCategory::ATTACKANDDEFFENS)
+                  if(Hand[i]->GetOwner()==fighter ||Hand[i]->GetOwner()==FighterType::ANY)
+                        return true;
+      }
+
+      return false;
 }

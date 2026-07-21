@@ -26,6 +26,7 @@ class Hero :public Fighter{
     virtual void Ability(GameState&)=0;
     virtual bool CanUseCability(GameState)=0;
     bool IsExistCardInHand(CardCategory);
+    bool IsExistCardOfFighterInhandForAttack(FighterType);
     int GetSizeHand()const;
     bool DrawCard();
     std::vector<Card * > GetHand()const;

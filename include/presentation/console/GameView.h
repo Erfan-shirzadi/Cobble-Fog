@@ -15,12 +15,11 @@ struct GameState;
 
 class GameView{
 
-    GameState & gamestate;
+    
     public:
+
+
     GameView(GameState & );
-    // void run(GameState & state);
-    // void Close();
-    // int ShowMenu(std::vector<std::string>);
     void SetMenu(const MenuRequest &);
     ftxui::Element render();
     ftxui::Element renderMenu();
@@ -35,9 +34,11 @@ class GameView{
 
 
     private:
+    GameState & gamestate;
+    MenuRequest menurequest;
+
     ftxui::ScreenInteractive screen=ftxui::ScreenInteractive::TerminalOutput();
     std::vector<std::string> menuOptions;
-    // bool CatchEvent(ftxui::Event event);
     int selected=0;
     ftxui::Component menu;
     ftxui::Component root;

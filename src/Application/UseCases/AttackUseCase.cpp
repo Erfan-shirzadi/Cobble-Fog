@@ -159,8 +159,10 @@ ContinueResult AttackUseCase::BuildAttakerMenu(EffectContext & context){
 
     for(auto fighter: allattacker){
         if(IsInChanceAttack(fighter,Deffender,context.context.Gamestate->board)){
+            if(attaker->IsExistCardOfFighterInhandForAttack(fighter->GetFighterType())){
             Attacker.push_back(fighter);
             result.menu_request.options.push_back(fighter->GetName());
+            }
         }
     }
     result.status=ContinueStatus::NEEDMENU;

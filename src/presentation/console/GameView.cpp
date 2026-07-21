@@ -95,7 +95,7 @@ ftxui::Element GameView::render(){
 ftxui::Element GameView::renderMenu(){
 
     return vbox({
-        text("Menu"),
+        text(this->menurequest.title)|center,
         separator(),
         menu ? menu->Render():text("Loding ....")
     })|border;
@@ -103,6 +103,7 @@ ftxui::Element GameView::renderMenu(){
 
 void GameView::SetMenu(const MenuRequest & menu){
     this->menuOptions=menu.options;
+    this->menurequest=menu;
     this->menu=Menu(&menuOptions, &selected);
     container->DetachAllChildren();
      container->Add(this->menu);
