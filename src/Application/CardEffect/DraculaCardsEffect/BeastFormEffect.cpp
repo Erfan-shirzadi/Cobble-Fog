@@ -28,6 +28,7 @@ ContinueResult BeastFormEffect::AskForDiscardinCard(EffectContext & context){
         ContinueResult res;
         res.menu_request.options.push_back("DisCard ");
         res.menu_request.options.push_back("Skip ");
+        res.menu_request.title="Do you Want Remove?";
         res.status=ContinueStatus::NEEDMENU;
         return res;
     }
@@ -51,9 +52,9 @@ ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
     context.combatcontext->Current->card->IncreseDamageOfDeffend(1);
     context.context.Selected=-1;
     ContinueResult res;
-     res.status=ContinueStatus::CONTINUE;
+     
      step=BeastFormStep::ASK_FOR_DISCADINGCARD;
-     return res;
+     return Continue(context);
 }
 
 ContinueResult BeastFormEffect::BuildCardMenu(EffectContext & context){
@@ -63,6 +64,6 @@ ContinueResult BeastFormEffect::BuildCardMenu(EffectContext & context){
         res.menu_request.options.push_back(card->GetName());
     }
     res.menu_request.title="Cards ";
-
+    res.status=ContinueStatus::NEEDMENU;
     return res;
 }

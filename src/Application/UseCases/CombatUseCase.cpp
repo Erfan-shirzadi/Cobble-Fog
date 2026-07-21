@@ -203,8 +203,8 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
             combatstep=CombatStep::AFTER_COMBAT;
             this->cardStep=CardPlayStep::DEFFENDER_CARD;
         }
-
-
+        if(ContinueStatus::NEEDMENU==res.status)return res;
+        
         int ResultDamage=context.combatcontext->Opponent->card->GetDamgeOrDeffend();
         if(context.combatcontext->Current->card)
            ResultDamage-= context.combatcontext->Opponent->card->GetDamgeOrDeffend();
