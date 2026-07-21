@@ -59,7 +59,7 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         return std::move(std::make_unique<RaveningSeductionEffect>());
         break;
     case CardId::THIRST_FOR_SUSTENANCE:
-        return std::move(std::make_unique<ThirstEffect>());
+        return std::make_unique<ThirstEffect>();
         break;
     case CardId::ADMINISTER_AID:
         return std::move(std::make_unique<AdministerAidEffect>());

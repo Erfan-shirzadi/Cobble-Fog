@@ -19,7 +19,7 @@ enum class CardPlayStep{
 class CombatUseCase{
 
     CombatStep combatstep=CombatStep::START;
-    CardPlayStep cardStep;
+    CardPlayStep cardStep=CardPlayStep::DEFFENDER_CARD;
     public:
 
     ContinueResult start(EffectContext &);

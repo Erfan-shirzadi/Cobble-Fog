@@ -9,6 +9,7 @@ ContinueResult CombatUseCase::Continue(EffectContext & context){
     {
     case CombatStep::START:{
         return start(context);
+        break;
     }
     case CombatStep::BEFOR_COMBAT:
         return BeforCombat(context);
@@ -78,19 +79,25 @@ ContinueResult CombatUseCase::AfterCombat(EffectContext  & context){
 
 }
 ContinueResult CombatUseCase::Finished(EffectContext & context){
-     ContinueResult res;
+    this->combatstep=CombatStep::START;
+    ContinueResult res;
     res.status=ContinueStatus::FINISHED;
     return res;
 }
 
 
 ContinueResult CombatUseCase::start(EffectContext &context){
+   context.context.Gamestate->log.Add("Start Combat ");
+       if(context.combatcontext->Opponent->card)
     context.combatcontext->Opponent->effect=
         CardEffectFactory::CreatCardEffect(context.combatcontext->Opponent->card->GetCardId());
+    if(context.combatcontext->Current->card)
         context.combatcontext->Current->effect=
     CardEffectFactory::CreatCardEffect(context.combatcontext->Current->card->GetCardId());
     std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
-
+    Fighter *hero=context.combatcontext->Current->fighter;
+    Fighter * enemy=context.combatcontext->Opponent->fighter;
+    context.context.Gamestate->log.Add(hero->GetName() +" vs "+enemy->GetName());
     combatstep=CombatStep::BEFOR_COMBAT;
     this->cardStep=CardPlayStep::DEFFENDER_CARD;
     ContinueResult res;
@@ -103,25 +110,29 @@ ContinueResult CombatUseCase::start(EffectContext &context){
 
 ContinueResult CombatUseCase::BeforCombatEffectDeffender(EffectContext&context){
      ContinueResult res;
+    context.context.Gamestate->log.Add("Befor Combat ");
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->IsActiveCardEffect ||
+        if(context.combatcontext->Current->card!=nullptr)
+            if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
-            if(context.combatcontext->Current->card)
                 if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
                     res = context.combatcontext->Current->effect->Continue(context);
-        } 
+            } 
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
             this->cardStep=CardPlayStep::ATTACKER_CARD;
 
         }
+
         return res; 
 }
 ContinueResult CombatUseCase::BeforCombatEffectAttcker(EffectContext &context){
 
             ContinueResult res;
+
         res.status=ContinueStatus::FINISHED;
+        if(context.combatcontext->Current->card)
         if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
             if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::IMMEDIATE)
@@ -135,18 +146,21 @@ ContinueResult CombatUseCase::BeforCombatEffectAttcker(EffectContext &context){
 
 
         }
+
          return res;      
 
 }
 ContinueResult CombatUseCase::DuringCombatEffectDeffender(EffectContext &context){
         ContinueResult res;
+        context.context.Gamestate->log.Add("During Combat ");
+
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->IsActiveCardEffect ||
+        if(context.combatcontext->Current->card)    
+            if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
-            if(context.combatcontext->Current->card)
                 if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
                     res= context.combatcontext->Current->effect->Continue(context); 
-        }    
+            }    
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -154,6 +168,7 @@ ContinueResult CombatUseCase::DuringCombatEffectDeffender(EffectContext &context
 
 
         }
+
          return res;      
 
 }
@@ -161,7 +176,7 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
 
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-
+        if(context.combatcontext->Current->card)
         if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
             if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::DURING_COMBAT)
@@ -174,28 +189,35 @@ ContinueResult CombatUseCase::DuringCombatEffectAttacker(EffectContext &context)
             this->cardStep=CardPlayStep::DEFFENDER_CARD;
         }
 
-        int ResultDamage=context.combatcontext->Current->card->GetDamgeOrDeffend()
-                        -context.combatcontext->Opponent->card->GetDamgeOrDeffend();
 
-            if(ResultDamage<0) context.combatcontext->Opponent->Won=true;
+        int ResultDamage=context.combatcontext->Opponent->card->GetDamgeOrDeffend();
+        if(context.combatcontext->Current->card)
+           ResultDamage-= context.combatcontext->Opponent->card->GetDamgeOrDeffend();
+
+            if(ResultDamage<0) context.combatcontext->Current->Won=true;
             else {
-                context.combatcontext->Opponent->fighter->TakeDamge(ResultDamage);
-                context.combatcontext->Current->Won=true;
+                context.context.Gamestate->log.Add(context.combatcontext->Current->fighter->GetName()+" Toke "+
+                std::to_string(ResultDamage)+" Damage");
+                context.combatcontext->Current->fighter->TakeDamge(ResultDamage);
+                context.combatcontext->Opponent->Won=true;
             }
+            if(context.combatcontext->Opponent->Won)
+                context.context.Gamestate->log.Add(context.combatcontext->Opponent->fighter->GetName()+" won the Combat ");
+            else context.context.Gamestate->log.Add(context.combatcontext->Current->fighter->GetName()+" won the Combat ");
 
-
+        
          return res;  
 
 }
 ContinueResult CombatUseCase::AfterCombatEffectDeffender(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
-        if(context.combatcontext->Current->IsActiveCardEffect ||
-            context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
-            if(context.combatcontext->Current->card)
+        if(context.combatcontext->Current->card)
+            if(context.combatcontext->Current->IsActiveCardEffect ||
+                context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
                 if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
                     res= context.combatcontext->Current->effect->Continue(context);   
-        }     
+            }     
         if(res.status==ContinueStatus::FINISHED){
             std::swap(context.combatcontext->Current,context.combatcontext->Opponent);
             res.status=ContinueStatus::CONTINUE;
@@ -209,6 +231,7 @@ ContinueResult CombatUseCase::AfterCombatEffectDeffender(EffectContext &context)
 ContinueResult CombatUseCase::AfterCombatEffectAttacker(EffectContext &context){
         ContinueResult res;
         res.status=ContinueStatus::FINISHED;
+        if(context.combatcontext->Current->card)
         if(context.combatcontext->Current->IsActiveCardEffect ||
             context.combatcontext->Current->hero->GetFighterType()==FighterType::SHERLOCK){
             if(context.combatcontext->Current->card->GetCardPlayTiming()==PlayTiming::ATFER_COMBAT)
