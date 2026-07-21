@@ -127,7 +127,7 @@ Element GameView::Refresh(){
         RenderPlayer(gamestate.player1)|border|size(WIDTH,EQUAL,30)|flex,
         RenderLog()|border|size(WIDTH,EQUAL,40)|flex,
         RenderPlayer(gamestate.player2)|border|size(WIDTH,EQUAL,30)|flex,
-        }),
+        })|size(HEIGHT,EQUAL,20),
         RenderMap()|border
         })|border,
         renderMenu()

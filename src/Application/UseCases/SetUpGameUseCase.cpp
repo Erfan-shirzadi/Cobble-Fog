@@ -51,7 +51,7 @@ ContinueResult SetUpGameUseCase::Continue(EffectContext & context){
         break;
     case SetUpGameStep::DRAW_5CARD:{
         Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-        hero->ShuffelDeck();
+        //hero->ShuffelDeck();
         DrawInitialCards(hero);
         step=SetUpGameStep::PLACEMENT;
         ContinueResult result;

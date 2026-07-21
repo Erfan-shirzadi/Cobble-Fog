@@ -53,6 +53,7 @@ set(
     src/Application/UseCases/TurnUseCase.cpp
     src/Application/UseCases/SchemeUseCase.cpp
     src/Application/UseCases/AttackUseCase.cpp
+    src/Application/UseCases/MoveUseCase.cpp
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 
