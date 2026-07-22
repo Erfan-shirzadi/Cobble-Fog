@@ -8,70 +8,6 @@
 
 using namespace ftxui;
 
-//  void GameView::run(GameState & state){
-    
-//     auto renderer= Renderer([&] {
-        
-//         return vbox({
-//             text("Cobble & Fog"),
-//             vbox({
-//                 text("Turn"),
-//                 separator(),
-//                 text("Ditale"),
-//                 separator(),
-//                 text("Logs"),
-//                 separator(),
-//                 text("Menu"),
-
-//             })
-//         });
-        
-//     });
-//     screen.Loop(renderer);
-//  }
-
-
-// int GameView::chooseCard(std::vector<Card*> card){
-//     std::vector <std::string> cards;
-//     for(auto c:card){
-//         cards.push_back(c->GetName());
-//     }
-
-//     int selected=0;
-//     auto menu=Menu(&cards,&selected);
-
-//     auto renderer=Renderer(menu, [&]{
-//         return vbox({
-//             text("Choose Card"),
-//             separator(),
-//             menu->Render(),
-//         });
-//     });
-
-//     auto component=CatchEvent(renderer, [&](Event event){
-//         if(event==Event::Return){
-//             screen.ExitLoopClosure()();
-//             return true;
-//         }
-//         return false;
-//     });
-
-//     screen.Loop(component);
-//     return selected;
-// }
-
-// void GameView::Close(){
-//     this->screen.ExitLoopClosure();
-// }
-
-// void GameView::ShowMenu(std::vector<std::string> a){
-//     int selected=0;
-//     auto menu =Menu(&a,&selected);
-
-//     this->screen.Loop(menu);
-
-//     return selected;
-// }
 
 GameView::GameView(GameState & gamestate):gamestate(gamestate){
     
@@ -97,7 +33,7 @@ ftxui::Element GameView::renderMenu(){
     return vbox({
         text(this->menurequest.title)|center,
         separator(),
-        menu ? menu->Render():text("Loding ....")
+        menu ? menu->Render()|frame|vscroll_indicator:text("Loding ....")
     })|border;
 }
 
@@ -210,9 +146,4 @@ ftxui::Element GameView::RenderTurnBar(){
         return text("Turn : "+hero->GetName());
     }
     else return text("Set Up");
-}
-
-void GameView::ShowGameOver(std::string name){
-        std::string winner=name;
-        state=GameViewState::GAME_OVER;
 }

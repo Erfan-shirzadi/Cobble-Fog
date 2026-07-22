@@ -70,3 +70,6 @@ FighterType Fighter::GetFighterType(){
    return this->fightertype;
 }
 
+void Fighter::ReduceMove(int amount){
+   this->Move-=amount;
+}

@@ -65,13 +65,6 @@ bool Board::IsAnArea(int node1, int node2)const{
      std::vector<Area>Area1=map.GetArea(node1);
      std::vector<Area>Area2=map.GetArea(node2);
      
-    // std::cout<<"size1: "<<Area1.size()<<std::endl;
-    // std::cout<<"size2: "<<Area2.size()<<std::endl;
-
-    // for(Area area:Area1)std::cout<<(int)area<<std::endl;
-    // std::cout<< "((((()))))"<<std::endl;
-    // for(Area area:Area2)std::cout<<(int)area<<std::endl;
-
      for(Area area:Area1){
         for(Area items:Area2){
             if((int)area==(int)items)
@@ -156,13 +149,6 @@ std::string Board::GetGraph(){
     return out.str();
 }
 
-// PathWay Board::GetPathType(int node1,int node2){
-//     if(map.GetNodeType(node1)==NodeType::SECREST && map.GetNodeType(node2)==NodeType::SECREST)
-//         return PathWay::SECRETPATH;
-//     if(map.GetNodeType(node1)==NodeType::SECREST && map.GetNodeType(node2)==NodeType::SIMPLE)
-// }
-
-
 NodeType Board::GetNodeType(int node){
     return map.GetNodeType(node);
 }
@@ -176,3 +162,9 @@ std::vector<int> Board::GetAllEmptyNodes(){
     }
     return res;
 }
+
+
+int Board::Distance(int start, int target){
+    return map.Distance(start,target);
+}
+

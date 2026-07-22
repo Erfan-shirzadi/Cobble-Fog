@@ -20,12 +20,16 @@ class ManeverUseCase : public IUseCase{
 
     ManeverStep step=ManeverStep::DRAW_CARD;
     Fighter* selectedHero=nullptr;
-    int IncreseMovment=0;
+    int incresemovment=0;
     std::vector<Fighter*> fighters;
     std::vector<int>rechableNode;
     int Destination;
 
     public:
+    void ResetMovment(Hero*);
+    void InceaseMovment(Hero *,int);
+    bool CanMoveAnyFighter();
+
 
      ContinueResult Continue(EffectContext&)override;
      void Start(EffectContext&)override;

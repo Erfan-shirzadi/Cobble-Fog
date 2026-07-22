@@ -11,8 +11,6 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
 
     switch (step)
     {
-    // case TurnStep::START:
-    //     return Start(context);
     case TurnStep::CHOOSE_ACTION:
         return ChooseAction(context);
         break;
@@ -33,18 +31,7 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
 
 ContinueResult TurnUseCase::Start(EffectContext& context){
 
-     ContinueResult result;
-    // result.status=ContinueStatus::CONTINUE;
-    // if(!ability){
-    //     ability=HeroAbilityFactory::CeateAbility(context.context.Gamestate->currnetPlayer->GetHero()->GetFighterType());
-    // }
-    // if(ability->CanUseAbility())
-    //     result=Ability(context);
-    // if(result.status==ContinueStatus::FINISHED){
-    //     step=TurnStep::CHOOSE_ACTION;
-    //     context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
-    //     result.status=ContinueStatus::CONTINUE;
-    // }
+    ContinueResult result;
     context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
     step=TurnStep::CHOOSE_ACTION;
     return result;
@@ -95,7 +82,6 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     Hero * CurrentHero=context.context.Gamestate->currnetPlayer->GetHero();
     ContinueResult result;
     if(CurrentHero->GetRemainingAction()==0){
-        context.context.Gamestate->log.Add(std::to_string(CurrentHero->GetSizeHand())+" Hand Size ");
         if(CurrentHero->GetSizeHand()>7){
             result.status=ContinueStatus::CONTINUE;
             step=TurnStep::MANAGE_HAND_SIZE;
@@ -148,22 +134,31 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
 }
 
 ContinueResult TurnUseCase::ManageHandSize(EffectContext & context){
+     ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
     if(context.context.Selected==-1) return BuildHandMenu(hero);
 
-
+    if(context.context.Selected==hero->GetSizeHand()){
+        result.status=ContinueStatus::CONTINUE;
+        step=TurnStep::FINISHED;
+        context.context.Selected=-1;
+        return result;
+    }
     hero->RemoveCardHand(context.context.Selected);
-    ContinueResult result;
+   
     result.status=ContinueStatus::CONTINUE;
+    context.context.Selected=-1;
     return result;
 }
 
 ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     ContinueResult result;
-
+    result.menu_request.title="Remove card please :";
     for(auto card: hero->GetHand()){
         result.menu_request.options.push_back(card->GetName());
     }
+    if(hero->GetSizeHand()<=7)
+        result.menu_request.options.push_back("End turn");
     result.status=ContinueStatus::NEEDMENU;
 
     return result;

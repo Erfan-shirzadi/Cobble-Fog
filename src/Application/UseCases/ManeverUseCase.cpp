@@ -1,8 +1,7 @@
-#include "Application/UseCases/ManeverUseCase.h"
 #include  <vector>
 #include <unordered_map>
 #include <queue>
-#include <iostream>
+#include "Application/UseCases/ManeverUseCase.h"
 #include "Application/interaction/EffectContext.h"
 #include "Application/UseCases/DrawingCardUseCase.h"
 #include "Application/UseCases/MoveUseCase.h"
@@ -55,7 +54,8 @@ ContinueResult ManeverUseCase::AskIncreseMovment(EffectContext & context){
     context.context.Selected=-1;
 
     if(choice==0)this->step=ManeverStep::CHOOSE_CARD;
-    else step=ManeverStep::CHOOSE_FIHGTER;
+    else if(choice==1)step=ManeverStep::CHOOSE_FIHGTER;
+    else if(choice==2)step=ManeverStep::FINISHED;
 
     return Continue(context);
 }
@@ -67,7 +67,9 @@ ContinueResult ManeverUseCase::ChooseCard(EffectContext&context){
     context.context.Selected=-1;
 
     Card * card=context.context.Gamestate->currnetPlayer->GetHero()->GetCard(choice);
-    this->IncreseMovment+=card->GetBoost();
+    this->incresemovment+=card->GetBoost();
+    InceaseMovment(context.context.Gamestate->currnetPlayer->GetHero(),incresemovment);
+    
     this->step=ManeverStep::ASK_INCREASE_MOVEMENT;
 
     return Continue(context);
@@ -76,15 +78,15 @@ ContinueResult ManeverUseCase::ChooseCard(EffectContext&context){
 ContinueResult ManeverUseCase::CooseFighter(EffectContext&context){
    if(context.context.Selected==-1)return BuildFightersMenu(context);
 
-   int choice=context.context.Selected;
-   context.context.Selected=-1;
-    DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
+    int choice=context.context.Selected;
+    context.context.Selected=-1;
+   
+    // DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
 
-   this->selectedHero=fighters[choice];
+    this->selectedHero=fighters[choice];
 
-   selectedHero->SetMove(this->IncreseMovment+selectedHero->GetMove());
-   this->step=ManeverStep::CHOOSE_DESTINATION;
-   return Continue(context);
+    this->step=ManeverStep::CHOOSE_DESTINATION;
+    return Continue(context);
 
 }
 ContinueResult ManeverUseCase::ChooseDestination(EffectContext& context){
@@ -94,20 +96,23 @@ ContinueResult ManeverUseCase::ChooseDestination(EffectContext& context){
     int choice =context.context.Selected;
     context.context.Selected=-1;
     Destination=this->rechableNode[choice];
-
+    context.context.Gamestate->log.Add(std::to_string(context.context.Gamestate->board.Distance(selectedHero->GetNode(),Destination))+"Distance");
+    selectedHero->ReduceMove(context.context.Gamestate->board.Distance(selectedHero->GetNode(),Destination));
     this->step=ManeverStep::MOVE;
     return Continue(context);
 }
 ContinueResult ManeverUseCase::Move(EffectContext& context){
-    selectedHero->SetNode(Destination);
     MoveUseCase::Move(selectedHero,Destination,context.context.Gamestate->log);
-    step=ManeverStep::FINISHED;
+
+    if(CanMoveAnyFighter())
+        step=ManeverStep::ASK_INCREASE_MOVEMENT;
+    else step=ManeverStep::FINISHED;
     return Continue(context);
 }
 ContinueResult ManeverUseCase::Finished(EffectContext& context){
-    selectedHero->SetMove(2);
+    ResetMovment(context.context.Gamestate->currnetPlayer->GetHero());
     context.context.Selected=-1;
-    this->IncreseMovment=0;
+    this->incresemovment=0;
     this->rechableNode.clear();
     this->fighters.clear();
     selectedHero=nullptr;
@@ -126,6 +131,7 @@ ContinueResult ManeverUseCase::BuildAskIncreaseMovmentMenu(){
     result.menu_request.title="Increse Movment ?";
     result.menu_request.options.push_back("Increse Movment");
     result.menu_request.options.push_back("Continue");
+    result.menu_request.options.push_back("End Turn");
     result.status=ContinueStatus::NEEDMENU;
 
     return result;
@@ -143,13 +149,21 @@ ContinueResult ManeverUseCase::BuildCardChoosingMunu(EffectContext&context){
 }
 
 ContinueResult  ManeverUseCase::BuildFightersMenu(EffectContext& context){
+    fighters.clear();
     ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-    fighters.push_back(dynamic_cast<Fighter*>(hero));
-    result.menu_request.options.push_back(hero->GetName()+" ("+std::to_string(hero->GetNode())+" ) ");
+    if(hero->GetMove()>0)
+        fighters.push_back(dynamic_cast<Fighter*>(hero));
     for(auto sidekick: hero->GetSideKicks()){
-        fighters.push_back(sidekick);
-        result.menu_request.options.push_back(sidekick->GetName()+" ("+std::to_string(sidekick->GetNode())+" ) ");
+        if(sidekick->GetMove()>0)
+            fighters.push_back(sidekick);
+    }
+   
+    for(auto fighter:fighters){
+        
+            result.menu_request.options.push_back(fighter->GetName()+" (Node:"+std::to_string(fighter->GetNode())+")"+
+            "       [Movement:"+std::to_string(fighter->GetMove())+"]");
+      
     }
     result.menu_request.title="Fighters";
     result.status=ContinueStatus::NEEDMENU;
@@ -158,14 +172,16 @@ ContinueResult  ManeverUseCase::BuildFightersMenu(EffectContext& context){
 
 ContinueResult ManeverUseCase::BuildNodesMenu(EffectContext& context){
     ContinueResult result;
-    rechableNode=context.context.Gamestate->board.reachableNodes(
+    Board & board=context.context.Gamestate->board;
+    rechableNode=board.reachableNodes(
          context.context.Gamestate->currnetPlayer->GetHero(),
         context.context.Gamestate->opponentPlayre->GetHero(),
         selectedHero->GetMove(),
         selectedHero->GetNode()
     );
     for(int node:rechableNode ){
-        result.menu_request.options.push_back(std::to_string(node));
+        result.menu_request.options.push_back(std::to_string(node) +"       (Distance :"+
+        std::to_string(board.Distance(selectedHero->GetNode(),node))+")");
     }
     result.menu_request.title="Destination";
     result.status=ContinueStatus::NEEDMENU;
@@ -174,7 +190,7 @@ ContinueResult ManeverUseCase::BuildNodesMenu(EffectContext& context){
 
 void ManeverUseCase::Start(EffectContext & context ){
     context.context.Selected=-1;
-    this->step=ManeverStep::ASK_INCREASE_MOVEMENT;
+    this->step=ManeverStep::DRAW_CARD;
     selectedHero=nullptr;
     Destination=-1;
     rechableNode.clear();
@@ -183,11 +199,32 @@ void ManeverUseCase::Start(EffectContext & context ){
 
 ContinueResult ManeverUseCase::drawcard(EffectContext & context){
     Hero *hero=context.context.Gamestate->currnetPlayer->GetHero();
-    // hero->DrawCard();
     step=ManeverStep::ASK_INCREASE_MOVEMENT;
-    // DrawingCardUseCase::DrawCard(hero,context.context.Gamestate->log);
+    DrawingCardUseCase::DrawCard(hero,context.context.Gamestate->log);
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     return res;
 }
  
+void ManeverUseCase::ResetMovment(Hero * hero){
+    hero->SetMove(2);
+
+    for(auto sidekick:hero->GetSideKicks()){
+        sidekick->SetMove(2);
+    }
+}
+
+void ManeverUseCase::InceaseMovment(Hero * hero,int amount){
+    hero->SetMove(amount+hero->GetMove());
+
+    for(auto sidekick:hero->GetSideKicks()){
+        sidekick->SetMove(amount+sidekick->GetMove());
+    }
+}
+
+bool ManeverUseCase::CanMoveAnyFighter(){
+    for(auto fighter:this->fighters){
+        if(fighter->GetMove()>0)return true;
+    }
+    return false;
+}

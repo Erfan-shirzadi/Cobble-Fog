@@ -32,6 +32,7 @@ class Fighter{
     void TakeDamge(int damage);
     void Heal(int heal);
     bool IsAlive()const;
+    void ReduceMove(int);
 
     FighterType GetFighterType();
 
