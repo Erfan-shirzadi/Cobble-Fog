@@ -28,6 +28,7 @@ class ManeverUseCase : public IUseCase{
     public:
     void ResetMovment();
     void InceaseMovment(Hero *,int);
+    bool CanMoveAnyFighter();
 
 
      ContinueResult Continue(EffectContext&)override;

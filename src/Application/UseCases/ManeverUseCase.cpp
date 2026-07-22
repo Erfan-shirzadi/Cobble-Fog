@@ -104,7 +104,10 @@ ContinueResult ManeverUseCase::ChooseDestination(EffectContext& context){
 }
 ContinueResult ManeverUseCase::Move(EffectContext& context){
     MoveUseCase::Move(selectedHero,Destination,context.context.Gamestate->log);
-    step=ManeverStep::ASK_INCREASE_MOVEMENT;
+
+    if(CanMoveAnyFighter())
+        step=ManeverStep::ASK_INCREASE_MOVEMENT;
+    else step=ManeverStep::FINISHED;
     return Continue(context);
 }
 ContinueResult ManeverUseCase::Finished(EffectContext& context){
@@ -215,4 +218,11 @@ void ManeverUseCase::InceaseMovment(Hero * hero,int amount){
     for(auto sidekick:hero->GetSideKicks()){
         sidekick->SetMove(amount+sidekick->GetMove());
     }
+}
+
+bool ManeverUseCase::CanMoveAnyFighter(){
+    for(auto fighter:this->fighters){
+        if(fighter->GetMove()>0)return true;
+    }
+    return false;
 }
