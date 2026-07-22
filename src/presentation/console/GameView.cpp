@@ -33,7 +33,7 @@ ftxui::Element GameView::renderMenu(){
     return vbox({
         text(this->menurequest.title)|center,
         separator(),
-        menu ? menu->Render():text("Loding ....")
+        menu ? menu->Render()|frame|vscroll_indicator:text("Loding ....")
     })|border;
 }
 
