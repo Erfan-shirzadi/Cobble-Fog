@@ -163,13 +163,6 @@ std::vector<int> Board::GetAllEmptyNodes(){
     return res;
 }
 
-void Board::ResetMovment(Hero * hero){
-    hero->SetMove(2);
-    for(auto sidekick: hero->GetSideKicks()){
-        sidekick->SetMove(2);
-    }
-}
-
 
 int Board::Distance(int start, int target){
     return map.Distance(start,target);
