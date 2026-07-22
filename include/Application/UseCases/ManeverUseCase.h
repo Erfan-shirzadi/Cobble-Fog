@@ -26,7 +26,7 @@ class ManeverUseCase : public IUseCase{
     int Destination;
 
     public:
-    void ResetMovment();
+    void ResetMovment(Hero*);
     void InceaseMovment(Hero *,int);
     bool CanMoveAnyFighter();
 

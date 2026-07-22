@@ -111,7 +111,7 @@ ContinueResult ManeverUseCase::Move(EffectContext& context){
     return Continue(context);
 }
 ContinueResult ManeverUseCase::Finished(EffectContext& context){
-    ResetMovment();
+    ResetMovment(context.context.Gamestate->currnetPlayer->GetHero());
     context.context.Selected=-1;
     this->incresemovment=0;
     this->rechableNode.clear();
@@ -153,16 +153,18 @@ ContinueResult  ManeverUseCase::BuildFightersMenu(EffectContext& context){
     fighters.clear();
     ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-    fighters.push_back(dynamic_cast<Fighter*>(hero));
+    if(hero->GetMove()>0)
+        fighters.push_back(dynamic_cast<Fighter*>(hero));
     for(auto sidekick: hero->GetSideKicks()){
-        fighters.push_back(sidekick);
+        if(sidekick->GetMove()>0)
+            fighters.push_back(sidekick);
     }
    
     for(auto fighter:fighters){
-        if(fighter->GetMove()>0){
+        
             result.menu_request.options.push_back(fighter->GetName()+" (Node:"+std::to_string(fighter->GetNode())+")"+
             "       [Movement:"+std::to_string(fighter->GetMove())+"]");
-        }
+      
     }
     result.menu_request.title="Fighters";
     result.status=ContinueStatus::NEEDMENU;
@@ -206,10 +208,12 @@ ContinueResult ManeverUseCase::drawcard(EffectContext & context){
     return res;
 }
  
-void ManeverUseCase::ResetMovment(){
-   for(auto fighter:this->fighters){
-    fighter->SetMove(2);
-   }
+void ManeverUseCase::ResetMovment(Hero * hero){
+    hero->SetMove(2);
+
+    for(auto sidekick:hero->GetSideKicks()){
+        sidekick->SetMove(2);
+    }
 }
 
 void ManeverUseCase::InceaseMovment(Hero * hero,int amount){
