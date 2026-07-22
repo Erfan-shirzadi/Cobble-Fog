@@ -1,8 +1,7 @@
-#include "Application/UseCases/ManeverUseCase.h"
 #include  <vector>
 #include <unordered_map>
 #include <queue>
-#include <iostream>
+#include "Application/UseCases/ManeverUseCase.h"
 #include "Application/interaction/EffectContext.h"
 #include "Application/UseCases/DrawingCardUseCase.h"
 #include "Application/UseCases/MoveUseCase.h"
@@ -82,7 +81,7 @@ ContinueResult ManeverUseCase::CooseFighter(EffectContext&context){
     int choice=context.context.Selected;
     context.context.Selected=-1;
    
-    DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
+    // DrawingCardUseCase::DrawCard(context.context.Gamestate->currnetPlayer->GetHero(),context.context.Gamestate->log);
 
     this->selectedHero=fighters[choice];
 
@@ -191,7 +190,7 @@ ContinueResult ManeverUseCase::BuildNodesMenu(EffectContext& context){
 
 void ManeverUseCase::Start(EffectContext & context ){
     context.context.Selected=-1;
-    this->step=ManeverStep::ASK_INCREASE_MOVEMENT;
+    this->step=ManeverStep::DRAW_CARD;
     selectedHero=nullptr;
     Destination=-1;
     rechableNode.clear();
@@ -200,9 +199,8 @@ void ManeverUseCase::Start(EffectContext & context ){
 
 ContinueResult ManeverUseCase::drawcard(EffectContext & context){
     Hero *hero=context.context.Gamestate->currnetPlayer->GetHero();
-    // hero->DrawCard();
     step=ManeverStep::ASK_INCREASE_MOVEMENT;
-    // DrawingCardUseCase::DrawCard(hero,context.context.Gamestate->log);
+    DrawingCardUseCase::DrawCard(hero,context.context.Gamestate->log);
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     return res;
