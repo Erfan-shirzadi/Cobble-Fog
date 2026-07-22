@@ -99,7 +99,6 @@ ContinueResult ManeverUseCase::ChooseDestination(EffectContext& context){
     return Continue(context);
 }
 ContinueResult ManeverUseCase::Move(EffectContext& context){
-    selectedHero->SetNode(Destination);
     MoveUseCase::Move(selectedHero,Destination,context.context.Gamestate->log);
     step=ManeverStep::FINISHED;
     return Continue(context);

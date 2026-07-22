@@ -14,6 +14,8 @@ class Graph{
     NodeType GetNodeType(int )const;
     std::vector<Area> GetArea(int)const;
     std::vector<int> GetNeighbors(int node)const;
+    int Distance(int start, int target);
+
 
 };
 

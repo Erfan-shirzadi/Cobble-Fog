@@ -1,4 +1,5 @@
 #include "Domain/Entities/Graph.h"
+#include <queue>
 
 Graph::Graph(){
 
@@ -91,3 +92,32 @@ std::vector<Area> Graph::GetArea(int node)const{
 NodeType Graph::GetNodeType(int node)const{
     return Nodes.at(node).nodetype;
 }   
+
+int Graph::Distance(int start, int target) {
+    if (start == target)
+        return 0;
+
+    std::queue<int> q;
+    std::unordered_map<int, int> dist;
+
+    q.push(start);
+    dist[start] = 0;
+
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
+
+        for (int next : graph[current]) {
+            if (!dist.count(next)) {
+                dist[next] = dist[current] + 1;
+
+                if (next == target)
+                    return dist[next];
+
+                q.push(next);
+            }
+        }
+    }
+
+    return -1; 
+}

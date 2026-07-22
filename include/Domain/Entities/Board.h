@@ -23,6 +23,9 @@ class Board {
 
     NodeType GetNodeType(int node);
     std::vector<int> GetAllEmptyNodes();
+    void ResetMovment(Hero *);
+    int Distance(int start, int target);
+
 
 };
 
