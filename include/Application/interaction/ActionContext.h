@@ -5,10 +5,6 @@
 #include "Domain/Game/GameState.h"
 struct ActionContext{
     GameState * Gamestate;
-    Hero * currentHero;
-    Hero * opponentHero;
-    Fighter * fighter;
-
     int Selected;
 };
 
