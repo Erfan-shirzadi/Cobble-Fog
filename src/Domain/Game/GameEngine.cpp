@@ -4,6 +4,8 @@
 #include "Application/interaction/EffectContext.h"
 #include <iostream>
 
+GameEngine::GameEngine():view(gamestate){
+}
 
 
 void GameEngine::run(){

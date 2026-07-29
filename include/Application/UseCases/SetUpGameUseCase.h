@@ -44,6 +44,11 @@ class SetUpGameUseCase{
     ContinueResult SetRechbleSideKickNodes(EffectContext&);
 
     ContinueResult Finished(EffectContext & );
+
+
+
+
+    // void InitializePlayer(int agePlayer1,int agePlayer2);
 };
 
 #endif /* SETUP_USECASE */

@@ -88,6 +88,7 @@ set(
 
     src/presentation/console/GameView.cpp
     src/presentation/console/MainMenu.cpp
+    src/presentation/console/SetUpView.cpp
     src/Domain/Game/GameLog.cpp
 
 )

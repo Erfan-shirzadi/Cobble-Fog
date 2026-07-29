@@ -167,3 +167,6 @@ ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
 
     return result;
 }
+// void SetUpGameUseCase::InitializePlayer(int agePlayer1,int agePlayer2){
+    
+// }

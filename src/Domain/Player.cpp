@@ -6,3 +6,9 @@ void Player::SetHero(std::unique_ptr<Hero>  hero_){
 Hero * Player::GetHero()const{
     return this->hero.get();
 }
+void Player::SetAge(int age){
+    this->age=age;
+}
+int Player::GetAge()const{
+    return age;
+}
