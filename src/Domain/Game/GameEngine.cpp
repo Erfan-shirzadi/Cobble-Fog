@@ -4,8 +4,7 @@
 #include "Application/interaction/EffectContext.h"
 #include <iostream>
 
-GameEngine::GameEngine():view(gamestate){
-}
+
 
 void GameEngine::run(){
     gamestate.currnetPlayer=&player1;
@@ -16,11 +15,9 @@ void GameEngine::run(){
     context.context.Gamestate=&gamestate;
     context.context.Selected=-1;
 
-    view.SetOnSelection([this](int selected){
-        this->OnSelection(selected);
-    });
+   
 
-    SetUp();
+    
     view.Run();    
 
 }
@@ -56,11 +53,11 @@ void GameEngine::Process(){
                 context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
 
             }
-            view.Refresh();
+            //view.Refresh();
 
             return ;
         }
-        view.Refresh();
+        //view.Refresh();
         ContinueResult result=turnusecase.Continue(context);
         if(GameOver()){
             this->state=GameEngineState::GAMEOVER;
@@ -73,12 +70,12 @@ void GameEngine::Process(){
                 context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
 
             }
-            view.Refresh();
+            //view.Refresh();
             return ;
         }
         if(result.status==ContinueStatus::NEEDMENU){
-            view.SetMenu(result.menu_request);
-            view.Refresh();
+            //view.SetMenu(result.menu_request);
+            //view.Refresh();
             return;
         }
 
@@ -105,7 +102,7 @@ void GameEngine::SetUp(){
     {
         ContinueResult result= setup.Continue(context);
         if(result.status==ContinueStatus::NEEDMENU){
-            view.SetMenu(result.menu_request);
+            //view.SetMenu(result.menu_request);
             return;
         }
 

@@ -29,7 +29,7 @@ class GameEngine {
     void Process();
     
     public:
-    GameEngine();
+   
     void run();
     void GameResult(GameState &);
 

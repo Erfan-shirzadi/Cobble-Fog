@@ -1,15 +1,9 @@
 #ifndef GAME_VIEW
 #define GAME_VIEW
-
-#include <ftxui/component/screen_interactive.hpp>
-#include <ftxui/component/component.hpp>
-#include <ftxui/component/component_base.hpp>
-#include <ftxui/component/component_options.hpp>
-#include <ftxui/component/event.hpp>
-#include <ftxui/dom/flexbox_config.hpp>
 #include <vector>
 #include "Application/interaction/MenuRequest.h"
-
+#include <raylib.h>
+#include "presentation/console/MainMenu.h"
 
 struct GameState;
 
@@ -19,32 +13,17 @@ class GameView{
     public:
 
 
-    GameView(GameState & );
-    void SetMenu(const MenuRequest &);
-    ftxui::Element render();
-    ftxui::Element renderMenu();
-    void SetOnSelection(std::function<void(int)>callback);
+    GameView( )=default;
     void Run();
-
-    ftxui::Element Refresh();
-    ftxui::Element RenderPlayer(Player* player);
-    ftxui::Element RenderLog();
-    ftxui::Element RenderMap();
-    ftxui::Element RenderTurnBar();
 
 
     private:
-    GameState & gamestate;
+    // GameState & gamestate;
     MenuRequest menurequest;
+    MainMenu mainmenu;
 
-    ftxui::ScreenInteractive screen=ftxui::ScreenInteractive::TerminalOutput();
     std::vector<std::string> menuOptions;
     int selected=0;
-    ftxui::Component menu;
-    ftxui::Component root;
-    ftxui::Component container=ftxui::Container::Vertical({});
-
-    std::function<void(int)>Onselection;
 
 };
 

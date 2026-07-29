@@ -87,16 +87,15 @@ set(
 
 
     src/presentation/console/GameView.cpp
+    src/presentation/console/MainMenu.cpp
     src/Domain/Game/GameLog.cpp
 
 )
-find_package(ftxui REQUIRED)
+find_package(raylib REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    ftxui::screen
-    ftxui::dom
-    ftxui::component
+    raylib
 )
