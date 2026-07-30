@@ -9,7 +9,7 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate){
 void GameView::Run(){
 
     InitWindow(1280, 720, "Cobble And Fog");
-
+    setup.LoadTextures();
     while (mainmenu.GetResult()!=MenuResult::EXIT) {
    
     switch (mainmenu.GetResult())
@@ -43,3 +43,6 @@ void GameView::Run(){
     CloseWindow();
 }
 
+void GameView::SetOnSelection(std::function<void(int)>callback){
+    this->Onselection=callback;
+}

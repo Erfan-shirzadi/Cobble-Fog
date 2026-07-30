@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include "presentation/console/MainMenu.h"
 #include "presentation/console/SetUpView.h"
+#include <functional>
 
 struct GameState;
 enum class ViewState{
@@ -19,7 +20,7 @@ class GameView{
 
     void Run();
     GameView( GameState&);
-
+    void SetOnSelection(std::function<void(int)>callback);
 
 
     private:
@@ -31,6 +32,8 @@ class GameView{
 
     std::vector<std::string> menuOptions;
     int selected=0;
+
+    std::function<void(int)>Onselection;
 
 };
 

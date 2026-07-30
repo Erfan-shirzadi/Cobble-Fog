@@ -26,7 +26,6 @@ void SetUpView::Draw(){
     case SetUpState::SHOW_STARTING_PLAYER:
         DrawStartingPlayer();
         break;
-
     case SetUpState::HERO_SELECTION:
         DrawHeroSelection();
         break;
@@ -102,7 +101,21 @@ void SetUpView::UpdateStartingPlayer(){
     }    
 }
 void SetUpView::UpdateHeroSelection(){
+   
+    Vector2 mouse = GetMousePosition();
 
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (CheckCollisionPointRec(mouse, heroRects[i]))
+            {
+                HeroSelected = i;
+                std::cout<< " Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
+            }
+        }
+    
+    }
 }
 void SetUpView::DrawInputAge(){
     DrawText("Players Age", 480, 120, 40, WHITE);
@@ -148,5 +161,28 @@ void SetUpView::DrawStartingPlayer(){
     );
 }
 void SetUpView::DrawHeroSelection(){
+    for(int i{};i<2;i++){
+        DrawTexturePro(
+            herotextures[i],
+            Rectangle{
+                0,
+                0,
+                (float)herotextures[i].width,
+                (float)herotextures[i].height
+            },
+            heroRects[i],  
+            Vector2{0, 0},
+            0.0f,
+            WHITE
+        );
+        if(HeroSelected==i){
+            DrawRectangleLinesEx(heroRects[i],3,YELLOW);
+        }
+    }
+}
+
+void SetUpView::LoadTextures(){
+    this->herotextures[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/dracula.png");
+    this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/holmsArtTransparent.png");
 
 }

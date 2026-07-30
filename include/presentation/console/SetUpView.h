@@ -17,11 +17,14 @@ class SetUpView{
     std::string player2Age;
     bool editingPlayer2=true;
     int firstPlayer=-1;
+    int HeroSelected=-1;
 
     Rectangle player1box{650,240,120,50};
     Rectangle player2box{650,340,120,50};
     Rectangle continueButton{520,500,220,60};
     Rectangle AdvanceToHeroSelectionButton{430,520,420,60};
+    Rectangle heroRects[2]{{390,180,256,356},{710,180,256,356}};
+    Texture2D herotextures[2];
 
     public:
     void Update();
@@ -33,6 +36,8 @@ class SetUpView{
     void DrawStartingPlayer();
     void DrawHeroSelection();
 
+
+    void LoadTextures();
 
 
 };
