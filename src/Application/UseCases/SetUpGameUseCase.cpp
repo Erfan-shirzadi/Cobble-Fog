@@ -8,8 +8,10 @@
 std::unique_ptr <Hero> SetUpGameUseCase::CreateHero(int choice){
     
     if(Heroes[choice]=="Dracula"){
+        std::cout<< " Dracual seted"<<std::endl;
         return std::make_unique<Dracula> ();
     }
+    std::cout<< " holmes seted"<<std::endl;
     return std::make_unique<Holmes> ();
     
 }
@@ -29,11 +31,11 @@ ContinueResult SetUpGameUseCase::ChooseHero(EffectContext & context){
         result.status=ContinueStatus::NEEDMENU;
         return result;
     }
-    context.context.Gamestate->currnetPlayer->SetHero(CreateHero(context.context.Selected));
+    // context.context.Gamestate->currnetPlayer->SetHero(CreateHero(context.context.Selected));
     std::swap(this->Heroes[context.context.Selected],this->Heroes.back());
     Heroes.pop_back();
     context.context.Selected=-1;
-
+    std::cout<< " Hero seted ";
     step=SetUpGameStep::DRAW_5CARD;
 
     result.status=ContinueStatus::CONTINUE;

@@ -8,8 +8,8 @@
 #include "Application/interaction/ActionContext.h"
 
 enum class GameEngineState{
-    SETUP_PLAYER1,
-    SETUP_PLAYER2,
+    HERO_SELECTION,
+    SETUP,
     GAME,
     GAMEOVER
 };
@@ -24,7 +24,7 @@ class GameEngine {
     TurnUseCase turnusecase;
     SetUpGameUseCase setup;
 
-    GameEngineState state=GameEngineState::SETUP_PLAYER1;
+    GameEngineState state=GameEngineState::HERO_SELECTION;
     EffectContext context;
     void Process();
     
@@ -40,6 +40,8 @@ class GameEngine {
 
     void SetUp();
     bool GameOver();
+
+    void SetHero();
 
 
 };

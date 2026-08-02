@@ -1,4 +1,5 @@
 #include "presentation/console/SetUpView.h"
+#include "Domain/Game/GameState.h"
 #include <raylib.h>
 #include <iostream>
 
@@ -84,9 +85,18 @@ int key = GetCharPressed();
         int age1=std::stoi(player1Age);
         
         int age2=std::stoi(player2Age);
-        if(age1>age2)
+        if(age1>age2){
             firstPlayer=0;
-        else firstPlayer=1;
+            gamestate.currnetPlayer=gamestate.player1;
+            gamestate.opponentPlayre=gamestate.player2;
+
+        }
+        else {
+            firstPlayer=1;
+            gamestate.currnetPlayer=gamestate.player2;
+            gamestate.opponentPlayre=gamestate.player1;
+
+        }
 
         state=SetUpState::SHOW_STARTING_PLAYER;
     }
@@ -106,12 +116,16 @@ void SetUpView::UpdateHeroSelection(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (CheckCollisionPointRec(mouse, heroRects[i]))
             {
                 HeroSelected = i;
-                std::cout<< " Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
+                if(!selectedHeroes[i]){
+                std::cout<< i<<" Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
+                selectedHeroes[i]=true;
+                onSelection(i);
+                }
             }
         }
     
@@ -161,7 +175,12 @@ void SetUpView::DrawStartingPlayer(){
     );
 }
 void SetUpView::DrawHeroSelection(){
+    std::string text=gamestate.currnetPlayer==gamestate.player1?"Player 1 Choose your hero":"Player 2 Choose your hero";
+    DrawText(text.c_str(),40,40,30,WHITE);
+
     for(int i{};i<2;i++){
+        
+        Color tint=selectedHeroes[i]?GRAY:WHITE;
         DrawTexturePro(
             herotextures[i],
             Rectangle{
@@ -173,16 +192,23 @@ void SetUpView::DrawHeroSelection(){
             heroRects[i],  
             Vector2{0, 0},
             0.0f,
-            WHITE
+            tint
         );
-        if(HeroSelected==i){
-            DrawRectangleLinesEx(heroRects[i],3,YELLOW);
-        }
+        // if(HeroSelected==i ){
+        //     DrawRectangleLinesEx(heroRects[i],3,YELLOW);
+        // }
     }
+
 }
 
 void SetUpView::LoadTextures(){
     this->herotextures[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/dracula.png");
     this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/holmsArtTransparent.png");
+
+}
+void SetUpView::SetOnSelection(std::function<void(int)>callback){
+    this->onSelection=callback;
+}
+SetUpView::SetUpView(GameState & gamestate):gamestate(gamestate){
 
 }

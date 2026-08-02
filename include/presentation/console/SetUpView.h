@@ -2,6 +2,9 @@
 #define SETUP_VIEW
 #include <string>
 #include <raylib.h>
+#include <functional>
+
+struct GameState;
 
 enum class SetUpState{
     INPUT_AGE,
@@ -10,6 +13,8 @@ enum class SetUpState{
 };
 
 class SetUpView{
+
+    GameState & gamestate;
     SetUpState state=SetUpState::INPUT_AGE;
 
     std::string player1Age;
@@ -25,8 +30,13 @@ class SetUpView{
     Rectangle AdvanceToHeroSelectionButton{430,520,420,60};
     Rectangle heroRects[2]{{390,180,256,356},{710,180,256,356}};
     Texture2D herotextures[2];
+    std::vector<bool> selectedHeroes={false,false};
+
+
+    std::function<void(int)>onSelection;
 
     public:
+    SetUpView(GameState& );
     void Update();
     void Draw();
     void UpdateInPutAge();
@@ -38,6 +48,9 @@ class SetUpView{
 
 
     void LoadTextures();
+
+
+    void SetOnSelection(std::function<void(int)>callback);
 
 
 };

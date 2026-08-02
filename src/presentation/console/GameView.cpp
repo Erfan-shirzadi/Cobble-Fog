@@ -2,11 +2,13 @@
 #include "presentation/console/GameView.h"
 #include <raylib.h>
 
-GameView::GameView( GameState& gamestate):gamestate(gamestate){
+GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
 
 }
 
 void GameView::Run(){
+
+    this->setup.SetOnSelection(Onselection);
 
     InitWindow(1280, 720, "Cobble And Fog");
     setup.LoadTextures();

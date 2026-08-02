@@ -1,7 +1,18 @@
 #include "Domain/Player.h"
 #include <memory>
-void Player::SetHero(std::unique_ptr<Hero>  hero_){
-    this->hero=std::move(hero_);
+#include "Domain/Entities/Heroes/Dracula.h"
+#include "Domain/Entities/Heroes/Holmes.h"
+
+void Player::SetHero(int index){
+    switch (index)
+    {
+    case 0:
+        this->hero=std::make_unique<Dracula>();
+        break;
+    case 1:
+        this->hero=std::make_unique<Holmes>();
+        break;
+    }
 }
 Hero * Player::GetHero()const{
     return this->hero.get();

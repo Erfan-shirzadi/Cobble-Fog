@@ -18,8 +18,7 @@ void GameEngine::run(){
     context.context.Selected=-1;
 
    
-
-    
+    view.SetOnSelection([&](int value){this->OnSelection(value);});
     view.Run();    
 
 }
@@ -92,10 +91,27 @@ void GameEngine::Process(){
 }
 void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
-    if(state==GameEngineState::GAME){
+    switch (state)
+    {
+    case GameEngineState::HERO_SELECTION:
+        gamestate.currnetPlayer->SetHero(selection);
+        std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+        if(gamestate.player1->GetHero()&&gamestate.player2->GetHero()){
+            state=GameEngineState::SETUP;
+            std::cout<<" Both player Seteed Heroes";
+        }
+        break;
+    case GameEngineState::GAME:
         Process();
+        break;
+    
+    case GameEngineState::SETUP:
+        SetUp();
+        break;
+    case GameEngineState::GAMEOVER:
+        
+        break;
     }
-    else {SetUp();}
 }
 
 void GameEngine::SetUp(){
@@ -110,18 +126,18 @@ void GameEngine::SetUp(){
 
         if(result.status==ContinueStatus::FINISHED){
 
-             if(state==GameEngineState::SETUP_PLAYER2){
-                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-                state=GameEngineState::GAME;
-                Start();
-                return;
-            }
+            //  if(state==GameEngineState::SETUP_PLAYER2){
+            //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+            //     state=GameEngineState::GAME;
+            //     Start();
+            //     return;
+            // }
 
-            if(state==GameEngineState::SETUP_PLAYER1){
-                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-                state=GameEngineState::SETUP_PLAYER2;
-                continue;
-            }
+            // if(state==GameEngineState::SETUP_PLAYER1){
+            //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+            //     state=GameEngineState::SETUP_PLAYER2;
+            //     continue;
+            // }
 
            
         }
@@ -139,4 +155,6 @@ bool GameEngine::GameOver( ){
         return true;
     return false;
 
+}
+void GameEngine::SetHero(){
 }
