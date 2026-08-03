@@ -3,14 +3,18 @@
 #include <raylib.h>
 
 GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
-
+    setup.SetInputRequest(this->menurequest);
 }
+void GameView::SetInputRequest(MenuRequest req){
+    this->menurequest=req;
+}
+
 
 void GameView::Run(){
 
     this->setup.SetOnSelection(Onselection);
 
-    InitWindow(1280, 720, "Cobble And Fog");
+    InitWindow(/*12808*/1800, /*720*/1000, "Cobble And Fog");
     setup.LoadTextures();
     while (mainmenu.GetResult()!=MenuResult::EXIT) {
    

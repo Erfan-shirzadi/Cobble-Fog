@@ -21,12 +21,14 @@ class GameView{
     void Run();
     GameView( GameState&);
     void SetOnSelection(std::function<void(int)>callback);
-
+    void SetInputRequest(MenuRequest);
 
     private:
     GameState & gamestate;
 
     MenuRequest menurequest;
+
+    
     MainMenu mainmenu;
     SetUpView setup;
 

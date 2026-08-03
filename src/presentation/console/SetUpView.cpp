@@ -15,6 +15,12 @@ void SetUpView::Update(){
     case SetUpState::HERO_SELECTION:
         UpdateHeroSelection();
         break;
+    case SetUpState::HERO_PLACEMENT:
+        UpdateHeroPlacement();
+       break;
+    case SetUpState::SIDEKICK_PLACEMENT:
+        UpdateSidekickPlacement();
+        break;
     }
 }
 void SetUpView::Draw(){
@@ -30,7 +36,11 @@ void SetUpView::Draw(){
     case SetUpState::HERO_SELECTION:
         DrawHeroSelection();
         break;
-    default:
+    case SetUpState::HERO_PLACEMENT:
+        DrawHeroPlacement();
+        break;
+    case SetUpState::SIDEKICK_PLACEMENT:
+        DrawSidekickPlacement();
         break;
     }
    
@@ -125,6 +135,8 @@ void SetUpView::UpdateHeroSelection(){
                 std::cout<< i<<" Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
                 selectedHeroes[i]=true;
                 onSelection(i);
+                if(selectedHeroes[0] && selectedHeroes[1])
+                    state=SetUpState::HERO_PLACEMENT;
                 }
             }
         }
@@ -203,12 +215,107 @@ void SetUpView::DrawHeroSelection(){
 
 void SetUpView::LoadTextures(){
     this->herotextures[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/dracula.png");
-    this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/holmsArtTransparent.png");
-
+    this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/sherlockTran.png");
+    this->boardtexture=LoadTexture("../include/Infrastructure/Assets/images/board.png");
 }
 void SetUpView::SetOnSelection(std::function<void(int)>callback){
     this->onSelection=callback;
 }
-SetUpView::SetUpView(GameState & gamestate):gamestate(gamestate){
+SetUpView::SetUpView(GameState & gamestate):gamestate(gamestate){}
 
+
+void SetUpView::UpdateHeroPlacement(){
+    Vector2 mouse = GetMousePosition();
+
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[0],40.f))
+            onSelection(0);
+        else if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[25],40.f))
+            onSelection(1);
+    }
+    
+}
+void SetUpView::UpdateSidekickPlacement(){
+
+}
+void SetUpView::DrawHeroPlacement(){
+    Vector2 mouse=GetMousePosition();
+    GetNodeCenters();
+    
+    DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
+    DrawBoard();
+    if(menurequest->nodes.empty())
+        onSelection(-1);
+
+    for(int node: menurequest->nodes)
+        DrawCircleLines(nodeCenters[node-1].x,nodeCenters[node-1].y,40.f,YELLOW);
+        // DrawCircleLines(nodeCenters[25].x,nodeCenters[25].y,40.f,YELLOW);
+        // DrawCircleLines(nodeCenters[0].x,nodeCenters[0].y,40.f,YELLOW);
+
+            
+}
+void SetUpView::DrawSidekickPlacement(){
+
+}
+void SetUpView::DrawBoard(){
+     
+    DrawTexturePro(boardtexture,
+        Rectangle{
+        0,
+        0,
+        (float)boardtexture.width,
+        (float)boardtexture.height},
+        mapRect,
+        Vector2{0,0},
+        0,
+        WHITE);
+    // DrawTextPro()
+        // for(const auto & center : nodeCenters){
+        //     if(CheckCollisionPointCircle(GetMousePosition(),center,40.f))
+        //     DrawCircleLines(center.x,center.y,40.f,YELLOW);
+            
+        // }
+}
+void SetUpView::SetInputRequest(MenuRequest &req){
+    this->menurequest=&req;
+}
+
+
+std::vector<Vector2> SetUpView::GetNodeCenters(){
+    nodeCenters.push_back({1169,436});
+    nodeCenters.push_back({1279,417});
+    nodeCenters.push_back({1209,333});
+    nodeCenters.push_back({1068,402});
+    nodeCenters.push_back({1291,543});
+    nodeCenters.push_back({1071,221});
+    nodeCenters.push_back({952,358});
+    nodeCenters.push_back({862,411});
+    nodeCenters.push_back({898,527});
+    nodeCenters.push_back({740,479});
+    nodeCenters.push_back({589,532});
+    nodeCenters.push_back({536,406});
+    nodeCenters.push_back({637,380});
+    nodeCenters.push_back({743,336});
+    nodeCenters.push_back({639,615});
+    nodeCenters.push_back({736,590});
+    nodeCenters.push_back({834,612});
+    nodeCenters.push_back({941,616});
+    nodeCenters.push_back({1018,551});
+    nodeCenters.push_back({1136,552});
+    nodeCenters.push_back({1223,616});
+    nodeCenters.push_back({613,266});
+    nodeCenters.push_back({507,252});
+    nodeCenters.push_back({520,150});
+    nodeCenters.push_back({637,116});
+    nodeCenters.push_back({705,225});
+    nodeCenters.push_back({800,142});
+    nodeCenters.push_back({910,228});
+    nodeCenters.push_back({971,144});
+    nodeCenters.push_back({1167,149});
+    nodeCenters.push_back({1222,229});
+    nodeCenters.push_back({1285,152});
+
+    return nodeCenters;
 }

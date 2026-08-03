@@ -6,6 +6,7 @@
 struct MenuRequest{
     std::string title;
     std::vector <std::string> options;
+    std::vector<int> nodes;
 };
 
 

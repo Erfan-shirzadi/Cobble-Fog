@@ -18,7 +18,7 @@ enum class PlaceMentStep{
 };
 class SetUpGameUseCase{
 
-    SetUpGameStep step=SetUpGameStep::CHOOSE_HERO;
+    SetUpGameStep step=SetUpGameStep::DRAW_5CARD;
     PlaceMentStep placementstep=PlaceMentStep::SET_HERO;
 
     std::vector<int> ReachbleHeroesNodes{1,26};

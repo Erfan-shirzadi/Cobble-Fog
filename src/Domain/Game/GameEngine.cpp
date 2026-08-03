@@ -120,7 +120,7 @@ void GameEngine::SetUp(){
     {
         ContinueResult result= setup.Continue(context);
         if(result.status==ContinueStatus::NEEDMENU){
-            //view.SetMenu(result.menu_request);
+            view.SetInputRequest(result.menu_request);
             return;
         }
 

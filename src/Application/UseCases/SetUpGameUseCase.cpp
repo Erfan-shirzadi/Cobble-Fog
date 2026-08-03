@@ -52,6 +52,7 @@ ContinueResult SetUpGameUseCase::Continue(EffectContext & context){
         return ChooseHero(context);
         break;
     case SetUpGameStep::DRAW_5CARD:{
+        std::cout<<"HEEEELLLLOOOOOOOOO"<<std::endl;
         Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
         hero->ShuffelDeck();
         DrawInitialCards(hero);
@@ -92,7 +93,8 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
     ContinueResult result;
     if(context.context.Selected==-1){
         for(auto x:this->ReachbleHeroesNodes){
-            result.menu_request.options.push_back(std::to_string(x));
+           result.menu_request.nodes.push_back(x);
+           std::cout<<" Reachable nodes :"<<x<<std::endl;
         }
         result.status=ContinueStatus::NEEDMENU;
 
@@ -100,6 +102,7 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
     }
     Board& board =context.context.Gamestate->board;
     Hero* hero=context.context.Gamestate->currnetPlayer->GetHero();
+    std::cout<<hero->GetName()<<"   Set At "<<ReachbleHeroesNodes[context.context.Selected]<<std::endl;
     board.AddFighter(dynamic_cast<Fighter*>(hero),ReachbleHeroesNodes[context.context.Selected]);
     std::swap(ReachbleHeroesNodes[context.context.Selected],ReachbleHeroesNodes.back());
     ReachbleHeroesNodes.pop_back();
