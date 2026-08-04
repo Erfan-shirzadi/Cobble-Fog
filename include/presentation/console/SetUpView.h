@@ -4,6 +4,8 @@
 #include <raylib.h>
 #include <functional>
 #include "Application/interaction/MenuRequest.h"
+#include "Domain/enums/FighterType.h"
+
 
 struct GameState;
 
@@ -34,6 +36,8 @@ class SetUpView{
     Rectangle AdvanceToHeroSelectionButton{430,520,420,60};
     Rectangle heroRects[2]{{390,180,256,356},{710,180,256,356}};
     Texture2D herotextures[2];
+    Texture2D watsontoken;
+    Texture2D sisters[3];
     Texture2D boardtexture;
     std::vector<bool> selectedHeroes={false,false};
     std::vector<Vector2> nodeCenters;
@@ -63,12 +67,14 @@ class SetUpView{
     void DrawHeroPlacement();
     void DrawSidekickPlacement();
     void DrawBoard();
+    void DrawFightersOnBoard();
 
 
     void LoadTextures();
 
 
     void SetOnSelection(std::function<void(int)>callback);
+    Texture2D GetTextureFighter(FighterType);
 
 
 

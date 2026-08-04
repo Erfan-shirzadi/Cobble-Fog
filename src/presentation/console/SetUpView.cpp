@@ -210,7 +210,12 @@ void SetUpView::DrawHeroSelection(){
 void SetUpView::LoadTextures(){
     this->herotextures[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/dracula.png");
     this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/sherlockTran.png");
+    this->watsontoken=LoadTexture("../include/Infrastructure/Assets/images/sherlock/drwatson.png");
+    this->sisters[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis1.png");
+    this->sisters[1]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis2.png");
+    this->sisters[2]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis3.png");
     this->boardtexture=LoadTexture("../include/Infrastructure/Assets/images/board.png");
+    
 }
 void SetUpView::SetOnSelection(std::function<void(int)>callback){
     this->onSelection=callback;
@@ -268,6 +273,7 @@ void SetUpView::DrawHeroPlacement(){
 }
 void SetUpView::DrawSidekickPlacement(){
 
+    
     if(menurequest->nodes.empty())
         onSelection(-1);
     DrawBoard();
@@ -290,6 +296,7 @@ void SetUpView::DrawBoard(){
         Vector2{0,0},
         0,
         WHITE);
+        DrawFightersOnBoard();
     // DrawTextPro()
         // for(const auto & center : nodeCenters){
         //     if(CheckCollisionPointCircle(GetMousePosition(),center,40.f))
@@ -338,3 +345,41 @@ std::vector<Vector2> SetUpView::GetNodeCenters(){
 
     return nodeCenters;
 }
+void SetUpView::DrawFightersOnBoard(){
+    Board board=gamestate.board;
+
+    for(auto fighter:board.GetGraph()){
+        FighterType type=fighter->GetFighterType();
+        Vector2 center=nodeCenters[fighter->GetNode()-1];
+        Texture2D texture;
+        switch (type)
+        {
+        case FighterType::DRACULA:
+            texture=herotextures[0];
+            break;
+        case FighterType::DR_WATSON:
+            texture=watsontoken;
+            break;
+        case FighterType::SHERLOCK:
+            texture=herotextures[1];
+            break;
+        case FighterType::SISTER:
+            texture=this->sisters[0];
+            break;
+        }
+        float w=texture.width *0.32f;
+        float h=texture.height *0.32f;
+        DrawTextureEx(
+            texture,
+            {
+                center.x -w /2,
+                center.y - h /2
+            },
+            0,
+            0.32f,
+            WHITE
+        );
+
+    }
+}
+

@@ -19,7 +19,7 @@ class Board {
     bool AreAdjacent(int node1,int node2)const;
     std::vector<int> AllFullNodes();
 
-    std::string GetGraph();
+    std::vector<Fighter*> GetGraph();
 
     NodeType GetNodeType(int node);
     std::vector<int> GetAllEmptyNodes();

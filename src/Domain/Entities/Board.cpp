@@ -130,23 +130,30 @@ std::vector<int> Board::AllFullNodes(){
     return res;
 }
 
-std::string Board::GetGraph(){
-    std::stringstream out;
-    for(int i{1};i<=32;i++){
+std::vector<Fighter*> Board::GetGraph(){
+    // std::stringstream out;
+    // for(int i{1};i<=32;i++){
 
-        int indexFighter;
-        for(int j{};j<this->allFighters.size();j++)
-            if(i==allFighters[j]->GetNode())
-                indexFighter=j;
-        if(isOccupied(i)){
-            out<< i<<"-["<<allFighters[indexFighter]->GetName() <<"]      ";
-        }
-        else {out<< i<<"-[empty]     ";}
-        if(i==8)out<<std::endl;
-        if(i==16)out<<std::endl;
-        if(i==24)out<<std::endl;
+    //     int indexFighter;
+    //     for(int j{};j<this->allFighters.size();j++)
+    //         if(i==allFighters[j]->GetNode())
+    //             indexFighter=j;
+    //     if(isOccupied(i)){
+    //         out<< i<<"-["<<allFighters[indexFighter]->GetName() <<"]      ";
+    //     }
+    //     else {out<< i<<"-[empty]     ";}
+    //     if(i==8)out<<std::endl;
+    //     if(i==16)out<<std::endl;
+    //     if(i==24)out<<std::endl;
+    // }
+    // return out.str();
+    std::vector<Fighter*> res;
+    for(auto fighter:allFighters){
+        if(fighter->IsAlive() && fighter->GetNode()!=0)
+            res.push_back(fighter);
     }
-    return out.str();
+    return res;
+
 }
 
 NodeType Board::GetNodeType(int node){
