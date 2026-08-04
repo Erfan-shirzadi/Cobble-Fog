@@ -15,10 +15,7 @@ void SetUpView::Update(){
     case SetUpState::HERO_SELECTION:
         UpdateHeroSelection();
         break;
-    case SetUpState::HERO_PLACEMENT:
-        UpdateHeroPlacement();
-       break;
-    case SetUpState::SIDEKICK_PLACEMENT:
+    case SetUpState::PLACEMENT:
         UpdateSidekickPlacement();
         break;
     }
@@ -36,10 +33,7 @@ void SetUpView::Draw(){
     case SetUpState::HERO_SELECTION:
         DrawHeroSelection();
         break;
-    case SetUpState::HERO_PLACEMENT:
-        DrawHeroPlacement();
-        break;
-    case SetUpState::SIDEKICK_PLACEMENT:
+    case SetUpState::PLACEMENT:
         DrawSidekickPlacement();
         break;
     }
@@ -136,7 +130,7 @@ void SetUpView::UpdateHeroSelection(){
                 selectedHeroes[i]=true;
                 onSelection(i);
                 if(selectedHeroes[0] && selectedHeroes[1])
-                    state=SetUpState::HERO_PLACEMENT;
+                    state=SetUpState::PLACEMENT;
                 }
             }
         }
@@ -233,12 +227,12 @@ void SetUpView::UpdateHeroPlacement(){
         if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[0],40.f)){
             onSelection(0);
             menurequest->nodes.clear();
-            state=SetUpState::SIDEKICK_PLACEMENT;
+            
         }
         else if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[25],40.f)){
             menurequest->nodes.clear();
             onSelection(1);
-            state=SetUpState::SIDEKICK_PLACEMENT;
+            
 
         }
     }
@@ -251,7 +245,6 @@ void SetUpView::UpdateSidekickPlacement(){
             if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest->nodes[i]-1],40.f)){
             onSelection(i);
             menurequest->nodes.clear();
-            state=SetUpState::SIDEKICK_PLACEMENT;
             break;
             }
         }
@@ -259,7 +252,7 @@ void SetUpView::UpdateSidekickPlacement(){
 }
 void SetUpView::DrawHeroPlacement(){
     Vector2 mouse=GetMousePosition();
-    GetNodeCenters();
+    
     
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
     DrawBoard();
@@ -286,7 +279,7 @@ void SetUpView::DrawSidekickPlacement(){
 
 }
 void SetUpView::DrawBoard(){
-     
+    GetNodeCenters();
     DrawTexturePro(boardtexture,
         Rectangle{
         0,

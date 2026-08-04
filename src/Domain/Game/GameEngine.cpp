@@ -126,12 +126,11 @@ void GameEngine::SetUp(){
 
         if(result.status==ContinueStatus::FINISHED){
 
-            //  if(state==GameEngineState::SETUP_PLAYER2){
-            //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-            //     state=GameEngineState::GAME;
-            //     Start();
-            //     return;
-            // }
+             
+                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
+                // state=GameEngineState::GAME;
+                // Start();
+           
 
             // if(state==GameEngineState::SETUP_PLAYER1){
             //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);

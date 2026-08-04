@@ -11,8 +11,7 @@ enum class SetUpState{
     INPUT_AGE,
     SHOW_STARTING_PLAYER,
     HERO_SELECTION,
-    HERO_PLACEMENT,
-    SIDEKICK_PLACEMENT
+    PLACEMENT,
 };
 
 class SetUpView{

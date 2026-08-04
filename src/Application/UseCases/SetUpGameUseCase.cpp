@@ -164,7 +164,7 @@ ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
     this->index_sideKick=0;
     this->sidekicks.clear();
     this->placementstep=PlaceMentStep::SET_HERO;
-    this->step=SetUpGameStep::CHOOSE_HERO;
+    this->step=SetUpGameStep::DRAW_5CARD;
     this->ReachbleSidekickNods.clear();
 
     ContinueResult result;
