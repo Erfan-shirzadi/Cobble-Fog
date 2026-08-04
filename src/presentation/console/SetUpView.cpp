@@ -230,15 +230,32 @@ void SetUpView::UpdateHeroPlacement(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[0],40.f))
+        if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[0],40.f)){
             onSelection(0);
-        else if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[25],40.f))
+            menurequest->nodes.clear();
+            state=SetUpState::SIDEKICK_PLACEMENT;
+        }
+        else if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[25],40.f)){
+            menurequest->nodes.clear();
             onSelection(1);
+            state=SetUpState::SIDEKICK_PLACEMENT;
+
+        }
     }
     
 }
 void SetUpView::UpdateSidekickPlacement(){
 
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        for(int i{};i<menurequest->nodes.size();i++){
+            if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest->nodes[i]-1],40.f)){
+            onSelection(i);
+            menurequest->nodes.clear();
+            state=SetUpState::SIDEKICK_PLACEMENT;
+            break;
+            }
+        }
+    }
 }
 void SetUpView::DrawHeroPlacement(){
     Vector2 mouse=GetMousePosition();
@@ -257,6 +274,15 @@ void SetUpView::DrawHeroPlacement(){
             
 }
 void SetUpView::DrawSidekickPlacement(){
+
+    if(menurequest->nodes.empty())
+        onSelection(-1);
+    DrawBoard();
+    for(int node: menurequest->nodes)
+        DrawCircleLines(nodeCenters[node-1].x,nodeCenters[node-1].y,40.f,YELLOW);
+
+    
+
 
 }
 void SetUpView::DrawBoard(){

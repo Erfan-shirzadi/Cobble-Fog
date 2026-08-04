@@ -126,7 +126,7 @@ ContinueResult SetUpGameUseCase::SideKickPlaceMent(EffectContext & context){
     Board& board =context.context.Gamestate->board;
 
     board.AddFighter(dynamic_cast<Fighter*>(sidekicks[index_sideKick]),ReachbleSidekickNods[context.context.Selected]);
-
+    std::cout<<sidekicks[index_sideKick]->GetName()<<" Set at "<<ReachbleSidekickNods[context.context.Selected]<<std::endl;
     std::swap(ReachbleSidekickNods[context.context.Selected],ReachbleSidekickNods.back());
     ReachbleSidekickNods.pop_back();
     context.context.Selected=-1;
@@ -149,7 +149,7 @@ ContinueResult SetUpGameUseCase::SetRechbleSideKickNodes(EffectContext & context
     ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
     for(auto x: ReachbleSidekickNods){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.status=ContinueStatus::NEEDMENU;
     
