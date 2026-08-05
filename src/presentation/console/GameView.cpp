@@ -99,6 +99,7 @@ void GameView::Update(){
 void GameView::Draw(){
     setup.DrawBoard();
     DrawAction();
+    DrawHand();
 }
 
 void GameView::DrawAction(){
@@ -150,6 +151,22 @@ void GameView::UpdateAction(){
 
 void GameView::DrawHand(){
     Hero * hero=gamestate.currnetPlayer->GetHero();
+    
+    for(int i=400 ;i<405;i++){
+        for(int j=700;j<705;j++)
+            DrawRectangleLines(i,j,1000,250,WHITE);
+
+    }
+    float x=415;
+    float y=715;
+    for(auto card:hero->GetHand()){
+        // DrawTexture(cardsTextures[card->GetCardId()],x,715,WHITE);
+        Texture2D texture=cardsTextures[card->GetCardId()];
+        DrawTextureEx(texture,Vector2{x,y},
+        0.0f,0.65f,WHITE);
+       
+        x+=170;
+    }
 
 }
 void GameView::UpdateHand(){
@@ -161,19 +178,28 @@ void GameView::UpdateHand(){
 
 
 void GameView::LoadCardsTexture(){
-cardsTextures[CardId::AMBUSH]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/ambush.png")};
-cardsTextures[CardId::BAPISM_OF_BLOOD]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/bapism-of-blood.png")};
-cardsTextures[CardId::BEASTFORM]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/beastform.png")};
-cardsTextures[CardId::DASH]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/dash.png")};
-cardsTextures[CardId::LOOK_INTO_MY_EYES]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/look-into-my-eyes.png")};
-cardsTextures[CardId::EXPLOIT]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/expliot.png")};
-cardsTextures[CardId::FEEDINGFRENZY]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/feeding-frenzy.png")};
-cardsTextures[CardId::FEINT]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/feint(1).png")};
-cardsTextures[CardId::MISTFORM]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/mistform.png")};
-cardsTextures[CardId::PERYUPON]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/prey-upon.png")};
-cardsTextures[CardId::RAVENING_SEDUCTION]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/revening-seduction.png")};
-cardsTextures[CardId::THIRST_FOR_SUSTENANCE]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/thirst-for-sustenance.png")};
-// cardsTextures[CardId::AMBUSH]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/ambush.png")};
-// cardsTextures[CardId::AMBUSH]={LoadTexture("../inlude/Infrastructure/Assests/images/cards/dracula/ambush.png")};
+cardsTextures[CardId::AMBUSH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ambush.png")};
+cardsTextures[CardId::BAPISM_OF_BLOOD]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/bapism-of-blood.png")};
+cardsTextures[CardId::BEASTFORM]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/beastform.png")};
+cardsTextures[CardId::DASH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/dash.png")};
+cardsTextures[CardId::LOOK_INTO_MY_EYES]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/look-into-my-eyes.png")};
+cardsTextures[CardId::EXPLOIT]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/exploit.png")};
+cardsTextures[CardId::FEEDINGFRENZY]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/feeding-frenzy.png")};
+cardsTextures[CardId::FEINT]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/feint(1).png")};
+cardsTextures[CardId::MISTFORM]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/mistform.png")};
+cardsTextures[CardId::PERYUPON]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/prey-upon.png")};
+cardsTextures[CardId::RAVENING_SEDUCTION]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ravening-seduction.png")};
+cardsTextures[CardId::THIRST_FOR_SUSTENANCE]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/thirst-for-sustenance.png")};
+cardsTextures[CardId::ADMINISTER_AID]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/administer-aid.png")};
+cardsTextures[CardId::COUNTER_PUNCH]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/counterpunch.png")};
+cardsTextures[CardId::DEDUCE_STRATEGY]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/deduce-strategy.png")};
+cardsTextures[CardId::EDUCATION_NEVER_ENDS]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/education-never-ends.png")};
+cardsTextures[CardId::ELIMINATE_THE_IMPOSSIBLE]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/eliminate-the-impossible.png")};
+cardsTextures[CardId::FIXED_POINT_IN_A_CHANGING_AGE]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/fixed-point-in-a-changing-age.png")};
+cardsTextures[CardId::MASTER_OF_DISGUISE]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/master-of-disguise.png")};
+cardsTextures[CardId::SERVICE_REVOLVER]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/service-revolver.png")};
+cardsTextures[CardId::STUDY_METHODS]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/study-methods.png")};
+cardsTextures[CardId::THE_GAME_IS_AFOOT]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/the-game-is-afoot.png")};
+
 
 }
