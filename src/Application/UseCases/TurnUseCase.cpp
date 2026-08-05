@@ -74,6 +74,7 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
+    
     result.menu_request=BuildActionMenu(context);
     return result;
 }
@@ -103,13 +104,18 @@ void TurnUseCase::SetUseCase(){
     switch (currentaction)
     {
     case ActoinType::SCHEME:
+        std::cout<<" Set action scheme"<<std::endl;
         this->CurrentUseCase= &scheme;
         break;
     case ActoinType::MANEVER:
          this->CurrentUseCase=& manever;
+            std::cout<<" Set action Manever"<<std::endl;
+
         break;
     case ActoinType::ATTACK:
         this->CurrentUseCase=& attack;
+        std::cout<<" Set action Attack"<<std::endl;
+
         break;
     }
 }   
@@ -119,17 +125,18 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     possibleAction.clear();
 
     temp.title="Action";
-    temp.options.push_back("Manever");
+    temp.options.push_back("MANEVER");
     possibleAction.push_back(ActoinType::MANEVER);
 
     if(scheme.CanDoAction(context.context.Gamestate)){
-        temp.options.push_back("Scheme");
+        temp.options.push_back("SCHEME");
         possibleAction.push_back(ActoinType::SCHEME);
     }
     if(attack.CanAttack(context.context.Gamestate)){
-    temp.options.push_back("Attack");
+    temp.options.push_back("ATTACK");
     possibleAction.push_back(ActoinType::ATTACK);
     }
+    temp.type=InputType::ACTION;
     return temp;
 }
 

@@ -135,6 +135,7 @@ ContinueResult SetUpGameUseCase::SideKickPlaceMent(EffectContext & context){
     index_sideKick++;
     if(index_sideKick >= sidekicks.size()){
         placementstep=PlaceMentStep::FINISHED;
+
     }
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
@@ -161,13 +162,16 @@ ContinueResult SetUpGameUseCase::SetRechbleSideKickNodes(EffectContext & context
 
 ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
     context.context.Selected=-1;
+    this->countplayerWhoSetuped++;
     this->index_sideKick=0;
     this->sidekicks.clear();
     this->placementstep=PlaceMentStep::SET_HERO;
     this->step=SetUpGameStep::DRAW_5CARD;
     this->ReachbleSidekickNods.clear();
-
     ContinueResult result;
+    std::swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
+
+    if(countplayerWhoSetuped==2)
     result.status=ContinueStatus::FINISHED;
 
     return result;

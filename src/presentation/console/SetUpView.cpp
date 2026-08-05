@@ -259,7 +259,6 @@ void SetUpView::DrawHeroPlacement(){
     Vector2 mouse=GetMousePosition();
     
     
-    DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
     DrawBoard();
     if(menurequest->nodes.empty())
         onSelection(-1);
@@ -285,6 +284,8 @@ void SetUpView::DrawSidekickPlacement(){
 
 }
 void SetUpView::DrawBoard(){
+        Vector2 mouse=GetMousePosition();
+
     GetNodeCenters();
     DrawTexturePro(boardtexture,
         Rectangle{
@@ -297,6 +298,8 @@ void SetUpView::DrawBoard(){
         0,
         WHITE);
         DrawFightersOnBoard();
+    DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
+
     // DrawTextPro()
         // for(const auto & center : nodeCenters){
         //     if(CheckCollisionPointCircle(GetMousePosition(),center,40.f))

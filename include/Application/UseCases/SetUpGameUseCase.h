@@ -20,6 +20,7 @@ class SetUpGameUseCase{
 
     SetUpGameStep step=SetUpGameStep::DRAW_5CARD;
     PlaceMentStep placementstep=PlaceMentStep::SET_HERO;
+    int countplayerWhoSetuped=0;
 
     std::vector<int> ReachbleHeroesNodes{1,26};
     std::vector<std::string> Heroes{"Dracula","Holmes"};

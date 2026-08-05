@@ -43,40 +43,11 @@ void GameEngine::Start(){
 void GameEngine::Process(){
 
     while (true){
-        if(GameOver()){
-            this->state=GameEngineState::GAMEOVER;
-            Hero* current=context.context.Gamestate->currnetPlayer->GetHero();
-            Hero* opponent=context.context.Gamestate->currnetPlayer->GetHero();
-
-            if(current->IsAlive())
-                context.context.Gamestate->log.Add( current->GetName()+" WOn The Game");
-            else {
-                context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
-
-            }
-            //view.Refresh();
-
-            return ;
-        }
-        //view.Refresh();
+        
         ContinueResult result=turnusecase.Continue(context);
-        if(GameOver()){
-            this->state=GameEngineState::GAMEOVER;
-            Hero* current=context.context.Gamestate->currnetPlayer->GetHero();
-            Hero* opponent=context.context.Gamestate->currnetPlayer->GetHero();
-
-            if(current->IsAlive())
-                context.context.Gamestate->log.Add( current->GetName()+" WOn The Game");
-            else {
-                context.context.Gamestate->log.Add( opponent->GetName()+" WOn The Game");
-
-            }
-            //view.Refresh();
-            return ;
-        }
+       
         if(result.status==ContinueStatus::NEEDMENU){
-            //view.SetMenu(result.menu_request);
-            //view.Refresh();
+            view.SetInputRequest(result.menu_request);
             return;
         }
 
@@ -125,20 +96,10 @@ void GameEngine::SetUp(){
         }
 
         if(result.status==ContinueStatus::FINISHED){
-
-             
-                std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-                // state=GameEngineState::GAME;
-                // Start();
-           
-
-            // if(state==GameEngineState::SETUP_PLAYER1){
-            //     std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
-            //     state=GameEngineState::SETUP_PLAYER2;
-            //     continue;
-            // }
-
-           
+            state=GameEngineState::GAME;
+            view.SetState(ViewState::GAME);
+            Start();
+            return;
         }
 
     }

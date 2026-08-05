@@ -54,6 +54,7 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
     if(context.context.Selected==-1){
         ContinueResult result;
         result.status=ContinueStatus::NEEDMENU;
+        result.menu_request.type=InputType::CARD;
         result.menu_request=BuildCardMenu(context);
         return result;
     }

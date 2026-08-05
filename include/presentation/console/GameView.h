@@ -5,12 +5,14 @@
 #include <raylib.h>
 #include "presentation/console/MainMenu.h"
 #include "presentation/console/SetUpView.h"
+#include "presentation/console/MenuButton.h"
 #include <functional>
 
 struct GameState;
 enum class ViewState{
     MAINMENU,
-    SETUP
+    SETUP,
+    GAME
 };
 class GameView{
 
@@ -22,7 +24,24 @@ class GameView{
     GameView( GameState&);
     void SetOnSelection(std::function<void(int)>callback);
     void SetInputRequest(MenuRequest);
+    void SetState(ViewState);
 
+
+    void Update();
+    void Draw();
+
+
+    void DrawAction();
+    void UpdateAction();
+    void DrawHand();
+    void UpdateHand();
+
+
+
+
+
+    void LoadTextures();
+    void LoadCardsTexture();
     private:
     GameState & gamestate;
 
@@ -37,6 +56,9 @@ class GameView{
 
     std::function<void(int)>Onselection;
 
+
+    std::vector<MenuBotton> Actions;
+    std::unordered_map<CardId,Texture2D> cardsTextures;
 };
 
 #endif /* GAME_VIEW */
