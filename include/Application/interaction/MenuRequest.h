@@ -2,6 +2,7 @@
 #define MENU_REQUEST
 #include <vector>
 #include <string>
+#include "Domain/Entities/Cards/CardId.h"
 
 enum class InputType{
     ACTION,
@@ -14,6 +15,7 @@ struct MenuRequest{
     std::string title;
     std::vector <std::string> options;
     std::vector<int> nodes;
+    std::vector<CardId> cards;
 };
 
 

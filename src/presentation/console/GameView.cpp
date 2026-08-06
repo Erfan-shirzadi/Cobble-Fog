@@ -5,10 +5,21 @@
 GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     setup.SetInputRequest(this->menurequest);
     Actions={
-        {{223,780,380,60},"MANEVER"},
-        {{223,840,380,60},"SCHEME"},
-        {{223,900,380,60},"ATTACK"}
+        {{123,780,280,60},"MANEVER"},
+        {{123,840,280,60},"SCHEME"},
+        {{123,900,280,60},"ATTACK"}
     };
+
+    cards={ {310+10,710,110,150},
+            {440+10,710,110,150},
+            {570+10,710,110,150},
+            {700+10,710,110,150},
+            {830+10,710,110,150},
+            {960+10,710,110,150},
+            {1090+10,710,110,150},
+            {1220+10,710,110,150},
+            {1350+10,710,110,150},
+        };
 }
 
 
@@ -28,8 +39,10 @@ void GameView::SetState(ViewState state){
 void GameView::Run(){
 
     this->setup.SetOnSelection(Onselection);
-
-    InitWindow(/*12808*/1800, /*720*/1000, "Cobble And Fog");
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    if(IsKeyPressed(KEY_F11))
+        ToggleFullscreen();
+    InitWindow(/*128081800*/1800, /*720*/1100, "Cobble And Fog");
     LoadTextures();
     while (mainmenu.GetResult()!=MenuResult::EXIT) {
     if(state==ViewState::MAINMENU)
@@ -82,7 +95,7 @@ void GameView::Update(){
         UpdateAction();
         break;
     case InputType::CARD:
-        
+        UpdateHand();
         break;
 
     case InputType::NODE:
@@ -103,7 +116,7 @@ void GameView::Draw(){
 }
 
 void GameView::DrawAction(){
-    DrawText("Actions", 223, 730, 30, WHITE);
+    DrawText("Actions", 123, 730, 30, WHITE);
     if(menurequest.options.empty())
         Onselection(-1);
     
@@ -123,7 +136,7 @@ void GameView::DrawAction(){
         else color=DARKGRAY;
 
 
-        DrawText(Actions[i].text.c_str(), 223, y, 20, color);
+        DrawText(Actions[i].text.c_str(), 123, y, 20, color);
 
         y += 60;
     }
@@ -151,25 +164,58 @@ void GameView::UpdateAction(){
 
 void GameView::DrawHand(){
     Hero * hero=gamestate.currnetPlayer->GetHero();
+
+    if(menurequest.cards.empty())
+        Onselection(-1);
+    // for(auto card:cards){
+    //     DrawRectangleLines(card.x,card.y,card.width,card.height,YELLOW);
+    // }
+
+    for(int i{};i<menurequest.cards.size();i++ ){
+        for(int j{};j<hero->GetHand().size();j++){
+            if(menurequest.cards[i]==hero->GetHand()[j]->GetCardId()){
+                DrawRectangleLines(cards[j].x,cards[j].y,cards[j].width,cards[j].height,YELLOW);
+
+            }
+        }
+    }
     
-    for(int i=400 ;i<405;i++){
+    for(int i=285 ;i<290;i++){
         for(int j=700;j<705;j++)
-            DrawRectangleLines(i,j,1000,250,WHITE);
+            DrawRectangleLines(i,j,1225,200,WHITE);
 
     }
-    float x=415;
+    float x=300+25;
     float y=715;
     for(auto card:hero->GetHand()){
         // DrawTexture(cardsTextures[card->GetCardId()],x,715,WHITE);
         Texture2D texture=cardsTextures[card->GetCardId()];
         DrawTextureEx(texture,Vector2{x,y},
-        0.0f,0.65f,WHITE);
+        0.0f,0.4f,WHITE);
        
-        x+=170;
+        x+=130;
     }
 
 }
 void GameView::UpdateHand(){
+    Vector2 mouse=GetMousePosition();
+    Hero * hero=gamestate.currnetPlayer->GetHero();
+    for(int i{};i<cards.size();i++){
+            if(CheckCollisionPointRec(mouse,cards[i])){
+                
+                selected=i;
+               
+        
+                if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+                    bool flag=false;
+                    for(auto card: menurequest.cards){
+                        if(hero->GetHand()[selected]->GetCardId()==card)
+                            flag=true;
+                    }
+                    if(flag)Onselection(i);
+                }
+        }
+    }   
 
 }
 
@@ -185,7 +231,7 @@ cardsTextures[CardId::DASH]={LoadTexture("../include/Infrastructure/Assets/image
 cardsTextures[CardId::LOOK_INTO_MY_EYES]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/look-into-my-eyes.png")};
 cardsTextures[CardId::EXPLOIT]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/exploit.png")};
 cardsTextures[CardId::FEEDINGFRENZY]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/feeding-frenzy.png")};
-cardsTextures[CardId::FEINT]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/feint(1).png")};
+cardsTextures[CardId::FEINT]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/feint-dracula.png")};
 cardsTextures[CardId::MISTFORM]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/mistform.png")};
 cardsTextures[CardId::PERYUPON]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/prey-upon.png")};
 cardsTextures[CardId::RAVENING_SEDUCTION]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ravening-seduction.png")};

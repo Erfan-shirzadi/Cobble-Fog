@@ -74,10 +74,12 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 MenuRequest SchemeUseCase::BuildCardMenu(EffectContext& context){
     MenuRequest request;
     std::vector<string> options;
-    for(auto card : context.context.Gamestate->currnetPlayer->GetHero()->GetHand()){
+    for(auto card : context.context.Gamestate->currnetPlayer->GetHero()->GetAllCardOf(CardCategory::SCHEME)){
         options.push_back(card->GetName());
+        request.cards.push_back(card->GetCardId());
     }
     request.options=options;
+    request.type=InputType::CARD;
     request.title="Scheme Card ";
     return request;
 }

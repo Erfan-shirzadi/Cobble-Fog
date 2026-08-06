@@ -59,6 +59,8 @@ class GameView{
 
     std::vector<MenuBotton> Actions;
     std::unordered_map<CardId,Texture2D> cardsTextures;
+
+    std::vector<Rectangle>cards;
 };
 
 #endif /* GAME_VIEW */
