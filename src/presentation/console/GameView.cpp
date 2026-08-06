@@ -18,8 +18,14 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
             {960+10,710,110,150},
             {1090+10,710,110,150},
             {1220+10,710,110,150},
-            {1350+10,710,110,150},
+            {1350+10,710,110,150}
         };
+
+    question={ {1565,725,70,30},
+               {1565,765,70,30},
+               {1565,805,70,30}
+        
+    };
 }
 
 
@@ -104,6 +110,9 @@ void GameView::Update(){
     case InputType::HERO:
 
         break;
+    case InputType::QUESTION:
+        UpdateQuestion();
+        break;
     default:
         break;
     }
@@ -113,6 +122,7 @@ void GameView::Draw(){
     setup.DrawBoard();
     DrawAction();
     DrawHand();
+    DrawQuestion();
 }
 
 void GameView::DrawAction(){
@@ -165,7 +175,7 @@ void GameView::UpdateAction(){
 void GameView::DrawHand(){
     Hero * hero=gamestate.currnetPlayer->GetHero();
 
-    if(menurequest.cards.empty())
+    if(menurequest.type==InputType::CARD){if(menurequest.cards.empty())
         Onselection(-1);
     // for(auto card:cards){
     //     DrawRectangleLines(card.x,card.y,card.width,card.height,YELLOW);
@@ -178,7 +188,7 @@ void GameView::DrawHand(){
 
             }
         }
-    }
+    }}
     
     for(int i=285 ;i<290;i++){
         for(int j=700;j<705;j++)
@@ -219,6 +229,47 @@ void GameView::UpdateHand(){
 
 }
 
+
+void GameView::DrawQuestion(){
+    
+    for(int i=1550 ;i<1555;i++){
+        for(int j=700;j<705;j++)
+            DrawRectangleLines(i,j,200,200,WHITE);
+
+        }
+    if(menurequest.type==InputType::QUESTION){
+        
+        int y=725;
+        for(int i{};i<menurequest.options.size();i++){
+
+            Color color = (i == selected) ? RED : LIGHTGRAY;
+
+            DrawText(menurequest.options[i].c_str(),1565,y,20,WHITE);
+            y+=40;
+        }
+        
+    }
+
+}
+
+void GameView::UpdateQuestion(){
+    
+    Vector2 mouse=GetMousePosition();
+    for(int i{};i<question.size();i++){
+            if(CheckCollisionPointRec(mouse,question[i])){
+                
+                selected=i;
+               
+        
+                if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+                   
+                    if(i<menurequest.options.size())
+                        Onselection(selected);
+                }
+        }
+    }   
+
+}
 
 
 

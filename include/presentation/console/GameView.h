@@ -35,6 +35,8 @@ class GameView{
     void UpdateAction();
     void DrawHand();
     void UpdateHand();
+    void DrawQuestion();
+    void UpdateQuestion();
 
 
 
@@ -61,6 +63,7 @@ class GameView{
     std::unordered_map<CardId,Texture2D> cardsTextures;
 
     std::vector<Rectangle>cards;
+    std::vector<Rectangle>question;
 };
 
 #endif /* GAME_VIEW */

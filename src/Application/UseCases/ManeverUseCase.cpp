@@ -133,6 +133,7 @@ ContinueResult ManeverUseCase::BuildAskIncreaseMovmentMenu(){
     result.menu_request.options.push_back("Continue");
     result.menu_request.options.push_back("End Turn");
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::QUESTION;
 
     return result;
 }

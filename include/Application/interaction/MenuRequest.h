@@ -9,6 +9,7 @@ enum class InputType{
     NODE,
     CARD,
     HERO,
+    QUESTION
 };
 struct MenuRequest{
     InputType type;
