@@ -26,6 +26,7 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
                {1565,805,70,30}
         
     };
+    nodeCenters=setup.GetNodeCenters();std::vector<Vector2> nodeCenters;
 }
 
 
@@ -105,6 +106,7 @@ void GameView::Update(){
         break;
 
     case InputType::NODE:
+        UpdateNode();
         break;
 
     case InputType::HERO:
@@ -123,6 +125,7 @@ void GameView::Draw(){
     DrawAction();
     DrawHand();
     DrawQuestion();
+    DrawNode();
 }
 
 void GameView::DrawAction(){
@@ -271,7 +274,37 @@ void GameView::UpdateQuestion(){
 
 }
 
+void GameView::UpdateNode(){
 
+    // Vector2 mouse=GetMousePosition();
+    // for(int i{};i<nodeCenters.size();i++){
+    //         if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest.nodes[i]-1],40.f)){
+            
+    //             selected=i;
+               
+        
+    //             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+                   
+                    
+    //             }
+    //     }
+    // }   
+     if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        for(int i{};i<menurequest.nodes.size();i++){
+            if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest.nodes[i]-1],40.f)){
+            Onselection(i);
+            break;
+            }
+        }
+    }
+
+}
+void GameView::DrawNode(){
+
+    for(int node: menurequest.nodes)
+        DrawCircleLines(nodeCenters[node-1].x,nodeCenters[node-1].y,40.f,YELLOW);
+
+}
 
 
 void GameView::LoadCardsTexture(){

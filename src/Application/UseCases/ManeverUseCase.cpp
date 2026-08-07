@@ -142,10 +142,10 @@ ContinueResult ManeverUseCase::BuildCardChoosingMunu(EffectContext&context){
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
     for(auto card: context.context.Gamestate->currnetPlayer->GetHero()->GetHand()){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
     result.menu_request.title="Hand Card";
-
+    result.menu_request.type=InputType::CARD;
     return result;
 }
 
@@ -162,12 +162,12 @@ ContinueResult  ManeverUseCase::BuildFightersMenu(EffectContext& context){
    
     for(auto fighter:fighters){
         
-            result.menu_request.options.push_back(fighter->GetName()+" (Node:"+std::to_string(fighter->GetNode())+")"+
-            "       [Movement:"+std::to_string(fighter->GetMove())+"]");
+        result.menu_request.nodes.push_back(fighter->GetNode());
       
     }
     result.menu_request.title="Fighters";
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     return result;
  }
 
@@ -181,11 +181,11 @@ ContinueResult ManeverUseCase::BuildNodesMenu(EffectContext& context){
         selectedHero->GetNode()
     );
     for(int node:rechableNode ){
-        result.menu_request.options.push_back(std::to_string(node) +"       (Distance :"+
-        std::to_string(board.Distance(selectedHero->GetNode(),node))+")");
+        result.menu_request.nodes.push_back(node);
     }
     result.menu_request.title="Destination";
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     return result;
 }
 

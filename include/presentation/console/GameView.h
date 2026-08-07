@@ -37,6 +37,8 @@ class GameView{
     void UpdateHand();
     void DrawQuestion();
     void UpdateQuestion();
+    void UpdateNode();
+    void DrawNode();
 
 
 
@@ -64,6 +66,7 @@ class GameView{
 
     std::vector<Rectangle>cards;
     std::vector<Rectangle>question;
+    std::vector<Vector2> nodeCenters;
 };
 
 #endif /* GAME_VIEW */
