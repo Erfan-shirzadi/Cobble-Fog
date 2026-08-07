@@ -17,11 +17,12 @@ ContinueResult EliminateTheImpossibleEffect::Continue(EffectContext& context){
 ContinueResult EliminateTheImpossibleEffect::BuildCardMenu(EffectContext& context){
     ContinueResult result;
     for(auto card : context.context.Gamestate->opponentPlayre->GetHero()->GetHand()){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
 
     result.menu_request.title="Enemy Cards";
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::CARD;
 
     return result;
 }

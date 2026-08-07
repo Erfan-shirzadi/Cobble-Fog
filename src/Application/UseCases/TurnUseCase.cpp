@@ -162,11 +162,18 @@ ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     ContinueResult result;
     result.menu_request.title="Remove card please :";
     for(auto card: hero->GetHand()){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
-    if(hero->GetSizeHand()<=7)
+    if(hero->GetSizeHand()<=7){
         result.menu_request.options.push_back("End turn");
+        // result.menu_request.options.push_back("Continue");
+        // result.menu_request.type=InputType::QUESTION;
+        // return result; // result.menu_request.options.push_back("Continue");
+        // result.menu_request.type=InputType::QUESTION;
+        // retur
+    }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::CARD;
 
     return result;
 }

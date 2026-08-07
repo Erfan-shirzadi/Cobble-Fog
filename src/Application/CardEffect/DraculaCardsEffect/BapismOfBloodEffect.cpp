@@ -89,11 +89,12 @@ ContinueResult BapismOfBloodEffect::BuildDestinationMenu(EffectContext context){
     reachableNodes=board.GetNodeofArea(hero->GetNode());
 
     for(auto x: reachableNodes){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.menu_request.title=" reachable Nodes ";
 
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
 
     return result;
     

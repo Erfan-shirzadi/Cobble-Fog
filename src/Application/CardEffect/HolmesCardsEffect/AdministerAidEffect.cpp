@@ -54,9 +54,10 @@ ContinueResult AdministerAidEffect::BuildReachableNodes(EffectContext & context)
 
     ContinueResult result;
     for(auto x: rechableNodes){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Move Watson To Node :";
 
     return result;

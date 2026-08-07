@@ -161,11 +161,12 @@ ContinueResult AttackUseCase::BuildAttakerMenu(EffectContext & context){
         if(IsInChanceAttack(fighter,Deffender,context.context.Gamestate->board)){
             if(attaker->IsExistCardOfFighterInhandForAttack(fighter->GetFighterType())){
             Attacker.push_back(fighter);
-            result.menu_request.options.push_back(fighter->GetName());
+            result.menu_request.nodes.push_back(fighter->GetNode());
             }
         }
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Fighters in Chance";
 
     return result;
@@ -200,11 +201,12 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
     for(auto card: hero->GetHand()){
         if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
             if(card->GetOwner()==combatcontext.Current->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY){
-                result.menu_request.options.push_back(card->GetName());
+                result.menu_request.cards.push_back(card->GetCardId());
                 AttackerCards.push_back(card);
             }
     }
     result.menu_request.title="Cards";
+    result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
     return result;
 }
@@ -284,9 +286,10 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
     ContinueResult result;
     this->GetFighterCanAttackIt(context.context.Gamestate->board);
     for(auto fihgter:this->enemiescanAttack){
-        result.menu_request.options.push_back(fihgter->GetName());
+        result.menu_request.nodes.push_back(fihgter->GetNode());
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Enemies";
     return result;
 }
@@ -310,9 +313,10 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
 ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
     ContinueResult result;
     for(auto card: DeffenderCards){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
     result.menu_request.title="cards";
+    result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
     return result;
 
@@ -358,6 +362,8 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
     res.menu_request.options.push_back("Deffend");
     res.menu_request.options.push_back("Continue");
     res.status=ContinueStatus::NEEDMENU;
+    res.menu_request.type=InputType::QUESTION;
+
     return res;
 }
 

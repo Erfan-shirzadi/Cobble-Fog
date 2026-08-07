@@ -57,9 +57,10 @@ ContinueResult MistFormEffect::BuildDestinationsMunu(EffectContext& effectcontex
     Board board=effectcontext.context.Gamestate->board;
     this->emptyNodes=board.GetAllEmptyNodes();
     for(int x:emptyNodes){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Move Dracula ";
     return result;
 }

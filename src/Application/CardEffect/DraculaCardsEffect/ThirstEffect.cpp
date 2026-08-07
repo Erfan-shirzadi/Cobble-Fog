@@ -28,11 +28,12 @@ ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
     if(rechabenode.empty())res.status=ContinueStatus::FINISHED;
 
     for(int x: rechabenode){
-        res.menu_request.options.push_back(std::to_string(x));
+        res.menu_request.nodes.push_back(x);
     }
     res.menu_request.title="Reachable Nodes";
 
     res.status=ContinueStatus::NEEDMENU;
+    res.menu_request.type=InputType::NODE;
 
     return res;
      

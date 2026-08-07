@@ -118,6 +118,7 @@ void GameView::Update(){
     default:
         break;
     }
+    // UpdateQuestion();
 }
 
 void GameView::Draw(){

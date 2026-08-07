@@ -30,6 +30,7 @@ ContinueResult BeastFormEffect::AskForDiscardinCard(EffectContext & context){
         res.menu_request.options.push_back("Skip ");
         res.menu_request.title="Do you Want Remove?";
         res.status=ContinueStatus::NEEDMENU;
+        res.menu_request.type=InputType::QUESTION;
         return res;
     }
 
@@ -61,9 +62,10 @@ ContinueResult BeastFormEffect::BuildCardMenu(EffectContext & context){
     Hero * dracual=context.combatcontext->Current->hero;
     ContinueResult res;
     for(auto card: dracual->GetHand()){
-        res.menu_request.options.push_back(card->GetName());
+        res.menu_request.cards.push_back(card->GetCardId());
     }
     res.menu_request.title="Cards ";
     res.status=ContinueStatus::NEEDMENU;
+    res.menu_request.type=InputType::CARD;
     return res;
 }

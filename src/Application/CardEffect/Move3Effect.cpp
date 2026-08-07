@@ -18,10 +18,11 @@ ContinueResult Move3Effect::BuildReachableNodes(EffectContext & context){
         3,context.combatcontext->Current->fighter->GetNode());
 
         for(auto x:rechbleNodes){
-            res.menu_request.options.push_back(std::to_string(x));
+            res.menu_request.nodes.push_back(x);
         }   
         res.menu_request.title="Nodes";
         res.status=ContinueStatus::NEEDMENU;
+        res.menu_request.type=InputType::NODE;
 
         return res;
 }
