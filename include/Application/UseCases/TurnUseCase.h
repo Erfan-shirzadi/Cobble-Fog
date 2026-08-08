@@ -14,7 +14,8 @@ enum class TurnStep{
     CHOOSE_ACTION,
     EXECUTE_USECASE,
     FINISHED,
-    MANAGE_HAND_SIZE
+    MANAGE_HAND_SIZE,
+    ASK_FOR_CONTINUE_REMOVE_CARD
 };
 
 enum class ActoinType{
@@ -54,6 +55,7 @@ class TurnUseCase{
     ContinueResult ChooseAction(EffectContext &);
     ContinueResult FinishedResult(EffectContext & );
     ContinueResult ManageHandSize(EffectContext &);
+    ContinueResult AskRemoveMoreCard(EffectContext &);
 
     void SetUseCase();
 

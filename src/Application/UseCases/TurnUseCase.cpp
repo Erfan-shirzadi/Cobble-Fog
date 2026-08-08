@@ -23,6 +23,9 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
     case TurnStep::MANAGE_HAND_SIZE:
         return ManageHandSize(context);
         break;
+    case TurnStep::ASK_FOR_CONTINUE_REMOVE_CARD:
+        return AskRemoveMoreCard(context);
+        break;
     }
     ContinueResult a;
     a.status=ContinueStatus::FINISHED;
@@ -143,20 +146,50 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
 ContinueResult TurnUseCase::ManageHandSize(EffectContext & context){
      ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+
+   
     if(context.context.Selected==-1) return BuildHandMenu(hero);
 
-    if(context.context.Selected==hero->GetSizeHand()){
-        result.status=ContinueStatus::CONTINUE;
-        step=TurnStep::FINISHED;
+    hero->RemoveCardHand(context.context.Selected);
+
+     if(hero->GetSizeHand()<=7){
+        step=TurnStep::ASK_FOR_CONTINUE_REMOVE_CARD;
         context.context.Selected=-1;
+        result.status=ContinueStatus::CONTINUE;
         return result;
     }
-    hero->RemoveCardHand(context.context.Selected);
-   
+
     result.status=ContinueStatus::CONTINUE;
     context.context.Selected=-1;
     return result;
 }
+
+
+ContinueResult TurnUseCase::AskRemoveMoreCard(EffectContext & context){
+    ContinueResult result;
+    if(context.context.Selected==-1){
+        result.menu_request.options.push_back("Yes");
+        result.menu_request.options.push_back("No");
+        result.status=ContinueStatus::NEEDMENU;
+        result.menu_request.type=InputType::QUESTION;
+        return result;
+    }
+
+    if(context.context.Selected==0){
+        step=TurnStep::MANAGE_HAND_SIZE;
+        context.context.Selected=-1;
+        result.status=ContinueStatus::CONTINUE;
+        return result;
+    }
+
+    result.status=ContinueStatus::FINISHED;
+    context.context.Selected=-1;
+
+    return result;
+    
+
+}
+
 
 ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     ContinueResult result;
