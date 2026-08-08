@@ -271,8 +271,10 @@ ContinueResult AttackUseCase::ChooseDeffender(EffectContext & context){
 
     context.context.Selected=-1;
     ContinueResult result;
-    if(CanDeffendDffender())
+    if(CanDeffendDffender()){
         setupstep=SetUpStep::ASK_FOR_DEFFEND;
+        swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
+    }
     else{
         attackstep=AttackStep::COMBAT;
     }
@@ -295,7 +297,9 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
 }
 
 ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
-    if(context.context.Selected==-1) return BuildDeffenerCardMenu(context) ;
+    if(context.context.Selected==-1){
+         return BuildDeffenerCardMenu(context) ;
+    }
 
     combatcontext.Opponent->card=dynamic_cast<CombatCard*>(DeffenderCards[context.context.Selected]);
     combatcontext.Opponent->hero->DiscardCard(DeffenderCards[context.context.Selected]);
@@ -304,6 +308,7 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     this->attackstep=AttackStep::COMBAT;
+    swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
 
     return result;
 
