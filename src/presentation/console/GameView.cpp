@@ -10,15 +10,15 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
         {{123,900,280,60},"ATTACK"}
     };
 
-    cards={ {310+10,710,110,150},
-            {440+10,710,110,150},
-            {570+10,710,110,150},
-            {700+10,710,110,150},
-            {830+10,710,110,150},
-            {960+10,710,110,150},
-            {1090+10,710,110,150},
-            {1220+10,710,110,150},
-            {1350+10,710,110,150}
+    cards={ {310+10,800,110,150},
+            {440+10,800,110,150},
+            {570+10,800,110,150},
+            {700+10,800,110,150},
+            {830+10,800,110,150},
+            {960+10,800,110,150},
+            {1090+10,800,110,150},
+            {1220+10,800,110,150},
+            {1350+10,800,110,150}
         };
 
     question={ {1565,725,70,30},
@@ -127,6 +127,7 @@ void GameView::Draw(){
     DrawHand();
     DrawQuestion();
     DrawNode();
+    DrawPlayers();
 }
 
 void GameView::DrawAction(){
@@ -179,8 +180,9 @@ void GameView::UpdateAction(){
 void GameView::DrawHand(){
     Hero * hero=gamestate.currnetPlayer->GetHero();
 
-    if(menurequest.type==InputType::CARD){if(menurequest.cards.empty())
-        Onselection(-1);
+    if(menurequest.type==InputType::CARD){
+        // if(menurequest.cards.empty())
+        //     Onselection(-1);
     // for(auto card:cards){
     //     DrawRectangleLines(card.x,card.y,card.width,card.height,YELLOW);
     // }
@@ -195,12 +197,12 @@ void GameView::DrawHand(){
     }}
     
     for(int i=285 ;i<290;i++){
-        for(int j=700;j<705;j++)
+        for(int j=780;j<785;j++)
             DrawRectangleLines(i,j,1225,200,WHITE);
 
     }
     float x=300+25;
-    float y=715;
+    float y=805;
     for(auto card:hero->GetHand()){
         // DrawTexture(cardsTextures[card->GetCardId()],x,715,WHITE);
         Texture2D texture=cardsTextures[card->GetCardId()];
@@ -209,6 +211,14 @@ void GameView::DrawHand(){
        
         x+=130;
     }
+
+    DrawTextureEx(cardsTextures[CardId::AMBUSH],Vector2{280,500},
+        0.0f,0.65f,WHITE);
+    DrawTextureEx(cardsTextures[CardId::AMBUSH],Vector2{1360,500},
+        0.0f,0.65f,WHITE);
+    if(!gamestate.combatsatat)
+    DrawText("NO Comabat",830,720,20,DARKGRAY);
+    else DrawText("Comabat",830,720,20,DARKGRAY);
 
 }
 void GameView::UpdateHand(){
@@ -305,6 +315,19 @@ void GameView::DrawNode(){
     for(int node: menurequest.nodes)
         DrawCircleLines(nodeCenters[node-1].x,nodeCenters[node-1].y,40.f,YELLOW);
 
+}
+
+
+void GameView::DrawPlayers(){
+    Color color;
+    if(gamestate.player1->GetHero()->GetFighterType()==FighterType::DRACULA)color=RED;
+    else color=YELLOW;
+
+     for(int i=50 ;i<55;i++){
+        for(int j=70;j<75;j++)
+            DrawRectangleLines(i,j,350,400,color);
+
+        }
 }
 
 

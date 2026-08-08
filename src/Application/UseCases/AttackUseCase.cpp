@@ -181,6 +181,7 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     combatcontext.Current=std::make_unique<CombatParticipant>();
     combatcontext.Opponent=std::make_unique<CombatParticipant>();
     context.combatcontext=&combatcontext;
+    context.context.Gamestate->combatsatat=context.combatcontext;
     combatcontext.board=&context.context.Gamestate->board;
     combatcontext.Opponent->hero=context.context.Gamestate->opponentPlayre->GetHero();
     combatcontext.Current->hero=context.context.Gamestate->currnetPlayer->GetHero();
@@ -349,7 +350,6 @@ bool AttackUseCase::CanDeffendDffender(){
 
 ContinueResult AttackUseCase::AskForDeffend(EffectContext & context){
     if(context.context.Selected==-1) return BuildAskDeffendMenu();
-    context.context.Gamestate->log.Add("Fuuuuuuuc it ");
     if(context.context.Selected==0)
         setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
     else if(context.context.Selected==1) attackstep=AttackStep::COMBAT;

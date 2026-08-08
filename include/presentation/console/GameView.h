@@ -39,6 +39,8 @@ class GameView{
     void UpdateQuestion();
     void UpdateNode();
     void DrawNode();
+    void DrawPlayers();
+    
 
 
 
