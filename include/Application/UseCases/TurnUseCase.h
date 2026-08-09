@@ -57,7 +57,7 @@ class TurnUseCase{
     ContinueResult ManageHandSize(EffectContext &);
     ContinueResult AskRemoveMoreCard(EffectContext &);
 
-    void SetUseCase();
+    void SetUseCase(int);
 
 
     MenuRequest BuildActionMenu(EffectContext & context);

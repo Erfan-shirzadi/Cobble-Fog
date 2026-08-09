@@ -40,6 +40,7 @@ class GameView{
     void UpdateNode();
     void DrawNode();
     void DrawPlayers();
+    void DrawCombat();
     
 
 
@@ -69,6 +70,8 @@ class GameView{
     std::vector<Rectangle>cards;
     std::vector<Rectangle>question;
     std::vector<Vector2> nodeCenters;
+    Texture2D DraculaTeam;
+    Texture2D SherlockTeam;
 };
 
 #endif /* GAME_VIEW */

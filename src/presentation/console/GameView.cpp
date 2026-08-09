@@ -33,6 +33,9 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
 void GameView::LoadTextures(){
     setup.LoadTextures();
     LoadCardsTexture();
+    DraculaTeam=LoadTexture("../include/Infrastructure/Assets/images/dracula/DraculaTeam.png");
+    SherlockTeam=LoadTexture("../include/Infrastructure/Assets/images/sherlock/SherlockTeam.png");
+
 }
 
 void GameView::SetInputRequest(MenuRequest req){
@@ -79,7 +82,7 @@ void GameView::Run(){
     case ViewState::GAME:
        
         Draw();
-         Update();
+        Update();
         break;
 
     }
@@ -108,10 +111,6 @@ void GameView::Update(){
     case InputType::NODE:
         UpdateNode();
         break;
-
-    case InputType::HERO:
-
-        break;
     case InputType::QUESTION:
         UpdateQuestion();
         break;
@@ -128,6 +127,7 @@ void GameView::Draw(){
     DrawQuestion();
     DrawNode();
     DrawPlayers();
+    DrawCombat();
 }
 
 void GameView::DrawAction(){
@@ -163,7 +163,8 @@ void GameView::UpdateAction(){
                 
                 selected=i;
                
-        
+                DrawText(std::to_string(i).c_str(),300,20,20,PURPLE);
+
                 if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
                     bool flag=false;
                     for(auto action: menurequest.options){
@@ -212,14 +213,33 @@ void GameView::DrawHand(){
         x+=130;
     }
 
-    DrawTextureEx(cardsTextures[CardId::AMBUSH],Vector2{280,500},
-        0.0f,0.65f,WHITE);
-    DrawTextureEx(cardsTextures[CardId::AMBUSH],Vector2{1360,500},
-        0.0f,0.65f,WHITE);
+
+}
+
+void GameView::DrawCombat(){
+
     if(!gamestate.combatsatat)
     DrawText("NO Comabat",830,720,20,DARKGRAY);
-    else DrawText("Comabat",830,720,20,DARKGRAY);
+    else {
+        DrawText("Comabat",830,720,20,RED);
+        if(gamestate.combatsatat->Current->card){
+        DrawTextureEx(cardsTextures[gamestate.combatsatat->Current->card->GetCardId()],Vector2{280,500},
+        0.0f,0.65f,WHITE);
+        // DrawText(std::to_string(gamestate.combatsatat->Current->card->GetDamgeOrDeffend()).c_str(),296,533,20,GREEN);
 
+        }
+        if(gamestate.combatsatat->Opponent->card){
+        DrawTextureEx(cardsTextures[gamestate.combatsatat->Opponent->card->GetCardId()],Vector2{1360,500},
+        0.0f,0.65f,WHITE);
+        // 300 535
+        // DrawText(std::to_string(gamestate.combatsatat->Opponent->card->GetDamgeOrDeffend()).c_str(),1380,535,20,GREEN);
+        }
+
+
+        // if(gamestate.combatsatat->Current->hero==gamestate.player1->GetHero()){
+        //     if(gamestate.combatsatat->Current->hero==gamestate.combatsatat.)
+        // }
+    }
 }
 void GameView::UpdateHand(){
     Vector2 mouse=GetMousePosition();
@@ -320,14 +340,38 @@ void GameView::DrawNode(){
 
 void GameView::DrawPlayers(){
     Color color;
-    if(gamestate.player1->GetHero()->GetFighterType()==FighterType::DRACULA)color=RED;
-    else color=YELLOW;
+    if(gamestate.player1->GetHero()->GetFighterType()==FighterType::DRACULA)
+    {
+        DrawTextureEx(DraculaTeam,Vector2{20,70},
+        0.0f,0.43f,WHITE);
+        // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
 
-     for(int i=50 ;i<55;i++){
-        for(int j=70;j<75;j++)
-            DrawRectangleLines(i,j,350,400,color);
+        color=RED;
+    }
+    else {
+        DrawTextureEx(SherlockTeam,Vector2{20,70},
+        0.0f,0.43f,WHITE);
+    }
 
-        }
+    if(gamestate.player2->GetHero()->GetFighterType()==FighterType::DRACULA)
+    {
+        DrawTextureEx(DraculaTeam,Vector2{1380,70},
+        0.0f,0.43f,WHITE);
+        // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
+
+        color=RED;
+    }
+    else {
+        DrawTextureEx(SherlockTeam,Vector2{1380,70},
+        0.0f,0.43f,WHITE);
+    }
+    
+
+    //  for(int i=50 ;i<55;i++){
+    //     for(int j=70;j<75;j++)
+    //         DrawRectangleLines(i,j,350,400,color);
+
+    //     }
 }
 
 

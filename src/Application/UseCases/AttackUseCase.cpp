@@ -181,14 +181,14 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     combatcontext.Current=std::make_unique<CombatParticipant>();
     combatcontext.Opponent=std::make_unique<CombatParticipant>();
     context.combatcontext=&combatcontext;
-    context.context.Gamestate->combatsatat=context.combatcontext;
+    
     combatcontext.board=&context.context.Gamestate->board;
     combatcontext.Opponent->hero=context.context.Gamestate->opponentPlayre->GetHero();
     combatcontext.Current->hero=context.context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.context.Selected];
     context.context.Selected=-1;
     context.context.Gamestate->log.Add("Attacker : "+context.combatcontext->Current->fighter->GetName());
-
+    context.context.Gamestate->combatsatat=&combatcontext;
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     setupstep=SetUpStep::CHOOSE_ATTACKER_CARD;
@@ -215,8 +215,9 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
 ContinueResult AttackUseCase::ChooseAttckerCard(EffectContext & context ){
     if(context.context.Selected==-1) return BuildAttackerCardMenu(context);
 
-    combatcontext.Current->card=dynamic_cast<CombatCard*>(AttackerCards[context.context.Selected]);
-    combatcontext.Current->hero->DiscardCard(AttackerCards[context.context.Selected]);
+    Card * card=combatcontext.Current->hero->GetCard(context.context.Selected);
+
+    combatcontext.Current->card=dynamic_cast<CombatCard*>(card);
 
     setupstep=SetUpStep::CHOOSE_DEFFENDER;
     context.context.Selected=-1;
@@ -302,9 +303,10 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
          return BuildDeffenerCardMenu(context) ;
     }
 
-    combatcontext.Opponent->card=dynamic_cast<CombatCard*>(DeffenderCards[context.context.Selected]);
-    combatcontext.Opponent->hero->DiscardCard(DeffenderCards[context.context.Selected]);
-
+    Card * card=combatcontext.Opponent->hero->GetCard(context.context.Selected);
+    combatcontext.Opponent->card=dynamic_cast<CombatCard*>(card);
+    
+    std::cout<<"Kiss it"<<std::endl;
     ContinueResult result;
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
@@ -377,12 +379,15 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
 ContinueResult AttackUseCase::Finished(EffectContext & context){
     context.context.Selected=-1;
     this->Attacker.clear();
-    this->AttackerCards.clear();
-    this->DeffenderCards.clear();
+    // this->AttackerCards.clear();
+    // this->DeffenderCards.clear();
     this->enemiescanAttack.clear();
     context.combatcontext->Current.reset();
     context.combatcontext->Opponent.reset();
+    // context.combatcontext->attacker=nullptr;
+    // context.combatcontext->deffender=nullptr;
     context.combatcontext=nullptr;
+    context.context.Gamestate->combatsatat=nullptr;
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
     return res;

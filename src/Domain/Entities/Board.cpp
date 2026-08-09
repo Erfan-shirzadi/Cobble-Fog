@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
+#include <algorithm>
 std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distance,int HeroNode){
     std::vector <int >res;
     res.push_back(HeroNode);
@@ -109,7 +110,7 @@ std::vector<int> Board::GetReachableNighbors(int node){
                 std::swap(nodes[i],nodes[nodes.size()]);
                 nodes.pop_back();
             }
-
+    sort(nodes.begin(),nodes.end());
     return nodes;
 }
 

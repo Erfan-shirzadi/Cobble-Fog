@@ -25,8 +25,11 @@ ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
     Fighter * enemy=context.combatcontext->Opponent->fighter;;
 
     this->rechabenode=board.GetReachableNighbors(enemy->GetNode());
-    if(rechabenode.empty())res.status=ContinueStatus::FINISHED;
-
+    if(rechabenode.empty()){
+        res.status=ContinueStatus::FINISHED;
+        return res;
+    }
+    
     for(int x: rechabenode){
         res.menu_request.nodes.push_back(x);
     }

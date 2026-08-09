@@ -63,8 +63,7 @@ ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
     if(context.context.Selected!=-1){
-        this->currentaction=possibleAction[context.context.Selected];
-        SetUseCase();
+        SetUseCase(context.context.Selected);
         CurrentUseCase->Start(context);
         context.context.Selected=-1;
 
@@ -103,19 +102,19 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     return result;
 }
 
-void TurnUseCase::SetUseCase(){
-    switch (currentaction)
+void TurnUseCase::SetUseCase(int selected){
+    switch (selected)
     {
-    case ActoinType::SCHEME:
-        std::cout<<" Set action scheme"<<std::endl;
-        this->CurrentUseCase= &scheme;
+    case 0:
+        std::cout<<" Set action Manever"<<std::endl;
+        this->CurrentUseCase= &manever;
         break;
-    case ActoinType::MANEVER:
-         this->CurrentUseCase=& manever;
-            std::cout<<" Set action Manever"<<std::endl;
+    case 1:
+         this->CurrentUseCase=& scheme;
+        std::cout<<" Set action scheme"<<std::endl;
 
         break;
-    case ActoinType::ATTACK:
+    case 2:
         this->CurrentUseCase=& attack;
         std::cout<<" Set action Attack"<<std::endl;
 
