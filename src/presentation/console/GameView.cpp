@@ -187,7 +187,10 @@ void GameView::UpdateAction(){
 
 
 void GameView::DrawHand(){
-    Hero * hero=gamestate.currnetPlayer->GetHero();
+    Hero * hero;
+    if(gamestate.handview==HandView::CURRENTPLAYER)
+        hero=gamestate.currnetPlayer->GetHero();
+    else hero=gamestate.opponentPlayre->GetHero();
 
     if(menurequest.type==InputType::CARD){
         // if(menurequest.cards.empty())
@@ -251,7 +254,10 @@ void GameView::DrawCombat(){
 }
 void GameView::UpdateHand(){
     Vector2 mouse=GetMousePosition();
-    Hero * hero=gamestate.currnetPlayer->GetHero();
+    Hero * hero;
+    if(gamestate.handview==HandView::CURRENTPLAYER)
+         hero=gamestate.currnetPlayer->GetHero();
+    else hero=gamestate.opponentPlayre->GetHero();
     for(int i{};i<cards.size();i++){
             if(CheckCollisionPointRec(mouse,cards[i])){
                 
