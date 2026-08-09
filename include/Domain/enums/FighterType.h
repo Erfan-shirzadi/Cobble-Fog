@@ -5,6 +5,9 @@ enum class FighterType{
     DRACULA,
     SHERLOCK,
     DR_WATSON,
+    SISTER_1,
+    SISTER_2,
+    SISTER_3,
     SISTER,
     ANY
 

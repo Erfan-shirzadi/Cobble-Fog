@@ -15,9 +15,9 @@
 #include <iostream>
 Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
 
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_1));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_2));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_3));
     SideKicks[0]->SetAttack(Attack::MELEE);
     SideKicks[1]->SetAttack(Attack::MELEE);
     SideKicks[2]->SetAttack(Attack::MELEE);

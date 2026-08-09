@@ -339,19 +339,47 @@ void GameView::DrawNode(){
 
 
 void GameView::DrawPlayers(){
-    Color color;
+    
     if(gamestate.player1->GetHero()->GetFighterType()==FighterType::DRACULA)
     {
         DrawTextureEx(DraculaTeam,Vector2{20,70},
         0.0f,0.43f,WHITE);
         // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
 
-        color=RED;
+       
     }
     else {
         DrawTextureEx(SherlockTeam,Vector2{20,70},
         0.0f,0.43f,WHITE);
     }
+    Hero * hero=gamestate.player1->GetHero();
+    std::vector<Fighter*>sidekick=hero->GetSideKicks();
+    DrawText(std::to_string(hero->GetHP()).c_str(),340,240,20,WHITE);
+    // if(!sidekick.empty()){
+        
+            for(auto fighter:sidekick)
+            {
+                switch (fighter->GetFighterType())
+                {
+                case FighterType::SISTER_1:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),235,470,20,WHITE);
+                    break;
+                case FighterType::DR_WATSON:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),235,470,20,WHITE);
+                    break;
+                case FighterType::SISTER_2:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),120,470,20,WHITE);
+                    break;
+                case FighterType::SISTER_3:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),350,470,20,WHITE);
+                    break;
+                default:    
+                    break;
+            }
+            }
+        
+
+    // }
 
     if(gamestate.player2->GetHero()->GetFighterType()==FighterType::DRACULA)
     {
@@ -359,14 +387,37 @@ void GameView::DrawPlayers(){
         0.0f,0.43f,WHITE);
         // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
 
-        color=RED;
+        
     }
     else {
         DrawTextureEx(SherlockTeam,Vector2{1380,70},
         0.0f,0.43f,WHITE);
     }
-    
+    hero=gamestate.player2->GetHero();
+    DrawText(std::to_string(hero->GetHP()).c_str(),1700,240,20,WHITE);
 
+    sidekick=hero->GetSideKicks();
+     for(auto fighter:sidekick)
+            {
+                switch (fighter->GetFighterType())
+                {
+                case FighterType::SISTER_1:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),1600,470,20,WHITE);
+                    break;
+                case FighterType::DR_WATSON:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),1600,470,20,WHITE);
+                    break;
+                case FighterType::SISTER_2:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),1485,470,20,WHITE);
+                    break;
+                case FighterType::SISTER_3:
+                    DrawText(std::to_string(fighter->GetHP()).c_str(),1715,470,20,WHITE);
+                    break;
+                default:    
+                    break;
+            }
+            }
+        
     //  for(int i=50 ;i<55;i++){
     //     for(int j=70;j<75;j++)
     //         DrawRectangleLines(i,j,350,400,color);

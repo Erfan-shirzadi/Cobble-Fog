@@ -366,7 +366,13 @@ void SetUpView::DrawFightersOnBoard(){
         case FighterType::SHERLOCK:
             texture=herotextures[1];
             break;
-        case FighterType::SISTER:
+        case FighterType::SISTER_1:
+            texture=this->sisters[0];
+            break;
+        case FighterType::SISTER_2:
+            texture=this->sisters[0];
+            break;
+        case FighterType::SISTER_3:
             texture=this->sisters[0];
             break;
         }
