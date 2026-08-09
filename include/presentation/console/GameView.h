@@ -12,7 +12,8 @@ struct GameState;
 enum class ViewState{
     MAINMENU,
     SETUP,
-    GAME
+    GAME,
+    GAMEOVER
 };
 class GameView{
 
@@ -41,6 +42,10 @@ class GameView{
     void DrawNode();
     void DrawPlayers();
     void DrawCombat();
+
+
+    void DrawGameResult();
+    void UpdateGameResult();
     
 
 
@@ -72,6 +77,10 @@ class GameView{
     std::vector<Vector2> nodeCenters;
     Texture2D DraculaTeam;
     Texture2D SherlockTeam;
+
+    Texture2D WinDracual;
+    Texture2D WinSherlock;
+    Rectangle backtomainMenu;
 };
 
 #endif /* GAME_VIEW */

@@ -43,8 +43,26 @@ void GameEngine::Start(){
 void GameEngine::Process(){
 
     while (true){
-        
+
         ContinueResult result=turnusecase.Continue(context);
+
+        if(GameOver()){
+            state=GameEngineState::GAMEOVER;
+            Hero* current=gamestate.currnetPlayer->GetHero();
+            if(current->IsAlive()){
+                if(current->GetFighterType()==FighterType::SHERLOCK){
+                    gamestate.gameresult=GameResult::SHERLOCK_WON;
+                }
+                else gamestate.gameresult=GameResult::DRACULA_WON;
+            }
+            else{
+                if(current->GetFighterType()==FighterType::SHERLOCK){
+                    gamestate.gameresult=GameResult::DRACULA_WON;
+                }
+                else gamestate.gameresult=GameResult::SHERLOCK_WON;
+            }
+            return;
+        }
        
         if(result.status==ContinueStatus::NEEDMENU){
             view.SetInputRequest(result.menu_request);
@@ -80,7 +98,7 @@ void GameEngine::OnSelection(int selection){
         SetUp();
         break;
     case GameEngineState::GAMEOVER:
-        
+        view.SetState(ViewState::GAMEOVER);
         break;
     }
 }
@@ -116,5 +134,7 @@ bool GameEngine::GameOver( ){
     return false;
 
 }
-void GameEngine::SetHero(){
+
+void GameEngine::FinishedGame(){
+    
 }

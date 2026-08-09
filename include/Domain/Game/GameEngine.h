@@ -41,8 +41,7 @@ class GameEngine {
     void SetUp();
     bool GameOver();
 
-    void SetHero();
-
+    void FinishedGame();
 
 };
 #endif /*GAMEENGINE_H */

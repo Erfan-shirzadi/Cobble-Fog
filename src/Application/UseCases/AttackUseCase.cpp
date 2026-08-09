@@ -354,7 +354,10 @@ ContinueResult AttackUseCase::AskForDeffend(EffectContext & context){
     if(context.context.Selected==-1) return BuildAskDeffendMenu();
     if(context.context.Selected==0)
         setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
-    else if(context.context.Selected==1) attackstep=AttackStep::COMBAT;
+    else if(context.context.Selected==1){ 
+        swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
+        attackstep=AttackStep::COMBAT;
+    }
 
     context.context.Selected=-1;
     ContinueResult res;

@@ -4,6 +4,7 @@
 #include "Domain/Game/GamePhase.h"
 #include "Domain/Player.h"
 #include "Domain/Game/GameLog.h"
+#include "Domain/Game/GameResult.h"
 #include "Application/interaction/Combat/CombatContext.h"
 struct GameState{
     GameLog log;
@@ -14,6 +15,7 @@ struct GameState{
     Player * currnetPlayer=nullptr;
     Player * opponentPlayre=nullptr;
     CombatContext * combatsatat=nullptr;
+    GameResult gameresult;
 };
 
 

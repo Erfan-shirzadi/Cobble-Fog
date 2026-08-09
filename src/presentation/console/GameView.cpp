@@ -27,6 +27,8 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
         
     };
     nodeCenters=setup.GetNodeCenters();std::vector<Vector2> nodeCenters;
+    
+    backtomainMenu={820,440,100,40};
 }
 
 
@@ -35,6 +37,8 @@ void GameView::LoadTextures(){
     LoadCardsTexture();
     DraculaTeam=LoadTexture("../include/Infrastructure/Assets/images/dracula/DraculaTeam.png");
     SherlockTeam=LoadTexture("../include/Infrastructure/Assets/images/sherlock/SherlockTeam.png");
+    WinDracual=LoadTexture("../include/Infrastructure/Assets/images/DraculaWinGame.png");
+    WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
 
 }
 
@@ -83,6 +87,10 @@ void GameView::Run(){
        
         Draw();
         Update();
+        break;
+    case ViewState::GAMEOVER:
+        DrawGameResult();
+        UpdateGameResult();
         break;
 
     }
@@ -355,6 +363,7 @@ void GameView::DrawPlayers(){
     Hero * hero=gamestate.player1->GetHero();
     std::vector<Fighter*>sidekick=hero->GetSideKicks();
     DrawText(std::to_string(hero->GetHP()).c_str(),340,240,20,WHITE);
+    DrawText(std::to_string(hero->GetRemainingAction()).c_str(),340,260,20,WHITE);
     // if(!sidekick.empty()){
         
             for(auto fighter:sidekick)
@@ -395,6 +404,7 @@ void GameView::DrawPlayers(){
     }
     hero=gamestate.player2->GetHero();
     DrawText(std::to_string(hero->GetHP()).c_str(),1700,240,20,WHITE);
+    DrawText(std::to_string(hero->GetRemainingAction()).c_str(),1700,260,20,WHITE);
 
     sidekick=hero->GetSideKicks();
      for(auto fighter:sidekick)
@@ -423,6 +433,30 @@ void GameView::DrawPlayers(){
     //         DrawRectangleLines(i,j,350,400,color);
 
     //     }
+}
+
+
+void GameView::DrawGameResult(){
+
+    if(gamestate.gameresult==GameResult::DRACULA_WON){
+        DrawTextureEx(WinDracual,{250,100},0,1,WHITE);
+    }
+    else{
+        DrawTextureEx(WinSherlock,{250,100},0,1,WHITE);
+    }
+}
+
+void GameView::UpdateGameResult(){
+    Vector2 mouse=GetMousePosition();
+
+    DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
+
+    if(CheckCollisionPointRec(mouse,backtomainMenu)){
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+                state=ViewState::MAINMENU;
+                return;
+        }
+    }
 }
 
 
