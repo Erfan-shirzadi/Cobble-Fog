@@ -41,6 +41,7 @@ void GameView::LoadTextures(){
     WinDracual=LoadTexture("../include/Infrastructure/Assets/images/DraculaWinGame.png");
     WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
     exitbutton=LoadTexture("../include/Infrastructure/Assets/images/Exit.png");
+    saveview=LoadTexture("../include/Infrastructure/Assets/images/SaveView.png");
 }
 
 void GameView::SetInputRequest(MenuRequest req){
@@ -138,7 +139,8 @@ void GameView::Update(){
 }
 
 void GameView::Draw(){
-    setup.DrawBoard();
+    if(!exitb)
+        setup.DrawBoard();
     DrawAction();
     DrawHand();
     DrawQuestion();
@@ -469,14 +471,21 @@ void GameView::UpdateGameResult(){
 void GameView::DrawExit(){
 
     DrawTextureEx(exitbutton,{1650,10},0,0.12f,WHITE);
+    if(exitb){
+        DrawTextureEx(saveview,{450,70},0,0.7f,WHITE);
+        // DrawRectangleRec({450,70,900,600},DARKGRAY);
+        // DrawText("Do you want save Game ?",600,270,30,BLUE);
+    }
+
     // DrawRectangleLinesEx(Exit,3,YELLOW);
 }
 void GameView::UpdateExit(){
 
     if(CheckCollisionPointRec(GetMousePosition(),Exit)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            Onselection(-2);
-            state=ViewState::MAINMENU;
+            // state=ViewState::MAINMENU;
+            exitb=true;
+            
         }
 
     }

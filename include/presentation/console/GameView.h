@@ -84,6 +84,11 @@ class GameView{
     Rectangle backtomainMenu;
     Rectangle Exit;
     Texture2D exitbutton;
+    bool exitb=false;
+
+
+
+    Texture2D saveview;
 };
 
 #endif /* GAME_VIEW */
