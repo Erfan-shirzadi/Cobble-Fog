@@ -54,7 +54,7 @@ ContinueResult SetUpGameUseCase::Continue(EffectContext & context){
     case SetUpGameStep::DRAW_5CARD:{
         std::cout<<"HEEEELLLLOOOOOOOOO"<<std::endl;
         Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-        // hero->ShuffelDeck();
+        hero->ShuffelDeck();
         DrawInitialCards(hero);
         step=SetUpGameStep::PLACEMENT;
         ContinueResult result;

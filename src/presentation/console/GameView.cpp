@@ -28,7 +28,7 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     };
     nodeCenters=setup.GetNodeCenters();std::vector<Vector2> nodeCenters;
     
-    backtomainMenu={820,440,100,40};
+    backtomainMenu={820,440,240,100};
 }
 
 
@@ -59,26 +59,31 @@ void GameView::Run(){
     InitWindow(/*128081800*/1800, /*720*/1100, "Cobble And Fog");
     LoadTextures();
     while (mainmenu.GetResult()!=MenuResult::EXIT) {
-    if(state==ViewState::MAINMENU)
+
+   
+    BeginDrawing();
+
+    ClearBackground(BLACK);
+     if(state==ViewState::MAINMENU){
+        mainmenu.Draw();
+        mainmenu.Update();
         switch (mainmenu.GetResult())
         {
         case MenuResult::START:
             this->state=ViewState::SETUP;
+            mainmenu.ResetResult();
             break;
         case MenuResult::LOAD:
        
             break;
         }
-    BeginDrawing();
-
-    ClearBackground(BLACK);
+    }
 
     switch (state)
     {
     case ViewState::MAINMENU:
-       mainmenu.Update();
-       mainmenu.Draw();
-        break;
+       
+       break;
     case ViewState::SETUP:
        setup.Update();
        setup.Draw();
@@ -321,19 +326,7 @@ void GameView::UpdateQuestion(){
 
 void GameView::UpdateNode(){
 
-    // Vector2 mouse=GetMousePosition();
-    // for(int i{};i<nodeCenters.size();i++){
-    //         if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest.nodes[i]-1],40.f)){
-            
-    //             selected=i;
-               
-        
-    //             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-                   
-                    
-    //             }
-    //     }
-    // }   
+    
      if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
         for(int i{};i<menurequest.nodes.size();i++){
             if(CheckCollisionPointCircle(GetMousePosition(),nodeCenters[menurequest.nodes[i]-1],40.f)){
@@ -456,9 +449,10 @@ void GameView::UpdateGameResult(){
     Vector2 mouse=GetMousePosition();
 
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
-
+    DrawRectangleLinesEx(backtomainMenu,3,YELLOW);
     if(CheckCollisionPointRec(mouse,backtomainMenu)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            std::cout<<"FUUUUUUUUUUCCCKKKKKKK it \n";
                 state=ViewState::MAINMENU;
                 return;
         }

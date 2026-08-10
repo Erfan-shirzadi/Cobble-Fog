@@ -99,6 +99,7 @@ void GameEngine::OnSelection(int selection){
         break;
     case GameEngineState::GAMEOVER:
         view.SetState(ViewState::GAMEOVER);
+        state=GameEngineState::HERO_SELECTION;
         break;
     }
 }
