@@ -92,7 +92,13 @@ void GameEngine::Process(){
 
 }
 void GameEngine::OnSelection(int selection){
+
     context.context.Selected=selection;
+
+    if(selection==-2){
+        DeleteObjects();
+        return;
+    }
     switch (state)
     {
     case GameEngineState::START_GAME:

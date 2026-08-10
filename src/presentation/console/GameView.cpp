@@ -29,6 +29,7 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     nodeCenters=setup.GetNodeCenters();std::vector<Vector2> nodeCenters;
     
     backtomainMenu={820,440,240,100};
+    Exit={1650,10,150,80};
 }
 
 
@@ -39,7 +40,7 @@ void GameView::LoadTextures(){
     SherlockTeam=LoadTexture("../include/Infrastructure/Assets/images/sherlock/SherlockTeam.png");
     WinDracual=LoadTexture("../include/Infrastructure/Assets/images/DraculaWinGame.png");
     WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
-
+    exitbutton=LoadTexture("../include/Infrastructure/Assets/images/Exit.png");
 }
 
 void GameView::SetInputRequest(MenuRequest req){
@@ -132,25 +133,21 @@ void GameView::Update(){
     default:
         break;
     }
+    UpdateExit();
     // UpdateQuestion();
 }
 
 void GameView::Draw(){
     setup.DrawBoard();
-    std::cout<<"Board Darwrd\n";
     DrawAction();
-    std::cout<<" Action Drawded\n";
     DrawHand();
-    std::cout<<" HAdn Derawed\n";
     DrawQuestion();
-    std::cout<<" Question Question\n";
     DrawNode();
-    std::cout<<" Node Question\n";
     DrawPlayers();
-    std::cout<<" Players Question\n";
     DrawCombat();
-    std::cout<<" Combat Drawde\n";
+    DrawExit();
 }
+
 
 void GameView::DrawAction(){
     DrawText("Actions", 123, 730, 30, WHITE);
@@ -468,6 +465,22 @@ void GameView::UpdateGameResult(){
     }
 }
 
+
+void GameView::DrawExit(){
+
+    DrawTextureEx(exitbutton,{1650,10},0,0.12f,WHITE);
+    // DrawRectangleLinesEx(Exit,3,YELLOW);
+}
+void GameView::UpdateExit(){
+
+    if(CheckCollisionPointRec(GetMousePosition(),Exit)){
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            Onselection(-2);
+            state=ViewState::MAINMENU;
+        }
+
+    }
+}
 
 void GameView::LoadCardsTexture(){
 cardsTextures[CardId::AMBUSH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ambush.png")};

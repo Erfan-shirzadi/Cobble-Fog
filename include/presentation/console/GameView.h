@@ -46,7 +46,8 @@ class GameView{
 
     void DrawGameResult();
     void UpdateGameResult();
-    
+    void DrawExit();
+    void UpdateExit();
 
 
 
@@ -81,6 +82,8 @@ class GameView{
     Texture2D WinDracual;
     Texture2D WinSherlock;
     Rectangle backtomainMenu;
+    Rectangle Exit;
+    Texture2D exitbutton;
 };
 
 #endif /* GAME_VIEW */
