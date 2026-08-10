@@ -8,6 +8,7 @@
 #include "Application/interaction/ActionContext.h"
 
 enum class GameEngineState{
+    START_GAME,
     HERO_SELECTION,
     SETUP,
     GAME,
@@ -16,15 +17,16 @@ enum class GameEngineState{
 class GameEngine {
 
     GameState gamestate;
-    Player player1;
-    Player player2;
+    Player * player1;
+    Player * player2;
     Board board;
     GameView view;
 
-    TurnUseCase turnusecase;
+    // TurnUseCase turnusecase;
+    TurnUseCase * TURNUSECASE;
     SetUpGameUseCase setup;
 
-    GameEngineState state=GameEngineState::HERO_SELECTION;
+    GameEngineState state=GameEngineState::START_GAME;
     EffectContext context;
     void Process();
     
@@ -35,13 +37,14 @@ class GameEngine {
 
 
     void Start();
+    void InitialObjects();
    
     void OnSelection(int selection);
 
     void SetUp();
     bool GameOver();
 
-    void FinishedGame();
+    void DeleteObjects();
 
 };
 #endif /*GAMEENGINE_H */

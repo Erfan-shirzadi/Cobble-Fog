@@ -392,3 +392,14 @@ void SetUpView::DrawFightersOnBoard(){
     }
 }
 
+
+void SetUpView::ResetSet(){
+    selectedHeroes={false,false};
+    state=SetUpState::INPUT_AGE;
+    player1Age="";
+    editingPlayer1=true;
+    player2Age="";
+    editingPlayer2=true;
+    firstPlayer=-1;
+    HeroSelected=-1;
+}

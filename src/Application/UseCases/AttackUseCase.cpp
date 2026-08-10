@@ -139,6 +139,7 @@ ContinueResult AttackUseCase::Combat(EffectContext & context){
 
     if(res.status==ContinueStatus::FINISHED){
         context.context.Gamestate->log.Add("Finished Combat ");
+        cout<<"Combat finished"<<endl;
         attackstep=AttackStep::FINISHED;
         res.status=ContinueStatus::CONTINUE;
         return res;
@@ -300,6 +301,7 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
 
 ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
     if(context.context.Selected==-1){
+        cout<<"Why come here?"<<endl;
          return BuildDeffenerCardMenu(context) ;
     }
 

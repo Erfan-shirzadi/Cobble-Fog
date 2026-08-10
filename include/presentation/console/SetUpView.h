@@ -80,6 +80,10 @@ class SetUpView{
 
     std::vector<Vector2> GetNodeCenters();
 
+
+
+    void ResetSet();
+
 };
 
 #endif /* SETUP_VIEW */

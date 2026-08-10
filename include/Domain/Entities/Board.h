@@ -26,6 +26,8 @@ class Board {
     void ResetMovment(Hero *);
     int Distance(int start, int target);
 
+    void ResetBoard();
+
 
 };
 

@@ -9,10 +9,10 @@ GameEngine::GameEngine():view(gamestate){
 
 
 void GameEngine::run(){
-    gamestate.currnetPlayer=&player1;
-    gamestate.player1=&player1;
-    gamestate.opponentPlayre=&player2;
-    gamestate.player2=&player2;
+    // gamestate.currnetPlayer=player1;
+    // gamestate.player1=player1;
+    // gamestate.opponentPlayre=&player2;
+    // gamestate.player2=player2;
     gamestate.board=board;
     context.context.Gamestate=&gamestate;
     context.context.Selected=-1;
@@ -37,14 +37,25 @@ void GameEngine::GameResult(GameState & gamestate){
 }
 
 void GameEngine::Start(){
-     this->turnusecase.Start(context);
+     this->TURNUSECASE->Start(context);
     Process();
 }
+
+void GameEngine::InitialObjects(){
+    this->TURNUSECASE=new TurnUseCase;
+    state=GameEngineState::HERO_SELECTION;
+    player1=new Player;
+    player2= new Player;
+    gamestate.player1=player1;
+    gamestate.player2=player2;
+}
+
+
 void GameEngine::Process(){
 
     while (true){
 
-        ContinueResult result=turnusecase.Continue(context);
+        ContinueResult result=TURNUSECASE->Continue(context);
 
         if(GameOver()){
             state=GameEngineState::GAMEOVER;
@@ -61,6 +72,8 @@ void GameEngine::Process(){
                 }
                 else gamestate.gameresult=GameResult::SHERLOCK_WON;
             }
+            view.SetState(ViewState::GAMEOVER);
+            DeleteObjects();
             return;
         }
        
@@ -71,7 +84,7 @@ void GameEngine::Process(){
 
         if(result.status==ContinueStatus::FINISHED){
             std::swap(this->gamestate.currnetPlayer,gamestate.opponentPlayre);
-            turnusecase.Start(context);
+            TURNUSECASE->Start(context);
             continue;
         }
     }
@@ -82,6 +95,9 @@ void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
     switch (state)
     {
+    case GameEngineState::START_GAME:
+        InitialObjects();
+        break;
     case GameEngineState::HERO_SELECTION:
         gamestate.currnetPlayer->SetHero(selection);
         std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
@@ -98,8 +114,7 @@ void GameEngine::OnSelection(int selection){
         SetUp();
         break;
     case GameEngineState::GAMEOVER:
-        view.SetState(ViewState::GAMEOVER);
-        state=GameEngineState::HERO_SELECTION;
+        state=GameEngineState::START_GAME;
         break;
     }
 }
@@ -117,7 +132,9 @@ void GameEngine::SetUp(){
         if(result.status==ContinueStatus::FINISHED){
             state=GameEngineState::GAME;
             view.SetState(ViewState::GAME);
-            Start();
+            
+            TURNUSECASE->Start(context);
+               
             return;
         }
 
@@ -136,6 +153,14 @@ bool GameEngine::GameOver( ){
 
 }
 
-void GameEngine::FinishedGame(){
+void GameEngine::DeleteObjects(){
+    state=GameEngineState::START_GAME;
+    std::cout<<"OBjects deleted"<<std::endl;
+    delete TURNUSECASE;
+    gamestate.board.ResetBoard();
+    delete player1;
+    delete player2;
+    gamestate.combatsatat=nullptr;
     
+
 }

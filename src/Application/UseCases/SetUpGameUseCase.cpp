@@ -171,8 +171,12 @@ ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
     ContinueResult result;
     std::swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
 
-    if(countplayerWhoSetuped==2)
+    if(countplayerWhoSetuped==2){
     result.status=ContinueStatus::FINISHED;
+    Heroes={"Dracula","Holmes"};
+    ReachbleHeroesNodes={1,26};
+    countplayerWhoSetuped=0;
+    }
 
     return result;
 }

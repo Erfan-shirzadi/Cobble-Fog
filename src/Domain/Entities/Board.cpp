@@ -176,3 +176,7 @@ int Board::Distance(int start, int target){
     return map.Distance(start,target);
 }
 
+
+void Board::ResetBoard(){
+    allFighters.clear();
+}

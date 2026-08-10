@@ -72,6 +72,8 @@ void GameView::Run(){
         case MenuResult::START:
             this->state=ViewState::SETUP;
             mainmenu.ResetResult();
+            setup.ResetSet();
+            Onselection(-1);
             break;
         case MenuResult::LOAD:
        
@@ -135,12 +137,19 @@ void GameView::Update(){
 
 void GameView::Draw(){
     setup.DrawBoard();
+    std::cout<<"Board Darwrd\n";
     DrawAction();
+    std::cout<<" Action Drawded\n";
     DrawHand();
+    std::cout<<" HAdn Derawed\n";
     DrawQuestion();
+    std::cout<<" Question Question\n";
     DrawNode();
+    std::cout<<" Node Question\n";
     DrawPlayers();
+    std::cout<<" Players Question\n";
     DrawCombat();
+    std::cout<<" Combat Drawde\n";
 }
 
 void GameView::DrawAction(){
