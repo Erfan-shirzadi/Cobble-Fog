@@ -1,5 +1,5 @@
-#ifndef IMPOSSIBLE_TO_SEE
-#define IMPOSSIBLE_TO_SEE
+#ifndef IMPOSSIBLETO_SEE
+#define IMPOSSIBLETO_SEE
 
 #include "Domain/Entities/CombatCard.h"
 

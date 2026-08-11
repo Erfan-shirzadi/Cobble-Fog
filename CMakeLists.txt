@@ -44,6 +44,21 @@ set(
     src/Domain/Entities/Cards/Holmes/MasterOfDisguise.cpp
     src/Domain/Entities/Cards/Holmes/AdministerAid.cpp
 
+
+    src/Domain/Entities/Cards/InvisibleMan/CodedNotes.cpp
+    src/Domain/Entities/Cards/InvisibleMan/DreamingOfRevenge.cpp
+    src/Domain/Entities/Cards/InvisibleMan/EmergeFromMist.cpp
+    src/Domain/Entities/Cards/InvisibleMan/ImpossibleToSee.cpp
+    src/Domain/Entities/Cards/InvisibleMan/IntoThinAir.cpp
+    src/Domain/Entities/Cards/InvisibleMan/Lurking.cpp
+    src/Domain/Entities/Cards/InvisibleMan/ReignOfTerror.cpp
+    src/Domain/Entities/Cards/InvisibleMan/RollingFog.cpp
+    src/Domain/Entities/Cards/InvisibleMan/SlipAway.cpp
+    src/Domain/Entities/Cards/InvisibleMan/StepLightly.cpp
+
+
+
+
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
     src/Application/UseCases/DiscardingCardUseCase.cpp

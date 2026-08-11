@@ -1,5 +1,5 @@
-#ifndef SLIP_AWAY
-#define SLIP_AWAY
+#ifndef SLIPAWAY
+#define SLIPAWAY
 #include "Domain/Entities/CombatCard.h"
 
 class SlipAway : public CombatCard{

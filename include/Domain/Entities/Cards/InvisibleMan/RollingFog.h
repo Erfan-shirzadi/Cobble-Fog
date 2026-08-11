@@ -1,5 +1,5 @@
-#ifndef ROLLING_FOG
-#define ROLLING_FOG
+#ifndef ROLLINGFOG
+#define ROLLINGFOG
 
 #include "Domain/Entities/SchemeCard.h"
 class RollingFog: public SchemeCard{

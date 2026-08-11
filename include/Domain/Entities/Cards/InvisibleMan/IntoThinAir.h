@@ -1,5 +1,5 @@
-#ifndef INTO_THIN_AIR
-#define INTO_THIN_AIR
+#ifndef INTOTHIN_AIR
+#define INTOTHIN_AIR
 #include "Domain/Entities/CombatCard.h"
 
 class IntoThinAir : public CombatCard{

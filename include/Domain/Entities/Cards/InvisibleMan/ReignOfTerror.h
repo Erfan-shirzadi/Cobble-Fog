@@ -1,5 +1,5 @@
-#ifndef REIGN_OF_TERROR
-#define REIGN_OF_TERROR
+#ifndef REIGNOF_TERROR
+#define REIGNOF_TERROR
 
 #include "Domain/Entities/SchemeCard.h"
 class ReignOfTerror: public SchemeCard{

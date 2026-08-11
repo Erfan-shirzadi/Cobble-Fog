@@ -1,5 +1,5 @@
-#ifndef DREAMING_OF_REVENGE
-#define DREAMING_OF_REVENGE
+#ifndef DREAMINGOF_REVENGE
+#define DREAMINGOF_REVENGE
 
 #include "Domain/Entities/CombatCard.h"
 

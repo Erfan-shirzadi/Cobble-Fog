@@ -1,5 +1,5 @@
-#ifndef CODED_NOTES
-#define CODED_NOTES
+#ifndef CODEDNOTES
+#define CODEDNOTES
 
 #include "Domain/Entities/CombatCard.h"
 

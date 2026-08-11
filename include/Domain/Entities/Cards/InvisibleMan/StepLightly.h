@@ -1,5 +1,5 @@
-#ifndef STEP_LIGHTLY
-#define STEP_LIGHTLY
+#ifndef STEPLIGHTLY
+#define STEPLIGHTLY
 
 
 #include "Domain/Entities/SchemeCard.h"

@@ -1,12 +1,12 @@
-#ifndef EMERGE_FROM_MIST
-#define EMERGE_FROM_MIST
+#ifndef EMERGEFROM_MIST
+#define EMERGEFROM_MIST
 
 #include "Domain/Entities/CombatCard.h"
 
-class ImpossibleToSee : public CombatCard{
+class EmergeFromMist : public CombatCard{
 
     public:
-    ImpossibleToSee();
+    EmergeFromMist();
      PlayTiming GetCardPlayTiming()const override;
      FighterType GetOwner()const override;
 

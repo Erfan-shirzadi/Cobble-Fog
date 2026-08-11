@@ -1,5 +1,5 @@
-#ifndef LURKING
-#define LURKING
+#ifndef LURKING_
+#define LURKING_
 #include "Domain/Entities/CombatCard.h"
 
 class Lurking : public CombatCard{
