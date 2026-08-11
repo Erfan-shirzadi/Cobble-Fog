@@ -24,6 +24,7 @@
 #include "Application/CardEffect/InvisibleCardsEffect/DreamingOfRevengeEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/ImpossibleToSeeEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/IntoThinAirEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/ReignOfTerorrEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -106,6 +107,9 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         break;
     case CardId::INTO_THIN_AIR:
         return std::move(std::make_unique<IntoThinAirEffect>());
+        break;
+    case CardId::REIGN_OF_TERROR:
+        return std::move(std::make_unique<ReignOfTerrorEffect>());
         break;
     default:
         break;

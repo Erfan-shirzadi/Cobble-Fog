@@ -3,7 +3,7 @@
 #include "Application/CardEffect/CardEffect.h"
 #include "Application/interaction/EffectContext.h"
 
-class ImpossibleToSeeEffect : public CardEffect{
+class ReignOfTerrorEffect : public CardEffect{
 
     public:
     ContinueResult Continue(EffectContext & );

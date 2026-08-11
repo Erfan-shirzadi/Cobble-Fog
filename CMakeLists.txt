@@ -103,6 +103,7 @@ set(
     src/Application/CardEffect/InvisibleManEffect/DreamingOfRevengeEffect.cpp
     src/Application/CardEffect/InvisibleManEffect/ImpossibleToSeeEffect.cpp
     src/Application/CardEffect/InvisibleManEffect/IntoThinAirEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/ReignOfTerrorEffect.cpp
 
 
     src/Application/Ability/DraculaAbility.cpp
