@@ -514,6 +514,17 @@ cardsTextures[CardId::MASTER_OF_DISGUISE]={LoadTexture("../include/Infrastructur
 cardsTextures[CardId::SERVICE_REVOLVER]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/service-revolver.png")};
 cardsTextures[CardId::STUDY_METHODS]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/study-methods.png")};
 cardsTextures[CardId::THE_GAME_IS_AFOOT]={LoadTexture("../include/Infrastructure/Assets/images/cards/holms/the-game-is-afoot.png")};
+cardsTextures[CardId::CODED_NOTES]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/coded-notes.png")};
+cardsTextures[CardId::DREAMIN_OF_REVENGE]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/dreaming-of-revenge.png")};
+cardsTextures[CardId::EMERGE_FROM_MIST]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/emerge-from-mist.png")};
+cardsTextures[CardId::IMPOSSIBLE_TO_SEE]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/impossible-to-see.png")};
+cardsTextures[CardId::INTO_THIN_AIR]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/into-thin-air.png")};
+cardsTextures[CardId::LURKING]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/lurking.png")};
+cardsTextures[CardId::REIGN_OF_TERROR]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/reign-of-terror.png")};
+cardsTextures[CardId::ROLLING_FOG]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/rolling-fog.png")};
+cardsTextures[CardId::SLIP_AWAY]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/slip-away.png")};
+cardsTextures[CardId::STEP_LIGHTLY]={LoadTexture("../include/Infrastructure/Assets/images/cards/InvisibleMan/step-lightly.png")};
+
 
 
 }
