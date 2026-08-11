@@ -69,7 +69,8 @@ std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distan
 
         if(flag){
             for(auto fog:hero->GetFogs()){
-                res.push_back(fog->GetNode());
+                if(!isOccupied(fog->GetNode()))
+                    res.push_back(fog->GetNode());
             }
         }
     }
