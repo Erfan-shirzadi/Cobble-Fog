@@ -13,7 +13,7 @@
 #include "Domain/Entities/Cards/Dracula/ThirstForSustenance.h"
 #include "Domain/Game/GameState.h"
 #include <iostream>
-Dracula::Dracula():Hero("Dracula",3,2,FighterType::DRACULA){
+Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
 
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_1));
     this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_2));

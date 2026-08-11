@@ -21,6 +21,7 @@
 #include "Application/CardEffect/NoneEffect.h"
 #include "Application/CardEffect/HolmesCardsEffect/StudyMethod.h"
 #include "Application/CardEffect/InvisibleCardsEffect/CodedNotesEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/DreamingOfRevengeEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -95,7 +96,9 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     case CardId::CODED_NOTES:
         return std::move(std::make_unique<CodedNotesEffect>());
         break;
-    
+    case CardId::DREAMIN_OF_REVENGE:
+        return std::move(std::make_unique<DreamingOfRevengeEffect>());
+        break;
     default:
         break;
     }

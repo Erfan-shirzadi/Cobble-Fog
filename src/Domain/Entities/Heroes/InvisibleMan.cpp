@@ -19,6 +19,7 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
     fogs.push_back(std::make_unique<Fog>());
     fogs.push_back(std::make_unique<Fog>());
     fogs.push_back(std::make_unique<Fog>());
+    this->SetAttack(Attack::MELEE);
 
 
     AddCardToDeck(std::make_unique<CodedNotes>());
@@ -56,6 +57,7 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
 
     AddCardToDeck(std::make_unique<CodedNotes>());
 
+    AddCardToDeck(std::make_unique<DreaminOfRevenge>());
 
 
 
