@@ -58,6 +58,22 @@ std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distan
         level++;
     }
 
+    if(fighter->GetFighterType()==FighterType::INVISIBLEMAN){
+        Hero * hero=dynamic_cast<Hero*>(fighter);
+        bool flag=false;
+        for(auto fog:hero->GetFogs()){
+            if(fog->GetNode()==hero->GetNode()){
+                flag=true;
+            }
+        }
+
+        if(flag){
+            for(auto fog:hero->GetFogs()){
+                res.push_back(fog->GetNode());
+            }
+        }
+    }
+
     return res;
 }
 
