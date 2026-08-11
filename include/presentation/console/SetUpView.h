@@ -38,6 +38,7 @@ class SetUpView{
     Texture2D herotextures[3];
     Texture2D watsontoken;
     Texture2D sisters[3];
+    Texture2D fog;
     Texture2D boardtexture;
     std::vector<bool> selectedHeroes={false,false,false};
     std::vector<Vector2> nodeCenters;

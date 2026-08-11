@@ -6,6 +6,7 @@
 #include "Domain/Entities/Card.h"
 #include "Domain/Entities/Deck.h"
 #include "Domain/Entities/Fighter.h"
+#include "Domain/Entities/Fog.h"
 struct GameState;
 class Hero :public Fighter{
   
@@ -47,6 +48,7 @@ class Hero :public Fighter{
 
     int GetDeckSize();
     void DiscardCard(Card *);
+    virtual std::vector<Fog *> GetFogs();
 };
 
 

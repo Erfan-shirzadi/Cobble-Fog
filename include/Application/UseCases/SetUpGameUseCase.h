@@ -28,6 +28,7 @@ class SetUpGameUseCase{
     std::vector<int> ReachbleSidekickNods;
 
     std::vector<Fighter*>sidekicks;
+    std::vector<Fog*>fogs;
     int index_sideKick=0;
     public:
     void execute(GameState & gamestate);

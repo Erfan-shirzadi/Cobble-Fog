@@ -136,3 +136,7 @@ void Hero::DiscardCard(Card * card){
             }
       }
 }
+std::vector<Fog*> Hero::GetFogs(){
+      std::vector<Fog*> f;
+      return f;
+}

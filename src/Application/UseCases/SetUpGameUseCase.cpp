@@ -117,8 +117,10 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
     std::swap(ReachbleHeroesNodes[context.context.Selected],ReachbleHeroesNodes.back());
     ReachbleHeroesNodes.pop_back();
      this->sidekicks=hero->GetSideKicks();
+     this->fogs=hero->GetFogs();
+
      context.context.Selected=-1;
-     if(sidekicks.empty()){
+     if(sidekicks.empty() && fogs.empty()){
         placementstep=PlaceMentStep::FINISHED;
     }else {
         placementstep=PlaceMentStep::SET_SIDEKICKS;
@@ -135,17 +137,35 @@ ContinueResult SetUpGameUseCase::SideKickPlaceMent(EffectContext & context){
 
     Board& board =context.context.Gamestate->board;
 
-    board.AddFighter(dynamic_cast<Fighter*>(sidekicks[index_sideKick]),ReachbleSidekickNods[context.context.Selected]);
-    std::cout<<sidekicks[index_sideKick]->GetName()<<" Set at "<<ReachbleSidekickNods[context.context.Selected]<<std::endl;
+    if(fogs.empty()){
+        board.AddFighter(dynamic_cast<Fighter*>(sidekicks[index_sideKick]),ReachbleSidekickNods[context.context.Selected]);
+            index_sideKick++;
+    }
+    else if(sidekicks.empty())
+    {
+        // std::cout<<fogs.size()<<std::endl;
+        board.AddFog(fogs[index_sideKick],ReachbleSidekickNods[context.context.Selected]);
+            index_sideKick++;
+
+    }
+
+    // std::cout<<sidekicks[index_sideKick]->GetName()<<" Set at "<<ReachbleSidekickNods[context.context.Selected]<<std::endl;
     std::swap(ReachbleSidekickNods[context.context.Selected],ReachbleSidekickNods.back());
     ReachbleSidekickNods.pop_back();
     context.context.Selected=-1;
     
     
-    index_sideKick++;
-    if(index_sideKick >= sidekicks.size()){
-        placementstep=PlaceMentStep::FINISHED;
+    // index_sideKick++;
+    if(fogs.empty()){
+        if(index_sideKick >= sidekicks.size()){
+            placementstep=PlaceMentStep::FINISHED;
 
+        }
+    }
+    else{
+        if(index_sideKick>=fogs.size()){
+            placementstep=PlaceMentStep::FINISHED;
+        }
     }
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;

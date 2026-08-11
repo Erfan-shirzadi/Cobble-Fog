@@ -4,13 +4,15 @@
 #include "Domain/Entities/Fighter.h"
 #include "Domain/Entities/Hero.h"
 #include <vector>
-#include <unordered_map>
+#include <map>
 class Board {
 
     Graph map;
     std::vector<Fighter *> allFighters;
+    std::vector<Fog* > fogs;
     public:
     void AddFighter(Fighter*,int node);
+    void AddFog(Fog* ,int node);
     bool isOccupied(int node)const;
     std::vector <int> reachableNodes(Hero * fighters, Hero * enemy ,int distance,int HeroNode);
     std::vector<int> GetNodeofArea(int node)const;
@@ -19,7 +21,7 @@ class Board {
     bool AreAdjacent(int node1,int node2)const;
     std::vector<int> AllFullNodes();
 
-    std::vector<Fighter*> GetGraph();
+    std::multimap<FighterType,int> GetGraph();
 
     NodeType GetNodeType(int node);
     std::vector<int> GetAllEmptyNodes();

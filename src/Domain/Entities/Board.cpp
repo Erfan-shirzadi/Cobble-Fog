@@ -1,6 +1,6 @@
 #include "Domain/Entities/Board.h"
 #include  <vector>
-#include <unordered_map>
+#include <map>
 #include <queue>
 #include <iostream>
 #include <stdexcept>
@@ -131,27 +131,15 @@ std::vector<int> Board::AllFullNodes(){
     return res;
 }
 
-std::vector<Fighter*> Board::GetGraph(){
-    // std::stringstream out;
-    // for(int i{1};i<=32;i++){
-
-    //     int indexFighter;
-    //     for(int j{};j<this->allFighters.size();j++)
-    //         if(i==allFighters[j]->GetNode())
-    //             indexFighter=j;
-    //     if(isOccupied(i)){
-    //         out<< i<<"-["<<allFighters[indexFighter]->GetName() <<"]      ";
-    //     }
-    //     else {out<< i<<"-[empty]     ";}
-    //     if(i==8)out<<std::endl;
-    //     if(i==16)out<<std::endl;
-    //     if(i==24)out<<std::endl;
-    // }
-    // return out.str();
-    std::vector<Fighter*> res;
+std::multimap<FighterType,int> Board::GetGraph(){
+    std::multimap<FighterType,int>res;
+    for(auto fog:fogs){
+        res.insert(std::make_pair(FighterType::FOG,fog->GetNode()));
+        // res[FighterType::FOG]=fog->GetNode();
+    }
     for(auto fighter:allFighters){
-        if(fighter->IsAlive() && fighter->GetNode()!=0)
-            res.push_back(fighter);
+        res.insert(std::make_pair(fighter->GetFighterType(),fighter->GetNode()));
+        // res[fighter->GetFighterType()]=fighter->GetNode();
     }
     return res;
 
@@ -179,4 +167,11 @@ int Board::Distance(int start, int target){
 
 void Board::ResetBoard(){
     allFighters.clear();
+}
+
+void Board::AddFog(Fog* f,int node){
+    f->SetNode(node);
+    fogs.push_back(f);
+    std::cout<<" Push backed\n";
+    std::cout<<fogs.size()<<"sizs of fogs in board\n";
 }

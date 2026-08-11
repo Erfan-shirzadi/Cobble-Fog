@@ -219,6 +219,7 @@ void SetUpView::LoadTextures(){
     this->sisters[1]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis2.png");
     this->sisters[2]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis3.png");
     this->boardtexture=LoadTexture("../include/Infrastructure/Assets/images/board.png");
+    this->fog=LoadTexture("../include/Infrastructure/Assets/images/invisibleMan/fog.png");
     
 }
 void SetUpView::SetOnSelection(std::function<void(int)>callback){
@@ -355,14 +356,15 @@ std::vector<Vector2> SetUpView::GetNodeCenters(){
 void SetUpView::DrawFightersOnBoard(){
     Board board=gamestate.board;
 
-    for(auto fighter:board.GetGraph()){
-        FighterType type=fighter->GetFighterType();
-        Vector2 center=nodeCenters[fighter->GetNode()-1];
+    for(auto token:board.GetGraph()){
+        // FighterType type=token->GetFighterType();
+        // std::cout<<"Sixe Graph "<<std::to_string(board.GetGraph().size())<<std::endl;
+        Vector2 center=nodeCenters[token.second-1];
         Texture2D texture;
-        switch (type)
+        switch (token.first)
         {
         case FighterType::INVISIBLEMAN:
-            texture=herotextures[2];
+            texture=herotextures[1];
             break;
         case FighterType::DRACULA:
             texture=herotextures[0];
@@ -381,6 +383,9 @@ void SetUpView::DrawFightersOnBoard(){
             break;
         case FighterType::SISTER_3:
             texture=this->sisters[0];
+            break;
+        case FighterType::FOG:
+            texture=this->fog;
             break;
         }
         float w=texture.width *0.32f;

@@ -16,7 +16,11 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
     // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
     // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
     // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
-    
+    fogs.push_back(std::make_unique<Fog>());
+    fogs.push_back(std::make_unique<Fog>());
+    fogs.push_back(std::make_unique<Fog>());
+
+
     AddCardToDeck(std::make_unique<CodedNotes>());
     AddCardToDeck(std::make_unique<CodedNotes>());
 
@@ -72,4 +76,12 @@ Fighter * InvisibleMan::GetDeadSideKick()const {
 }
 bool InvisibleMan::CanUseCability(GameState){
     return false;
+}
+
+std::vector<Fog *> InvisibleMan::GetFogs(){
+    std::vector<Fog *>result;
+    for(int i{};i<3;i++){
+        result.push_back(fogs[i].get());
+    }
+    return result;
 }
