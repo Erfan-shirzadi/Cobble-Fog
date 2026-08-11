@@ -68,6 +68,7 @@ Dracula::Dracula():Hero("Dracula",3,2,FighterType::DRACULA){
    
 
 
+    AddCardToDeck(std::make_unique<Exploit>());
 
 
 

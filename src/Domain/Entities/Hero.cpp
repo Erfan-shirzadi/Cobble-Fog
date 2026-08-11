@@ -140,3 +140,10 @@ std::vector<Fog*> Hero::GetFogs(){
       std::vector<Fog*> f;
       return f;
 }
+
+
+void Hero::ReturnCardToDeck(int index){
+      AddCardToDeck(std::move(Hand[index]));
+      std::swap(Hand[index],Hand.back());
+      Hand.pop_back();
+}

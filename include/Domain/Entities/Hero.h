@@ -49,6 +49,8 @@ class Hero :public Fighter{
     int GetDeckSize();
     void DiscardCard(Card *);
     virtual std::vector<Fog *> GetFogs();
+
+    void ReturnCardToDeck(int index);
 };
 
 

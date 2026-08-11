@@ -54,6 +54,7 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
     AddCardToDeck(std::make_unique<StepLightly>());
     AddCardToDeck(std::make_unique<StepLightly>());
 
+    AddCardToDeck(std::make_unique<CodedNotes>());
 
 
 

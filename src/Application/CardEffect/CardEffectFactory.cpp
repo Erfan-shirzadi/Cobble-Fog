@@ -20,6 +20,7 @@
 #include "Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.h"
 #include "Application/CardEffect/NoneEffect.h"
 #include "Application/CardEffect/HolmesCardsEffect/StudyMethod.h"
+#include "Application/CardEffect/InvisibleCardsEffect/CodedNotesEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -91,7 +92,9 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     case CardId::THE_GAME_IS_AFOOT:
         return std::move(std::make_unique<Move3Effect>());
         break;
-
+    case CardId::CODED_NOTES:
+        return std::move(std::make_unique<CodedNotesEffect>());
+        break;
     
     default:
         break;

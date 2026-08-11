@@ -99,6 +99,8 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/StudyMethodEffect.cpp
     src/Application/CardEffect/NoneEffect.cpp
 
+    src/Application/CardEffect/InvisibleManEffect/CodedNotesEffect.cpp
+
     src/Application/Ability/DraculaAbility.cpp
 
 
