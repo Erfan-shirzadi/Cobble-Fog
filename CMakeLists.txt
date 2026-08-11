@@ -101,6 +101,7 @@ set(
 
     src/Application/CardEffect/InvisibleManEffect/CodedNotesEffect.cpp
     src/Application/CardEffect/InvisibleManEffect/DreamingOfRevengeEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/ImpossibleToSeeEffect.cpp
 
 
     src/Application/Ability/DraculaAbility.cpp

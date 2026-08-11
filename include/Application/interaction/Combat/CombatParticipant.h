@@ -12,6 +12,7 @@ struct CombatParticipant{
     int DamageOrDeffend=0;
     bool Won=false;
     bool IsActiveCardEffect=true;
+    bool CanChangeAmountCard=true;
 
 
 };

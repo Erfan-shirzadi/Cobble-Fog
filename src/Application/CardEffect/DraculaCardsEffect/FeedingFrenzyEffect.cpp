@@ -25,18 +25,17 @@ ContinueResult FeedingFrenzyEffect::Continue(EffectContext & context){
 
 
 ContinueResult FeedingFrenzyEffect::IncreseDamage(EffectContext & context){
-    Hero * hero =context.combatcontext->Current->hero;
-    Fighter * enemy=context.combatcontext->Opponent->fighter;
-    std::vector<Fighter*> sisters=hero->GetSideKicks();
-    int increaseDamage=0;
-    for(Fighter * sidekick: sisters){
-        if(context.combatcontext->board->IsAnArea(sidekick->GetNode(),enemy->GetNode()))
-            increaseDamage++;
+    if(context.combatcontext->Current->CanChangeAmountCard){
+        Hero * hero =context.combatcontext->Current->hero;
+        Fighter * enemy=context.combatcontext->Opponent->fighter;
+        std::vector<Fighter*> sisters=hero->GetSideKicks();
+        int increaseDamage=0;
+        for(Fighter * sidekick: sisters){
+            if(context.combatcontext->board->IsAnArea(sidekick->GetNode(),enemy->GetNode()))
+                increaseDamage++;
+        }
+        context.combatcontext->Current->card->IncreseDamageOfDeffend(increaseDamage);
     }
-
-    // context.combatcontext->Current->DamageOrDeffend+=increaseDamage;
-
-    context.combatcontext->Current->card->IncreseDamageOfDeffend(increaseDamage);
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
 

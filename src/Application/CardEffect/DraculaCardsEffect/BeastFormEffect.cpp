@@ -50,7 +50,8 @@ ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
     if(context.context.Selected==-1)return BuildCardMenu(context);
 
     context.combatcontext->Current->hero->GetCard(context.context.Selected);
-    context.combatcontext->Current->card->IncreseDamageOfDeffend(1);
+    if(context.combatcontext->Current->CanChangeAmountCard)
+        context.combatcontext->Current->card->IncreseDamageOfDeffend(1);
     context.context.Selected=-1;
     ContinueResult res;
      
