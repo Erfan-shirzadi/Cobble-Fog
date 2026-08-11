@@ -45,6 +45,8 @@ ContinueResult CodedNotesEffect::ReturnToDeckCard(EffectContext & context){
     result.status=ContinueStatus::CONTINUE;
 
     if(countofCardReturned==2){
+        context.context.Gamestate->handview=HandView::CURRENTPLAYER;
+
         result.status=ContinueStatus::FINISHED;
     }
     
