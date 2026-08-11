@@ -22,6 +22,8 @@
 #include "Application/CardEffect/HolmesCardsEffect/StudyMethod.h"
 #include "Application/CardEffect/InvisibleCardsEffect/CodedNotesEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/DreamingOfRevengeEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/ImpossibleToSeeEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/IntoThinAirEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -98,6 +100,12 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         break;
     case CardId::DREAMIN_OF_REVENGE:
         return std::move(std::make_unique<DreamingOfRevengeEffect>());
+        break;
+    case CardId::IMPOSSIBLE_TO_SEE:
+        return std::move(std::make_unique<ImpossibleToSeeEffect>());
+        break;
+    case CardId::INTO_THIN_AIR:
+        return std::move(std::make_unique<IntoThinAirEffect>());
         break;
     default:
         break;

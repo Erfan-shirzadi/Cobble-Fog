@@ -192,3 +192,59 @@ void Board::AddFog(Fog* f,int node){
     std::cout<<" Push backed\n";
     std::cout<<fogs.size()<<"sizs of fogs in board\n";
 }
+
+
+bool Board::IsFogHere(int ndoe){
+    for(auto fog :fogs){
+        if (fog->GetNode()==ndoe){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::vector<int> Board::GetReachbleNodesForFog(int node,int distance){
+std::vector <int >res;
+    res.push_back(node);
+    
+    std::vector<int > neighbors= map.GetNeighbors(node);
+    std::unordered_map <int,bool > visited(false);
+
+    std::queue<int> q;
+    visited[node]=true;
+    q.push(node);
+    int level=0;
+    int maxlevel=distance;
+
+    while (!q.empty() && level<=maxlevel ){
+        int levelsize=q.size();
+
+        for(int i{};i<levelsize;i++){
+            int curr = q.front();
+            q.pop();
+            // bool Isreachable=true;
+            // for(int node:AllyNodes)
+            //     if(curr==node) Isreachable =false;
+            // if(Isreachable && (!isOccupied(curr) || (isOccupied(curr) && curr==HeroNode)) )
+            if(!IsFogHere(curr))
+                res.push_back(curr);
+
+            for (int x:map.GetNeighbors(curr)){
+                    if(!visited[x]){
+                        visited[x]=true;
+                        // bool Cansearch=true;
+                        // for(int node:EnemiesNode)
+                        //     if(x==node) Cansearch =false;
+
+                        // if(Cansearch)
+                            q.push(x);
+                    }
+            }
+        }
+        level++;
+    }
+
+    return res;
+
+}

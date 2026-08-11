@@ -30,6 +30,9 @@ class Board {
 
     void ResetBoard();
 
+    bool IsFogHere(int ndoe);
+
+    std::vector<int> GetReachbleNodesForFog(int node,int distance);
 
 };
 
