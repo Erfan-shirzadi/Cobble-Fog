@@ -120,7 +120,7 @@ void SetUpView::UpdateHeroSelection(){
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (CheckCollisionPointRec(mouse, heroRects[i]))
             {
@@ -129,8 +129,11 @@ void SetUpView::UpdateHeroSelection(){
                 std::cout<< i<<" Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
                 selectedHeroes[i]=true;
                 onSelection(i);
-                if(selectedHeroes[0] && selectedHeroes[1])
-                    state=SetUpState::PLACEMENT;
+
+                    if(gamestate.player1->GetHero() &&gamestate.player2->GetHero()){
+                        state=SetUpState::PLACEMENT;
+                        std::cout<<" State Must change com on man\n";
+                    }
                 }
             }
         }
@@ -184,7 +187,7 @@ void SetUpView::DrawHeroSelection(){
     std::string text=gamestate.currnetPlayer==gamestate.player1?"Player 1 Choose your hero":"Player 2 Choose your hero";
     DrawText(text.c_str(),40,40,30,WHITE);
 
-    for(int i{};i<2;i++){
+    for(int i{};i<3;i++){
         
         Color tint=selectedHeroes[i]?GRAY:WHITE;
         DrawTexturePro(
@@ -210,6 +213,7 @@ void SetUpView::DrawHeroSelection(){
 void SetUpView::LoadTextures(){
     this->herotextures[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/dracula.png");
     this->herotextures[1]=LoadTexture("../include/Infrastructure/Assets/images/sherlock/sherlockTran.png");
+    this->herotextures[2]=LoadTexture("../include/Infrastructure/Assets/images/invisibleMan/invArt.png");
     this->watsontoken=LoadTexture("../include/Infrastructure/Assets/images/sherlock/drwatson.png");
     this->sisters[0]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis1.png");
     this->sisters[1]=LoadTexture("../include/Infrastructure/Assets/images/dracula/sis2.png");
@@ -357,6 +361,9 @@ void SetUpView::DrawFightersOnBoard(){
         Texture2D texture;
         switch (type)
         {
+        case FighterType::INVISIBLEMAN:
+            texture=herotextures[2];
+            break;
         case FighterType::DRACULA:
             texture=herotextures[0];
             break;

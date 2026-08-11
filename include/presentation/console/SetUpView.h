@@ -34,12 +34,12 @@ class SetUpView{
     Rectangle player2box{650,340,120,50};
     Rectangle continueButton{520,500,220,60};
     Rectangle AdvanceToHeroSelectionButton{430,520,420,60};
-    Rectangle heroRects[2]{{390,180,256,356},{710,180,256,356}};
-    Texture2D herotextures[2];
+    Rectangle heroRects[3]{{390,180,256,356},{710,180,256,356},{1030,180,256,356}};
+    Texture2D herotextures[3];
     Texture2D watsontoken;
     Texture2D sisters[3];
     Texture2D boardtexture;
-    std::vector<bool> selectedHeroes={false,false};
+    std::vector<bool> selectedHeroes={false,false,false};
     std::vector<Vector2> nodeCenters;
 
     std::function<void(int)>onSelection;

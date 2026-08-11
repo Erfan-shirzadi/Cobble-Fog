@@ -2,17 +2,27 @@
 #include <iostream>
 #include "Domain/Entities/Heroes/Dracula.h"
 #include "Domain/Entities/Heroes/Holmes.h"
+#include "Domain/Entities/Heroes/InvisibleMan.h"
 #include "Application/UseCases/PlaceMentUseCase.h"
 
 
 std::unique_ptr <Hero> SetUpGameUseCase::CreateHero(int choice){
     
-    if(Heroes[choice]=="Dracula"){
-        std::cout<< " Dracual seted"<<std::endl;
+    switch (choice)
+    {
+    case 0:
         return std::make_unique<Dracula> ();
+        break;
+    case 1:
+        return std::make_unique<Holmes> ();
+        break;
+    case 2:
+        return std::make_unique<InvisibleMan>();
+        break;
     }
-    std::cout<< " holmes seted"<<std::endl;
-    return std::make_unique<Holmes> ();
+
+    return std::make_unique<InvisibleMan>();
+
     
 }
 void SetUpGameUseCase::DrawInitialCards(Hero * hero){

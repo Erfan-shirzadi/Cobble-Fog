@@ -15,6 +15,8 @@ class InvisibleMan :public Hero{
 
     std::vector<Fighter *> GetSideKicks() override;
     Fighter * GetDeadSideKick()const override;
+    virtual void Ability(GameState&);
+    bool CanUseCability(GameState);
 
 
 };

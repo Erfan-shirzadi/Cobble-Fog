@@ -2,6 +2,7 @@
 #include <memory>
 #include "Domain/Entities/Heroes/Dracula.h"
 #include "Domain/Entities/Heroes/Holmes.h"
+#include "Domain/Entities/Heroes/InvisibleMan.h"
 
 void Player::SetHero(int index){
     switch (index)
@@ -11,6 +12,9 @@ void Player::SetHero(int index){
         break;
     case 1:
         this->hero=std::make_unique<Holmes>();
+        break;
+    case 2:
+        this->hero=std::make_unique<InvisibleMan>();
         break;
     }
 }

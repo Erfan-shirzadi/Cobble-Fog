@@ -23,7 +23,7 @@ class SetUpGameUseCase{
     int countplayerWhoSetuped=0;
 
     std::vector<int> ReachbleHeroesNodes{1,26};
-    std::vector<std::string> Heroes{"Dracula","Holmes"};
+    std::vector<std::string> Heroes{"Dracula","Holmes","InvisibleMan"};
 
     std::vector<int> ReachbleSidekickNods;
 

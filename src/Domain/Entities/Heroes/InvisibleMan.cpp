@@ -9,6 +9,8 @@
 #include "Domain/Entities/Cards/InvisibleMan/RollingFog.h"
 #include "Domain/Entities/Cards/InvisibleMan/SlipAway.h"
 #include "Domain/Entities/Cards/InvisibleMan/StepLightly.h"
+#include "Domain/Game/GameState.h"
+
 
 InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN){
     // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
@@ -57,9 +59,17 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
 
 
 std::vector<Fighter *> InvisibleMan::GetSideKicks() {
-    return {nullptr};
+    std::vector<Fighter *> s;
+    return s;
 }
 Fighter * InvisibleMan::GetDeadSideKick()const {
     return nullptr;
 }
 
+
+ void InvisibleMan::Ability(GameState&){
+
+}
+bool InvisibleMan::CanUseCability(GameState){
+    return false;
+}
