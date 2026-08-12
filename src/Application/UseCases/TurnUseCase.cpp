@@ -36,8 +36,9 @@ ContinueResult TurnUseCase::Start(EffectContext& context){
 
     ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+    Board board=context.context.Gamestate->board;
+    hero->SetStartTurnOnfog(board.IsFogHere(hero->GetNode()));
     hero->SetRemainingAction(2);
-    hero->SetPositionOnStartTurn();
     step=TurnStep::CHOOSE_ACTION;
     return result;
 }

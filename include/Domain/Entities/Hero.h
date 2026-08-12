@@ -17,7 +17,7 @@ class Hero :public Fighter{
     std::vector<std::unique_ptr<Card>> DiscardCards;
     Deck deck;
     int RemainingAction=2;
-    int nodeOnStartTurn;
+    bool OnFoginStartTurn=false;
 
     public:
     Hero(std::string name ,int hp ,int move, FighterType type);
@@ -52,8 +52,9 @@ class Hero :public Fighter{
     virtual std::vector<Fog *> GetFogs();
 
     void ReturnCardToDeck(int index);
-    void SetPositionOnStartTurn();
-    int GetPositionOnStartTurn()const;
+    void SetStartTurnOnfog(bool);
+    bool GetStartTurnOnfog();
+
 };
 
 

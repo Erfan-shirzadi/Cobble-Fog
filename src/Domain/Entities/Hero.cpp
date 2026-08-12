@@ -148,9 +148,9 @@ void Hero::ReturnCardToDeck(int index){
       Hand.pop_back();
 }
 
-void Hero::SetPositionOnStartTurn(){
-      nodeOnStartTurn=this->GetNode();
+void Hero::SetStartTurnOnfog(bool val){
+      OnFoginStartTurn=val;
 }
-int Hero::GetPositionOnStartTurn()const{
-      return nodeOnStartTurn;
+bool Hero::GetStartTurnOnfog(){
+      return OnFoginStartTurn;
 }
