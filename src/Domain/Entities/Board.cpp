@@ -155,6 +155,7 @@ std::multimap<FighterType,int> Board::GetGraph(){
         // res[FighterType::FOG]=fog->GetNode();
     }
     for(auto fighter:allFighters){
+        if(fighter->IsAlive())
         res.insert(std::make_pair(fighter->GetFighterType(),fighter->GetNode()));
         // res[fighter->GetFighterType()]=fighter->GetNode();
     }

@@ -4,9 +4,9 @@
 ContinueResult ReignOfTerrorEffect::Continue(EffectContext & context){
     Board board=context.context.Gamestate->board;
 
-    if(board.IsFogHere(context.combatcontext->Current->hero->GetNode())){
+    if(board.IsFogHere(context.context.Gamestate->currnetPlayer->GetHero()->GetNode())){
 
-       Hero * enemy= context.combatcontext->Opponent->hero;
+       Hero * enemy= context.context.Gamestate->opponentPlayre->GetHero();
 
        enemy->TakeDamge(2);
 
