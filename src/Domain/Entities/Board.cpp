@@ -244,3 +244,21 @@ std::vector <int >res;
     return res;
 
 }
+
+std::vector<int> Board::GetAllNodeWithoutFog(){
+     std::vector<int> res;
+    for(int i{1};i<=32;i++){
+        if(!IsFogHere(i))
+            res.push_back(i);
+    }
+    return res;
+}
+
+std::vector<int> Board::GetAllNodeWithoutFogAndFighters(){
+    std::vector<int> res;
+    for(int i{1};i<=32;i++){
+        if(!IsFogHere(i) && !isOccupied(i))
+            res.push_back(i);
+    }
+    return res;
+}

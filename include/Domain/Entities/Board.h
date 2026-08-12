@@ -33,6 +33,8 @@ class Board {
     bool IsFogHere(int ndoe);
 
     std::vector<int> GetReachbleNodesForFog(int node,int distance);
+    std::vector<int> GetAllNodeWithoutFog();
+    std::vector<int> GetAllNodeWithoutFogAndFighters();
 
 };
 

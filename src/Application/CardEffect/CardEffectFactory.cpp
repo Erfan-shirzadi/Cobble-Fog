@@ -27,6 +27,7 @@
 #include "Application/CardEffect/InvisibleCardsEffect/ReignOfTerorrEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/LurkingEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/RollingFogEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/SlipAwayEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -118,6 +119,9 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         break;
     case CardId::ROLLING_FOG:
         return std::move(std::make_unique<RollingFogEffect>());
+        break;
+    case CardId::SLIP_AWAY:
+        return std::move(std::make_unique<SlipAwayEffect>());
         break;
     default:
         break;
