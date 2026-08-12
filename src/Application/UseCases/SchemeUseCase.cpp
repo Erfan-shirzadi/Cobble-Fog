@@ -63,7 +63,8 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
     cardEffect=CardEffectFactory::CreatCardEffect(SelectedCard->GetCardId());
     context.context.Selected=-1;
     step=SchemeStep::EXECUTECARD;
-
+    cout<<"Card Choosed"<<endl;
+    cout<<SelectedCard->GetName()<<endl;
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     return res;

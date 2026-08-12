@@ -107,6 +107,7 @@ ContinueResult LurkingEffect::MoveFog(EffectContext & context){
         
         Nodes=context.context.Gamestate->board.GetReachbleNodesForFog(fog->GetNode(),3);
         result.status=ContinueStatus::NEEDMENU;
+        result.menu_request.nodes=Nodes;
         // for(auto n:Nodes){
         //     std::cout<<"Nodes"<<n<<std::endl;
         // }

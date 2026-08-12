@@ -60,6 +60,7 @@ InvisibleMan::InvisibleMan():Hero("Invisible Man",15,2,FighterType::INVISIBLEMAN
     AddCardToDeck(std::make_unique<DreaminOfRevenge>());
 
     AddCardToDeck(std::make_unique<Lurking>());
+    AddCardToDeck(std::make_unique<RollingFog>());
 
 
 
