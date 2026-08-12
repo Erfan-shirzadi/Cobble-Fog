@@ -35,7 +35,9 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
 ContinueResult TurnUseCase::Start(EffectContext& context){
 
     ContinueResult result;
-    context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
+    Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+    hero->SetRemainingAction(2);
+    hero->SetPositionOnStartTurn();
     step=TurnStep::CHOOSE_ACTION;
     return result;
 }

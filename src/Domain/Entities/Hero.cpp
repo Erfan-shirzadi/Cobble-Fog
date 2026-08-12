@@ -147,3 +147,10 @@ void Hero::ReturnCardToDeck(int index){
       std::swap(Hand[index],Hand.back());
       Hand.pop_back();
 }
+
+void Hero::SetPositionOnStartTurn(){
+      nodeOnStartTurn=this->GetNode();
+}
+int Hero::GetPositionOnStartTurn()const{
+      return nodeOnStartTurn;
+}

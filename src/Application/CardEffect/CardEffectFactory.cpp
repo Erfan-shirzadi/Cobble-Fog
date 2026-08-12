@@ -29,6 +29,7 @@
 #include "Application/CardEffect/InvisibleCardsEffect/RollingFogEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/SlipAwayEffect.h"
 #include "Application/CardEffect/InvisibleCardsEffect/StepLightlyEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/EmergeFromMistEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -126,6 +127,9 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
         break;
     case CardId::STEP_LIGHTLY:
         return std::move(std::make_unique<StepLightlyEffect>());
+        break;
+    case CardId::EMERGE_FROM_MIST:
+        return std::move(std::make_unique<EmergeFromMistEffect>());
         break;
     default:
         break;
