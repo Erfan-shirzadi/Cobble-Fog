@@ -233,11 +233,6 @@ std::vector <int >res;
             for (int x:map.GetNeighbors(curr)){
                     if(!visited[x]){
                         visited[x]=true;
-                        // bool Cansearch=true;
-                        // for(int node:EnemiesNode)
-                        //     if(x==node) Cansearch =false;
-
-                        // if(Cansearch)
                             q.push(x);
                     }
             }
@@ -245,6 +240,7 @@ std::vector <int >res;
         level++;
     }
 
+   
     return res;
 
 }
