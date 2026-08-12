@@ -32,6 +32,7 @@ ContinueResult IntoThinAirEffect::MoveHero(EffectContext & context){
         return result;
     }
     context.combatcontext->Current->hero->SetNode(rechbleNodes[context.context.Selected]);
+    context.context.Selected=-1;
     rechbleNodes.clear();
     result.status=ContinueStatus::CONTINUE;
     step=IntoThinStep::CHOOSE_FOG;
@@ -51,7 +52,7 @@ ContinueResult IntoThinAirEffect::ChooseFog(EffectContext & context){
     }
 
     fog=context.combatcontext->Current->hero->GetFogs()[context.context.Selected];
-
+    context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     step=IntoThinStep::MOVE_FOG;
 
@@ -68,6 +69,7 @@ ContinueResult IntoThinAirEffect::MoveFog(EffectContext & context){
         return result;
     }
     fog->SetNode(rechbleNodes[context.context.Selected]);
+    context.context.Selected=-1;
 
     result.status=ContinueStatus::FINISHED;
     return result;
