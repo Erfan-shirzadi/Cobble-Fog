@@ -54,6 +54,8 @@ ContinueResult StepLightlyEffect::DamageEnemy(EffectContext & context){
         enemies[context.context.Selected]->TakeDamge(3);
     }
     else enemies[context.context.Selected]->TakeDamge(1);
+
+    context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     step=StepStepLightly::CHOOSE_FOG;
 
