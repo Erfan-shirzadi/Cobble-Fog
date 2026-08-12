@@ -107,6 +107,7 @@ set(
     src/Application/CardEffect/InvisibleManEffect/LurkingEffect.cpp
     src/Application/CardEffect/InvisibleManEffect/RollingFogEffect.cpp
     src/Application/CardEffect/InvisibleManEffect/SlipAwayEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/StepLightlyEffect.cpp
 
 
 
