@@ -1,23 +1,21 @@
 #include "Application/CardEffect/InvisibleCardsEffect/DreamingOfRevengeEffect.h"
 ContinueResult DreamingOfRevengeEffect::Continue(EffectContext & context ){
     Hero *hero=context.combatcontext->Current->hero;
-    bool flag=false;
-    for(auto fog: hero->GetFogs()){
-        if(hero->GetNode()==fog->GetNode())flag=true;
-    }
+    Board board=context.context.Gamestate->board;
+   
 
-    if(flag){
+    if(board.IsFogHere(hero->GetNode())){
         Hero * enemy=context.combatcontext->Opponent->hero;
-        for(auto fog: hero->GetFogs()){
-            if(enemy->GetNode()==fog->GetNode()){
+        
+            if(board.IsFogHere(enemy->GetNode())){
                 enemy->TakeDamge(1);
             }
             for(auto sidekick: enemy->GetSideKicks()){
-                if(sidekick->GetNode()==fog->GetNode()){
+                if(board.IsFogHere(sidekick->GetNode())){
                     sidekick->TakeDamge(1);
                 }
             }
-        }
+        
     }
 
     ContinueResult res;
