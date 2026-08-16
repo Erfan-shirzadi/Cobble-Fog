@@ -2,6 +2,7 @@
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "Application/UseCases/TurnUseCase.h"
 #include "Application/interaction/EffectContext.h"
+#include "Domain/Game/DataContext.h"
 #include <iostream>
 
 GameEngine::GameEngine():view(gamestate){
@@ -169,4 +170,13 @@ void GameEngine::DeleteObjects(){
     gamestate.combatsatat=nullptr;
     
 
+}
+
+void GameEngine::SaveGame()const{
+
+    DataContext data;
+    data.gamestate=this->gamestate;
+    data.gameviewstate=view.GetState();
+    data.context=this->context;
+    
 }

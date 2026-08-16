@@ -26,6 +26,7 @@ class GameView{
     void SetOnSelection(std::function<void(int)>callback);
     void SetInputRequest(MenuRequest);
     void SetState(ViewState);
+    ViewState GetState()const;
 
 
     void Update();

@@ -6,6 +6,7 @@
 #include "Application/UseCases/SetUpGameUseCase.h"
 #include "presentation/console/GameView.h"
 #include "Application/interaction/ActionContext.h"
+#include "Domain/Game/DataContext.h"
 
 enum class GameEngineState{
     START_GAME,
@@ -46,5 +47,6 @@ class GameEngine {
 
     void DeleteObjects();
 
+    void SaveGame()const;
 };
 #endif /*GAMEENGINE_H */

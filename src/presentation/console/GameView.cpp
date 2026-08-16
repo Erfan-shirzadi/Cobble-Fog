@@ -491,6 +491,12 @@ void GameView::UpdateExit(){
     }
 }
 
+
+ViewState GameView::GetState()const{
+    return this->state;
+}
+
+
 void GameView::LoadCardsTexture(){
 cardsTextures[CardId::AMBUSH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ambush.png")};
 cardsTextures[CardId::BAPISM_OF_BLOOD]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/bapism-of-blood.png")};
