@@ -154,3 +154,7 @@ void Hero::SetStartTurnOnfog(bool val){
 bool Hero::GetStartTurnOnfog(){
       return OnFoginStartTurn;
 }
+
+Deck& Hero::GetDeck(){
+      return  deck;
+}

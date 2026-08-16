@@ -9,6 +9,7 @@ class SaveUseCase {
     public :
     void Save(DataContext)const;
     void SaveGameState(GameState*)const;
+    void SavePlayer(int ,Player *)const;
     void SaveTurnUseCase();
 
 };

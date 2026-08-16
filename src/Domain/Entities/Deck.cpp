@@ -24,3 +24,11 @@ bool Deck::Empty()const{
 int Deck::Size()const{
     return this->deck.size();
 }
+
+std::vector <CardId> Deck::GetCards(){
+    std::vector <CardId> res;
+    for(int i{};i<deck.size();i++){
+        res.push_back(deck[i]->GetCardId());
+    }
+    return res;
+}

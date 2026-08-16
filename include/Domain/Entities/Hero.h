@@ -55,6 +55,7 @@ class Hero :public Fighter{
     void SetStartTurnOnfog(bool);
     bool GetStartTurnOnfog();
 
+    Deck& GetDeck();
 };
 
 
