@@ -7,6 +7,7 @@
 #include "presentation/console/GameView.h"
 #include "Application/interaction/ActionContext.h"
 #include "Domain/Game/DataContext.h"
+#include "Application/UseCases/SaveUseCase.h"
 
 enum class GameEngineState{
     START_GAME,
@@ -29,6 +30,9 @@ class GameEngine {
 
     GameEngineState state=GameEngineState::START_GAME;
     EffectContext context;
+
+    SaveUseCase saveuseCase;
+
     void Process();
     
     public:

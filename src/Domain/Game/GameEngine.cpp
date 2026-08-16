@@ -175,8 +175,11 @@ void GameEngine::DeleteObjects(){
 void GameEngine::SaveGame()const{
 
     DataContext data;
-    data.gamestate=this->gamestate;
+    // data.gamestate=this->gamestate;
     data.gameviewstate=view.GetState();
     data.context=this->context;
+
+    saveuseCase.Save(data);
+    
     
 }

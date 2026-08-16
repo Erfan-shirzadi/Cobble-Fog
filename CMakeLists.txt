@@ -70,6 +70,7 @@ set(
     src/Application/UseCases/SchemeUseCase.cpp
     src/Application/UseCases/AttackUseCase.cpp
     src/Application/UseCases/MoveUseCase.cpp
+    src/Application/UseCases/SaveUseCase.cpp
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 
