@@ -12,6 +12,13 @@ void SaveUseCase::SaveGameState(GameState * gamestate)const{
 
     SavePlayer(1,gamestate->player1);
     SavePlayer(2,gamestate->player2);
+    if(gamestate->currnetPlayer==gamestate->player1){
+        SaveCurrentPlayerNumber(1);
+    }
+    else{
+        SaveCurrentPlayerNumber(2);
+    }
+    SaveHandViewStatus(gamestate->handview);
     
 }
 
@@ -52,4 +59,15 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 }
 
 
-    void SaveTurnUseCase();
+void SaveUseCase::SaveCurrentPlayerNumber(int number)const{
+    ofstream file("../include/Infrastructure/SavedGames/Game1/CurrentPlayer.txt");
+    file<<number;
+    file.close();
+}
+
+
+void SaveUseCase::SaveHandViewStatus(HandView handview)const{
+    ofstream file("../include/Infrastructure/SavedGames/Game1/HandView.txt");
+    file<<(int)handview;
+    file.close();
+}

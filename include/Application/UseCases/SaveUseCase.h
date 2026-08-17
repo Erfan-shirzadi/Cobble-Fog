@@ -10,6 +10,8 @@ class SaveUseCase {
     void Save(DataContext)const;
     void SaveGameState(GameState*)const;
     void SavePlayer(int ,Player *)const;
+    void SaveCurrentPlayerNumber(int)const;
+    void SaveHandViewStatus(HandView)const;
     void SaveTurnUseCase();
 
 };
