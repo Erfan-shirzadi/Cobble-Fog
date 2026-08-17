@@ -483,7 +483,8 @@ void GameView::UpdateExit(){
 
     if(CheckCollisionPointRec(GetMousePosition(),Exit)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            // state=ViewState::MAINMENU;
+            Onselection(-2);
+            state=ViewState::MAINMENU;
             exitb=true;
             
         }

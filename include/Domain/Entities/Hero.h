@@ -56,6 +56,8 @@ class Hero :public Fighter{
     bool GetStartTurnOnfog();
 
     Deck& GetDeck();
+
+    virtual std::vector<Fighter*> GetAllsidekick()const;
 };
 
 

@@ -1,5 +1,6 @@
 #include "Application/UseCases/SaveUseCase.h"
 #include <fstream>
+#include <iostream>
 using namespace std;
 
 void SaveUseCase::Save(DataContext data)const{
@@ -9,12 +10,19 @@ void SaveUseCase::Save(DataContext data)const{
 
 void SaveUseCase::SaveGameState(GameState * gamestate)const{
 
+    SavePlayer(1,gamestate->player1);
+    SavePlayer(2,gamestate->player2);
     
 }
 
 void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 
-    ofstream ofile("../include/Infrastructure/SavedGame/Game1/Player"+to_string(numberofPlayer)+"/Hero.txt");
+    cout<<"saveed"<<endl;
+    // ofstream file("../include/fuck.txt");
+    ofstream ofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Hero.txt");
+    if(!ofile.is_open()){
+        cout<<" can not open file";
+    }
     Hero * hero=player->GetHero();
     ofile<<hero->GetName()<<endl;
     ofile<<hero->GetHP()<<endl;
@@ -30,6 +38,17 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
         ofile<<(int)cardid<<endl;
     }
 
+    ofile.close();
+
+    std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
+    for(int i{};i<sidekcik.size();i++){
+        ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
+        sofile<<sidekcik[i]->GetName()<<endl;
+        sofile<<sidekcik[i]->GetHP()<<endl;
+        sofile<<sidekcik[i]->GetNode()<<endl;
+        sofile.close();
+    }
+    
 }
 
 

@@ -80,3 +80,12 @@ void Holmes::Ability(GameState&){
 bool Holmes::CanUseCability(GameState){
     return false;
 }
+
+std::vector<Fighter*> Holmes::GetAllsidekick()const {
+    std::vector<Fighter*> result;
+   
+        result.push_back(DrWatson.get());
+    
+
+    return result;
+}

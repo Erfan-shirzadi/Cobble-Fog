@@ -158,3 +158,9 @@ bool Hero::GetStartTurnOnfog(){
 Deck& Hero::GetDeck(){
       return  deck;
 }
+
+
+std::vector<Fighter*> Hero::GetAllsidekick()const{
+      std::vector<Fighter*> res;
+      return res;
+}

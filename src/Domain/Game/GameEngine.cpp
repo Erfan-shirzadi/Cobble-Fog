@@ -97,6 +97,7 @@ void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
 
     if(selection==-2){
+        SaveGame();
         DeleteObjects();
         return;
     }

@@ -151,3 +151,13 @@ Fighter * Dracula::GetDeadSideKick()const {
   }
   return nullptr;
 }
+
+std::vector<Fighter*> Dracula::GetAllsidekick()const {
+    std::vector<Fighter*> result;
+    for(int i{};i<SideKicks.size();i++){
+        result.push_back(SideKicks[i].get());
+    }
+
+    return result;
+}
+
