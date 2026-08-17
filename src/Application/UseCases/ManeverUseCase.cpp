@@ -229,3 +229,17 @@ bool ManeverUseCase::CanMoveAnyFighter(){
     }
     return false;
 }
+
+
+std::vector<Fighter*> ManeverUseCase::GetFighters(){
+    return this->fighters;
+}
+ManeverStep ManeverUseCase::GetStep(){
+    return this->step;
+}
+std::vector<int> ManeverUseCase::GetRechbleNodes(){
+    return this->rechableNode;
+}
+Fighter * ManeverUseCase::SelectedFighter(){
+    return this->selectedHero;
+}

@@ -265,3 +265,27 @@ ContinueResult TurnUseCase::Ability(EffectContext & context){
     res.status=ContinueStatus::FINISHED;
     return res;
 }
+
+void TurnUseCase::Reset(EffectContext& context){
+    this->manever.Finished(context);
+    this->scheme.Finished(context);
+    this->attack.Finished(context);
+}
+
+
+ManeverUseCase & TurnUseCase::GetManeverUseCase(){
+    return this->manever;
+}
+SchemeUseCase & TurnUseCase::GetSchemeUseCase(){
+    return this->scheme;
+}
+AttackUseCase & TurnUseCase::GetAttackUseCase(){
+    return this->attack;
+}
+ActoinType TurnUseCase::CurrentAction(){
+    return this->currentaction;
+}
+
+TurnStep TurnUseCase::GetTurnUseCaseStep(){
+    return this->step;
+}

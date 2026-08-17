@@ -12,7 +12,14 @@ class SaveUseCase {
     void SavePlayer(int ,Player *)const;
     void SaveCurrentPlayerNumber(int)const;
     void SaveHandViewStatus(HandView)const;
-    void SaveTurnUseCase();
+    void SaveGameViewState(ViewState)const;
+    void SaveTurnUseCase(TurnUseCase*)const;
+
+    void SaveManever(ManeverUseCase &)const;
+    void SaveScheme(SchemeUseCase &)const;
+    void SaveAttack(AttackUseCase &)const;
+    void SaveTurnUseCaseStep(TurnStep)const;
+    void SaveCurrentAction(ActoinType)const;
 
 };
 

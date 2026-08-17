@@ -28,5 +28,10 @@ class SchemeUseCase : public IUseCase{
     ContinueResult Finished(EffectContext &);  
     MenuRequest BuildCardMenu(EffectContext&); 
     void Start(EffectContext& );
+
+    SchemeStep GetStep();
+    Card* GetSelectedCard();
+    
+
 };
 #endif /* SCHEME_USECASE */

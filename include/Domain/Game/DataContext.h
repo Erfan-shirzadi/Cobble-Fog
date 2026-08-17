@@ -11,7 +11,7 @@ struct DataContext{
     // GameState gamestate;
     ViewState gameviewstate;
     EffectContext context;
-    // TurnUseCase * TURNUSECASE;
+    TurnUseCase * TURNUSECASE;
 
 };
 #endif /* DATA_CONTEXT */

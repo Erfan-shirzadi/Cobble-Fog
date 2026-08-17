@@ -19,6 +19,7 @@ enum class TurnStep{
 };
 
 enum class ActoinType{
+    NONE,
     SCHEME,
     MANEVER,
     ATTACK
@@ -65,6 +66,15 @@ class TurnUseCase{
     ContinueResult AskAbility(EffectContext &);
     ContinueResult ExecuteAbility(EffectContext &);
     ContinueResult Ability(EffectContext &);
+
+
+    void Reset(EffectContext&);
+    ManeverUseCase & GetManeverUseCase();
+    SchemeUseCase &  GetSchemeUseCase();
+    AttackUseCase & GetAttackUseCase();
+    ActoinType CurrentAction();
+    TurnStep GetTurnUseCaseStep();
+
 };
 
 #endif /* TURN_USECASE */

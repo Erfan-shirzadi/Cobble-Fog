@@ -108,3 +108,10 @@ void SchemeUseCase::Start(EffectContext& context ){
         step=SchemeStep::CHOOSECARD;
         SelectedCard=nullptr;
 }
+
+SchemeStep SchemeUseCase::GetStep(){
+    return this->step;
+}
+Card* SchemeUseCase::GetSelectedCard(){
+    return this->SelectedCard;
+}
