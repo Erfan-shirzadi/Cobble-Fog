@@ -8,6 +8,7 @@
 #include "Application/interaction/ActionContext.h"
 #include "Domain/Game/DataContext.h"
 #include "Application/UseCases/SaveUseCase.h"
+#include "Application/UseCases/LoadUseCase.h"
 
 enum class GameEngineState{
     START_GAME,
@@ -19,8 +20,8 @@ enum class GameEngineState{
 class GameEngine {
 
     GameState gamestate;
-    Player * player1;
-    Player * player2;
+    // Player * player1;
+    // Player * player2;
     Board board;
     GameView view;
 

@@ -45,10 +45,9 @@ void GameEngine::Start(){
 void GameEngine::InitialObjects(){
     this->TURNUSECASE=new TurnUseCase;
     state=GameEngineState::HERO_SELECTION;
-    player1=new Player;
-    player2= new Player;
-    gamestate.player1=player1;
-    gamestate.player2=player2;
+    
+    gamestate.player1=new Player;
+    gamestate.player2=new Player;
 }
 
 
@@ -166,8 +165,9 @@ void GameEngine::DeleteObjects(){
     std::cout<<"OBjects deleted"<<std::endl;
     delete TURNUSECASE;
     gamestate.board.ResetBoard();
-    delete player1;
-    delete player2;
+    delete gamestate.player1;
+    delete gamestate.player2;
+
     gamestate.combatsatat=nullptr;
     
 

@@ -71,6 +71,7 @@ set(
     src/Application/UseCases/AttackUseCase.cpp
     src/Application/UseCases/MoveUseCase.cpp
     src/Application/UseCases/SaveUseCase.cpp
+    src/Application/UseCases/LoadUseCase.cpp
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 

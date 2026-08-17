@@ -42,26 +42,30 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
         cout<<" can not open file";
     }
     Hero * hero=player->GetHero();
-    ofile<<hero->GetName()<<endl;
+    ofile<<(int)hero->GetFighterType()<<endl;
     ofile<<hero->GetHP()<<endl;
     ofile<<hero->GetNode()<<endl;
     ofile<<hero->GetMove()<<endl;
     ofile<<hero->GetRemainingAction()<<endl;
     ofile<<hero->GetStartTurnOnfog()<<endl;
 
+    ofstream cfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Hand.txt");
     for(auto card:hero->GetHand()){
-        ofile<<(int)card->GetCardId()<<endl;
+        cfile<<(int)card->GetCardId()<<endl;
     }
-    for(auto cardid:hero->GetDeck().GetCards()){
-        ofile<<(int)cardid<<endl;
-    }
+    cfile.close();
+    ofstream dfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Deck.txt");
 
+    for(auto cardid:hero->GetDeck().GetCards()){
+        dfile<<(int)cardid<<endl;
+    }
+    dfile.close();
     ofile.close();
 
     std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
     for(int i{};i<sidekcik.size();i++){
         ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
-        sofile<<sidekcik[i]->GetName()<<endl;
+        sofile<<(int)sidekcik[i]->GetFighterType()<<endl;
         sofile<<sidekcik[i]->GetHP()<<endl;
         sofile<<sidekcik[i]->GetNode()<<endl;
         sofile.close();
@@ -218,7 +222,8 @@ void SaveUseCase::RemoveTxtFiles(std::string folderpath)const{
 
     try{
         for(const auto & entry : filesystem::directory_iterator(folderpath)){
-            filesystem::remove(entry.path());
+            if(entry.is_regular_file()&& entry.path().extension()==".txt")
+                filesystem::remove(entry.path());
         }
     }
     catch (const filesystem::filesystem_error & e){

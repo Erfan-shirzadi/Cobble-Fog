@@ -6,9 +6,9 @@
 
 class SaveUseCase {
 
-    std::string folderpathPlayer2="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player2";
-    std::string folderpathPlayer1="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player1";
-    std::string foderpathTurnusecase="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/TurnUseCase";
+    std::string folderpathPlayer2="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player2/";
+    std::string folderpathPlayer1="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player1/";
+    std::string foderpathTurnusecase="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/TurnUseCase/";
     std::string folderpathGame="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1";
     public :
     void Save(DataContext)const;
