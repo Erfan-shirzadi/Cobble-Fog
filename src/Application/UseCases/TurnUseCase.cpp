@@ -40,6 +40,7 @@ ContinueResult TurnUseCase::Start(EffectContext& context){
     hero->SetStartTurnOnfog(board.IsFogHere(hero->GetNode()));
     hero->SetRemainingAction(2);
     step=TurnStep::CHOOSE_ACTION;
+    currentaction=ActoinType::NONE;
     return result;
 }
 
@@ -111,15 +112,19 @@ void TurnUseCase::SetUseCase(int selected){
     case 0:
         std::cout<<" Set action Manever"<<std::endl;
         this->CurrentUseCase= &manever;
+        this->currentaction=ActoinType::MANEVER;
         break;
     case 1:
          this->CurrentUseCase=& scheme;
         std::cout<<" Set action scheme"<<std::endl;
+        this->currentaction=ActoinType::SCHEME;
 
         break;
     case 2:
         this->CurrentUseCase=& attack;
         std::cout<<" Set action Attack"<<std::endl;
+        this->currentaction=ActoinType::ATTACK;
+
 
         break;
     }

@@ -179,6 +179,7 @@ void GameEngine::SaveGame()const{
     // data.gamestate=this->gamestate;
     data.gameviewstate=view.GetState();
     data.context=this->context;
+    data.TURNUSECASE=this->TURNUSECASE;
 
     saveuseCase.Save(data);
     

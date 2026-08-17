@@ -1,11 +1,19 @@
 #include "Application/UseCases/SaveUseCase.h"
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 using namespace std;
 
 void SaveUseCase::Save(DataContext data)const{
 
+    RemoveTxtFiles(folderpathPlayer1);
+    RemoveTxtFiles(folderpathPlayer2);
+    RemoveTxtFiles(folderpathGame);
+    RemoveTxtFiles(foderpathTurnusecase);
+
+
     SaveGameState(data.context.context.Gamestate);
+    SaveTurnUseCase(data.TURNUSECASE);
 }
 
 void SaveUseCase::SaveGameState(GameState * gamestate)const{
@@ -19,6 +27,9 @@ void SaveUseCase::SaveGameState(GameState * gamestate)const{
         SaveCurrentPlayerNumber(2);
     }
     SaveHandViewStatus(gamestate->handview);
+    if(gamestate->combatsatat){
+        SaveCombatContext(gamestate->combatsatat);
+    }
     
 }
 
@@ -107,7 +118,7 @@ void SaveUseCase::SaveGameViewState(ViewState view)const{
 }
 
 void SaveUseCase::SaveManever(ManeverUseCase & manever)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/Manever.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
     file<<(int)manever.GetStep()<<endl;
     
     for(auto f:manever.GetFighters()){
@@ -128,7 +139,7 @@ void SaveUseCase::SaveManever(ManeverUseCase & manever)const{
 }
 
 void SaveUseCase::SaveScheme(SchemeUseCase & scheme)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/Scheme.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
     file<<(int)scheme.GetStep()<<endl;
     
     file<<(int)scheme.GetSelectedCard()->GetCardId()<<endl;
@@ -136,8 +147,26 @@ void SaveUseCase::SaveScheme(SchemeUseCase & scheme)const{
 
 }
 
-void SaveUseCase::SaveAttack(AttackUseCase &)const{
-
+void SaveUseCase::SaveAttack(AttackUseCase & attack)const{
+    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/attack.txt");
+    file<<(int)attack.GetStep()<<endl;
+    file<<(int)attack.GetStepSetup()<<endl;
+    cout<< attack.GetAttackers().size()<<endl;
+    for(auto fighter: attack.GetAttackers()){
+        file<<fighter->GetName()<<endl;
+        file<<fighter->GetNode()<<endl;
+    }
+    for(auto card : attack.GetAttackerCards()){
+        file<<(int)card->GetCardId()<<endl;
+    }
+    for(auto fighter: attack.GetDeffenders()){
+        file<<fighter->GetName()<<endl;
+        file<<fighter->GetNode()<<endl;
+    }
+    for(auto card : attack.GetDeffenderCards()){
+        file<<(int)card->GetCardId()<<endl;
+    }
+    file.close();
 }
 
 void SaveUseCase::SaveTurnUseCaseStep(TurnStep step)const{
@@ -150,4 +179,49 @@ void SaveUseCase::SaveCurrentAction(ActoinType actoin)const{
     ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentAction.txt");
     file<<(int)actoin<<endl;
     file.close();
+}
+
+
+void SaveUseCase::SaveCombatContext(CombatContext* context)const{
+    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextCurrent.txt");
+
+    file<<context->Current->hero->GetName()<<endl;
+    file<<context->Current->fighter->GetName()<<endl;
+    file<<context->Current->fighter->GetNode()<<endl;
+    file<<context->Current->IsActiveCardEffect<<endl;
+    file<<context->Current->Won<<endl;
+    file<<context->Current->CanChangeAmountCard<<endl;
+    if(context->Current->card){
+        file<<(int)context->Current->card->GetCardId()<<endl;
+        file<<context->Current->card->GetDamgeOrDeffend()<<endl;
+    }
+    file.close();
+    ofstream ofile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextOpponent.txt");
+
+    ofile<<context->Opponent->hero->GetName()<<endl;
+    ofile<<context->Opponent->fighter->GetName()<<endl;
+    ofile<<context->Opponent->fighter->GetNode()<<endl;
+    ofile<<context->Opponent->IsActiveCardEffect<<endl;
+    ofile<<context->Opponent->Won<<endl;
+    ofile<<context->Opponent->CanChangeAmountCard<<endl;
+    if(context->Opponent->card){
+        ofile<<(int)context->Opponent->card->GetCardId()<<endl;
+        ofile<<context->Opponent->card->GetDamgeOrDeffend()<<endl;
+    }
+    ofile.close();
+
+
+
+}
+
+void SaveUseCase::RemoveTxtFiles(std::string folderpath)const{
+
+    try{
+        for(const auto & entry : filesystem::directory_iterator(folderpath)){
+            filesystem::remove(entry.path());
+        }
+    }
+    catch (const filesystem::filesystem_error & e){
+        cout<<" erorr"<<e.what()<<endl;
+    }
 }

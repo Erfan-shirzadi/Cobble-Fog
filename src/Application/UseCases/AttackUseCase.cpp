@@ -289,7 +289,8 @@ ContinueResult AttackUseCase::ChooseDeffender(EffectContext & context){
 
 ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
     ContinueResult result;
-    this->GetFighterCanAttackIt(context.context.Gamestate->board);
+    if(enemiescanAttack.empty())
+        this->GetFighterCanAttackIt(context.context.Gamestate->board);
     for(auto fihgter:this->enemiescanAttack){
         result.menu_request.nodes.push_back(fihgter->GetNode());
     }
@@ -398,3 +399,27 @@ ContinueResult AttackUseCase::Finished(EffectContext & context){
     return res;
     
 }
+
+AttackStep AttackUseCase::GetStep(){
+    return this->attackstep;
+}
+SetUpStep AttackUseCase::GetStepSetup(){
+    return this->setupstep;
+}
+std::vector<Fighter*> AttackUseCase::GetAttackers(){
+    std::cout<<"ATaackers"<<Attacker.size()<<endl;
+    return this->Attacker;
+}
+std::vector<Card*> AttackUseCase::GetAttackerCards(){
+    std::cout<<"Attackercards"<<AttackerCards.size()<<endl;
+    return this->AttackerCards;
+}
+std::vector<Card*> AttackUseCase::GetDeffenderCards(){
+    std::cout<<"Deffendercards"<<DeffenderCards.size()<<endl;
+    return this->DeffenderCards;
+}
+std::vector<Fighter*> AttackUseCase::GetDeffenders(){
+    std::cout<<"Deffenders:"<<enemiescanAttack.size()<<endl;
+    return this->enemiescanAttack;
+}
+
