@@ -65,7 +65,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
     for(int i{};i<sidekcik.size();i++){
         ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
-        sofile<<(int)sidekcik[i]->GetFighterType()<<endl;
+        // sofile<<(int)sidekcik[i]->GetFighterType()<<endl;
         sofile<<sidekcik[i]->GetHP()<<endl;
         sofile<<sidekcik[i]->GetNode()<<endl;
         sofile.close();

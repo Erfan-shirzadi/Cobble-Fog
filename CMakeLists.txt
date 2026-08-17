@@ -72,6 +72,7 @@ set(
     src/Application/UseCases/MoveUseCase.cpp
     src/Application/UseCases/SaveUseCase.cpp
     src/Application/UseCases/LoadUseCase.cpp
+    src/Application/UseCases/CreatCard.cpp
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 

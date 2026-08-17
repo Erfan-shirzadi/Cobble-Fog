@@ -32,3 +32,7 @@ std::vector <CardId> Deck::GetCards(){
     }
     return res;
 }
+ 
+void Deck::ClearDeck(){
+    this->deck.clear();
+}

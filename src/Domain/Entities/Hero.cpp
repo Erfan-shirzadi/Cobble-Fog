@@ -164,3 +164,7 @@ std::vector<Fighter*> Hero::GetAllsidekick()const{
       std::vector<Fighter*> res;
       return res;
 }
+
+void Hero::EmptyHand(){
+      Hand.clear();
+}
