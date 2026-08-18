@@ -290,7 +290,7 @@ void SetUpView::DrawSidekickPlacement(){
 }
 void SetUpView::DrawBoard(){
         Vector2 mouse=GetMousePosition();
-
+    std::cout<<"Befor Draw Board"<<std::endl;
     GetNodeCenters();
     DrawTexturePro(boardtexture,
         Rectangle{
@@ -304,6 +304,7 @@ void SetUpView::DrawBoard(){
         WHITE);
         DrawFightersOnBoard();
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
+    std::cout<<"After Draw Board"<<std::endl;
 
     // DrawTextPro()
         // for(const auto & center : nodeCenters){

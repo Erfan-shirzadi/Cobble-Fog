@@ -78,7 +78,9 @@ void GameView::Run(){
             Onselection(-1);
             break;
         case MenuResult::LOAD:
-       
+            this->state=ViewState::GAME;
+            Onselection(-3);
+            std::cout<<" herhre"<<std::endl;
             break;
         }
     }
@@ -141,13 +143,27 @@ void GameView::Update(){
 void GameView::Draw(){
     if(!exitb)
         setup.DrawBoard();
+    std::cout<<"Drawed"<<std::endl;
     DrawAction();
+    std::cout<<"DrawAction"<<std::endl;
     DrawHand();
+    std::cout<<"DrawHand"<<std::endl;
+
     DrawQuestion();
+        std::cout<<"Drawquestion"<<std::endl;
+
     DrawNode();
+            std::cout<<"DrawNode"<<std::endl;
+
     DrawPlayers();
+            std::cout<<"Drawqplayers"<<std::endl;
+
     DrawCombat();
+            std::cout<<"combat draw"<<std::endl;
+
     DrawExit();
+            std::cout<<"Drawexit"<<std::endl;
+
 }
 
 

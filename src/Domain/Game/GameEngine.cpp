@@ -55,6 +55,9 @@ void GameEngine::Process(){
 
     while (true){
 
+        if(TURNUSECASE){
+            std::cout<<" its okkkkk"<<std::endl;
+        }
         ContinueResult result=TURNUSECASE->Continue(context);
 
         if(GameOver()){
@@ -98,6 +101,12 @@ void GameEngine::OnSelection(int selection){
     if(selection==-2){
         SaveGame();
         DeleteObjects();
+        return;
+    }
+    if(selection==-3){
+        LoadGame();
+        this->state=GameEngineState::GAME;
+        context.context.Selected=-1;
         return;
     }
     switch (state)
@@ -184,4 +193,13 @@ void GameEngine::SaveGame()const{
     saveuseCase.Save(data);
     
     
+}
+
+void GameEngine::LoadGame(){
+    DataContext data;
+    data.gameviewstate=view.GetState();
+    data.context=this->context;
+    data.TURNUSECASE=this->TURNUSECASE;
+
+    loaduseCase.Load(data);
 }

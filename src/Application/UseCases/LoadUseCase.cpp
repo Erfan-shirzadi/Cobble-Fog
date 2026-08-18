@@ -1,10 +1,12 @@
 #include "Application/UseCases/LoadUseCase.h"
 #include "Application/UseCases/CreatCard.h"
 #include <fstream>
-
+#include <iostream>
 using namespace std;
 void LoadUseCase::Load (DataContext & data){
     LoadGameState(data.context.context.Gamestate);
+    data.TURNUSECASE=new TurnUseCase;
+    
 }
 
 void LoadUseCase::LoadGameState(GameState * gamestate){
@@ -12,6 +14,36 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
     gamestate->player2=new Player;
 
     LoadPlayer(1,gamestate->player1);
+    LoadPlayer(2,gamestate->player2);
+    ifstream ifile("../include/Infrastructure/SavedGames/Game1/CurrentPlayer.txt");
+    int n;
+    ifile>>n;
+    if(n==1){
+        gamestate->currnetPlayer=gamestate->player1;
+    }else gamestate->opponentPlayre=gamestate->player2;
+    ifile.close();
+    ifstream handviewfile("../include/Infrastructure/SavedGames/Game1/HandView.txt");
+    handviewfile>>n;
+    gamestate->handview=static_cast<HandView>(n);
+    handviewfile.close();
+
+    Board  board=gamestate->board;
+    for(auto fighter:gamestate->player1->GetHero()->GetAllsidekick()){
+        board.AddFighter(fighter,fighter->GetNode());
+    }
+    for(auto fighter:gamestate->player2->GetHero()->GetAllsidekick()){
+        board.AddFighter(fighter,fighter->GetNode());
+    }
+    for(auto fog:gamestate->player2->GetHero()->GetFogs()){
+        board.AddFog(fog,fog->GetNode());
+    }
+    for(auto fog:gamestate->player1->GetHero()->GetFogs()){
+        board.AddFog(fog,fog->GetNode());
+    }
+
+    cout<< "GAme State Loaded "<<endl;
+
+
 }
 void LoadUseCase::LoadPlayer(int number,Player* player){
     ifstream file("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/Hero.txt");
@@ -62,4 +94,8 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     }
 
 
+    for(auto s: sidekick){
+        cout<<s->GetName()<<endl;
+    }
+    cout<< hero->GetName()<<endl;
 }

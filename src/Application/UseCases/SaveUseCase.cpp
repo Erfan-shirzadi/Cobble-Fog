@@ -8,8 +8,8 @@ void SaveUseCase::Save(DataContext data)const{
 
     RemoveTxtFiles(folderpathPlayer1);
     RemoveTxtFiles(folderpathPlayer2);
-    RemoveTxtFiles(folderpathGame);
-    RemoveTxtFiles(foderpathTurnusecase);
+    // RemoveTxtFiles(folderpathGame);
+    // RemoveTxtFiles(foderpathTurnusecase);
 
 
     SaveGameState(data.context.context.Gamestate);

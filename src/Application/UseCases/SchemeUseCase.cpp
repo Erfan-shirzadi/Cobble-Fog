@@ -10,6 +10,7 @@ using namespace std;
 
 bool SchemeUseCase::CanDoAction(GameState * gamestate){
     Hero * hero =gamestate->currnetPlayer->GetHero();
+    cout<<" herreiiiiiiiiiiiiii"<<endl;
     if(!hero->IsExistCardInHand(CardCategory::SCHEME))
         return false;
     

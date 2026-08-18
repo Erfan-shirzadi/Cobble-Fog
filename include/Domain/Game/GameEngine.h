@@ -33,6 +33,7 @@ class GameEngine {
     EffectContext context;
 
     SaveUseCase saveuseCase;
+    LoadUseCase loaduseCase;
 
     void Process();
     
@@ -53,5 +54,6 @@ class GameEngine {
     void DeleteObjects();
 
     void SaveGame()const;
+    void LoadGame();
 };
 #endif /*GAMEENGINE_H */

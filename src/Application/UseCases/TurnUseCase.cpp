@@ -70,13 +70,14 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
         SetUseCase(context.context.Selected);
         CurrentUseCase->Start(context);
         context.context.Selected=-1;
-
+        std::cout<<"Actions"<<std::endl;
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
         return a;
 
     }
+    // std::cout<<"ActionsHavvar"<<std::endl;
 
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
@@ -137,7 +138,7 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     temp.title="Action";
     temp.options.push_back("MANEVER");
     possibleAction.push_back(ActoinType::MANEVER);
-
+    std::cout<<"Manever!!!!!!!!!!!!!"<<std::endl;
     if(scheme.CanDoAction(context.context.Gamestate)){
         temp.options.push_back("SCHEME");
         possibleAction.push_back(ActoinType::SCHEME);
