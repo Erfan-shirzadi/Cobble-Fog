@@ -356,7 +356,7 @@ std::vector<Vector2> SetUpView::GetNodeCenters(){
 }
 void SetUpView::DrawFightersOnBoard(){
     Board board=gamestate.board;
-
+    std::cout<<"Size"<<board.GetGraph().size()<<std::endl;
     for(auto token:board.GetGraph()){
         // FighterType type=token->GetFighterType();
         // std::cout<<"Sixe Graph "<<std::to_string(board.GetGraph().size())<<std::endl;

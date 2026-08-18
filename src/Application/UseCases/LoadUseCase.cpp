@@ -4,8 +4,10 @@
 #include <iostream>
 using namespace std;
 void LoadUseCase::Load (DataContext & data){
-    LoadGameState(data.context.context.Gamestate);
+    LoadGameState(data.context->context.Gamestate);
     data.TURNUSECASE=new TurnUseCase;
+    LoadTurnUseCase(data.TURNUSECASE);
+    // data.context.context.Gamestate.
     
 }
 
@@ -27,7 +29,10 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
     gamestate->handview=static_cast<HandView>(n);
     handviewfile.close();
 
-    Board  board=gamestate->board;
+    Board & board=gamestate->board;
+    board.AddFighter(dynamic_cast<Fighter*>(gamestate->player1->GetHero()),gamestate->player1->GetHero()->GetNode());
+    board.AddFighter(dynamic_cast<Fighter*>(gamestate->player2->GetHero()),gamestate->player2->GetHero()->GetNode());
+
     for(auto fighter:gamestate->player1->GetHero()->GetAllsidekick()){
         board.AddFighter(fighter,fighter->GetNode());
     }
@@ -98,4 +103,46 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
         cout<<s->GetName()<<endl;
     }
     cout<< hero->GetName()<<endl;
+}
+
+void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase){
+    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
+    int n;
+    ifile>>n;
+    turnusecase->SetStep(static_cast<TurnStep>(n));
+    ifile.close();
+
+    ifstream afile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentAction.txt");
+    afile>>n;
+    turnusecase->SetUseCase(n);
+    afile.close();
+
+
+    switch (turnusecase->CurrentAction())
+    {
+    case ActoinType::MANEVER:
+        LoadManever(turnusecase->GetManeverUseCase());
+        break;
+    case ActoinType::SCHEME:
+        LoadScheme(turnusecase->GetSchemeUseCase());
+        break;
+    case ActoinType::ATTACK:
+        LoadAttck(turnusecase->GetAttackUseCase());
+        break;
+    
+    default:
+        break;
+    }
+    // cout<<turnusecase->
+
+}
+
+void LoadUseCase::LoadManever(ManeverUseCase &){
+
+}
+void LoadUseCase::LoadScheme(SchemeUseCase &){
+
+}
+void LoadUseCase::LoadAttck(AttackUseCase &){
+
 }

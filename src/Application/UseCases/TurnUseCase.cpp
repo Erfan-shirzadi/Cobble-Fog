@@ -80,7 +80,7 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
     // std::cout<<"ActionsHavvar"<<std::endl;
 
     ContinueResult result;
-    result.status=ContinueStatus::NEEDMENU;
+    result.status=ContinueStatus::FINISHED;
     
     result.menu_request=BuildActionMenu(context);
     return result;
@@ -294,4 +294,8 @@ ActoinType TurnUseCase::CurrentAction(){
 
 TurnStep TurnUseCase::GetTurnUseCaseStep(){
     return this->step;
+}
+
+void TurnUseCase::SetStep(TurnStep newstep){
+    this->step=newstep;
 }

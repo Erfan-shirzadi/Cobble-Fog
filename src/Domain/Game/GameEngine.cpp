@@ -56,7 +56,11 @@ void GameEngine::Process(){
     while (true){
 
         if(TURNUSECASE){
-            std::cout<<" its okkkkk"<<std::endl;
+            // std::cout<<" its okkkkk"<<std::endl;
+            // std::cout<<"Current action"<<(int)TURNUSECASE->CurrentAction()<<std::endl;
+            // std::cout<<"Get Turn step"<<(int)TURNUSECASE->GetTurnUseCaseStep()<<std::endl;
+            // std::cerr<<"Gaeiddddd maray"<<std::endl;
+
         }
         ContinueResult result=TURNUSECASE->Continue(context);
 
@@ -107,6 +111,9 @@ void GameEngine::OnSelection(int selection){
         LoadGame();
         this->state=GameEngineState::GAME;
         context.context.Selected=-1;
+        if(gamestate.player1){
+            std::cout<<" fuckk me but ....."<<std::endl;
+        }
         return;
     }
     switch (state)
@@ -182,12 +189,12 @@ void GameEngine::DeleteObjects(){
 
 }
 
-void GameEngine::SaveGame()const{
+void GameEngine::SaveGame(){
 
-    DataContext data;
+    // DataContext data;
     // data.gamestate=this->gamestate;
     data.gameviewstate=view.GetState();
-    data.context=this->context;
+    data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
     saveuseCase.Save(data);
@@ -196,9 +203,9 @@ void GameEngine::SaveGame()const{
 }
 
 void GameEngine::LoadGame(){
-    DataContext data;
+    // DataContext data;
     data.gameviewstate=view.GetState();
-    data.context=this->context;
+    data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
     loaduseCase.Load(data);

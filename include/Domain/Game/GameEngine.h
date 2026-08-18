@@ -35,6 +35,8 @@ class GameEngine {
     SaveUseCase saveuseCase;
     LoadUseCase loaduseCase;
 
+    DataContext data;
+
     void Process();
     
     public:
@@ -53,7 +55,7 @@ class GameEngine {
 
     void DeleteObjects();
 
-    void SaveGame()const;
+    void SaveGame();
     void LoadGame();
 };
 #endif /*GAMEENGINE_H */

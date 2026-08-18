@@ -19,10 +19,10 @@ enum class TurnStep{
 };
 
 enum class ActoinType{
-    NONE,
-    SCHEME,
     MANEVER,
-    ATTACK
+    SCHEME,
+    ATTACK,
+    NONE
 };
 
 enum class AbilityStep{
@@ -74,6 +74,7 @@ class TurnUseCase{
     AttackUseCase & GetAttackUseCase();
     ActoinType CurrentAction();
     TurnStep GetTurnUseCaseStep();
+    void SetStep(TurnStep);
 
 };
 

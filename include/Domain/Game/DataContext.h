@@ -10,7 +10,7 @@ struct DataContext{
 
     // GameState gamestate;
     ViewState gameviewstate;
-    EffectContext context;
+    EffectContext *context;
     TurnUseCase * TURNUSECASE;
 
 };

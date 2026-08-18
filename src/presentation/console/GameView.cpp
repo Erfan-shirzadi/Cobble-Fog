@@ -144,7 +144,7 @@ void GameView::Draw(){
     if(!exitb)
         setup.DrawBoard();
     std::cout<<"Drawed"<<std::endl;
-    DrawAction();
+    // DrawAction();
     std::cout<<"DrawAction"<<std::endl;
     DrawHand();
     std::cout<<"DrawHand"<<std::endl;
