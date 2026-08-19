@@ -80,7 +80,7 @@ void GameView::Run(){
         case MenuResult::LOAD:
             this->state=ViewState::GAME;
             Onselection(-3);
-            std::cout<<" herhre"<<std::endl;
+            // std::cout<<" herhre"<<std::endl;
             break;
         }
     }
@@ -143,26 +143,28 @@ void GameView::Update(){
 void GameView::Draw(){
     if(!exitb)
         setup.DrawBoard();
-    std::cout<<"Drawed"<<std::endl;
-    // DrawAction();
-    std::cout<<"DrawAction"<<std::endl;
+    
+    // std::cout<<"Drawed"<<std::endl;
+    DrawAction();
+    // std::cout<<"DrawAction"<<std::endl;
+    
     DrawHand();
-    std::cout<<"DrawHand"<<std::endl;
+    // std::cout<<"DrawHand"<<std::endl;
 
     DrawQuestion();
-        std::cout<<"Drawquestion"<<std::endl;
+        // std::cout<<"Drawquestion"<<std::endl;
 
     DrawNode();
-            std::cout<<"DrawNode"<<std::endl;
+            // std::cout<<"DrawNode"<<std::endl;
 
     DrawPlayers();
-            std::cout<<"Drawqplayers"<<std::endl;
+            // std::cout<<"Drawqplayers"<<std::endl;
 
     DrawCombat();
-            std::cout<<"combat draw"<<std::endl;
+            // std::cout<<"combat draw"<<std::endl;
 
     DrawExit();
-            std::cout<<"Drawexit"<<std::endl;
+            // std::cout<<"Drawexit"<<std::endl;
 
 }
 
@@ -217,25 +219,23 @@ void GameView::UpdateAction(){
 
 void GameView::DrawHand(){
     Hero * hero;
+    // if(gamestate.currnetPlayer->GetHero()){
+    //     std::cout<<" fuuuuuuck in draw hadn"<<std::endl;
+    // }
     if(gamestate.handview==HandView::CURRENTPLAYER)
         hero=gamestate.currnetPlayer->GetHero();
     else hero=gamestate.opponentPlayre->GetHero();
-
+    // std::cout<<"in draw hand"<<std::endl;
     if(menurequest.type==InputType::CARD){
-        // if(menurequest.cards.empty())
-        //     Onselection(-1);
-    // for(auto card:cards){
-    //     DrawRectangleLines(card.x,card.y,card.width,card.height,YELLOW);
-    // }
+        for(int i{};i<menurequest.cards.size();i++ ){
+            for(int j{};j<hero->GetHand().size();j++){
+                if(menurequest.cards[i]==hero->GetHand()[j]->GetCardId()){
+                    DrawRectangleLines(cards[j].x,cards[j].y,cards[j].width,cards[j].height,YELLOW);
 
-    for(int i{};i<menurequest.cards.size();i++ ){
-        for(int j{};j<hero->GetHand().size();j++){
-            if(menurequest.cards[i]==hero->GetHand()[j]->GetCardId()){
-                DrawRectangleLines(cards[j].x,cards[j].y,cards[j].width,cards[j].height,YELLOW);
-
+                }
             }
         }
-    }}
+    }
     
     for(int i=285 ;i<290;i++){
         for(int j=780;j<785;j++)
@@ -476,7 +476,7 @@ void GameView::UpdateGameResult(){
     DrawRectangleLinesEx(backtomainMenu,3,YELLOW);
     if(CheckCollisionPointRec(mouse,backtomainMenu)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            std::cout<<"FUUUUUUUUUUCCCKKKKKKK it \n";
+            // std::cout<<"FUUUUUUUUUUCCCKKKKKKK it \n";
                 state=ViewState::MAINMENU;
                 return;
         }

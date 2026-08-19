@@ -52,6 +52,8 @@ class ManeverUseCase : public IUseCase{
      Fighter * SelectedFighter();
 
 
+     void SetStep(ManeverStep);
+
 };
 
 #endif /* MANEVER_USECASE */

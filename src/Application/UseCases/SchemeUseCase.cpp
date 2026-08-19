@@ -10,7 +10,7 @@ using namespace std;
 
 bool SchemeUseCase::CanDoAction(GameState * gamestate){
     Hero * hero =gamestate->currnetPlayer->GetHero();
-    cout<<" herreiiiiiiiiiiiiii"<<endl;
+    // cout<<" herreiiiiiiiiiiiiii"<<endl;
     if(!hero->IsExistCardInHand(CardCategory::SCHEME))
         return false;
     
@@ -115,4 +115,8 @@ SchemeStep SchemeUseCase::GetStep(){
 }
 Card* SchemeUseCase::GetSelectedCard(){
     return this->SelectedCard;
+}
+
+void SchemeUseCase::SetStep(SchemeStep step){
+    this->step=step;
 }

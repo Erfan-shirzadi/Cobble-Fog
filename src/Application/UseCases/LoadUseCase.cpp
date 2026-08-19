@@ -5,15 +5,15 @@
 using namespace std;
 void LoadUseCase::Load (DataContext & data){
     LoadGameState(data.context->context.Gamestate);
-    data.TURNUSECASE=new TurnUseCase;
+    // data.TURNUSECASE=new TurnUseCase;
     LoadTurnUseCase(data.TURNUSECASE);
     // data.context.context.Gamestate.
-    
+    data.context->context.Selected=-1;
 }
 
 void LoadUseCase::LoadGameState(GameState * gamestate){
-    gamestate->player1=new Player;
-    gamestate->player2=new Player;
+    // gamestate->player1=new Player;
+    // gamestate->player2=new Player;
 
     LoadPlayer(1,gamestate->player1);
     LoadPlayer(2,gamestate->player2);
@@ -22,7 +22,14 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
     ifile>>n;
     if(n==1){
         gamestate->currnetPlayer=gamestate->player1;
-    }else gamestate->opponentPlayre=gamestate->player2;
+        gamestate->opponentPlayre=gamestate->player2;
+
+    }else {
+        gamestate->currnetPlayer=gamestate->player2;
+        gamestate->currnetPlayer=gamestate->player1;
+
+
+    }
     ifile.close();
     ifstream handviewfile("../include/Infrastructure/SavedGames/Game1/HandView.txt");
     handviewfile>>n;
@@ -107,8 +114,12 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
 
 void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase){
     ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
+    // if(!ifile){
+        cout<<"Yaaaaa khodaaa"<<std::endl;
+    // }
     int n;
     ifile>>n;
+    cout<<n<<endl;
     turnusecase->SetStep(static_cast<TurnStep>(n));
     ifile.close();
 
@@ -137,10 +148,21 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase){
 
 }
 
-void LoadUseCase::LoadManever(ManeverUseCase &){
+void LoadUseCase::LoadManever(ManeverUseCase & manever){
+    ifstream ifile ("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
+    int n;
+    ifile>>n;
+    manever.SetStep(static_cast<ManeverStep>(n));
+    ifile.close();
 
 }
-void LoadUseCase::LoadScheme(SchemeUseCase &){
+void LoadUseCase::LoadScheme(SchemeUseCase & scheme){
+    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
+    int n;
+    ifile>>n;
+    scheme.SetStep(static_cast<SchemeStep>(n));
+    cout<<"LOaded seccusfull"<<endl;
+    ifile.close();
 
 }
 void LoadUseCase::LoadAttck(AttackUseCase &){

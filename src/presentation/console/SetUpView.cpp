@@ -290,7 +290,7 @@ void SetUpView::DrawSidekickPlacement(){
 }
 void SetUpView::DrawBoard(){
         Vector2 mouse=GetMousePosition();
-    std::cout<<"Befor Draw Board"<<std::endl;
+    // std::cout<<"Befor Draw Board"<<std::endl;
     GetNodeCenters();
     DrawTexturePro(boardtexture,
         Rectangle{
@@ -304,7 +304,7 @@ void SetUpView::DrawBoard(){
         WHITE);
         DrawFightersOnBoard();
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
-    std::cout<<"After Draw Board"<<std::endl;
+    // std::cout<<"After Draw Board"<<std::endl;
 
     // DrawTextPro()
         // for(const auto & center : nodeCenters){
@@ -356,7 +356,7 @@ std::vector<Vector2> SetUpView::GetNodeCenters(){
 }
 void SetUpView::DrawFightersOnBoard(){
     Board board=gamestate.board;
-    std::cout<<"Size"<<board.GetGraph().size()<<std::endl;
+    // std::cout<<"Size"<<board.GetGraph().size()<<std::endl;
     for(auto token:board.GetGraph()){
         // FighterType type=token->GetFighterType();
         // std::cout<<"Sixe Graph "<<std::to_string(board.GetGraph().size())<<std::endl;

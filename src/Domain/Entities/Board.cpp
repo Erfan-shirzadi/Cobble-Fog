@@ -2,7 +2,7 @@
 #include  <vector>
 #include <map>
 #include <queue>
-#include <iostream>
+// #include <iostream>
 #include <stdexcept>
 #include <sstream>
 #include <algorithm>
@@ -190,8 +190,8 @@ void Board::ResetBoard(){
 void Board::AddFog(Fog* f,int node){
     f->SetNode(node);
     fogs.push_back(f);
-    std::cout<<" Push backed\n";
-    std::cout<<fogs.size()<<"sizs of fogs in board\n";
+    // std::cout<<" Push backed\n";
+    // std::cout<<fogs.size()<<"sizs of fogs in board\n";
 }
 
 

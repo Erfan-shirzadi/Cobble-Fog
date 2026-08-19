@@ -55,13 +55,13 @@ void GameEngine::Process(){
 
     while (true){
 
-        if(TURNUSECASE){
-            // std::cout<<" its okkkkk"<<std::endl;
-            // std::cout<<"Current action"<<(int)TURNUSECASE->CurrentAction()<<std::endl;
-            // std::cout<<"Get Turn step"<<(int)TURNUSECASE->GetTurnUseCaseStep()<<std::endl;
-            // std::cerr<<"Gaeiddddd maray"<<std::endl;
+        // if(TURNUSECASE){
+        //     std::cout<<" its okkkkk"<<std::endl;
+        //     std::cout<<"Current action"<<(int)TURNUSECASE->CurrentAction()<<std::endl;
+        //     std::cout<<"Get Turn step"<<(int)TURNUSECASE->GetTurnUseCaseStep()<<std::endl;
+        //     std::cerr<<"Gaeiddddd maray"<<std::endl;
 
-        }
+        // }
         ContinueResult result=TURNUSECASE->Continue(context);
 
         if(GameOver()){
@@ -108,12 +108,14 @@ void GameEngine::OnSelection(int selection){
         return;
     }
     if(selection==-3){
+        InitialObjects();
         LoadGame();
         this->state=GameEngineState::GAME;
         context.context.Selected=-1;
-        if(gamestate.player1){
-            std::cout<<" fuckk me but ....."<<std::endl;
-        }
+        // if(gamestate.player1){
+        //     std::cout<<" fuckk me but ....."<<std::endl;
+        // }
+        // TURNUSECASE->Start(context);
         return;
     }
     switch (state)

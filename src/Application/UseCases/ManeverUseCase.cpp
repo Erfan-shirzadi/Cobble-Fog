@@ -243,3 +243,7 @@ std::vector<int> ManeverUseCase::GetRechbleNodes(){
 Fighter * ManeverUseCase::SelectedFighter(){
     return this->selectedHero;
 }
+
+void ManeverUseCase::SetStep(ManeverStep step){
+    this->step=step;
+}

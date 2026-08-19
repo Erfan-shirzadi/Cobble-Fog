@@ -31,6 +31,7 @@ class SchemeUseCase : public IUseCase{
 
     SchemeStep GetStep();
     Card* GetSelectedCard();
+    void SetStep(SchemeStep);
     
 
 };
