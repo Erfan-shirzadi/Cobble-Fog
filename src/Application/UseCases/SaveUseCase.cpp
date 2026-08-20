@@ -62,6 +62,12 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     dfile.close();
     ofile.close();
 
+    ofstream dcfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/DiscadCards.txt");
+    for(auto card: hero->GetDiscardCards()){
+        dcfile<<(int)card->GetCardId()<<std::endl;
+    }
+    dcfile.close();
+
     std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
     for(int i{};i<sidekcik.size();i++){
         ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");

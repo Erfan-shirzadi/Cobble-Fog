@@ -302,6 +302,8 @@ void SetUpView::DrawBoard(){
         Vector2{0,0},
         0,
         WHITE);
+
+    std::cout<<" Map Drawed"<<std::endl;
         DrawFightersOnBoard();
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
     // std::cout<<"After Draw Board"<<std::endl;

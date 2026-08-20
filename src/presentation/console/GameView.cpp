@@ -141,30 +141,32 @@ void GameView::Update(){
 }
 
 void GameView::Draw(){
+    std::cout<<"Drawed fist"<<std::endl;
+
     if(!exitb)
         setup.DrawBoard();
     
-    // std::cout<<"Drawed"<<std::endl;
+    std::cout<<"Drawed"<<std::endl;
     DrawAction();
-    // std::cout<<"DrawAction"<<std::endl;
+    std::cout<<"DrawAction"<<std::endl;
     
     DrawHand();
-    // std::cout<<"DrawHand"<<std::endl;
+    std::cout<<"DrawHand"<<std::endl;
 
     DrawQuestion();
-        // std::cout<<"Drawquestion"<<std::endl;
+        std::cout<<"Drawquestion"<<std::endl;
 
     DrawNode();
-            // std::cout<<"DrawNode"<<std::endl;
+            std::cout<<"DrawNode"<<std::endl;
 
     DrawPlayers();
-            // std::cout<<"Drawqplayers"<<std::endl;
+            std::cout<<"Drawqplayers"<<std::endl;
 
     DrawCombat();
-            // std::cout<<"combat draw"<<std::endl;
+            std::cout<<"combat draw"<<std::endl;
 
     DrawExit();
-            // std::cout<<"Drawexit"<<std::endl;
+            std::cout<<"Drawexit"<<std::endl;
 
 }
 

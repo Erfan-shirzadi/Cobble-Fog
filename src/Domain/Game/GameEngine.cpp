@@ -64,8 +64,11 @@ void GameEngine::Process(){
         // }
         ContinueResult result=TURNUSECASE->Continue(context);
 
+        std::cout<<"in procces"<<std::endl;
+
         if(GameOver()){
             state=GameEngineState::GAMEOVER;
+            std::cout<<"in proccesbut int gameover"<<std::endl;
             Hero* current=gamestate.currnetPlayer->GetHero();
             if(current->IsAlive()){
                 if(current->GetFighterType()==FighterType::SHERLOCK){
@@ -83,7 +86,7 @@ void GameEngine::Process(){
             DeleteObjects();
             return;
         }
-       
+        std::cout<<"in procces"<<std::endl;
         if(result.status==ContinueStatus::NEEDMENU){
             view.SetInputRequest(result.menu_request);
             return;
@@ -169,8 +172,14 @@ void GameEngine::SetUp(){
 
 
 bool GameEngine::GameOver( ){
+    std::cout<<"In Game Over test 1"<<std::endl;
     Hero* current=gamestate.currnetPlayer->GetHero();
+    std::cout<<"In game over test 3"<<std::endl;
+    if(gamestate.opponentPlayre){
+        // std::cout<<"IN game oveeer test 4 "std::endl
+    }
     Hero* opponent=gamestate.opponentPlayre->GetHero();
+    std::cout<<"In Game Over test 2"<<std::endl;
 
     if(!current->IsAlive() || !opponent->IsAlive())
         return true;

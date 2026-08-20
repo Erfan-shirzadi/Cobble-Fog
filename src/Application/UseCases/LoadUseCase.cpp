@@ -26,8 +26,7 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
 
     }else {
         gamestate->currnetPlayer=gamestate->player2;
-        gamestate->currnetPlayer=gamestate->player1;
-
+        gamestate->opponentPlayre=gamestate->player1;
 
     }
     ifile.close();

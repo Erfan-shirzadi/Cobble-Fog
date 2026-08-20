@@ -54,6 +54,7 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 
     if(context.context.Selected==-1){
         ContinueResult result;
+        cout<<"In choose card Scheme"<<endl;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::CARD;
         result.menu_request=BuildCardMenu(context);
@@ -75,12 +76,16 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 
 MenuRequest SchemeUseCase::BuildCardMenu(EffectContext& context){
     MenuRequest request;
-    std::vector<string> options;
+    // std::vector<string> options;
+    if(context.context.Gamestate->currnetPlayer){
+        cout<<"Buidl menu cardds"<<endl;
+    }
     for(auto card : context.context.Gamestate->currnetPlayer->GetHero()->GetAllCardOf(CardCategory::SCHEME)){
-        options.push_back(card->GetName());
+        // options.push_back(card->GetName());
         request.cards.push_back(card->GetCardId());
     }
-    request.options=options;
+    // request.options=options;
+    cout<<"bbbbbbbbbbbiuld cardddddmenu"<<endl;
     request.type=InputType::CARD;
     request.title="Scheme Card ";
     return request;

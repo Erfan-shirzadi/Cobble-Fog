@@ -168,3 +168,12 @@ std::vector<Fighter*> Hero::GetAllsidekick()const{
 void Hero::EmptyHand(){
       Hand.clear();
 }
+
+std::vector<Card * > Hero::GetDiscardCards()const{
+      std::vector<Card*> result;
+      for( int i{};i<DiscardCards.size();i++){
+            result.push_back(DiscardCards[i].get());
+      }
+
+      return result;
+}
