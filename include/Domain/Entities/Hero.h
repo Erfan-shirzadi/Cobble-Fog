@@ -60,7 +60,10 @@ class Hero :public Fighter{
     void EmptyHand();
 
     std::vector<Card * > GetDiscardCards()const;
+    Card * GetCardOfDiscardCards(CardId)const;
+    void AddCardToDiscardCards(std::unique_ptr<Card>);
     virtual std::vector<Fighter*> GetAllsidekick()const;
+
 };
 
 

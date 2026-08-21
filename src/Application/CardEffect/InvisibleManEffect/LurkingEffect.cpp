@@ -10,6 +10,8 @@ ContinueResult LurkingEffect::Continue(EffectContext & context ){
         ContinueResult result;
         result.status=ContinueStatus::CONTINUE;
         step=LurkingStep::CHOOSE_EFFECT;
+        SetStep(static_cast<int>(step));
+
         return result;
         break;
     }
@@ -42,10 +44,13 @@ ContinueResult LurkingEffect::ChooseEffect(EffectContext &context){
 
     if(context.context.Selected==0){
         step=LurkingStep::MOVE_INVISIBLEMAN_TO_FOG;
+        
     }
     else if(context.context.Selected==1){
         step=LurkingStep::CHOOSE_FOG;        
     }
+    SetStep(static_cast<int>(step));
+
     result.status=ContinueStatus::CONTINUE;
 
     context.context.Selected=-1;
@@ -97,6 +102,8 @@ ContinueResult LurkingEffect::ChooseFog(EffectContext & context){
     std::cout<<"Fog taht selected at "<<fog->GetNode()<<std::endl;
 
     step=LurkingStep::MOVE3_FOG;
+    SetStep(static_cast<int>(step));
+
     result.status=ContinueStatus::CONTINUE;
     return result;
 

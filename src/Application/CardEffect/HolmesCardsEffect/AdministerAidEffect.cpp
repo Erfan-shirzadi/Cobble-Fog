@@ -44,6 +44,8 @@ ContinueResult AdministerAidEffect::ChooseDestination(EffectContext & context){
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     step=AdministerEffectStep::HEAL_HOLMES;
+    SetStep(static_cast<int>(step));
+
     return res;
 
 }

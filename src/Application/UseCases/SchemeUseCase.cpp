@@ -125,3 +125,9 @@ Card* SchemeUseCase::GetSelectedCard(){
 void SchemeUseCase::SetStep(SchemeStep step){
     this->step=step;
 }
+void SchemeUseCase::SetSelectedCard(Card* card){
+    this->SelectedCard=card;
+}
+void SchemeUseCase::SetCardEffect(std::unique_ptr<CardEffect> effect){
+    this->cardEffect=std::move(effect);
+}

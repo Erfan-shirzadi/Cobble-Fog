@@ -24,6 +24,8 @@ ContinueResult CodedNotesEffect::Draw3Card(EffectContext & context){
     if(countofCardDrawed==3){
         context.context.Gamestate->handview=HandView::OPPONENTPLAYER;
         step=CodedStep::REUTRN_CARD_TO_DECK;
+        SetStep(static_cast<int>(step));
+
     }
     result.status=ContinueStatus::CONTINUE;
     return result;

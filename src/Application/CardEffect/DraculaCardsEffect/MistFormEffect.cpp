@@ -30,6 +30,8 @@ ContinueResult MistFormEffect::MoveDracula(EffectContext& context){
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     step=MistFormEffectStep::GAIN_ACTION;
+    SetStep(static_cast<int>(step));
+
 
     return res;
 

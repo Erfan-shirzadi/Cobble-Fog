@@ -1,12 +1,13 @@
 #include "Application/UseCases/LoadUseCase.h"
 #include "Application/UseCases/CreatCard.h"
+#include "Application/CardEffect/CardEffectFactory.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
 void LoadUseCase::Load (DataContext & data){
     LoadGameState(data.context->context.Gamestate);
     // data.TURNUSECASE=new TurnUseCase;
-    LoadTurnUseCase(data.TURNUSECASE);
+    LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate->currnetPlayer);
     // data.context.context.Gamestate.
     data.context->context.Selected=-1;
 }
@@ -85,6 +86,11 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
         deck.Add(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
     }
     dfile.close();
+    ifstream dcfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/DiscadCards.txt");
+    while (dcfile>>n){
+        deck.Add(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
+    }
+    dcfile.close();
 
     std::vector<Fighter*> sidekick=hero->GetAllsidekick();
 
@@ -111,7 +117,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     cout<< hero->GetName()<<endl;
 }
 
-void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase){
+void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,Player* player){
     ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
     // if(!ifile){
         cout<<"Yaaaaa khodaaa"<<std::endl;
@@ -134,7 +140,7 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase){
         LoadManever(turnusecase->GetManeverUseCase());
         break;
     case ActoinType::SCHEME:
-        LoadScheme(turnusecase->GetSchemeUseCase());
+        LoadScheme(turnusecase->GetSchemeUseCase(),player);
         break;
     case ActoinType::ATTACK:
         LoadAttck(turnusecase->GetAttackUseCase());
@@ -155,11 +161,15 @@ void LoadUseCase::LoadManever(ManeverUseCase & manever){
     ifile.close();
 
 }
-void LoadUseCase::LoadScheme(SchemeUseCase & scheme){
+void LoadUseCase::LoadScheme(SchemeUseCase & scheme,Player* currentplayer){
     ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
+    Hero * hero=currentplayer->GetHero();
     int n;
     ifile>>n;
     scheme.SetStep(static_cast<SchemeStep>(n));
+    ifile>>n;
+    scheme.SetSelectedCard(hero->GetCardOfDiscardCards(static_cast<CardId>(n)));
+    scheme.SetCardEffect(CardEffectFactory::CreatCardEffect(static_cast<CardId>(n)));
     cout<<"LOaded seccusfull"<<endl;
     ifile.close();
 

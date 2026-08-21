@@ -7,9 +7,9 @@ class LoadUseCase{
     void Load (DataContext &);
     void LoadGameState(GameState *);
     void LoadPlayer(int number,Player*);
-    void LoadTurnUseCase(TurnUseCase*);
+    void LoadTurnUseCase(TurnUseCase*,Player *);
     void LoadManever(ManeverUseCase&);
-    void LoadScheme(SchemeUseCase&);
+    void LoadScheme(SchemeUseCase&,Player* currentplayer);
     void LoadAttck(AttackUseCase&);
 };
 #endif /* LOAD_USE_CASE */

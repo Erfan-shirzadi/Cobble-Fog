@@ -30,6 +30,8 @@ ContinueResult RaveningSeductionEffect::ChooseFighter(EffectContext& context){
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     step=RaveningStep::MOVE_FIGHTER;
+    SetStep(static_cast<int>(step));
+
 
     return result;
 
@@ -42,6 +44,8 @@ ContinueResult RaveningSeductionEffect::MoveFighter(EffectContext& context){
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     step=RaveningStep::DAMAGE_FIGHTER;
+    SetStep(static_cast<int>(step));
+
 
     return result;
 

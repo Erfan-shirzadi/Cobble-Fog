@@ -177,3 +177,16 @@ std::vector<Card * > Hero::GetDiscardCards()const{
 
       return result;
 }
+
+Card * Hero::GetCardOfDiscardCards(CardId id)const{
+      Card * card;
+      for(int i{};i<DiscardCards.size();i++){
+            if(DiscardCards[i]->GetCardId()==id)
+                  card=DiscardCards[i].get();
+      }
+      return card;
+}
+
+void Hero::AddCardToDiscardCards(std::unique_ptr<Card> card){
+      this->DiscardCards.push_back(std::move(card));
+}

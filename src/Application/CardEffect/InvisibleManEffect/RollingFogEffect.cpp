@@ -39,6 +39,8 @@ ContinueResult result;
     // std::cout<<"Fog taht selected at "<<fog->GetNode()<<std::endl;
 
     step=RollingStep::MOVE_FOG;
+        SetStep(static_cast<int>(step));
+
     result.status=ContinueStatus::CONTINUE;
     return result;
 }
@@ -56,6 +58,8 @@ ContinueResult RollingFogEffect::MoveFog(EffectContext & context){
     fog->SetNode(Nodes[context.context.Selected]);
         context.context.Selected=-1;
     step=RollingStep::GAIN_ACTION;
+        SetStep(static_cast<int>(step));
+
     result.status=ContinueStatus::CONTINUE;
     return result;
 

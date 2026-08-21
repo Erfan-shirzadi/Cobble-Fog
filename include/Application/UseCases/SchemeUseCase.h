@@ -32,6 +32,8 @@ class SchemeUseCase : public IUseCase{
     SchemeStep GetStep();
     Card* GetSelectedCard();
     void SetStep(SchemeStep);
+    void SetSelectedCard(Card*);
+    void SetCardEffect(std::unique_ptr<CardEffect>);
     
 
 };

@@ -36,6 +36,8 @@ ContinueResult IntoThinAirEffect::MoveHero(EffectContext & context){
     rechbleNodes.clear();
     result.status=ContinueStatus::CONTINUE;
     step=IntoThinStep::CHOOSE_FOG;
+    SetStep(static_cast<int>(step));
+
     return result;
 
 }
@@ -55,6 +57,8 @@ ContinueResult IntoThinAirEffect::ChooseFog(EffectContext & context){
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     step=IntoThinStep::MOVE_FOG;
+    SetStep(static_cast<int>(step));
+
 
     return result;
 }

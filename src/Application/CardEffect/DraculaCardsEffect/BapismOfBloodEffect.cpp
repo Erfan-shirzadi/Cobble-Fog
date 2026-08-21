@@ -6,11 +6,14 @@ ContinueResult BapismOfBloodEffect::Continue(EffectContext &  context){
     switch (this->bapismstep)
     {
     case BapismEffectStep::HEAL_DRACULA:{
+        SetStep(static_cast<int>(bapismstep));
         context.context.Gamestate->currnetPlayer->GetHero()->Heal(2);
         context.context.Gamestate->log.Add("Healed 2 Dracula ");
         ContinueResult res; 
         res.status=ContinueStatus::CONTINUE;
         this->bapismstep=BapismEffectStep::RETURN_SISTER;
+        SetStep(static_cast<int>(bapismstep));
+
 
     }
     case BapismEffectStep::RETURN_SISTER:

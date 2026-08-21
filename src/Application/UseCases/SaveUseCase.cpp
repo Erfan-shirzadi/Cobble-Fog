@@ -152,7 +152,7 @@ void SaveUseCase::SaveScheme(SchemeUseCase & scheme)const{
     ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
     file<<(int)scheme.GetStep()<<endl;
     if(scheme.GetSelectedCard())
-    file<<(int)scheme.GetSelectedCard()->GetCardId()<<endl;
+        file<<(int)scheme.GetSelectedCard()->GetCardId()<<endl;
     file.close();
 
 }
@@ -236,3 +236,4 @@ void SaveUseCase::RemoveTxtFiles(std::string folderpath)const{
         cout<<" erorr"<<e.what()<<endl;
     }
 }
+

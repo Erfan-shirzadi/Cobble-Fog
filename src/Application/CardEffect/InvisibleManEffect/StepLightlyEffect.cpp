@@ -36,6 +36,8 @@ ContinueResult StepLightlyEffect::DamageEnemy(EffectContext & context){
 
         if(enemies.empty()){
             step=StepStepLightly::CHOOSE_FOG;
+            SetStep(static_cast<int>(step));
+
             result.status=ContinueStatus::CONTINUE;
             return result;
         }
@@ -58,6 +60,8 @@ ContinueResult StepLightlyEffect::DamageEnemy(EffectContext & context){
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     step=StepStepLightly::CHOOSE_FOG;
+        SetStep(static_cast<int>(step));
+
 
     return result;
 
@@ -80,6 +84,8 @@ ContinueResult StepLightlyEffect::ChooseFog(EffectContext &context){
 
 
     step=StepStepLightly::MOVE_FOG;
+        SetStep(static_cast<int>(step));
+
     result.status=ContinueStatus::CONTINUE;
     return result;
 

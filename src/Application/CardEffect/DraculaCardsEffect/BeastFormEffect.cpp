@@ -36,6 +36,7 @@ ContinueResult BeastFormEffect::AskForDiscardinCard(EffectContext & context){
 
     if(context.context.Selected==0){
         step=BeastFormStep::CHOOSE_CARD;
+        SetStep(static_cast<int>(step));
         ContinueResult res;
         res.status =ContinueStatus::CONTINUE;
         return res;
