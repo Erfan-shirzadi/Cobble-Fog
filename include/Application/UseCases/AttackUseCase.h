@@ -63,11 +63,10 @@ class AttackUseCase : public IUseCase {
 
     AttackStep GetStep();
     SetUpStep GetStepSetup();
-    std::vector<Fighter*> GetAttackers();
-    std::vector<Card*> GetAttackerCards();
-    std::vector<Card*> GetDeffenderCards();
-    std::vector<Fighter*> GetDeffenders();
-
+    CombatStep GetCombatStep();
+    void SetStep(AttackStep);
+    void SetSetupStep(SetUpStep);
+    CombatContext & GetCombatcontext();
 
 };
 

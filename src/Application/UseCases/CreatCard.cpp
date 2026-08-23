@@ -37,108 +37,105 @@ std::unique_ptr<Card> CreatCard::CreatCardid(CardId id){
     switch ( id)
     {
     case CardId::AMBUSH:
-        return std::make_unique<Ambush>();
+        return std::move(std::make_unique<Ambush>());
         break;
     case CardId::BAPISM_OF_BLOOD:
-        return std::make_unique<BapismOfBlood>();
+        return std::move(std::make_unique<BapismOfBlood>());
         break;
     case CardId::BEASTFORM:
-        return std::make_unique<BestForm>();
+        return std::move(std::make_unique<BestForm>());
         break;
-
     case CardId::DASH:
-        return std::make_unique<Dash>();
+        return std::move(std::make_unique<Dash>());
         break;
     case CardId::EXPLOIT:
-        return std::make_unique<Exploit>();
+        return std::move(std::make_unique<Exploit>());
         break;
     case CardId::FEEDINGFRENZY:
-        return std::make_unique<FeedingFrenzy>();
+        return std::move(std::make_unique<FeedingFrenzy>());
         break;
     case CardId::LOOK_INTO_MY_EYES:
-        return std::make_unique<LookIntoMyEyes>();
+        return std::move(std::make_unique<LookIntoMyEyes>());
         break;
     case CardId::FEINT:
-        return std::make_unique<Feint>();
+        return std::move(std::make_unique<Feint>());
         break;
     case CardId::MISTFORM:
-        return std::make_unique<MistForm>();
+        return std::move(std::make_unique<MistForm>());
         break;
     case CardId::PERYUPON:
-        return std::make_unique<PeryUpon>();
+        return std::move(std::make_unique<PeryUpon>());
         break;
     case CardId::RAVENING_SEDUCTION:
-        return std::make_unique<RaveningSeduction>();
+        return std::move(std::make_unique<RaveningSeduction>());
         break;
     case CardId::THIRST_FOR_SUSTENANCE:
-        return std::make_unique<ThirstForSustenance>();
+        return std::move(std::make_unique<ThirstForSustenance>());
         break;
     case CardId::ADMINISTER_AID:
-        return std::make_unique<AdministerAid>();
+        return std::move(std::make_unique<AdministerAid>());
         break;
     case CardId::COUNTER_PUNCH:
-        return std::make_unique<CounterPunch>();
+        return std::move(std::make_unique<CounterPunch>());
         break;
     case CardId::DEDUCE_STRATEGY:
-        return std::make_unique<DeduceStrategy>();
+        return std::move(std::make_unique<DeduceStrategy>());
         break;
     case CardId::EDUCATION_NEVER_ENDS:
-        return std::make_unique<EducationNeverEnds>();
+        return std::move(std::make_unique<EducationNeverEnds>());
         break;
     case CardId::ELIMINATE_THE_IMPOSSIBLE:
-        return std::make_unique<EliminateTheImpossible>();
+        return std::move(std::make_unique<EliminateTheImpossible>());
         break;
     case CardId::FIXED_POINT_IN_A_CHANGING_AGE:
-        return std::make_unique<FixedPointInAChangingAge>();
+        return std::move(std::make_unique<FixedPointInAChangingAge>());
         break;
     case CardId::MASTER_OF_DISGUISE:
-        return std::make_unique<MasterOfDisguise>();
+        return std::move(std::make_unique<MasterOfDisguise>());
         break;
     case CardId::SERVICE_REVOLVER:
-        return std::make_unique<ServiceRevolver>();
+        return std::move(std::make_unique<ServiceRevolver>());
         break;
     case CardId::STUDY_METHODS:
-        return std::make_unique<StudyMethods>();
+        return std::move(std::make_unique<StudyMethods>());
         break;
     case CardId::THE_GAME_IS_AFOOT:
-        return std::make_unique<TheGameIsAfoot>();
+        return std::move(std::make_unique<TheGameIsAfoot>());
         break;
-    
-        case CardId::CODED_NOTES:
-        return std::make_unique<CodedNotes>();
+    case CardId::CODED_NOTES:
+        return std::move(std::make_unique<CodedNotes>());
         break;
     case CardId::DREAMIN_OF_REVENGE:
-        return std::make_unique<DreaminOfRevenge>();
+        return std::move(std::make_unique<DreaminOfRevenge>());
         break;
     case CardId::EMERGE_FROM_MIST:
-        return std::make_unique<EmergeFromMist>();
+        return std::move(std::make_unique<EmergeFromMist>());
         break;
     case CardId::IMPOSSIBLE_TO_SEE:
-        return std::make_unique<ImpossibleToSee>();
+        return std::move(std::make_unique<ImpossibleToSee>());
         break;
     case CardId::INTO_THIN_AIR:
-        return std::make_unique<IntoThinAir>();
+        return std::move(std::make_unique<IntoThinAir>());
         break;
     case CardId::LURKING:
-        return std::make_unique<Lurking>();
+        return std::move(std::make_unique<Lurking>());
         break;
     case CardId::REIGN_OF_TERROR:
-        return std::make_unique<ReignOfTerror>();
+        return std::move(std::make_unique<ReignOfTerror>());
         break;
     case CardId::ROLLING_FOG:
-        return std::make_unique<RollingFog>();
+        return std::move(std::make_unique<RollingFog>());
         break;
-
     case CardId::SLIP_AWAY:
-        return std::make_unique<SlipAway>();
+        return std::move(std::make_unique<SlipAway>());
         break;
     case CardId::STEP_LIGHTLY:
-        return std::make_unique<StepLightly>();
+        return std::move(std::make_unique<StepLightly>());
         break;
     default:
         break;
     }
 
-    return std::make_unique<StepLightly>();
+    return std::move(std::make_unique<StepLightly>());
 
 }

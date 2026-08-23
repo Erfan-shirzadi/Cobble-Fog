@@ -3,13 +3,15 @@
 #include "Application/CardEffect/CardEffectFactory.h"
 #include <fstream>
 #include <iostream>
+#include <memory>
 using namespace std;
 void LoadUseCase::Load (DataContext & data){
     LoadGameState(data.context->context.Gamestate);
     // data.TURNUSECASE=new TurnUseCase;
-    LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate->currnetPlayer);
+    LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate);
     // data.context.context.Gamestate.
     data.context->context.Selected=-1;
+    data.context->combatcontext=data.context->context.Gamestate->combatsatat;
 }
 
 void LoadUseCase::LoadGameState(GameState * gamestate){
@@ -87,8 +89,9 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     }
     dfile.close();
     ifstream dcfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/DiscadCards.txt");
+    // std::vector<Card*>dicardcards=hero->GetDiscardCards();
     while (dcfile>>n){
-        deck.Add(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
+        hero->AddCardToDiscardCards(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
     }
     dcfile.close();
 
@@ -117,7 +120,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     cout<< hero->GetName()<<endl;
 }
 
-void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,Player* player){
+void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate){
     ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
     // if(!ifile){
         cout<<"Yaaaaa khodaaa"<<std::endl;
@@ -133,23 +136,22 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,Player* player){
     turnusecase->SetUseCase(n);
     afile.close();
 
-
+    cout<<"Load TUrn Use cAse"<<endl;
     switch (turnusecase->CurrentAction())
     {
     case ActoinType::MANEVER:
         LoadManever(turnusecase->GetManeverUseCase());
         break;
     case ActoinType::SCHEME:
-        LoadScheme(turnusecase->GetSchemeUseCase(),player);
+        LoadScheme(turnusecase->GetSchemeUseCase(),gamestate->currnetPlayer);
         break;
     case ActoinType::ATTACK:
-        LoadAttck(turnusecase->GetAttackUseCase());
+        LoadAttck(turnusecase->GetAttackUseCase(),gamestate);
         break;
     
     default:
         break;
     }
-    // cout<<turnusecase->
 
 }
 
@@ -168,12 +170,114 @@ void LoadUseCase::LoadScheme(SchemeUseCase & scheme,Player* currentplayer){
     ifile>>n;
     scheme.SetStep(static_cast<SchemeStep>(n));
     ifile>>n;
+    int cardid=n;
     scheme.SetSelectedCard(hero->GetCardOfDiscardCards(static_cast<CardId>(n)));
-    scheme.SetCardEffect(CardEffectFactory::CreatCardEffect(static_cast<CardId>(n)));
+    ifile>>n;
+    scheme.SetCardEffect(CardEffectFactory::CreatCardEffect(static_cast<CardId>(cardid)),n);
     cout<<"LOaded seccusfull"<<endl;
     ifile.close();
 
 }
-void LoadUseCase::LoadAttck(AttackUseCase &){
+void LoadUseCase::LoadAttck(AttackUseCase & attack,GameState* gamestate){
+    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/attack.txt");
+    int n;
+    cout<<" IN Load Attack"<<endl;
+    ifile>>n;
+    attack.SetStep(static_cast<AttackStep>(n));
+    ifile>>n;
+    attack.SetSetupStep(static_cast<SetUpStep>(n));
+    ifile.close();
+    LoadCommbatContext(attack.GetCombatcontext(),gamestate);
+
+}
+void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate){
+    ifstream CurrentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextCurrent.txt");
+
+    if(!CurrentPlayerfile.is_open())return ;
+
+    Hero* Heroplayer1=gamestate->player1->GetHero();
+    Hero * Heroplayer2=gamestate->player2->GetHero();
+
+    context.Current=std::make_unique<CombatParticipant>();
+    context.Opponent=std::make_unique<CombatParticipant>();
+
+    ifstream NumberCurrentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentCombatPlayer.txt");
+
+    int number;
+    NumberCurrentPlayerfile>>number;
+    if(number==1){
+        context.Current->hero=Heroplayer1;
+        context.Opponent->hero=Heroplayer2;
+    }else {
+        context.Current->hero=gamestate->player2->GetHero();
+        context.Opponent->hero=gamestate->player1->GetHero();
+
+    }
+    NumberCurrentPlayerfile.close();
+
+    CurrentPlayerfile>>number;
+
+    if(context.Current->hero->GetNode()==number){
+        context.Current->fighter=dynamic_cast<Fighter*>(context.Current->hero);
+    }
+    else {
+        cout<<"Size Sidekcik "<<context.Current->hero->GetSideKicks().size()<<endl;
+        for(auto fighter:context.Current->hero->GetSideKicks()){
+            cout<<"Node Side kick"<<fighter->GetNode()<<endl;
+            if(fighter->GetNode()==number)
+                context.Current->fighter=fighter;
+        }
+    }
+    cout<<"Name Fighter"<<endl;
+    cout<<"Name Hero"<<context.Current->hero->GetName()<<endl;
+    cout<<context.Current->fighter->GetName()<<endl;
+
+    CurrentPlayerfile>>number;
+    if(number!=-1){
+        context.Current->card=dynamic_cast<CombatCard*>(context.Current->hero->GetCardOfDiscardCards(static_cast<CardId>(number)));
+        context.Current->effect=CardEffectFactory::CreatCardEffect(static_cast<CardId>(number));
+        CurrentPlayerfile>>number;
+        context.Current->card->SetDamageOrDeffend(number);
+    }
+    CurrentPlayerfile>>number;
+    context.Current->IsActiveCardEffect=static_cast<bool>(number);
+    CurrentPlayerfile>>number;
+    context.Current->Won=static_cast<bool>(number);
+    CurrentPlayerfile>>number;
+    context.Current->CanChangeAmountCard=static_cast<bool>(number);
+    CurrentPlayerfile.close();
+
+
+    ifstream OpponentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextOpponent.txt");
+    OpponentPlayerfile>>number;
+
+     if(context.Opponent->hero->GetNode()==number){
+        context.Opponent->fighter=dynamic_cast<Fighter*>(context.Opponent->hero);
+    }
+    else {
+        for(auto fighter:context.Opponent->hero->GetSideKicks()){
+            if(fighter->GetNode()==number)
+                context.Opponent->fighter=fighter;
+        }
+    }
+
+    OpponentPlayerfile>>number;
+
+    if(number!=-1){
+        // context.Opponent->card=CreatCard::CreatCardid(static_cast<CardId>(number));
+        context.Opponent->effect=CardEffectFactory::CreatCardEffect(static_cast<CardId>(number));
+        OpponentPlayerfile>>number;
+        // context.Opponent->card->SetDamageOrDeffend(number);
+    }
+    OpponentPlayerfile>>number;
+    context.Opponent->IsActiveCardEffect=static_cast<bool>(number);
+    OpponentPlayerfile>>number;
+    context.Opponent->Won=static_cast<bool>(number);
+    OpponentPlayerfile>>number;
+    context.Opponent->CanChangeAmountCard=static_cast<bool>(number);
+    OpponentPlayerfile.close();
+
+    gamestate->combatsatat=&context;
+
 
 }

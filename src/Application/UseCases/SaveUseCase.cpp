@@ -29,6 +29,11 @@ void SaveUseCase::SaveGameState(GameState * gamestate)const{
     SaveHandViewStatus(gamestate->handview);
     if(gamestate->combatsatat){
         SaveCombatContext(gamestate->combatsatat);
+        ofstream currentplayerCombat("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentCombatPlayer.txt");
+        if(gamestate->player1->GetHero()==gamestate->combatsatat->Current->hero){
+            currentplayerCombat<<1;
+        }else currentplayerCombat<<2;
+        currentplayerCombat.close();
     }
     
 }
@@ -161,21 +166,21 @@ void SaveUseCase::SaveAttack(AttackUseCase & attack)const{
     ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/attack.txt");
     file<<(int)attack.GetStep()<<endl;
     file<<(int)attack.GetStepSetup()<<endl;
-    cout<< attack.GetAttackers().size()<<endl;
-    for(auto fighter: attack.GetAttackers()){
-        file<<fighter->GetName()<<endl;
-        file<<fighter->GetNode()<<endl;
-    }
-    for(auto card : attack.GetAttackerCards()){
-        file<<(int)card->GetCardId()<<endl;
-    }
-    for(auto fighter: attack.GetDeffenders()){
-        file<<fighter->GetName()<<endl;
-        file<<fighter->GetNode()<<endl;
-    }
-    for(auto card : attack.GetDeffenderCards()){
-        file<<(int)card->GetCardId()<<endl;
-    }
+    // cout<< attack.GetAttackers().size()<<endl;
+    // for(auto fighter: attack.GetAttackers()){
+    //     file<<fighter->GetName()<<endl;
+    //     file<<fighter->GetNode()<<endl;
+    // }
+    // for(auto card : attack.GetAttackerCards()){
+    //     file<<(int)card->GetCardId()<<endl;
+    // }
+    // for(auto fighter: attack.GetDeffenders()){
+    //     file<<fighter->GetName()<<endl;
+    //     file<<fighter->GetNode()<<endl;
+    // }
+    // for(auto card : attack.GetDeffenderCards()){
+    //     file<<(int)card->GetCardId()<<endl;
+    // }
     file.close();
 }
 
@@ -195,33 +200,45 @@ void SaveUseCase::SaveCurrentAction(ActoinType actoin)const{
 void SaveUseCase::SaveCombatContext(CombatContext* context)const{
     ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextCurrent.txt");
 
-    file<<context->Current->hero->GetName()<<endl;
-    file<<context->Current->fighter->GetName()<<endl;
-    file<<context->Current->fighter->GetNode()<<endl;
-    file<<context->Current->IsActiveCardEffect<<endl;
-    file<<context->Current->Won<<endl;
-    file<<context->Current->CanChangeAmountCard<<endl;
+    // if(context->Current->hero){
+    //     file<<context->Current->hero->GetName()<<endl;
+    // }else file<<-1<<endl;
+        // file<<context->Current->fighter->GetName()<<endl;
+    if(context->Current->fighter){
+        file<<context->Current->fighter->GetNode()<<endl;
+    }else file<<-1<<endl;
     if(context->Current->card){
         file<<(int)context->Current->card->GetCardId()<<endl;
         file<<context->Current->card->GetDamgeOrDeffend()<<endl;
-    }
+    }else file<<-1<<endl;
+        file<<context->Current->IsActiveCardEffect<<endl;
+        file<<context->Current->Won<<endl;
+        file<<context->Current->CanChangeAmountCard<<endl;
+        
+    
     file.close();
     ofstream ofile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextOpponent.txt");
 
-    ofile<<context->Opponent->hero->GetName()<<endl;
-    ofile<<context->Opponent->fighter->GetName()<<endl;
-    ofile<<context->Opponent->fighter->GetNode()<<endl;
-    ofile<<context->Opponent->IsActiveCardEffect<<endl;
-    ofile<<context->Opponent->Won<<endl;
-    ofile<<context->Opponent->CanChangeAmountCard<<endl;
+    // if(context->Opponent->hero){
+    //     ofile<<context->Opponent->hero->GetName()<<endl;
+    // }else ofile<<-1<<endl;
+    if(context->Opponent->fighter){
+        ofile<<context->Opponent->fighter->GetNode()<<endl;
+    }else ofile<<-1<<endl;
     if(context->Opponent->card){
-        ofile<<(int)context->Opponent->card->GetCardId()<<endl;
-        ofile<<context->Opponent->card->GetDamgeOrDeffend()<<endl;
+            ofile<<(int)context->Opponent->card->GetCardId()<<endl;
+            ofile<<context->Opponent->card->GetDamgeOrDeffend()<<endl;
+    }else{
+        ofile<<-1<<endl;
     }
+        ofile<<context->Opponent->IsActiveCardEffect<<endl;
+        ofile<<context->Opponent->Won<<endl;
+        ofile<<context->Opponent->CanChangeAmountCard<<endl;
     ofile.close();
 
 
 
+    
 }
 
 void SaveUseCase::RemoveTxtFiles(std::string folderpath)const{

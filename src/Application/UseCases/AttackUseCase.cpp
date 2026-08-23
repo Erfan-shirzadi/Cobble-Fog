@@ -198,7 +198,12 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
 }
 
 ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
+    cout<<"Build Attacker card menu"<<endl;
     Hero * hero=combatcontext.Current->hero;
+    if(hero)
+        cout<<"Build Attacker card menu 2"<<endl;
+    cout<<hero->GetName()<<endl;
+    cout<<combatcontext.Current->fighter<<endl;
     ContinueResult result;
     for(auto card: hero->GetHand()){
         if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
@@ -207,6 +212,7 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
                 AttackerCards.push_back(card);
             }
     }
+    cout<<"After Build attacker card menu"<<endl;
     result.menu_request.title="Cards";
     result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
@@ -215,7 +221,7 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
 
 ContinueResult AttackUseCase::ChooseAttckerCard(EffectContext & context ){
     if(context.context.Selected==-1) return BuildAttackerCardMenu(context);
-
+    cout<<"Choose Attacker Card"<<endl;
     Card * card=combatcontext.Current->hero->GetCard(context.context.Selected);
 
     combatcontext.Current->card=dynamic_cast<CombatCard*>(card);
@@ -406,20 +412,32 @@ AttackStep AttackUseCase::GetStep(){
 SetUpStep AttackUseCase::GetStepSetup(){
     return this->setupstep;
 }
-std::vector<Fighter*> AttackUseCase::GetAttackers(){
-    std::cout<<"ATaackers"<<Attacker.size()<<endl;
-    return this->Attacker;
+void AttackUseCase::SetStep(AttackStep step){
+    this->attackstep=step;
 }
-std::vector<Card*> AttackUseCase::GetAttackerCards(){
-    std::cout<<"Attackercards"<<AttackerCards.size()<<endl;
-    return this->AttackerCards;
+void AttackUseCase::SetSetupStep(SetUpStep step){
+    this->setupstep=step;
 }
-std::vector<Card*> AttackUseCase::GetDeffenderCards(){
-    std::cout<<"Deffendercards"<<DeffenderCards.size()<<endl;
-    return this->DeffenderCards;
+
+CombatContext & AttackUseCase::GetCombatcontext(){
+    return this->combatcontext;
 }
-std::vector<Fighter*> AttackUseCase::GetDeffenders(){
-    std::cout<<"Deffenders:"<<enemiescanAttack.size()<<endl;
-    return this->enemiescanAttack;
-}
+
+
+// std::vector<Fighter*> AttackUseCase::GetAttackers(){
+//     std::cout<<"ATaackers"<<Attacker.size()<<endl;
+//     return this->Attacker;
+// }
+// std::vector<Card*> AttackUseCase::GetAttackerCards(){
+//     std::cout<<"Attackercards"<<AttackerCards.size()<<endl;
+//     return this->AttackerCards;
+// }
+// std::vector<Card*> AttackUseCase::GetDeffenderCards(){
+//     std::cout<<"Deffendercards"<<DeffenderCards.size()<<endl;
+//     return this->DeffenderCards;
+// }
+// std::vector<Fighter*> AttackUseCase::GetDeffenders(){
+//     std::cout<<"Deffenders:"<<enemiescanAttack.size()<<endl;
+//     return this->enemiescanAttack;
+// }
 

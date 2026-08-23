@@ -56,6 +56,8 @@ ContinueResult BapismOfBloodEffect::HealSister(EffectContext & context){
         sister->Heal(1);
         context.context.Gamestate->log.Add("Sister 1 Healed");
         returnstep=ReturnSisterStep::CHOOSEDESTINATION;
+        SetStep(static_cast<int>(returnstep));
+
 
         ContinueResult res;
         res.status=ContinueStatus::CONTINUE;

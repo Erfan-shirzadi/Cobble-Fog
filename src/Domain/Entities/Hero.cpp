@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <sstream>
+#include <memory>
 
  Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
  }
