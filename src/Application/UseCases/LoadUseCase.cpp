@@ -140,7 +140,7 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate)
     switch (turnusecase->CurrentAction())
     {
     case ActoinType::MANEVER:
-        LoadManever(turnusecase->GetManeverUseCase());
+        LoadManever(turnusecase->GetManeverUseCase(),gamestate->currnetPlayer);
         break;
     case ActoinType::SCHEME:
         LoadScheme(turnusecase->GetSchemeUseCase(),gamestate->currnetPlayer);
@@ -155,11 +155,22 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate)
 
 }
 
-void LoadUseCase::LoadManever(ManeverUseCase & manever){
+void LoadUseCase::LoadManever(ManeverUseCase & manever ,Player* player){
     ifstream ifile ("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
     int n;
     ifile>>n;
     manever.SetStep(static_cast<ManeverStep>(n));
+    ifile>>n;
+    if(n!=-1){
+        for(auto sidekick:player->GetHero()->GetSideKicks()){
+            if(n==sidekick->GetNode()){
+                manever.SetSelectedFighter(sidekick);
+            }
+        }
+        if(player->GetHero()->GetNode()==n){
+            manever.SetSelectedFighter(dynamic_cast<Fighter*>(player->GetHero()));
+        }
+    }
     ifile.close();
 
 }

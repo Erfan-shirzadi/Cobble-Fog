@@ -247,3 +247,7 @@ Fighter * ManeverUseCase::SelectedFighter(){
 void ManeverUseCase::SetStep(ManeverStep step){
     this->step=step;
 }
+
+void ManeverUseCase::SetSelectedFighter(Fighter* fighter){
+    this->selectedHero=fighter;
+}

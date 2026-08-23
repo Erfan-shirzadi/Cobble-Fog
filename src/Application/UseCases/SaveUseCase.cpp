@@ -136,19 +136,24 @@ void SaveUseCase::SaveManever(ManeverUseCase & manever)const{
     ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
     file<<(int)manever.GetStep()<<endl;
     
-    for(auto f:manever.GetFighters()){
-        file<<f->GetName()<<endl;
-        file<<f->GetNode()<<endl;
-    }
+    // for(auto f:manever.GetFighters()){
+    //     file<<f->GetName()<<endl;
+    //     file<<f->GetNode()<<endl;
+    // }
 
     Fighter* fighter=manever.SelectedFighter();
     if(fighter){
-    file<<fighter->GetName()<<endl;
-    file<<fighter->GetNode()<<endl;
+        // file<<fighter->GetName()<<endl;
+        file<<fighter->GetNode()<<endl;
     }
-    for(auto node:manever.GetRechbleNodes()){
-        file<<node<<endl;
+    else {
+        file<<-1<<endl;
+
     }
+
+    // for(auto node:manever.GetRechbleNodes()){
+    //     file<<node<<endl;
+    // }
     file.close();
 
 }

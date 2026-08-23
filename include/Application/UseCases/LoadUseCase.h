@@ -8,7 +8,7 @@ class LoadUseCase{
     void LoadGameState(GameState *);
     void LoadPlayer(int number,Player*);
     void LoadTurnUseCase(TurnUseCase*,GameState*);
-    void LoadManever(ManeverUseCase&);
+    void LoadManever(ManeverUseCase&,Player *);
     void LoadScheme(SchemeUseCase&,Player* currentplayer);
     void LoadAttck(AttackUseCase&,GameState*);
     void LoadCommbatContext(CombatContext&,GameState* gamestate);

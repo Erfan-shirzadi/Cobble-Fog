@@ -329,6 +329,7 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
 
 ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
     ContinueResult result;
+    SetDeffenderCards();
     for(auto card: DeffenderCards){
         result.menu_request.cards.push_back(card->GetCardId());
     }
@@ -342,6 +343,7 @@ ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
 void AttackUseCase::SetDeffenderCards(){
 
     Hero * hero=combatcontext.Opponent->hero;
+    DeffenderCards.clear();
 
     for(auto card: hero->GetHand()){
         if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
