@@ -84,6 +84,8 @@ class GameView{
     Texture2D WinSherlock;
     Rectangle backtomainMenu;
     Rectangle Exit;
+    Rectangle YesSaveView;
+    Rectangle NoSaveView;
     Texture2D exitbutton;
     bool exitb=false;
 

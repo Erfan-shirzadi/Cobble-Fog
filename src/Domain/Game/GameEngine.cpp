@@ -121,6 +121,10 @@ void GameEngine::OnSelection(int selection){
         // TURNUSECASE->Start(context);
         return;
     }
+    if(selection==-4){
+        DeleteObjects();
+        return;
+    }
     switch (state)
     {
     case GameEngineState::START_GAME:

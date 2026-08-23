@@ -29,6 +29,10 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     nodeCenters=setup.GetNodeCenters();std::vector<Vector2> nodeCenters;
     
     backtomainMenu={820,440,240,100};
+
+    YesSaveView={720,440,160,40};
+    NoSaveView={990,440,160,40};
+
     Exit={1650,10,150,80};
 }
 
@@ -488,6 +492,8 @@ void GameView::UpdateGameResult(){
 
 void GameView::DrawExit(){
 
+    DrawText(TextFormat("X: %.0f Y: %.0f",GetMousePosition().x,GetMousePosition().y),20,20,24,RED);
+
     DrawTextureEx(exitbutton,{1650,10},0,0.12f,WHITE);
     if(exitb){
         DrawTextureEx(saveview,{450,70},0,0.7f,WHITE);
@@ -501,11 +507,25 @@ void GameView::UpdateExit(){
 
     if(CheckCollisionPointRec(GetMousePosition(),Exit)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            Onselection(-2);
-            state=ViewState::MAINMENU;
+            // Onselection(-2);
+            // state=ViewState::MAINMENU;
             exitb=true;
+
             
         }
+
+    }
+    if(CheckCollisionPointRec(GetMousePosition(),NoSaveView) && exitb){
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            state=ViewState::MAINMENU;
+            Onselection(-4);
+        }
+    }
+    if(CheckCollisionPointRec(GetMousePosition(),YesSaveView) && exitb){
+       if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){ 
+            state=ViewState::MAINMENU;
+            Onselection(-2);
+       }
 
     }
 }
