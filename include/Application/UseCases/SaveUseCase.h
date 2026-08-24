@@ -6,12 +6,13 @@
 
 class SaveUseCase {
 
+    int sessionNumber;
     std::string folderpathPlayer2="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player2/";
     std::string folderpathPlayer1="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/Player1/";
     std::string foderpathTurnusecase="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/TurnUseCase/";
     std::string folderpathGame="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1";
     public :
-    void Save(DataContext)const;
+    void Save(DataContext,int session);
     void SaveGameState(GameState*)const;
     void SavePlayer(int ,Player *)const;
     void SaveCurrentPlayerNumber(int)const;
@@ -27,6 +28,10 @@ class SaveUseCase {
     void SaveCombatContext(CombatContext*)const;
 
     void RemoveTxtFiles(std::string)const;
+
+    void UpdateSessionFile(int);
+
+    std::vector<std::string> GetSessionStatus()const;
 
 };
 

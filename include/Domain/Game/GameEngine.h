@@ -15,7 +15,9 @@ enum class GameEngineState{
     HERO_SELECTION,
     SETUP,
     GAME,
-    GAMEOVER
+    GAMEOVER,
+    LOAD_GAME,
+    SAVE_GAME
 };
 class GameEngine {
 

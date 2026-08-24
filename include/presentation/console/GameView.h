@@ -13,7 +13,8 @@ enum class ViewState{
     MAINMENU,
     SETUP,
     GAME,
-    GAMEOVER
+    GAMEOVER,
+    SESSION
 };
 class GameView{
 
@@ -49,6 +50,9 @@ class GameView{
     void UpdateGameResult();
     void DrawExit();
     void UpdateExit();
+
+    void DrawSession();
+    void UpdateSession();
 
 
 
@@ -87,6 +91,9 @@ class GameView{
     Rectangle YesSaveView;
     Rectangle NoSaveView;
     Texture2D exitbutton;
+
+    Texture2D SessionView;
+    std::vector<Rectangle> sessions;
     bool exitb=false;
 
 

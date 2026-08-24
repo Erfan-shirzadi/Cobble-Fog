@@ -106,15 +106,27 @@ void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
 
     if(selection==-2){
-        SaveGame();
-        DeleteObjects();
+        // SaveGame();
+        // DeleteObjects();
+        MenuRequest request;
+        request.options=saveuseCase.GetSessionStatus();
+        view.SetInputRequest(request);
+    
+
+        this->state=GameEngineState::SAVE_GAME;
+        // context.context.Selected=-1;
         return;
     }
     if(selection==-3){
-        InitialObjects();
-        LoadGame();
-        this->state=GameEngineState::GAME;
-        context.context.Selected=-1;
+        // InitialObjects();
+        // LoadGame();
+        MenuRequest request;
+        request.options=saveuseCase.GetSessionStatus();
+        view.SetInputRequest(request);
+    
+
+        this->state=GameEngineState::LOAD_GAME;
+        // context.context.Selected=-1;
         // if(gamestate.player1){
         //     std::cout<<" fuckk me but ....."<<std::endl;
         // }
@@ -141,12 +153,17 @@ void GameEngine::OnSelection(int selection){
     case GameEngineState::GAME:
         Process();
         break;
-    
     case GameEngineState::SETUP:
         SetUp();
         break;
     case GameEngineState::GAMEOVER:
         state=GameEngineState::START_GAME;
+        break;
+    case GameEngineState::SAVE_GAME:
+        SaveGame();
+        break;
+    case GameEngineState::LOAD_GAME:
+        LoadGame();
         break;
     }
 }
@@ -208,20 +225,33 @@ void GameEngine::SaveGame(){
 
     // DataContext data;
     // data.gamestate=this->gamestate;
+    std::cout<<context.context.Selected<<std::endl;
     data.gameviewstate=view.GetState();
     data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
-    saveuseCase.Save(data);
+    saveuseCase.Save(data,context.context.Selected);
+    DeleteObjects();
     
+
     
 }
 
 void GameEngine::LoadGame(){
     // DataContext data;
+    // if(context.context.Selected==-1){
+    //     MenuRequest request;
+    //     request.type=InputType::SLAT;
+    //     view.SetInputRequest(request);
+    //     return;
+    // }
+    
+    InitialObjects();
+
     data.gameviewstate=view.GetState();
     data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
     loaduseCase.Load(data);
+    state=GameEngineState::GAME;
 }

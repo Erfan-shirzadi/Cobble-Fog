@@ -34,6 +34,12 @@ GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     NoSaveView={990,440,160,40};
 
     Exit={1650,10,150,80};
+
+
+    sessions={  {450,240,1010,120},
+                {450,460,1010,120},
+                {450,680,1010,120}
+    };
 }
 
 
@@ -46,6 +52,7 @@ void GameView::LoadTextures(){
     WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
     exitbutton=LoadTexture("../include/Infrastructure/Assets/images/Exit.png");
     saveview=LoadTexture("../include/Infrastructure/Assets/images/SaveView.png");
+    SessionView=LoadTexture("../include/Infrastructure/Assets/images/Session.png");
 }
 
 void GameView::SetInputRequest(MenuRequest req){
@@ -107,7 +114,10 @@ void GameView::Run(){
         DrawGameResult();
         UpdateGameResult();
         break;
-
+    case ViewState::SESSION:
+        DrawSession();
+        UpdateSession();
+        break;
     }
     EndDrawing();
     }
@@ -523,13 +533,39 @@ void GameView::UpdateExit(){
     }
     if(CheckCollisionPointRec(GetMousePosition(),YesSaveView) && exitb){
        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){ 
-            state=ViewState::MAINMENU;
+            state=ViewState::SESSION;
             Onselection(-2);
        }
 
     }
 }
 
+void GameView::DrawSession(){
+
+    DrawTextureEx(SessionView,{40,20},0,1.3,WHITE);
+    int y=300;
+    for(auto option:menurequest.options){
+        DrawText(option.c_str(),880,y,40,WHITE);
+        y+=220;
+    }
+    DrawText(TextFormat("X: %.0f Y: %.0f",GetMousePosition().x,GetMousePosition().y),20,20,24,RED);
+
+}
+void GameView::UpdateSession(){
+
+    auto mouse=GetMousePosition();
+
+    for(int i{};i<sessions.size();i++){
+        if(CheckCollisionPointRec(GetMousePosition(),sessions[i])){
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){ 
+                state=ViewState::MAINMENU;
+                Onselection(i);
+            }
+
+        }
+    }
+
+}
 
 ViewState GameView::GetState()const{
     return this->state;

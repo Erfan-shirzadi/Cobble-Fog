@@ -4,8 +4,10 @@
 #include <filesystem>
 using namespace std;
 
-void SaveUseCase::Save(DataContext data)const{
+void SaveUseCase::Save(DataContext data,int session){
 
+    sessionNumber=session;
+    UpdateSessionFile(session);
     RemoveTxtFiles(folderpathPlayer1);
     RemoveTxtFiles(folderpathPlayer2);
     // RemoveTxtFiles(folderpathGame);
@@ -259,3 +261,58 @@ void SaveUseCase::RemoveTxtFiles(std::string folderpath)const{
     }
 }
 
+
+void SaveUseCase::UpdateSessionFile(int number){
+    ifstream file("../include/Infrastructure/SavedGames/Sessions.txt",ios::in);
+    ofstream test("../include/Infrastructure/SavedGames/test.txt");
+    if(!file){
+        ofstream ofile("../include/Infrastructure/SavedGames/Sessions.txt");
+        ofile<<0<<endl;
+        ofile<<0<<endl;
+        ofile<<0<<endl;
+
+        ofile.close();
+    }
+
+    int n;
+    cout<<number<<endl;
+    for(int i{};i<3;i++){
+        file>>n;
+        cout<<n;
+        if(i==number){
+            test<<1<<endl;
+        }
+        else{
+            test<<n<<endl;
+        }
+    }
+    
+    std::remove("../include/Infrastructure/SavedGames/Sessions.txt");
+    std::rename("../include/Infrastructure/SavedGames/test.txt","../include/Infrastructure/SavedGames/Sessions.txt");
+    file.close();
+    test.close();
+}
+
+std::vector<std::string> SaveUseCase::GetSessionStatus()const{
+    ifstream file("../include/Infrastructure/SavedGames/Sessions.txt",ios::in);
+    vector<string> options;
+    if(!file){
+        options={"Empty","Empty","Empty"};
+        file.close();
+        return options;
+    }
+
+    int n;
+    for(int i{};i<3;i++){
+        file>>n;
+        if(n==0){
+            options.push_back("Empty");
+        }
+        else if(n==1) options.push_back("Occupied");
+        else options.push_back("Error");
+    }
+        file.close();
+
+    return options;
+
+}
