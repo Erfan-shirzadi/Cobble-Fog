@@ -28,6 +28,7 @@ ContinueResult IntoThinAirEffect::MoveHero(EffectContext & context){
             context.combatcontext->Current->hero->GetNode());
         result.menu_request.nodes=rechbleNodes;
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose Node To Move Invisible Man");
         result.status=ContinueStatus::NEEDMENU;
         return result;
     }
@@ -48,6 +49,8 @@ ContinueResult IntoThinAirEffect::ChooseFog(EffectContext & context){
             result.menu_request.nodes.push_back(fog->GetNode());
         }
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose Fog ");
+
         result.status=ContinueStatus::NEEDMENU;
 
         return result;
@@ -69,6 +72,8 @@ ContinueResult IntoThinAirEffect::MoveFog(EffectContext & context){
         result.menu_request.nodes=rechbleNodes;
         result.menu_request.type=InputType::NODE;
         result.status=ContinueStatus::NEEDMENU;
+        context.context.Gamestate->log.Add("Choose Fog To Move");
+
 
         return result;
     }

@@ -9,6 +9,7 @@ ContinueResult StudyMethod::Continue(EffectContext & context){
         context.context.Gamestate->handview=HandView::OPPONENTPLAYER;
         res.menu_request.options.push_back("End turn");
         res.menu_request.type=InputType::QUESTION;
+        context.context.Gamestate->log.Add("Answer Questoin");
         res.status=ContinueStatus::NEEDMENU;
         return res;
     }

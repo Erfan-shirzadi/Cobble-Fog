@@ -24,7 +24,7 @@ ContinueResult CodedNotesEffect::Draw3Card(EffectContext & context){
     if(countofCardDrawed==3){
         context.context.Gamestate->handview=HandView::OPPONENTPLAYER;
         step=CodedStep::REUTRN_CARD_TO_DECK;
-        SetStep(static_cast<int>(step));
+        // SetStep(static_cast<int>(step));
 
     }
     result.status=ContinueStatus::CONTINUE;
@@ -38,6 +38,7 @@ ContinueResult CodedNotesEffect::ReturnToDeckCard(EffectContext & context){
             result.menu_request.cards.push_back(card->GetCardId());
         }
         result.status=ContinueStatus::NEEDMENU;
+        context.context.Gamestate->log.Add("Select card to return to deck");
         result.menu_request.type=InputType::CARD;
         return result;
     }

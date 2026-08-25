@@ -24,6 +24,7 @@ ContinueResult EliminateTheImpossibleEffect::BuildCardMenu(EffectContext& contex
     }
 
     result.menu_request.title="Enemy Cards";
+    context.context.Gamestate->log.Add("Choose a Card of enemy hand");
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::CARD;
 

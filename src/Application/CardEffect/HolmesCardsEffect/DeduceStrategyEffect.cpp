@@ -12,6 +12,7 @@ ContinueResult DeduceStrategyEffect::Continue(EffectContext & context){
                 std::to_string(card->GetBoost()));
             result.menu_request.options.push_back("stay "+std::to_string(card->GetDamgeOrDeffend()));
             result.menu_request.title="Change amount Enemy Card:";
+            context.context.Gamestate->log.Add("Answer Question");
             result.status=ContinueStatus::NEEDMENU;
             result.menu_request.type=InputType::QUESTION;
             return result;

@@ -21,6 +21,7 @@ ContinueResult Move3Effect::BuildReachableNodes(EffectContext & context){
             res.menu_request.nodes.push_back(x);
         }   
         res.menu_request.title="Nodes";
+        context.context.Gamestate->log.Add("Choose Node Move Fighter ");
         res.status=ContinueStatus::NEEDMENU;
         res.menu_request.type=InputType::NODE;
 

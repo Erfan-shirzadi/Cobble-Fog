@@ -77,6 +77,8 @@ ContinueResult StepLightlyEffect::ChooseFog(EffectContext &context){
         Nodes=result.menu_request.nodes;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose fog to Move ");
+
         return result;
     }
     fog=invisibleman->GetFogs()[context.context.Selected];
@@ -98,6 +100,8 @@ ContinueResult StepLightlyEffect::MoveFog(EffectContext &context){
         result.menu_request.nodes=Nodes;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose Node to Move fog ");
+
         return result;
     }
 

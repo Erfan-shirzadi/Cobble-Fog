@@ -10,7 +10,7 @@ ContinueResult LurkingEffect::Continue(EffectContext & context ){
         ContinueResult result;
         result.status=ContinueStatus::CONTINUE;
         step=LurkingStep::CHOOSE_EFFECT;
-        SetStep(static_cast<int>(step));
+        // SetStep(static_cast<int>(step));
 
         return result;
         break;
@@ -37,6 +37,8 @@ ContinueResult LurkingEffect::ChooseEffect(EffectContext &context){
     if(context.context.Selected==-1){
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::QUESTION;
+        context.context.Gamestate->log.Add("Answer Question ");
+
         result.menu_request.options.push_back("Move InvisibleMan to fog ");
         result.menu_request.options.push_back("Move 3 a Fog ");
         return result;
@@ -72,6 +74,7 @@ ContinueResult LurkingEffect::MoveInvisibleMan(EffectContext &context){
             std::cout<<"Fucccck it is empty !!!!!!!!\n";
         }
         Nodes=result.menu_request.nodes;
+        context.context.Gamestate->log.Add("Choose A fog to Move Invisible man");
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::NODE;
         return result;
@@ -94,6 +97,8 @@ ContinueResult LurkingEffect::ChooseFog(EffectContext & context){
         Nodes=result.menu_request.nodes;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose fog to Move ");
+
         return result;
     }
     fog=invisibleman->GetFogs()[context.context.Selected];
@@ -119,6 +124,8 @@ ContinueResult LurkingEffect::MoveFog(EffectContext & context){
         //     std::cout<<"Nodes"<<n<<std::endl;
         // }
         result.menu_request.type=InputType::NODE;
+        context.context.Gamestate->log.Add("Choose Node to Move fog ");
+
         return result;
     }
 
