@@ -605,12 +605,13 @@ ViewState GameView::GetState()const{
 }
 
 void GameView::DrawDetail(){
-    std::string tip="Tip : ";
+    std::string tip="";
 
     if(!gamestate.log.GetLogs().empty()){
+        tip="Tip : ";
         tip+=gamestate.log.GetLogs().back();
     }
-    tip+="Selete a node";
+    // tip+="Selete a node";
      
     int textWidth=MeasureText(tip.c_str(),20);
     int x=(900-textWidth /2);

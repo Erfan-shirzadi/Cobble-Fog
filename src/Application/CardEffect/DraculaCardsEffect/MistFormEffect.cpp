@@ -37,7 +37,7 @@ ContinueResult MistFormEffect::MoveDracula(EffectContext& context){
 
 }
 ContinueResult MistFormEffect::GainAction(EffectContext& context){
-    context.context.Gamestate->log.Add("added 1 actoin for dracula ");
+    // context.context.Gamestate->log.Add("added 1 actoin for dracula ");
     context.context.Gamestate->currnetPlayer->GetHero()->AddAction();
     step=MistFormEffectStep::FINISHED;
     ContinueResult res;
@@ -63,6 +63,6 @@ ContinueResult MistFormEffect::BuildDestinationsMunu(EffectContext& effectcontex
     }
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::NODE;
-    result.menu_request.title="Move Dracula ";
+    effectcontext.context.Gamestate->log.Add("Choose Node to Move Dracula ");
     return result;
 }

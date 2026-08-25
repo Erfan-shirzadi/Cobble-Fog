@@ -150,6 +150,7 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     temp.options.push_back("ATTACK");
     possibleAction.push_back(ActoinType::ATTACK);
     }
+    context.context.Gamestate->log.Add("Select Action");
     temp.type=InputType::ACTION;
     std::cout<<"Manever!!!!!!!!!!!!!"<<std::endl;
 

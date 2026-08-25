@@ -57,6 +57,7 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
         cout<<"In choose card Scheme"<<endl;
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::CARD;
+        context.context.Gamestate->log.Add("Choose scheme card");
         result.menu_request=BuildCardMenu(context);
         return result;
     }

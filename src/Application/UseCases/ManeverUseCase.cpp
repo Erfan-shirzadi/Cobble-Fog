@@ -48,7 +48,11 @@ ContinueResult ManeverUseCase::Continue(EffectContext&context){
 
 ContinueResult ManeverUseCase::AskIncreseMovment(EffectContext & context){
 
-    if(context.context.Selected==-1)return BuildAskIncreaseMovmentMenu();
+    if(context.context.Selected==-1){
+        context.context.Gamestate->log.Add("Answer question");
+        return BuildAskIncreaseMovmentMenu();
+    }
+
 
     int choice=context.context.Selected;
     context.context.Selected=-1;
@@ -133,6 +137,7 @@ ContinueResult ManeverUseCase::BuildAskIncreaseMovmentMenu(){
     result.menu_request.options.push_back("Continue");
     result.menu_request.options.push_back("End Turn");
     result.status=ContinueStatus::NEEDMENU;
+
     result.menu_request.type=InputType::QUESTION;
 
     return result;
@@ -145,6 +150,7 @@ ContinueResult ManeverUseCase::BuildCardChoosingMunu(EffectContext&context){
         result.menu_request.cards.push_back(card->GetCardId());
     }
     result.menu_request.title="Hand Card";
+    context.context.Gamestate->log.Add("Choose a card ");
     result.menu_request.type=InputType::CARD;
     return result;
 }
@@ -166,6 +172,7 @@ ContinueResult  ManeverUseCase::BuildFightersMenu(EffectContext& context){
       
     }
     result.menu_request.title="Fighters";
+    context.context.Gamestate->log.Add("Choose Fighter to move");
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::NODE;
     return result;
@@ -184,6 +191,8 @@ ContinueResult ManeverUseCase::BuildNodesMenu(EffectContext& context){
         result.menu_request.nodes.push_back(node);
     }
     result.menu_request.title="Destination";
+    context.context.Gamestate->log.Add("Choose a node");
+
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::NODE;
     return result;

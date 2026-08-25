@@ -33,7 +33,8 @@ ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
     for(int x: rechabenode){
         res.menu_request.nodes.push_back(x);
     }
-    res.menu_request.title="Reachable Nodes";
+    // res.menu_request.title="Reachable Nodes";
+    context.context.Gamestate->log.Add("Choose A Node to Move Dracula ");
 
     res.status=ContinueStatus::NEEDMENU;
     res.menu_request.type=InputType::NODE;

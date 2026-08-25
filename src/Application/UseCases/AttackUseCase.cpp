@@ -169,6 +169,7 @@ ContinueResult AttackUseCase::BuildAttakerMenu(EffectContext & context){
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::NODE;
     result.menu_request.title="Fighters in Chance";
+    context.context.Gamestate->log.Add("Choose a Fighter");
 
     return result;
 
@@ -197,7 +198,7 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     return result;
 }
 
-ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
+ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & context ){
     cout<<"Build Attacker card menu"<<endl;
     Hero * hero=combatcontext.Current->hero;
     if(hero)
@@ -206,16 +207,26 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
     cout<<combatcontext.Current->fighter<<endl;
     ContinueResult result;
     for(auto card: hero->GetHand()){
-        if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
+        if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
             if(card->GetOwner()==combatcontext.Current->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY){
                 result.menu_request.cards.push_back(card->GetCardId());
                 AttackerCards.push_back(card);
             }
+            if(card->GetOwner()==FighterType::SISTER && 
+                ((combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_1)
+                ||(combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_2)||
+                (combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_3))){
+                    result.menu_request.cards.push_back(card->GetCardId());
+                    AttackerCards.push_back(card);
+                }
+        }
     }
     cout<<"After Build attacker card menu"<<endl;
     result.menu_request.title="Cards";
     result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
+    context.context.Gamestate->log.Add("Choose a card");
+
     return result;
 }
 
@@ -303,12 +314,14 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::NODE;
     result.menu_request.title="Enemies";
+    context.context.Gamestate->log.Add("Choose a Fighter to attack it");
+
     return result;
 }
 
 ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
     if(context.context.Selected==-1){
-        cout<<"Why come here?"<<endl;
+        // cout<<"Why come here?"<<endl;
          return BuildDeffenerCardMenu(context) ;
     }
 
@@ -336,6 +349,8 @@ ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
     result.menu_request.title="cards";
     result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
+    context.context.Gamestate->log.Add("Choose a card to deffend");
+
     return result;
 
 }
@@ -346,11 +361,18 @@ void AttackUseCase::SetDeffenderCards(){
     DeffenderCards.clear();
 
     for(auto card: hero->GetHand()){
-        if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
-        if(combatcontext.Opponent->fighter->GetFighterType()==card->GetOwner() ||
-            card->GetOwner()==FighterType::ANY){
-                DeffenderCards.push_back(card);
-            
+        if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
+            if(combatcontext.Opponent->fighter->GetFighterType()==card->GetOwner() ||
+                card->GetOwner()==FighterType::ANY){
+                    DeffenderCards.push_back(card);
+                
+            }
+            if(card->GetOwner()==FighterType::SISTER &&
+                ((combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_1)
+                ||(combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_2)||
+                (combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_3))){
+                    DeffenderCards.push_back(card);
+                }
         }
     }
 }
@@ -362,7 +384,11 @@ bool AttackUseCase::CanDeffendDffender(){
 
 
 ContinueResult AttackUseCase::AskForDeffend(EffectContext & context){
-    if(context.context.Selected==-1) return BuildAskDeffendMenu();
+    if(context.context.Selected==-1) {
+        context.context.Gamestate->log.Add("Answer Question");
+        return BuildAskDeffendMenu();
+    }
+
     if(context.context.Selected==0)
         setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
     else if(context.context.Selected==1){ 
@@ -384,6 +410,7 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
     res.menu_request.options.push_back("Continue");
     res.status=ContinueStatus::NEEDMENU;
     res.menu_request.type=InputType::QUESTION;
+
 
     return res;
 }
