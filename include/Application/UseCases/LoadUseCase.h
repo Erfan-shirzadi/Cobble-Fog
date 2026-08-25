@@ -3,8 +3,9 @@
 #include "Domain/Game/DataContext.h"
 class LoadUseCase{
 
+    int sessionNumber;
     public:
-    void Load (DataContext &);
+    void Load (DataContext &, int session);
     void LoadGameState(GameState *);
     void LoadPlayer(int number,Player*);
     void LoadTurnUseCase(TurnUseCase*,GameState*);

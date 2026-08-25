@@ -52,7 +52,7 @@ void GameEngine::InitialObjects(){
 
 
 void GameEngine::Process(){
-
+    std::cout<<"OOOOOOOOOOOO"<<std::endl;
     while (true){
 
         // if(TURNUSECASE){
@@ -62,6 +62,7 @@ void GameEngine::Process(){
         //     std::cerr<<"Gaeiddddd maray"<<std::endl;
 
         // }
+        std::cout<<"In procces 2"<<std::endl;
         ContinueResult result=TURNUSECASE->Continue(context);
 
         std::cout<<"in procces"<<std::endl;
@@ -110,6 +111,7 @@ void GameEngine::OnSelection(int selection){
         // DeleteObjects();
         MenuRequest request;
         request.options=saveuseCase.GetSessionStatus();
+        request.type=InputType::SAVE;
         view.SetInputRequest(request);
     
 
@@ -122,8 +124,10 @@ void GameEngine::OnSelection(int selection){
         // LoadGame();
         MenuRequest request;
         request.options=saveuseCase.GetSessionStatus();
+        request.type=InputType::LOAD;
         view.SetInputRequest(request);
-    
+        view.SetState(ViewState::SESSION);
+
 
         this->state=GameEngineState::LOAD_GAME;
         // context.context.Selected=-1;
@@ -225,12 +229,14 @@ void GameEngine::SaveGame(){
 
     // DataContext data;
     // data.gamestate=this->gamestate;
-    std::cout<<context.context.Selected<<std::endl;
+    // std::cout<<context.context.Selected<<std::endl;
     data.gameviewstate=view.GetState();
     data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
     saveuseCase.Save(data,context.context.Selected);
+    context.context.Selected=-1;
+
     DeleteObjects();
     
 
@@ -245,13 +251,16 @@ void GameEngine::LoadGame(){
     //     view.SetInputRequest(request);
     //     return;
     // }
-    
+    std::cout<<"Selected in load Game"<<context.context.Selected<<std::endl;
     InitialObjects();
 
     data.gameviewstate=view.GetState();
     data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
 
-    loaduseCase.Load(data);
+    loaduseCase.Load(data,context.context.Selected);
+    context.context.Selected=-1;
+    std::cout<<"HAvar"<<std::endl;
     state=GameEngineState::GAME;
+    view.SetState(ViewState::GAME);
 }

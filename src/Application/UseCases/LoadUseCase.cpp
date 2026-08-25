@@ -5,7 +5,8 @@
 #include <iostream>
 #include <memory>
 using namespace std;
-void LoadUseCase::Load (DataContext & data){
+void LoadUseCase::Load (DataContext & data, int session){
+    sessionNumber=session;
     LoadGameState(data.context->context.Gamestate);
     // data.TURNUSECASE=new TurnUseCase;
     LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate);
@@ -20,7 +21,7 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
 
     LoadPlayer(1,gamestate->player1);
     LoadPlayer(2,gamestate->player2);
-    ifstream ifile("../include/Infrastructure/SavedGames/Game1/CurrentPlayer.txt");
+    ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/CurrentPlayer.txt");
     int n;
     ifile>>n;
     if(n==1){
@@ -33,7 +34,7 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
 
     }
     ifile.close();
-    ifstream handviewfile("../include/Infrastructure/SavedGames/Game1/HandView.txt");
+    ifstream handviewfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/HandView.txt");
     handviewfile>>n;
     gamestate->handview=static_cast<HandView>(n);
     handviewfile.close();
@@ -60,7 +61,7 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
 
 }
 void LoadUseCase::LoadPlayer(int number,Player* player){
-    ifstream file("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/Hero.txt");
+    ifstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/Hero.txt");
     int n;
     file>>n;
     player->SetHero(n);
@@ -76,19 +77,19 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     file>>n;
     hero->SetStartTurnOnfog(static_cast<bool>(n));
     file.close();
-    ifstream hfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/Hand.txt");
+    ifstream hfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/Hand.txt");
     while (hfile>>n){
         hero->AddCardToHand(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
     }
     hfile.close();
-    ifstream dfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/Deck.txt");
+    ifstream dfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/Deck.txt");
     Deck& deck=hero->GetDeck();
     deck.ClearDeck();
     while (dfile>>n){
         deck.Add(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
     }
     dfile.close();
-    ifstream dcfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/DiscadCards.txt");
+    ifstream dcfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/DiscadCards.txt");
     // std::vector<Card*>dicardcards=hero->GetDiscardCards();
     while (dcfile>>n){
         hero->AddCardToDiscardCards(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
@@ -98,7 +99,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     std::vector<Fighter*> sidekick=hero->GetAllsidekick();
 
     for(int i{};i<sidekick.size();i++){
-        ifstream sifile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/sidekick"+to_string(i)+".txt");
+        ifstream sifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/sidekick"+to_string(i)+".txt");
         sifile>>n;
         sidekick[i]->SetHP(n);
         sifile>>n;
@@ -107,7 +108,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     }
     std::vector<Fog*>fogs=hero->GetFogs();
     for(int i{};i<fogs.size();i++){
-        ifstream sifile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(number)+"/fog"+to_string(i)+".txt");
+        ifstream sifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/fog"+to_string(i)+".txt");
         sifile>>n;
         fogs[i]->SetNode(n);
         sifile.close();
@@ -121,7 +122,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
 }
 
 void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate){
-    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
+    ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/TurnStep.txt");
     // if(!ifile){
         cout<<"Yaaaaa khodaaa"<<std::endl;
     // }
@@ -131,7 +132,7 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate)
     turnusecase->SetStep(static_cast<TurnStep>(n));
     ifile.close();
 
-    ifstream afile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentAction.txt");
+    ifstream afile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CurrentAction.txt");
     afile>>n;
     turnusecase->SetUseCase(n);
     afile.close();
@@ -156,7 +157,7 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate)
 }
 
 void LoadUseCase::LoadManever(ManeverUseCase & manever ,Player* player){
-    ifstream ifile ("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
+    ifstream ifile ("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/Manever.txt");
     int n;
     ifile>>n;
     manever.SetStep(static_cast<ManeverStep>(n));
@@ -175,7 +176,7 @@ void LoadUseCase::LoadManever(ManeverUseCase & manever ,Player* player){
 
 }
 void LoadUseCase::LoadScheme(SchemeUseCase & scheme,Player* currentplayer){
-    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
+    ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/Scheme.txt");
     Hero * hero=currentplayer->GetHero();
     int n;
     ifile>>n;
@@ -190,7 +191,7 @@ void LoadUseCase::LoadScheme(SchemeUseCase & scheme,Player* currentplayer){
 
 }
 void LoadUseCase::LoadAttck(AttackUseCase & attack,GameState* gamestate){
-    ifstream ifile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/attack.txt");
+    ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/attack.txt");
     int n;
     cout<<" IN Load Attack"<<endl;
     ifile>>n;
@@ -202,7 +203,7 @@ void LoadUseCase::LoadAttck(AttackUseCase & attack,GameState* gamestate){
 
 }
 void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate){
-    ifstream CurrentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextCurrent.txt");
+    ifstream CurrentPlayerfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CombatContextCurrent.txt");
 
     if(!CurrentPlayerfile.is_open())return ;
 
@@ -212,7 +213,7 @@ void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate
     context.Current=std::make_unique<CombatParticipant>();
     context.Opponent=std::make_unique<CombatParticipant>();
 
-    ifstream NumberCurrentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentCombatPlayer.txt");
+    ifstream NumberCurrentPlayerfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CurrentCombatPlayer.txt");
 
     int number;
     NumberCurrentPlayerfile>>number;
@@ -259,7 +260,7 @@ void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate
     CurrentPlayerfile.close();
 
 
-    ifstream OpponentPlayerfile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextOpponent.txt");
+    ifstream OpponentPlayerfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CombatContextOpponent.txt");
     OpponentPlayerfile>>number;
 
      if(context.Opponent->hero->GetNode()==number){

@@ -12,6 +12,7 @@ class SaveUseCase {
     std::string foderpathTurnusecase="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1/TurnUseCase/";
     std::string folderpathGame="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game1";
     public :
+    void SetFolderPath();
     void Save(DataContext,int session);
     void SaveGameState(GameState*)const;
     void SavePlayer(int ,Player *)const;

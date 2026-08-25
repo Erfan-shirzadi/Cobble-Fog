@@ -54,6 +54,8 @@ class GameView{
     void DrawSession();
     void UpdateSession();
 
+    void DrawDetail();
+
 
 
 
@@ -83,9 +85,12 @@ class GameView{
     std::vector<Vector2> nodeCenters;
     Texture2D DraculaTeam;
     Texture2D SherlockTeam;
+    Texture2D InvisibleManTeam;
 
     Texture2D WinDracual;
     Texture2D WinSherlock;
+    Texture2D WinInvisibleMan;
+
     Rectangle backtomainMenu;
     Rectangle Exit;
     Rectangle YesSaveView;

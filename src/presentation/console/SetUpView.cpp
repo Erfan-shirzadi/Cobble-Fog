@@ -382,10 +382,10 @@ void SetUpView::DrawFightersOnBoard(){
             texture=this->sisters[0];
             break;
         case FighterType::SISTER_2:
-            texture=this->sisters[0];
+            texture=this->sisters[1];
             break;
         case FighterType::SISTER_3:
-            texture=this->sisters[0];
+            texture=this->sisters[2];
             break;
         case FighterType::FOG:
             texture=this->fog;

@@ -48,8 +48,10 @@ void GameView::LoadTextures(){
     LoadCardsTexture();
     DraculaTeam=LoadTexture("../include/Infrastructure/Assets/images/dracula/DraculaTeam.png");
     SherlockTeam=LoadTexture("../include/Infrastructure/Assets/images/sherlock/SherlockTeam.png");
+    InvisibleManTeam=LoadTexture("../include/Infrastructure/Assets/images/invisibleMan/InvisibleManTeam.png");
     WinDracual=LoadTexture("../include/Infrastructure/Assets/images/DraculaWinGame.png");
     WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
+    WinInvisibleMan=LoadTexture("../include/Infrastructure/Assets/images/InvisibleWinGame.png");
     exitbutton=LoadTexture("../include/Infrastructure/Assets/images/Exit.png");
     saveview=LoadTexture("../include/Infrastructure/Assets/images/SaveView.png");
     SessionView=LoadTexture("../include/Infrastructure/Assets/images/Session.png");
@@ -89,8 +91,10 @@ void GameView::Run(){
             Onselection(-1);
             break;
         case MenuResult::LOAD:
-            this->state=ViewState::GAME;
+
+            this->state=ViewState::SESSION;
             Onselection(-3);
+
             // std::cout<<" herhre"<<std::endl;
             break;
         }
@@ -106,7 +110,6 @@ void GameView::Run(){
        setup.Draw();
        break;
     case ViewState::GAME:
-       
         Draw();
         Update();
         break;
@@ -119,6 +122,7 @@ void GameView::Run(){
         UpdateSession();
         break;
     }
+    DrawDetail();
     EndDrawing();
     }
 
@@ -155,12 +159,12 @@ void GameView::Update(){
 }
 
 void GameView::Draw(){
-    // std::cout<<"Drawed fist"<<std::endl;
+    std::cout<<"Drawed fist"<<std::endl;
 
     if(!exitb)
         setup.DrawBoard();
     
-    // std::cout<<"Drawed"<<std::endl;
+    std::cout<<"Drawed"<<std::endl;
     DrawAction();
     // std::cout<<"DrawAction"<<std::endl;
     
@@ -187,7 +191,8 @@ void GameView::Draw(){
 
 void GameView::DrawAction(){
     DrawText("Actions", 123, 730, 30, WHITE);
-    if(menurequest.options.empty())
+
+    if(menurequest.options.empty() || (menurequest.type==InputType::LOAD))
         Onselection(-1);
     
     int y = 780;
@@ -395,8 +400,12 @@ void GameView::DrawPlayers(){
 
        
     }
-    else {
+    else if(gamestate.player1->GetHero()->GetFighterType()==FighterType::SHERLOCK){
         DrawTextureEx(SherlockTeam,Vector2{20,70},
+        0.0f,0.43f,WHITE);
+    }
+    else {
+        DrawTextureEx(InvisibleManTeam,Vector2{1380,70},
         0.0f,0.43f,WHITE);
     }
     Hero * hero=gamestate.player1->GetHero();
@@ -437,8 +446,12 @@ void GameView::DrawPlayers(){
 
         
     }
-    else {
+    else if(gamestate.player2->GetHero()->GetFighterType()==FighterType::SHERLOCK){
         DrawTextureEx(SherlockTeam,Vector2{1380,70},
+        0.0f,0.43f,WHITE);
+    }
+    else {
+        DrawTextureEx(InvisibleManTeam,Vector2{1380,70},
         0.0f,0.43f,WHITE);
     }
     hero=gamestate.player2->GetHero();
@@ -480,8 +493,11 @@ void GameView::DrawGameResult(){
     if(gamestate.gameresult==GameResult::DRACULA_WON){
         DrawTextureEx(WinDracual,{250,100},0,1,WHITE);
     }
-    else{
+    else if(gamestate.gameresult==GameResult::SHERLOCK_WON){
         DrawTextureEx(WinSherlock,{250,100},0,1,WHITE);
+    }
+    else {
+        DrawTextureEx(WinInvisibleMan,{250,100},0,1,WHITE);
     }
 }
 
@@ -558,8 +574,25 @@ void GameView::UpdateSession(){
     for(int i{};i<sessions.size();i++){
         if(CheckCollisionPointRec(GetMousePosition(),sessions[i])){
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){ 
-                state=ViewState::MAINMENU;
-                Onselection(i);
+
+                switch (menurequest.type)
+                {
+                case InputType::SAVE:
+                    state=ViewState::MAINMENU;
+                    Onselection(i);
+                    break;
+                case InputType::LOAD:
+                
+                    if(menurequest.options[i]!="Empty"){
+                        state=ViewState::GAME;
+                        Onselection(i);
+
+                    }
+                    
+                    break;
+            
+                }
+                    
             }
 
         }
@@ -569,6 +602,19 @@ void GameView::UpdateSession(){
 
 ViewState GameView::GetState()const{
     return this->state;
+}
+
+void GameView::DrawDetail(){
+    std::string tip="Tip : ";
+
+    if(!gamestate.log.GetLogs().empty()){
+        tip+=gamestate.log.GetLogs().back();
+    }
+    tip+="Selete a node";
+     
+    int textWidth=MeasureText(tip.c_str(),20);
+    int x=(900-textWidth /2);
+    DrawText(tip.c_str(),x,35,20,WHITE);
 }
 
 

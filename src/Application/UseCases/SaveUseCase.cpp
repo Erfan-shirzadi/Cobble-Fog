@@ -4,9 +4,21 @@
 #include <filesystem>
 using namespace std;
 
+void SaveUseCase::SetFolderPath(){
+
+    std::string folderpathPlayer2="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player2/";
+    std::string folderpathPlayer1="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player1/";
+    std::string foderpathTurnusecase="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/";
+    std::string folderpathGame="/home/lionborn/programs/projects/PROJECT/Cobble & fog/Cobble-Fog/include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"";
+
+}
+
+
+
 void SaveUseCase::Save(DataContext data,int session){
 
     sessionNumber=session;
+    SetFolderPath();
     UpdateSessionFile(session);
     RemoveTxtFiles(folderpathPlayer1);
     RemoveTxtFiles(folderpathPlayer2);
@@ -31,7 +43,7 @@ void SaveUseCase::SaveGameState(GameState * gamestate)const{
     SaveHandViewStatus(gamestate->handview);
     if(gamestate->combatsatat){
         SaveCombatContext(gamestate->combatsatat);
-        ofstream currentplayerCombat("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentCombatPlayer.txt");
+        ofstream currentplayerCombat("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CurrentCombatPlayer.txt");
         if(gamestate->player1->GetHero()==gamestate->combatsatat->Current->hero){
             currentplayerCombat<<1;
         }else currentplayerCombat<<2;
@@ -44,7 +56,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 
     cout<<"saveed"<<endl;
     // ofstream file("../include/fuck.txt");
-    ofstream ofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Hero.txt");
+    ofstream ofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/Hero.txt");
     if(!ofile.is_open()){
         cout<<" can not open file";
     }
@@ -56,12 +68,12 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     ofile<<hero->GetRemainingAction()<<endl;
     ofile<<hero->GetStartTurnOnfog()<<endl;
 
-    ofstream cfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Hand.txt");
+    ofstream cfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/Hand.txt");
     for(auto card:hero->GetHand()){
         cfile<<(int)card->GetCardId()<<endl;
     }
     cfile.close();
-    ofstream dfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/Deck.txt");
+    ofstream dfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/Deck.txt");
 
     for(auto cardid:hero->GetDeck().GetCards()){
         dfile<<(int)cardid<<endl;
@@ -69,7 +81,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     dfile.close();
     ofile.close();
 
-    ofstream dcfile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/DiscadCards.txt");
+    ofstream dcfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/DiscadCards.txt");
     for(auto card: hero->GetDiscardCards()){
         dcfile<<(int)card->GetCardId()<<std::endl;
     }
@@ -77,7 +89,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 
     std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
     for(int i{};i<sidekcik.size();i++){
-        ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
+        ofstream sofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
         // sofile<<(int)sidekcik[i]->GetFighterType()<<endl;
         sofile<<sidekcik[i]->GetHP()<<endl;
         sofile<<sidekcik[i]->GetNode()<<endl;
@@ -85,7 +97,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     }
     std::vector<Fog*> fogs=hero->GetFogs();
     for(int i{};i<fogs.size();i++){
-        ofstream sofile("../include/Infrastructure/SavedGames/Game1/Player"+to_string(numberofPlayer)+"/fog"+to_string(i)+".txt");
+        ofstream sofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/fog"+to_string(i)+".txt");
         sofile<<fogs[i]->GetNode()<<endl;
         sofile.close();
     }
@@ -94,14 +106,14 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 
 
 void SaveUseCase::SaveCurrentPlayerNumber(int number)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/CurrentPlayer.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/CurrentPlayer.txt");
     file<<number;
     file.close();
 }
 
 
 void SaveUseCase::SaveHandViewStatus(HandView handview)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/HandView.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/HandView.txt");
     file<<(int)handview;
     file.close();
 }
@@ -129,13 +141,13 @@ void SaveUseCase::SaveTurnUseCase(TurnUseCase* turnusecase)const{
 
 
 void SaveUseCase::SaveGameViewState(ViewState view)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/ViewState.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/ViewState.txt");
     file<<(int)view;
     file.close();
 }
 
 void SaveUseCase::SaveManever(ManeverUseCase & manever)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Manever.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/Manever.txt");
     file<<(int)manever.GetStep()<<endl;
     
     // for(auto f:manever.GetFighters()){
@@ -161,7 +173,7 @@ void SaveUseCase::SaveManever(ManeverUseCase & manever)const{
 }
 
 void SaveUseCase::SaveScheme(SchemeUseCase & scheme)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/Scheme.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/Scheme.txt");
     file<<(int)scheme.GetStep()<<endl;
     if(scheme.GetSelectedCard())
         file<<(int)scheme.GetSelectedCard()->GetCardId()<<endl;
@@ -170,7 +182,7 @@ void SaveUseCase::SaveScheme(SchemeUseCase & scheme)const{
 }
 
 void SaveUseCase::SaveAttack(AttackUseCase & attack)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/attack.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/attack.txt");
     file<<(int)attack.GetStep()<<endl;
     file<<(int)attack.GetStepSetup()<<endl;
     // cout<< attack.GetAttackers().size()<<endl;
@@ -192,20 +204,20 @@ void SaveUseCase::SaveAttack(AttackUseCase & attack)const{
 }
 
 void SaveUseCase::SaveTurnUseCaseStep(TurnStep step)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/TurnStep.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/TurnStep.txt");
     file<<(int)step<<endl;
     file.close();
 }
 
 void SaveUseCase::SaveCurrentAction(ActoinType actoin)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CurrentAction.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CurrentAction.txt");
     file<<(int)actoin<<endl;
     file.close();
 }
 
 
 void SaveUseCase::SaveCombatContext(CombatContext* context)const{
-    ofstream file("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextCurrent.txt");
+    ofstream file("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CombatContextCurrent.txt");
 
     // if(context->Current->hero){
     //     file<<context->Current->hero->GetName()<<endl;
@@ -224,7 +236,7 @@ void SaveUseCase::SaveCombatContext(CombatContext* context)const{
         
     
     file.close();
-    ofstream ofile("../include/Infrastructure/SavedGames/Game1/TurnUseCase/CombatContextOpponent.txt");
+    ofstream ofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/CombatContextOpponent.txt");
 
     // if(context->Opponent->hero){
     //     ofile<<context->Opponent->hero->GetName()<<endl;
@@ -309,7 +321,7 @@ std::vector<std::string> SaveUseCase::GetSessionStatus()const{
             options.push_back("Empty");
         }
         else if(n==1) options.push_back("Occupied");
-        else options.push_back("Error");
+        // else options.push_back("Error");
     }
         file.close();
 
