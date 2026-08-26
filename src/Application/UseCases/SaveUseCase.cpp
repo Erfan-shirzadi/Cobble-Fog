@@ -310,6 +310,12 @@ std::vector<std::string> SaveUseCase::GetSessionStatus()const{
     vector<string> options;
     if(!file){
         options={"Empty","Empty","Empty"};
+        ofstream ofile("../include/Infrastructure/SavedGames/Sessions.txt");
+        ofile<<0<<endl;
+        ofile<<0<<endl;
+        ofile<<0<<endl;
+
+        ofile.close();
         file.close();
         return options;
     }

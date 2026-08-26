@@ -405,7 +405,7 @@ void GameView::DrawPlayers(){
         0.0f,0.43f,WHITE);
     }
     else {
-        DrawTextureEx(InvisibleManTeam,Vector2{1380,70},
+        DrawTextureEx(InvisibleManTeam,Vector2{20,70},
         0.0f,0.43f,WHITE);
     }
     Hero * hero=gamestate.player1->GetHero();

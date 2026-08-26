@@ -1,6 +1,5 @@
 #include "Application/CardEffect/DraculaCardsEffect/BeastFormEffect.h"
 #include "Application/interaction/EffectContext.h"
-#include <iostream>
 ContinueResult BeastFormEffect::Continue(EffectContext & context){
 
     switch (step)
@@ -49,7 +48,6 @@ ContinueResult BeastFormEffect::AskForDiscardinCard(EffectContext & context){
     return res;
 }
 ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
-    std::cout<<"Choose CArdddddddddd"<<std::endl;
     if(context.context.Selected==-1)return BuildCardMenu(context);
 
     context.combatcontext->Current->hero->GetCard(context.context.Selected);
@@ -63,14 +61,12 @@ ContinueResult BeastFormEffect::ChooseCard(EffectContext & context){
 }
 
 ContinueResult BeastFormEffect::BuildCardMenu(EffectContext & context){
-    std::cout<<"Havarrrrrrr a das ina   *******"<<std::endl;
 
     Hero * dracual=context.combatcontext->Current->hero;
     ContinueResult res;
     for(auto card: dracual->GetHand()){
         res.menu_request.cards.push_back(card->GetCardId());
     }
-        std::cout<<"Havarrrrrrr a das ina"<<std::endl;
 
 
     res.menu_request.title="Cards ";
