@@ -100,6 +100,7 @@ class GameView{
     Texture2D SessionView;
     std::vector<Rectangle> sessions;
     bool exitb=false;
+    bool ignoreSessionClick=false;
 
 
 

@@ -1,6 +1,7 @@
 #include "Domain/Game/GameState.h"
 #include "presentation/console/GameView.h"
 #include <raylib.h>
+#include <iostream>
 
 GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     setup.SetInputRequest(this->menurequest);
@@ -93,6 +94,7 @@ void GameView::Run(){
         case MenuResult::LOAD:
 
             this->state=ViewState::SESSION;
+            ignoreSessionClick=true;
             Onselection(-3);
 
             
@@ -547,6 +549,7 @@ void GameView::UpdateExit(){
 
 void GameView::DrawSession(){
 
+    std::cout<<"Session drawed"<<std::endl;
     DrawTextureEx(SessionView,{40,20},0,1.3,WHITE);
     int y=300;
     for(auto option:menurequest.options){
@@ -558,7 +561,11 @@ void GameView::DrawSession(){
 }
 void GameView::UpdateSession(){
 
-    auto mouse=GetMousePosition();
+    // auto mouse=GetMousePosition();
+    if(ignoreSessionClick){
+        ignoreSessionClick=false;
+        return;
+    }
 
     for(int i{};i<sessions.size();i++){
         if(CheckCollisionPointRec(GetMousePosition(),sessions[i])){
@@ -573,8 +580,10 @@ void GameView::UpdateSession(){
                 case InputType::LOAD:
                 
                     if(menurequest.options[i]!="Empty"){
-                        state=ViewState::GAME;
+                        std::cout<<"selected : i " <<i<<std::endl;
                         Onselection(i);
+                        state=ViewState::GAME;
+
 
                     }
                     
@@ -613,13 +622,13 @@ void GameView::DrawDetail(){
         switch (type)
         {
         case FighterType::DRACULA:
-            DrawText("Turn :  Dracula",1550,940,30,RED);
+            DrawText("Turn : Dracula",1550,940,30,RED);
             break;
         case FighterType::SHERLOCK:
-            DrawText("Turn :  Sherlock",1550,940,30,YELLOW);
+            DrawText("Turn : Sherlock",1550,940,30,YELLOW);
             break;
         case FighterType::INVISIBLEMAN:
-            DrawText("Turn :  InvisibleMan",1550,940,30,BLUE);
+            DrawText("Turn : InvisibleMan",1550,940,30,BLUE);
             break;
         default:
             break;

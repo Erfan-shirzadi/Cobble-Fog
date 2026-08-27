@@ -2,10 +2,12 @@
 #include "Application/UseCases/CreatCard.h"
 #include "Application/CardEffect/CardEffectFactory.h"
 #include <fstream>
+#include <iostream>
 #include <memory>
 using namespace std;
 void LoadUseCase::Load (DataContext & data, int session){
     sessionNumber=session;
+    cout<<"session number :"<<session<<endl;
     LoadGameState(data.context->context.Gamestate);
     
     LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate);
@@ -267,10 +269,8 @@ void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate
     OpponentPlayerfile>>number;
 
     if(number!=-1){
-        // context.Opponent->card=CreatCard::CreatCardid(static_cast<CardId>(number));
         context.Opponent->effect=CardEffectFactory::CreatCardEffect(static_cast<CardId>(number));
         OpponentPlayerfile>>number;
-        // context.Opponent->card->SetDamageOrDeffend(number);
     }
     OpponentPlayerfile>>number;
     context.Opponent->IsActiveCardEffect=static_cast<bool>(number);
