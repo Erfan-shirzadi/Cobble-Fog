@@ -22,7 +22,7 @@ void SaveUseCase::Save(DataContext data,int session){
     UpdateSessionFile(session);
     RemoveTxtFiles(folderpathPlayer1);
     RemoveTxtFiles(folderpathPlayer2);
-    // RemoveTxtFiles(folderpathGame);
+    
     RemoveTxtFiles(foderpathTurnusecase);
 
 
@@ -54,12 +54,9 @@ void SaveUseCase::SaveGameState(GameState * gamestate)const{
 
 void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
 
-    cout<<"saveed"<<endl;
-    // ofstream file("../include/fuck.txt");
+   
     ofstream ofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/Hero.txt");
-    if(!ofile.is_open()){
-        cout<<" can not open file";
-    }
+   
     Hero * hero=player->GetHero();
     ofile<<(int)hero->GetFighterType()<<endl;
     ofile<<hero->GetHP()<<endl;
@@ -90,7 +87,7 @@ void SaveUseCase::SavePlayer(int numberofPlayer,Player * player)const{
     std::vector<Fighter* > sidekcik=hero->GetAllsidekick();
     for(int i{};i<sidekcik.size();i++){
         ofstream sofile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(numberofPlayer)+"/sidekick"+to_string(i)+".txt");
-        // sofile<<(int)sidekcik[i]->GetFighterType()<<endl;
+       
         sofile<<sidekcik[i]->GetHP()<<endl;
         sofile<<sidekcik[i]->GetNode()<<endl;
         sofile.close();
@@ -287,10 +284,10 @@ void SaveUseCase::UpdateSessionFile(int number){
     }
 
     int n;
-    cout<<number<<endl;
+    
     for(int i{};i<3;i++){
         file>>n;
-        cout<<n;
+        
         if(i==number){
             test<<1<<endl;
         }
@@ -327,7 +324,7 @@ std::vector<std::string> SaveUseCase::GetSessionStatus()const{
             options.push_back("Empty");
         }
         else if(n==1) options.push_back("Occupied");
-        // else options.push_back("Error");
+        
     }
         file.close();
 

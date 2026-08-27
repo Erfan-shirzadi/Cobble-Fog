@@ -2,23 +2,20 @@
 #include "Application/UseCases/CreatCard.h"
 #include "Application/CardEffect/CardEffectFactory.h"
 #include <fstream>
-#include <iostream>
 #include <memory>
 using namespace std;
 void LoadUseCase::Load (DataContext & data, int session){
     sessionNumber=session;
     LoadGameState(data.context->context.Gamestate);
-    // data.TURNUSECASE=new TurnUseCase;
+    
     LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate);
-    // data.context.context.Gamestate.
+    
     data.context->context.Selected=-1;
     data.context->combatcontext=data.context->context.Gamestate->combatsatat;
 }
 
 void LoadUseCase::LoadGameState(GameState * gamestate){
-    // gamestate->player1=new Player;
-    // gamestate->player2=new Player;
-
+   
     LoadPlayer(1,gamestate->player1);
     LoadPlayer(2,gamestate->player2);
     ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/CurrentPlayer.txt");
@@ -56,7 +53,7 @@ void LoadUseCase::LoadGameState(GameState * gamestate){
         board.AddFog(fog,fog->GetNode());
     }
 
-    cout<< "GAme State Loaded "<<endl;
+   
 
 
 }
@@ -90,7 +87,7 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     }
     dfile.close();
     ifstream dcfile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/Player"+to_string(number)+"/DiscadCards.txt");
-    // std::vector<Card*>dicardcards=hero->GetDiscardCards();
+    
     while (dcfile>>n){
         hero->AddCardToDiscardCards(std::move(CreatCard::CreatCardid(static_cast<CardId>(n))));
     }
@@ -115,20 +112,15 @@ void LoadUseCase::LoadPlayer(int number,Player* player){
     }
 
 
-    for(auto s: sidekick){
-        cout<<s->GetName()<<endl;
-    }
-    cout<< hero->GetName()<<endl;
+    
 }
 
 void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate){
     ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/TurnStep.txt");
-    // if(!ifile){
-        cout<<"Yaaaaa khodaaa"<<std::endl;
-    // }
+    
     int n;
     ifile>>n;
-    cout<<n<<endl;
+    
     turnusecase->SetStep(static_cast<TurnStep>(n));
     ifile.close();
 
@@ -137,7 +129,7 @@ void LoadUseCase::LoadTurnUseCase(TurnUseCase* turnusecase,GameState* gamestate)
     turnusecase->SetUseCase(n);
     afile.close();
 
-    cout<<"Load TUrn Use cAse"<<endl;
+
     switch (turnusecase->CurrentAction())
     {
     case ActoinType::MANEVER:
@@ -186,14 +178,14 @@ void LoadUseCase::LoadScheme(SchemeUseCase & scheme,Player* currentplayer){
     scheme.SetSelectedCard(hero->GetCardOfDiscardCards(static_cast<CardId>(n)));
     ifile>>n;
     scheme.SetCardEffect(CardEffectFactory::CreatCardEffect(static_cast<CardId>(cardid)),n);
-    cout<<"LOaded seccusfull"<<endl;
+    
     ifile.close();
 
 }
 void LoadUseCase::LoadAttck(AttackUseCase & attack,GameState* gamestate){
     ifstream ifile("../include/Infrastructure/SavedGames/Game"+to_string(sessionNumber)+"/TurnUseCase/attack.txt");
     int n;
-    cout<<" IN Load Attack"<<endl;
+    
     ifile>>n;
     attack.SetStep(static_cast<AttackStep>(n));
     ifile>>n;
@@ -233,16 +225,15 @@ void LoadUseCase::LoadCommbatContext(CombatContext& context,GameState* gamestate
         context.Current->fighter=dynamic_cast<Fighter*>(context.Current->hero);
     }
     else {
-        cout<<"Size Sidekcik "<<context.Current->hero->GetSideKicks().size()<<endl;
+        
         for(auto fighter:context.Current->hero->GetSideKicks()){
-            cout<<"Node Side kick"<<fighter->GetNode()<<endl;
+           
             if(fighter->GetNode()==number)
                 context.Current->fighter=fighter;
         }
     }
-    cout<<"Name Fighter"<<endl;
-    cout<<"Name Hero"<<context.Current->hero->GetName()<<endl;
-    cout<<context.Current->fighter->GetName()<<endl;
+   
+    
 
     CurrentPlayerfile>>number;
     if(number!=-1){

@@ -3,7 +3,7 @@
 #include "Application/UseCases/ManeverUseCase.h"
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/Ability/HeroAbilityFactory.h"
-#include <iostream>
+
 
 
 
@@ -46,7 +46,7 @@ ContinueResult TurnUseCase::Start(EffectContext& context){
 
 ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 
-    std::cout<<"Execute Action"<<std::endl;
+    
     ContinueResult result=CurrentUseCase->Continue(context);
     
     if(result.status ==ContinueStatus::FINISHED){
@@ -71,15 +71,14 @@ ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
         SetUseCase(context.context.Selected);
         CurrentUseCase->Start(context);
         context.context.Selected=-1;
-        std::cout<<"Actions"<<std::endl;
+       
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
         return a;
 
     }
-    std::cout<<"ActionsHavvar"<<std::endl;
-
+    
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
     
@@ -112,19 +111,19 @@ void TurnUseCase::SetUseCase(int selected){
     switch (selected)
     {
     case 0:
-        std::cout<<" Set action Manever"<<std::endl;
+        
         this->CurrentUseCase= &manever;
         this->currentaction=ActoinType::MANEVER;
         break;
     case 1:
          this->CurrentUseCase=& scheme;
-        std::cout<<" Set action scheme"<<std::endl;
+        
         this->currentaction=ActoinType::SCHEME;
 
         break;
     case 2:
         this->CurrentUseCase=& attack;
-        std::cout<<" Set action Attack"<<std::endl;
+        
         this->currentaction=ActoinType::ATTACK;
 
 
@@ -138,9 +137,7 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
 
     temp.title="Action";
     temp.options.push_back("MANEVER");
-    if(context.context.Gamestate){
-        std::cout<<"Build Aciotn menu\n";
-    }
+    
     possibleAction.push_back(ActoinType::MANEVER);
     if(scheme.CanDoAction(context.context.Gamestate)){
         temp.options.push_back("SCHEME");
@@ -152,7 +149,7 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     }
     context.context.Gamestate->log.Add("Select Action");
     temp.type=InputType::ACTION;
-    std::cout<<"Manever!!!!!!!!!!!!!"<<std::endl;
+    
 
     return temp;
 }
@@ -213,11 +210,7 @@ ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     }
     if(hero->GetSizeHand()<=7){
         result.menu_request.options.push_back("End turn");
-        // result.menu_request.options.push_back("Continue");
-        // result.menu_request.type=InputType::QUESTION;
-        // return result; // result.menu_request.options.push_back("Continue");
-        // result.menu_request.type=InputType::QUESTION;
-        // retur
+
     }
     result.status=ContinueStatus::NEEDMENU;
     result.menu_request.type=InputType::CARD;
@@ -303,6 +296,6 @@ TurnStep TurnUseCase::GetTurnUseCaseStep(){
 }
 
 void TurnUseCase::SetStep(TurnStep newstep){
-    std::cout<<"Step"<<(int )newstep<<std::endl;
+    
     this->step=newstep;
 }

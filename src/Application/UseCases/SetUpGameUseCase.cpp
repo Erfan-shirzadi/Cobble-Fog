@@ -1,5 +1,5 @@
 #include "Application/UseCases/SetUpGameUseCase.h"
-#include <iostream>
+
 #include "Domain/Entities/Heroes/Dracula.h"
 #include "Domain/Entities/Heroes/Holmes.h"
 #include "Domain/Entities/Heroes/InvisibleMan.h"
@@ -45,7 +45,7 @@ ContinueResult SetUpGameUseCase::ChooseHero(EffectContext & context){
     std::swap(this->Heroes[context.context.Selected],this->Heroes.back());
     Heroes.pop_back();
     context.context.Selected=-1;
-    std::cout<< " Hero seted ";
+    
     step=SetUpGameStep::DRAW_5CARD;
 
     result.status=ContinueStatus::CONTINUE;
@@ -62,9 +62,9 @@ ContinueResult SetUpGameUseCase::Continue(EffectContext & context){
         return ChooseHero(context);
         break;
     case SetUpGameStep::DRAW_5CARD:{
-        std::cout<<"HEEEELLLLOOOOOOOOO"<<std::endl;
+       
         Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
-        // hero->ShuffelDeck();
+        hero->ShuffelDeck();
         DrawInitialCards(hero);
         step=SetUpGameStep::PLACEMENT;
         ContinueResult result;
@@ -104,7 +104,7 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
     if(context.context.Selected==-1){
         for(auto x:this->ReachbleHeroesNodes){
            result.menu_request.nodes.push_back(x);
-           std::cout<<" Reachable nodes :"<<x<<std::endl;
+           
         }
         result.status=ContinueStatus::NEEDMENU;
 
@@ -112,7 +112,7 @@ ContinueResult SetUpGameUseCase::HeroPlaceMent(EffectContext & context){
     }
     Board& board =context.context.Gamestate->board;
     Hero* hero=context.context.Gamestate->currnetPlayer->GetHero();
-    std::cout<<hero->GetName()<<"   Set At "<<ReachbleHeroesNodes[context.context.Selected]<<std::endl;
+    
     board.AddFighter(dynamic_cast<Fighter*>(hero),ReachbleHeroesNodes[context.context.Selected]);
     std::swap(ReachbleHeroesNodes[context.context.Selected],ReachbleHeroesNodes.back());
     ReachbleHeroesNodes.pop_back();
@@ -210,6 +210,4 @@ ContinueResult SetUpGameUseCase::Finished(EffectContext & context){
 
     return result;
 }
-// void SetUpGameUseCase::InitializePlayer(int agePlayer1,int agePlayer2){
-    
-// }
+

@@ -1,7 +1,6 @@
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/UseCases/CombatUseCase.h"
 #include "Application/CardEffect/CardEffectFactory.h"
-#include <iostream>
 using namespace std;
 
 bool AttackUseCase::CanAttack(GameState * gamestate)const{
@@ -139,7 +138,6 @@ ContinueResult AttackUseCase::Combat(EffectContext & context){
 
     if(res.status==ContinueStatus::FINISHED){
         context.context.Gamestate->log.Add("Finished Combat ");
-        cout<<"Combat finished"<<endl;
         attackstep=AttackStep::FINISHED;
         res.status=ContinueStatus::CONTINUE;
         return res;
@@ -199,12 +197,9 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
 }
 
 ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & context ){
-    cout<<"Build Attacker card menu"<<endl;
+   
     Hero * hero=combatcontext.Current->hero;
-    if(hero)
-        cout<<"Build Attacker card menu 2"<<endl;
-    cout<<hero->GetName()<<endl;
-    cout<<combatcontext.Current->fighter<<endl;
+    
     ContinueResult result;
     for(auto card: hero->GetHand()){
         if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
@@ -221,7 +216,7 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & context ){
                 }
         }
     }
-    cout<<"After Build attacker card menu"<<endl;
+   
     result.menu_request.title="Cards";
     result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
@@ -232,7 +227,7 @@ ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & context ){
 
 ContinueResult AttackUseCase::ChooseAttckerCard(EffectContext & context ){
     if(context.context.Selected==-1) return BuildAttackerCardMenu(context);
-    cout<<"Choose Attacker Card"<<endl;
+
     Card * card=combatcontext.Current->hero->GetCard(context.context.Selected);
 
     combatcontext.Current->card=dynamic_cast<CombatCard*>(card);
@@ -321,14 +316,14 @@ ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
 
 ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
     if(context.context.Selected==-1){
-        // cout<<"Why come here?"<<endl;
+        
          return BuildDeffenerCardMenu(context) ;
     }
 
     Card * card=combatcontext.Opponent->hero->GetCard(context.context.Selected);
     combatcontext.Opponent->card=dynamic_cast<CombatCard*>(card);
     
-    std::cout<<"Kiss it"<<std::endl;
+    
     ContinueResult result;
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
@@ -451,22 +446,3 @@ void AttackUseCase::SetSetupStep(SetUpStep step){
 CombatContext & AttackUseCase::GetCombatcontext(){
     return this->combatcontext;
 }
-
-
-// std::vector<Fighter*> AttackUseCase::GetAttackers(){
-//     std::cout<<"ATaackers"<<Attacker.size()<<endl;
-//     return this->Attacker;
-// }
-// std::vector<Card*> AttackUseCase::GetAttackerCards(){
-//     std::cout<<"Attackercards"<<AttackerCards.size()<<endl;
-//     return this->AttackerCards;
-// }
-// std::vector<Card*> AttackUseCase::GetDeffenderCards(){
-//     std::cout<<"Deffendercards"<<DeffenderCards.size()<<endl;
-//     return this->DeffenderCards;
-// }
-// std::vector<Fighter*> AttackUseCase::GetDeffenders(){
-//     std::cout<<"Deffenders:"<<enemiescanAttack.size()<<endl;
-//     return this->enemiescanAttack;
-// }
-

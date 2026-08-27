@@ -1,7 +1,7 @@
 #include "Application/UseCases/SchemeUseCase.h"
 #include "Domain/Entities/SchemeCard.h"
 #include "Domain/Entities/Cards/Holmes/AdministerAid.h"
-#include <iostream>
+
 #include "Application/interaction/EffectContext.h"
 #include "Application/CardEffect/CardEffectFactory.h"
 
@@ -10,7 +10,6 @@ using namespace std;
 
 bool SchemeUseCase::CanDoAction(GameState * gamestate){
     Hero * hero =gamestate->currnetPlayer->GetHero();
-    // cout<<" herreiiiiiiiiiiiiii"<<endl;
     if(!hero->IsExistCardInHand(CardCategory::SCHEME))
         return false;
     
@@ -54,7 +53,7 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 
     if(context.context.Selected==-1){
         ContinueResult result;
-        cout<<"In choose card Scheme"<<endl;
+        
         result.status=ContinueStatus::NEEDMENU;
         result.menu_request.type=InputType::CARD;
         context.context.Gamestate->log.Add("Choose scheme card");
@@ -66,8 +65,6 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
     cardEffect=CardEffectFactory::CreatCardEffect(SelectedCard->GetCardId());
     context.context.Selected=-1;
     step=SchemeStep::EXECUTECARD;
-    cout<<"Card Choosed"<<endl;
-    cout<<SelectedCard->GetName()<<endl;
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     return res;
@@ -77,16 +74,12 @@ ContinueResult SchemeUseCase::ChooseCard(EffectContext& context){
 
 MenuRequest SchemeUseCase::BuildCardMenu(EffectContext& context){
     MenuRequest request;
-    // std::vector<string> options;
-    if(context.context.Gamestate->currnetPlayer){
-        cout<<"Buidl menu cardds"<<endl;
-    }
+   
     for(auto card : context.context.Gamestate->currnetPlayer->GetHero()->GetAllCardOf(CardCategory::SCHEME)){
-        // options.push_back(card->GetName());
+        
         request.cards.push_back(card->GetCardId());
     }
-    // request.options=options;
-    cout<<"bbbbbbbbbbbiuld cardddddmenu"<<endl;
+   
     request.type=InputType::CARD;
     request.title="Scheme Card ";
     return request;
@@ -131,7 +124,7 @@ void SchemeUseCase::SetSelectedCard(Card* card){
 }
 void SchemeUseCase::SetCardEffect(std::unique_ptr<CardEffect> effect,int effectStep){
     this->cardEffect=std::move(effect);
-    // cardEffect->SetStep(effectStep);
+    
 }
 int SchemeUseCase::GetEffectStep(){
     return this->cardEffect->GetStep();
