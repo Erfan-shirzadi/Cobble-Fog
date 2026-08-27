@@ -3,7 +3,6 @@
 #include "Application/UseCases/TurnUseCase.h"
 #include "Application/interaction/EffectContext.h"
 #include "Domain/Game/DataContext.h"
-#include <iostream>
 
 
 GameEngine::GameEngine():view(gamestate){
@@ -108,7 +107,6 @@ void GameEngine::OnSelection(int selection){
         view.SetInputRequest(request);
         view.SetState(ViewState::SESSION);
 
-//      context.context.Selected=-1;
         this->state=GameEngineState::LOAD_GAME;
        
         return;

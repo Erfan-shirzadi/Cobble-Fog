@@ -1,7 +1,6 @@
 #include "Domain/Game/GameState.h"
 #include "presentation/console/GameView.h"
 #include <raylib.h>
-#include <iostream>
 
 GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     setup.SetInputRequest(this->menurequest);
@@ -549,7 +548,6 @@ void GameView::UpdateExit(){
 
 void GameView::DrawSession(){
 
-    std::cout<<"Session drawed"<<std::endl;
     DrawTextureEx(SessionView,{40,20},0,1.3,WHITE);
     int y=300;
     for(auto option:menurequest.options){
@@ -561,7 +559,6 @@ void GameView::DrawSession(){
 }
 void GameView::UpdateSession(){
 
-    // auto mouse=GetMousePosition();
     if(ignoreSessionClick){
         ignoreSessionClick=false;
         return;
@@ -580,7 +577,6 @@ void GameView::UpdateSession(){
                 case InputType::LOAD:
                 
                     if(menurequest.options[i]!="Empty"){
-                        std::cout<<"selected : i " <<i<<std::endl;
                         Onselection(i);
                         state=ViewState::GAME;
 

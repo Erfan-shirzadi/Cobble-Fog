@@ -2,12 +2,10 @@
 #include "Application/UseCases/CreatCard.h"
 #include "Application/CardEffect/CardEffectFactory.h"
 #include <fstream>
-#include <iostream>
 #include <memory>
 using namespace std;
 void LoadUseCase::Load (DataContext & data, int session){
     sessionNumber=session;
-    cout<<"session number :"<<session<<endl;
     LoadGameState(data.context->context.Gamestate);
     
     LoadTurnUseCase(data.TURNUSECASE,data.context->context.Gamestate);
