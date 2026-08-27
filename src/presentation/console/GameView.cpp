@@ -51,7 +51,7 @@ void GameView::LoadTextures(){
     InvisibleManTeam=LoadTexture("../include/Infrastructure/Assets/images/invisibleMan/InvisibleManTeam.png");
     WinDracual=LoadTexture("../include/Infrastructure/Assets/images/DraculaWinGame.png");
     WinSherlock=LoadTexture("../include/Infrastructure/Assets/images/SherlockWinGame.png");
-    WinInvisibleMan=LoadTexture("../include/Infrastructure/Assets/images/InvisibleWinGame.png");
+    WinInvisibleMan=LoadTexture("../include/Infrastructure/Assets/images/InvisibleManWinGame.png");
     exitbutton=LoadTexture("../include/Infrastructure/Assets/images/Exit.png");
     saveview=LoadTexture("../include/Infrastructure/Assets/images/SaveView.png");
     SessionView=LoadTexture("../include/Infrastructure/Assets/images/Session.png");
@@ -610,7 +610,7 @@ void GameView::DrawDetail(){
 
 void GameView::LoadCardsTexture(){
 cardsTextures[CardId::AMBUSH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/ambush.png")};
-cardsTextures[CardId::BAPISM_OF_BLOOD]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/bapism-of-blood.png")};
+cardsTextures[CardId::BAPISM_OF_BLOOD]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/bapism.png")};
 cardsTextures[CardId::BEASTFORM]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/beastform.png")};
 cardsTextures[CardId::DASH]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/dash.png")};
 cardsTextures[CardId::LOOK_INTO_MY_EYES]={LoadTexture("../include/Infrastructure/Assets/images/cards/dracula/look-into-my-eyes.png")};
