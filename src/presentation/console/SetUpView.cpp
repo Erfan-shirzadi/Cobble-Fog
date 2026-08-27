@@ -1,7 +1,7 @@
 #include "presentation/console/SetUpView.h"
 #include "Domain/Game/GameState.h"
 #include <raylib.h>
-#include <iostream>
+
 
 void SetUpView::Update(){
     switch (state)
@@ -126,13 +126,13 @@ void SetUpView::UpdateHeroSelection(){
             {
                 HeroSelected = i;
                 if(!selectedHeroes[i]){
-                std::cout<< i<<" Selected "<<mouse.x<<" "<<mouse.y<<std::endl;
+                
                 selectedHeroes[i]=true;
                 onSelection(i);
 
                     if(gamestate.player1->GetHero() &&gamestate.player2->GetHero()){
                         state=SetUpState::PLACEMENT;
-                        std::cout<<" State Must change com on man\n";
+                        
                     }
                 }
             }
@@ -203,9 +203,7 @@ void SetUpView::DrawHeroSelection(){
             0.0f,
             tint
         );
-        // if(HeroSelected==i ){
-        //     DrawRectangleLinesEx(heroRects[i],3,YELLOW);
-        // }
+       
     }
 
 }
@@ -270,8 +268,7 @@ void SetUpView::DrawHeroPlacement(){
 
     for(int node: menurequest->nodes)
         DrawCircleLines(nodeCenters[node-1].x,nodeCenters[node-1].y,40.f,YELLOW);
-        // DrawCircleLines(nodeCenters[25].x,nodeCenters[25].y,40.f,YELLOW);
-        // DrawCircleLines(nodeCenters[0].x,nodeCenters[0].y,40.f,YELLOW);
+        
 
             
 }
@@ -290,7 +287,7 @@ void SetUpView::DrawSidekickPlacement(){
 }
 void SetUpView::DrawBoard(){
         Vector2 mouse=GetMousePosition();
-    // std::cout<<"Befor Draw Board"<<std::endl;
+    
     GetNodeCenters();
     DrawTexturePro(boardtexture,
         Rectangle{
@@ -303,17 +300,10 @@ void SetUpView::DrawBoard(){
         0,
         WHITE);
 
-    // std::cout<<" Map Drawed"<<std::endl;
+    
         DrawFightersOnBoard();
     DrawText(TextFormat("X: %.0f Y: %.0f",mouse.x,mouse.y),20,20,24,RED);
-    // std::cout<<"After Draw Board"<<std::endl;
-
-    // DrawTextPro()
-        // for(const auto & center : nodeCenters){
-        //     if(CheckCollisionPointCircle(GetMousePosition(),center,40.f))
-        //     DrawCircleLines(center.x,center.y,40.f,YELLOW);
-            
-        // }
+    
 }
 void SetUpView::SetInputRequest(MenuRequest &req){
     this->menurequest=&req;
@@ -358,10 +348,9 @@ std::vector<Vector2> SetUpView::GetNodeCenters(){
 }
 void SetUpView::DrawFightersOnBoard(){
     Board board=gamestate.board;
-    // std::cout<<"Size"<<board.GetGraph().size()<<std::endl;
+    
     for(auto token:board.GetGraph()){
-        // FighterType type=token->GetFighterType();
-        // std::cout<<"Sixe Graph "<<std::to_string(board.GetGraph().size())<<std::endl;
+        
         Vector2 center=nodeCenters[token.second-1];
         Texture2D texture;
         switch (token.first)

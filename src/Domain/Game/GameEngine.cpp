@@ -3,17 +3,14 @@
 #include "Application/UseCases/TurnUseCase.h"
 #include "Application/interaction/EffectContext.h"
 #include "Domain/Game/DataContext.h"
-#include <iostream>
+
 
 GameEngine::GameEngine():view(gamestate){
 }
 
 
 void GameEngine::run(){
-    // gamestate.currnetPlayer=player1;
-    // gamestate.player1=player1;
-    // gamestate.opponentPlayre=&player2;
-    // gamestate.player2=player2;
+    
     gamestate.board=board;
     context.context.Gamestate=&gamestate;
     context.context.Selected=-1;
@@ -25,17 +22,7 @@ void GameEngine::run(){
 }
 
 
-void GameEngine::GameResult(GameState & gamestate){
-    Hero* current=gamestate.currnetPlayer->GetHero();
-    Hero* opponent=gamestate.opponentPlayre->GetHero();
 
-    if(current->IsAlive()){
-        std::cout<< current->GetName()<< " Won The Game "<<std::endl;
-    }
-    else {
-        std::cout<< opponent->GetName()<< "Won The Game"<<std::endl;
-    }
-}
 
 void GameEngine::Start(){
      this->TURNUSECASE->Start(context);
@@ -52,24 +39,18 @@ void GameEngine::InitialObjects(){
 
 
 void GameEngine::Process(){
-    std::cout<<"OOOOOOOOOOOO"<<std::endl;
+    
     while (true){
 
-        // if(TURNUSECASE){
-        //     std::cout<<" its okkkkk"<<std::endl;
-        //     std::cout<<"Current action"<<(int)TURNUSECASE->CurrentAction()<<std::endl;
-        //     std::cout<<"Get Turn step"<<(int)TURNUSECASE->GetTurnUseCaseStep()<<std::endl;
-        //     std::cerr<<"Gaeiddddd maray"<<std::endl;
-
-        // }
-        std::cout<<"In procces 2"<<std::endl;
+       
+       
         ContinueResult result=TURNUSECASE->Continue(context);
 
-        std::cout<<"in procces"<<std::endl;
+        
 
         if(GameOver()){
             state=GameEngineState::GAMEOVER;
-            std::cout<<"in proccesbut int gameover"<<std::endl;
+            
             Hero* current=gamestate.currnetPlayer->GetHero();
             if(current->IsAlive()){
                 if(current->GetFighterType()==FighterType::SHERLOCK){
@@ -87,7 +68,7 @@ void GameEngine::Process(){
             DeleteObjects();
             return;
         }
-        std::cout<<"in procces"<<std::endl;
+        
         if(result.status==ContinueStatus::NEEDMENU){
             view.SetInputRequest(result.menu_request);
             return;
@@ -107,8 +88,7 @@ void GameEngine::OnSelection(int selection){
     context.context.Selected=selection;
 
     if(selection==-2){
-        // SaveGame();
-        // DeleteObjects();
+        
         MenuRequest request;
         request.options=saveuseCase.GetSessionStatus();
         request.type=InputType::SAVE;
@@ -116,12 +96,11 @@ void GameEngine::OnSelection(int selection){
     
 
         this->state=GameEngineState::SAVE_GAME;
-        // context.context.Selected=-1;
+        
         return;
     }
     if(selection==-3){
-        // InitialObjects();
-        // LoadGame();
+        
         MenuRequest request;
         request.options=saveuseCase.GetSessionStatus();
         request.type=InputType::LOAD;
@@ -130,11 +109,7 @@ void GameEngine::OnSelection(int selection){
 
 
         this->state=GameEngineState::LOAD_GAME;
-        // context.context.Selected=-1;
-        // if(gamestate.player1){
-        //     std::cout<<" fuckk me but ....."<<std::endl;
-        // }
-        // TURNUSECASE->Start(context);
+       
         return;
     }
     if(selection==-4){
@@ -151,7 +126,7 @@ void GameEngine::OnSelection(int selection){
         std::swap(gamestate.currnetPlayer,gamestate.opponentPlayre);
         if(gamestate.player1->GetHero()&&gamestate.player2->GetHero()){
             state=GameEngineState::SETUP;
-            std::cout<<" Both player Seteed Heroes";
+           
         }
         break;
     case GameEngineState::GAME:
@@ -197,14 +172,14 @@ void GameEngine::SetUp(){
 
 
 bool GameEngine::GameOver( ){
-    std::cout<<"In Game Over test 1"<<std::endl;
+   
     Hero* current=gamestate.currnetPlayer->GetHero();
-    std::cout<<"In game over test 3"<<std::endl;
+    
     if(gamestate.opponentPlayre){
         // std::cout<<"IN game oveeer test 4 "std::endl
     }
     Hero* opponent=gamestate.opponentPlayre->GetHero();
-    std::cout<<"In Game Over test 2"<<std::endl;
+    
 
     if(!current->IsAlive() || !opponent->IsAlive())
         return true;
@@ -214,7 +189,7 @@ bool GameEngine::GameOver( ){
 
 void GameEngine::DeleteObjects(){
     state=GameEngineState::START_GAME;
-    std::cout<<"OBjects deleted"<<std::endl;
+    
     delete TURNUSECASE;
     gamestate.board.ResetBoard();
     delete gamestate.player1;
@@ -227,9 +202,7 @@ void GameEngine::DeleteObjects(){
 
 void GameEngine::SaveGame(){
 
-    // DataContext data;
-    // data.gamestate=this->gamestate;
-    // std::cout<<context.context.Selected<<std::endl;
+    
     data.gameviewstate=view.GetState();
     data.context=&this->context;
     data.TURNUSECASE=this->TURNUSECASE;
@@ -244,14 +217,8 @@ void GameEngine::SaveGame(){
 }
 
 void GameEngine::LoadGame(){
-    // DataContext data;
-    // if(context.context.Selected==-1){
-    //     MenuRequest request;
-    //     request.type=InputType::SLAT;
-    //     view.SetInputRequest(request);
-    //     return;
-    // }
-    std::cout<<"Selected in load Game"<<context.context.Selected<<std::endl;
+    
+    
     InitialObjects();
 
     data.gameviewstate=view.GetState();
@@ -260,7 +227,7 @@ void GameEngine::LoadGame(){
 
     loaduseCase.Load(data,context.context.Selected);
     context.context.Selected=-1;
-    std::cout<<"HAvar"<<std::endl;
+   
     state=GameEngineState::GAME;
     view.SetState(ViewState::GAME);
 }

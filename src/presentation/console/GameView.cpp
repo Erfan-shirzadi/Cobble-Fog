@@ -1,7 +1,7 @@
 #include "Domain/Game/GameState.h"
 #include "presentation/console/GameView.h"
 #include <raylib.h>
-#include <iostream>
+
 GameView::GameView( GameState& gamestate):gamestate(gamestate),setup(gamestate){
     setup.SetInputRequest(this->menurequest);
     Actions={
@@ -71,7 +71,7 @@ void GameView::Run(){
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     if(IsKeyPressed(KEY_F11))
         ToggleFullscreen();
-    InitWindow(/*128081800*/1800, /*720*/1100, "Cobble And Fog");
+    InitWindow(1800, 1100, "Cobble And Fog");
     LoadTextures();
     while (mainmenu.GetResult()!=MenuResult::EXIT) {
 
@@ -95,7 +95,7 @@ void GameView::Run(){
             this->state=ViewState::SESSION;
             Onselection(-3);
 
-            // std::cout<<" herhre"<<std::endl;
+            
             break;
         }
     }
@@ -135,7 +135,7 @@ void GameView::SetOnSelection(std::function<void(int)>callback){
 
 
 void GameView::Update(){
-    // std::cout<<(int)menurequest.type<<std::endl;
+    
     switch (menurequest.type)
     {
     case InputType::ACTION:
@@ -155,36 +155,36 @@ void GameView::Update(){
         break;
     }
     UpdateExit();
-    // UpdateQuestion();
+   
 }
 
 void GameView::Draw(){
-    std::cout<<"Drawed fist"<<std::endl;
+    
 
     if(!exitb)
         setup.DrawBoard();
     
-    std::cout<<"Drawed"<<std::endl;
+   
     DrawAction();
-    // std::cout<<"DrawAction"<<std::endl;
+   
     
     DrawHand();
-    // std::cout<<"DrawHand"<<std::endl;
+   
 
     DrawQuestion();
-        // std::cout<<"Drawquestion"<<std::endl;
+        
 
     DrawNode();
-            // std::cout<<"DrawNode"<<std::endl;
+            
 
     DrawPlayers();
-            // std::cout<<"Drawqplayers"<<std::endl;
+            
 
     DrawCombat();
-            // std::cout<<"combat draw"<<std::endl;
+           
 
     DrawExit();
-            // std::cout<<"Drawexit"<<std::endl;
+           
 
 }
 
@@ -240,13 +240,11 @@ void GameView::UpdateAction(){
 
 void GameView::DrawHand(){
     Hero * hero;
-    // if(gamestate.currnetPlayer->GetHero()){
-    //     std::cout<<" fuuuuuuck in draw hadn"<<std::endl;
-    // }
+    
     if(gamestate.handview==HandView::CURRENTPLAYER)
         hero=gamestate.currnetPlayer->GetHero();
     else hero=gamestate.opponentPlayre->GetHero();
-    // std::cout<<"in draw hand"<<std::endl;
+   
     if(menurequest.type==InputType::CARD){
         for(int i{};i<menurequest.cards.size();i++ ){
             for(int j{};j<hero->GetHand().size();j++){
@@ -266,7 +264,7 @@ void GameView::DrawHand(){
     float x=300+25;
     float y=805;
     for(auto card:hero->GetHand()){
-        // DrawTexture(cardsTextures[card->GetCardId()],x,715,WHITE);
+        
         Texture2D texture=cardsTextures[card->GetCardId()];
         DrawTextureEx(texture,Vector2{x,y},
         0.0f,0.4f,WHITE);
@@ -286,20 +284,17 @@ void GameView::DrawCombat(){
         if(gamestate.combatsatat->Current->card){
         DrawTextureEx(cardsTextures[gamestate.combatsatat->Current->card->GetCardId()],Vector2{280,500},
         0.0f,0.65f,WHITE);
-        // DrawText(std::to_string(gamestate.combatsatat->Current->card->GetDamgeOrDeffend()).c_str(),296,533,20,GREEN);
+        
 
         }
         if(gamestate.combatsatat->Opponent->card){
         DrawTextureEx(cardsTextures[gamestate.combatsatat->Opponent->card->GetCardId()],Vector2{1360,500},
         0.0f,0.65f,WHITE);
-        // 300 535
-        // DrawText(std::to_string(gamestate.combatsatat->Opponent->card->GetDamgeOrDeffend()).c_str(),1380,535,20,GREEN);
+       
         }
 
 
-        // if(gamestate.combatsatat->Current->hero==gamestate.player1->GetHero()){
-        //     if(gamestate.combatsatat->Current->hero==gamestate.combatsatat.)
-        // }
+        
     }
 }
 void GameView::UpdateHand(){
@@ -396,7 +391,7 @@ void GameView::DrawPlayers(){
     {
         DrawTextureEx(DraculaTeam,Vector2{20,70},
         0.0f,0.43f,WHITE);
-        // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
+        
 
        
     }
@@ -412,7 +407,7 @@ void GameView::DrawPlayers(){
     std::vector<Fighter*>sidekick=hero->GetSideKicks();
     DrawText(std::to_string(hero->GetHP()).c_str(),340,240,20,WHITE);
     DrawText(std::to_string(hero->GetRemainingAction()).c_str(),340,260,20,WHITE);
-    // if(!sidekick.empty()){
+    
         
             for(auto fighter:sidekick)
             {
@@ -436,13 +431,13 @@ void GameView::DrawPlayers(){
             }
         
 
-    // }
+   
 
     if(gamestate.player2->GetHero()->GetFighterType()==FighterType::DRACULA)
     {
         DrawTextureEx(DraculaTeam,Vector2{1380,70},
         0.0f,0.43f,WHITE);
-        // DrawTexturePro(DraculaTeam,Rectangle{50,70},{0,0},Vector2{0,0},0,WHITE);
+       
 
         
     }
@@ -480,11 +475,7 @@ void GameView::DrawPlayers(){
             }
             }
         
-    //  for(int i=50 ;i<55;i++){
-    //     for(int j=70;j<75;j++)
-    //         DrawRectangleLines(i,j,350,400,color);
-
-    //     }
+    
 }
 
 
@@ -508,7 +499,7 @@ void GameView::UpdateGameResult(){
     DrawRectangleLinesEx(backtomainMenu,3,YELLOW);
     if(CheckCollisionPointRec(mouse,backtomainMenu)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            // std::cout<<"FUUUUUUUUUUCCCKKKKKKK it \n";
+           
                 state=ViewState::MAINMENU;
                 return;
         }
@@ -523,18 +514,16 @@ void GameView::DrawExit(){
     DrawTextureEx(exitbutton,{1650,10},0,0.12f,WHITE);
     if(exitb){
         DrawTextureEx(saveview,{450,70},0,0.7f,WHITE);
-        // DrawRectangleRec({450,70,900,600},DARKGRAY);
-        // DrawText("Do you want save Game ?",600,270,30,BLUE);
+        
     }
 
-    // DrawRectangleLinesEx(Exit,3,YELLOW);
+    
 }
 void GameView::UpdateExit(){
 
     if(CheckCollisionPointRec(GetMousePosition(),Exit)){
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            // Onselection(-2);
-            // state=ViewState::MAINMENU;
+            
             exitb=true;
 
             
@@ -611,7 +600,7 @@ void GameView::DrawDetail(){
         tip="Tip : ";
         tip+=gamestate.log.GetLogs().back();
     }
-    // tip+="Selete a node";
+    
      
     int textWidth=MeasureText(tip.c_str(),20);
     int x=(900-textWidth /2);
