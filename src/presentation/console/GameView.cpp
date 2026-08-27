@@ -605,6 +605,26 @@ void GameView::DrawDetail(){
     int textWidth=MeasureText(tip.c_str(),20);
     int x=(900-textWidth /2);
     DrawText(tip.c_str(),x,35,20,WHITE);
+
+    // 1550 940
+    if(state==ViewState::GAME ){
+        FighterType type=gamestate.currnetPlayer->GetHero()->GetFighterType();
+
+        switch (type)
+        {
+        case FighterType::DRACULA:
+            DrawText("Turn :  Dracula",1550,940,30,RED);
+            break;
+        case FighterType::SHERLOCK:
+            DrawText("Turn :  Sherlock",1550,940,30,YELLOW);
+            break;
+        case FighterType::INVISIBLEMAN:
+            DrawText("Turn :  InvisibleMan",1550,940,30,BLUE);
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 
