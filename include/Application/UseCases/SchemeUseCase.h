@@ -28,5 +28,14 @@ class SchemeUseCase : public IUseCase{
     ContinueResult Finished(EffectContext &);  
     MenuRequest BuildCardMenu(EffectContext&); 
     void Start(EffectContext& );
+
+    SchemeStep GetStep();
+    int GetEffectStep();
+    Card* GetSelectedCard();
+    void SetStep(SchemeStep);
+    void SetSelectedCard(Card*);
+    void SetCardEffect(std::unique_ptr<CardEffect>,int effectStep);
+    
+
 };
 #endif /* SCHEME_USECASE */

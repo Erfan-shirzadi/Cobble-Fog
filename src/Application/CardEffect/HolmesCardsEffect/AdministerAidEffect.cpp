@@ -13,7 +13,7 @@ ContinueResult AdministerAidEffect::Continue(EffectContext & context){
     case AdministerEffectStep::HEAL_HOLMES:{
             Hero* holmes=context.context.Gamestate->currnetPlayer->GetHero();
             holmes->Heal(1);
-            context.context.Gamestate->log.Add("Healed 1 Holmes");
+            // context.context.Gamestate->log.Add("Healed 1 Holmes");
             step=AdministerEffectStep::DRAW_CARD;
             ContinueResult res;
             res.status=ContinueStatus::CONTINUE;
@@ -44,6 +44,8 @@ ContinueResult AdministerAidEffect::ChooseDestination(EffectContext & context){
     ContinueResult res;
     res.status=ContinueStatus::CONTINUE;
     step=AdministerEffectStep::HEAL_HOLMES;
+    // SetStep(static_cast<int>(step));
+
     return res;
 
 }
@@ -54,10 +56,13 @@ ContinueResult AdministerAidEffect::BuildReachableNodes(EffectContext & context)
 
     ContinueResult result;
     for(auto x: rechableNodes){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.status=ContinueStatus::NEEDMENU;
-    result.menu_request.title="Move Watson To Node :";
+    result.menu_request.type=InputType::NODE;
+    // result.menu_request.title="Move Watson To Node :";
+        context.context.Gamestate->log.Add(" Choose A node to Move Watson ");
+
 
     return result;
 

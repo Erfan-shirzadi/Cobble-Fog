@@ -12,7 +12,7 @@
 #include "Domain/Entities/Cards/Dracula/Feint.h"
 #include "Domain/Game/GameState.h"
 
-Holmes::Holmes():Hero("Sherlock Holmes",16,2,FighterType::SHERLOCK){
+Holmes::Holmes():Hero("Sherlock",16,2,FighterType::SHERLOCK){
 
     this->DrWatson=std::make_unique<Fighter>("Dr Watson",8,2,FighterType::DR_WATSON);
     DrWatson->SetAttack(Attack::RANGED);
@@ -79,4 +79,13 @@ void Holmes::Ability(GameState&){
 
 bool Holmes::CanUseCability(GameState){
     return false;
+}
+
+std::vector<Fighter*> Holmes::GetAllsidekick()const {
+    std::vector<Fighter*> result;
+   
+        result.push_back(DrWatson.get());
+    
+
+    return result;
 }

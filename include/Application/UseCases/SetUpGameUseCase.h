@@ -18,15 +18,17 @@ enum class PlaceMentStep{
 };
 class SetUpGameUseCase{
 
-    SetUpGameStep step=SetUpGameStep::CHOOSE_HERO;
+    SetUpGameStep step=SetUpGameStep::DRAW_5CARD;
     PlaceMentStep placementstep=PlaceMentStep::SET_HERO;
+    int countplayerWhoSetuped=0;
 
     std::vector<int> ReachbleHeroesNodes{1,26};
-    std::vector<std::string> Heroes{"Dracula","Holmes"};
+    std::vector<std::string> Heroes{"Dracula","Holmes","InvisibleMan"};
 
     std::vector<int> ReachbleSidekickNods;
 
     std::vector<Fighter*>sidekicks;
+    std::vector<Fog*>fogs;
     int index_sideKick=0;
     public:
     void execute(GameState & gamestate);
@@ -44,6 +46,11 @@ class SetUpGameUseCase{
     ContinueResult SetRechbleSideKickNodes(EffectContext&);
 
     ContinueResult Finished(EffectContext & );
+
+
+
+
+    // void InitializePlayer(int agePlayer1,int agePlayer2);
 };
 
 #endif /* SETUP_USECASE */

@@ -6,10 +6,13 @@
 class Player{
 
     std::unique_ptr<Hero>  hero;
+    int age=0;
     public:
      
-    void SetHero(std::unique_ptr<Hero> );
+    void SetHero(int);
     Hero * GetHero()const;
+    void SetAge(int);
+    int GetAge()const;
 
 };
 

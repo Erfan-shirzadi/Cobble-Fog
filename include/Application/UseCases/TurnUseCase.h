@@ -14,13 +14,15 @@ enum class TurnStep{
     CHOOSE_ACTION,
     EXECUTE_USECASE,
     FINISHED,
-    MANAGE_HAND_SIZE
+    MANAGE_HAND_SIZE,
+    ASK_FOR_CONTINUE_REMOVE_CARD
 };
 
 enum class ActoinType{
-    SCHEME,
     MANEVER,
-    ATTACK
+    SCHEME,
+    ATTACK,
+    NONE
 };
 
 enum class AbilityStep{
@@ -54,8 +56,9 @@ class TurnUseCase{
     ContinueResult ChooseAction(EffectContext &);
     ContinueResult FinishedResult(EffectContext & );
     ContinueResult ManageHandSize(EffectContext &);
+    ContinueResult AskRemoveMoreCard(EffectContext &);
 
-    void SetUseCase();
+    void SetUseCase(int);
 
 
     MenuRequest BuildActionMenu(EffectContext & context);
@@ -63,6 +66,16 @@ class TurnUseCase{
     ContinueResult AskAbility(EffectContext &);
     ContinueResult ExecuteAbility(EffectContext &);
     ContinueResult Ability(EffectContext &);
+
+
+    void Reset(EffectContext&);
+    ManeverUseCase & GetManeverUseCase();
+    SchemeUseCase &  GetSchemeUseCase();
+    AttackUseCase & GetAttackUseCase();
+    ActoinType CurrentAction();
+    TurnStep GetTurnUseCaseStep();
+    void SetStep(TurnStep);
+
 };
 
 #endif /* TURN_USECASE */

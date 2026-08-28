@@ -15,9 +15,9 @@
 #include <iostream>
 Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
 
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
-    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_1));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_2));
+    this->SideKicks.push_back(std::make_unique<Fighter>("Sister",1,2,FighterType::SISTER_3));
     SideKicks[0]->SetAttack(Attack::MELEE);
     SideKicks[1]->SetAttack(Attack::MELEE);
     SideKicks[2]->SetAttack(Attack::MELEE);
@@ -65,9 +65,7 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
 
-   
-
-
+ 
 
 
 
@@ -150,3 +148,13 @@ Fighter * Dracula::GetDeadSideKick()const {
   }
   return nullptr;
 }
+
+std::vector<Fighter*> Dracula::GetAllsidekick()const {
+    std::vector<Fighter*> result;
+    for(int i{};i<SideKicks.size();i++){
+        result.push_back(SideKicks[i].get());
+    }
+
+    return result;
+}
+

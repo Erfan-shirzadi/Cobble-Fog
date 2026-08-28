@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <sstream>
+#include <memory>
 
  Hero::Hero(std::string name,int hp, int move,FighterType type):Fighter(name,hp,move,type){
  }
@@ -135,4 +136,58 @@ void Hero::DiscardCard(Card * card){
                   return;
             }
       }
+}
+std::vector<Fog*> Hero::GetFogs(){
+      std::vector<Fog*> f;
+      return f;
+}
+
+
+void Hero::ReturnCardToDeck(int index){
+      AddCardToDeck(std::move(Hand[index]));
+      std::swap(Hand[index],Hand.back());
+      Hand.pop_back();
+}
+
+void Hero::SetStartTurnOnfog(bool val){
+      OnFoginStartTurn=val;
+}
+bool Hero::GetStartTurnOnfog(){
+      return OnFoginStartTurn;
+}
+
+Deck& Hero::GetDeck(){
+      return  deck;
+}
+
+
+std::vector<Fighter*> Hero::GetAllsidekick()const{
+      std::vector<Fighter*> res;
+      return res;
+}
+
+void Hero::EmptyHand(){
+      Hand.clear();
+}
+
+std::vector<Card * > Hero::GetDiscardCards()const{
+      std::vector<Card*> result;
+      for( int i{};i<DiscardCards.size();i++){
+            result.push_back(DiscardCards[i].get());
+      }
+
+      return result;
+}
+
+Card * Hero::GetCardOfDiscardCards(CardId id)const{
+      Card * card;
+      for(int i{};i<DiscardCards.size();i++){
+            if(DiscardCards[i]->GetCardId()==id)
+                  card=DiscardCards[i].get();
+      }
+      return card;
+}
+
+void Hero::AddCardToDiscardCards(std::unique_ptr<Card> card){
+      this->DiscardCards.push_back(std::move(card));
 }

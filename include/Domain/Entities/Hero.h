@@ -6,6 +6,7 @@
 #include "Domain/Entities/Card.h"
 #include "Domain/Entities/Deck.h"
 #include "Domain/Entities/Fighter.h"
+#include "Domain/Entities/Fog.h"
 struct GameState;
 class Hero :public Fighter{
   
@@ -16,6 +17,7 @@ class Hero :public Fighter{
     std::vector<std::unique_ptr<Card>> DiscardCards;
     Deck deck;
     int RemainingAction=2;
+    bool OnFoginStartTurn=false;
 
     public:
     Hero(std::string name ,int hp ,int move, FighterType type);
@@ -47,6 +49,21 @@ class Hero :public Fighter{
 
     int GetDeckSize();
     void DiscardCard(Card *);
+    virtual std::vector<Fog *> GetFogs();
+
+    void ReturnCardToDeck(int index);
+    void SetStartTurnOnfog(bool);
+    bool GetStartTurnOnfog();
+
+    Deck& GetDeck();
+    
+    void EmptyHand();
+
+    std::vector<Card * > GetDiscardCards()const;
+    Card * GetCardOfDiscardCards(CardId)const;
+    void AddCardToDiscardCards(std::unique_ptr<Card>);
+    virtual std::vector<Fighter*> GetAllsidekick()const;
+
 };
 
 

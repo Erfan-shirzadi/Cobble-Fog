@@ -10,7 +10,7 @@ ContinueResult MasterOfDeisGuseEffect::Continue(EffectContext &context){
     MoveUseCase::Move(enemy,HeroNode,context.context.Gamestate->log);
 
      enemy->TakeDamge(1);
-   context.context.Gamestate->log.Add(enemy->GetName()+" Taked Damage 1");
+  //  context.context.Gamestate->log.Add(enemy->GetName()+" Taked Damage 1");
      ContinueResult res;
      res.status = ContinueStatus::FINISHED;
 

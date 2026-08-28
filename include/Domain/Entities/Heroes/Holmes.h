@@ -12,6 +12,8 @@ class Holmes : public Hero{
 
 
     std::vector<Fighter *> GetSideKicks()override;
+    std::vector<Fighter*> GetAllsidekick()const override;
+
     bool IsAliveAnySideKick()override;
 
 };

@@ -59,7 +59,15 @@ class AttackUseCase : public IUseCase {
     ContinueResult BuildAskDeffendMenu();
     void SetDeffenderCards();
     bool CanDeffendDffender();
-    
+
+
+    AttackStep GetStep();
+    SetUpStep GetStepSetup();
+    CombatStep GetCombatStep();
+    void SetStep(AttackStep);
+    void SetSetupStep(SetUpStep);
+    CombatContext & GetCombatcontext();
+
 };
 
 #endif /* ATTACK_USECASE */

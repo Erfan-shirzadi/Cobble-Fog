@@ -30,6 +30,8 @@ ContinueResult RaveningSeductionEffect::ChooseFighter(EffectContext& context){
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     step=RaveningStep::MOVE_FIGHTER;
+    // SetStep(static_cast<int>(step));
+
 
     return result;
 
@@ -42,6 +44,8 @@ ContinueResult RaveningSeductionEffect::MoveFighter(EffectContext& context){
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     step=RaveningStep::DAMAGE_FIGHTER;
+    SetStep(static_cast<int>(step));
+
 
     return result;
 
@@ -79,10 +83,12 @@ ContinueResult RaveningSeductionEffect::BuildFightersMenu(EffectContext& context
     Allfighters.push_back(dynamic_cast<Fighter*>(enemy));
 
     for(auto fighter: Allfighters){
-        result.menu_request.options.push_back(fighter->GetName());
+        result.menu_request.nodes.push_back(fighter->GetNode());
     }
-    result.menu_request.title="ALL Fighters";
+    // result.menu_request.title="ALL Fighters";
+    context.context.Gamestate->log.Add("Choose A fighter ");
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
 
     return result;
 
@@ -104,8 +110,11 @@ ContinueResult RaveningSeductionEffect::BuildDestinationMenu(EffectContext& cont
     rechableNodes=board.reachableNodes(hero,enemy,2,fighter->GetNode());
         ContinueResult res;
         res.status=ContinueStatus::NEEDMENU;
+        res.menu_request.type=InputType::NODE;
+            context.context.Gamestate->log.Add("Choose A Node ");
+
         for(auto x:rechableNodes)
-            res.menu_request.options.push_back(std::to_string(x));
+            res.menu_request.nodes.push_back(x);
 
         return res;
     

@@ -25,14 +25,19 @@ ContinueResult ThirstEffect::BuildReachableNodes(EffectContext & context ){
     Fighter * enemy=context.combatcontext->Opponent->fighter;;
 
     this->rechabenode=board.GetReachableNighbors(enemy->GetNode());
-    if(rechabenode.empty())res.status=ContinueStatus::FINISHED;
-
-    for(int x: rechabenode){
-        res.menu_request.options.push_back(std::to_string(x));
+    if(rechabenode.empty()){
+        res.status=ContinueStatus::FINISHED;
+        return res;
     }
-    res.menu_request.title="Reachable Nodes";
+    
+    for(int x: rechabenode){
+        res.menu_request.nodes.push_back(x);
+    }
+    // res.menu_request.title="Reachable Nodes";
+    context.context.Gamestate->log.Add("Choose A Node to Move Dracula ");
 
     res.status=ContinueStatus::NEEDMENU;
+    res.menu_request.type=InputType::NODE;
 
     return res;
      

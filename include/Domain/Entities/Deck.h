@@ -15,6 +15,8 @@ class Deck{
     std::unique_ptr<Card> Draw();
     bool Empty()const;
     int Size()const;
+    std::vector <CardId> GetCards();
+    void ClearDeck();
 
 };
 

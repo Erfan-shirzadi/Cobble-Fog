@@ -1,10 +1,11 @@
 #include "Domain/Entities/Board.h"
 #include  <vector>
-#include <unordered_map>
+#include <map>
 #include <queue>
-#include <iostream>
+// #include <iostream>
 #include <stdexcept>
 #include <sstream>
+#include <algorithm>
 std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distance,int HeroNode){
     std::vector <int >res;
     res.push_back(HeroNode);
@@ -55,6 +56,23 @@ std::vector <int> Board::reachableNodes(Hero * fighter, Hero * enemy ,int distan
             }
         }
         level++;
+    }
+
+    if(fighter->GetFighterType()==FighterType::INVISIBLEMAN){
+        Hero * hero=dynamic_cast<Hero*>(fighter);
+        bool flag=false;
+        for(auto fog:hero->GetFogs()){
+            if(fog->GetNode()==hero->GetNode()){
+                flag=true;
+            }
+        }
+
+        if(flag){
+            for(auto fog:hero->GetFogs()){
+                if(!isOccupied(fog->GetNode()))
+                    res.push_back(fog->GetNode());
+            }
+        }
     }
 
     return res;
@@ -109,7 +127,7 @@ std::vector<int> Board::GetReachableNighbors(int node){
                 std::swap(nodes[i],nodes[nodes.size()]);
                 nodes.pop_back();
             }
-
+    sort(nodes.begin(),nodes.end());
     return nodes;
 }
 
@@ -130,23 +148,19 @@ std::vector<int> Board::AllFullNodes(){
     return res;
 }
 
-std::string Board::GetGraph(){
-    std::stringstream out;
-    for(int i{1};i<=32;i++){
-
-        int indexFighter;
-        for(int j{};j<this->allFighters.size();j++)
-            if(i==allFighters[j]->GetNode())
-                indexFighter=j;
-        if(isOccupied(i)){
-            out<< i<<"-["<<allFighters[indexFighter]->GetName() <<"]      ";
-        }
-        else {out<< i<<"-[empty]     ";}
-        if(i==8)out<<std::endl;
-        if(i==16)out<<std::endl;
-        if(i==24)out<<std::endl;
+std::multimap<FighterType,int> Board::GetGraph(){
+    std::multimap<FighterType,int>res;
+    for(auto fog:fogs){
+        res.insert(std::make_pair(FighterType::FOG,fog->GetNode()));
+        // res[FighterType::FOG]=fog->GetNode();
     }
-    return out.str();
+    for(auto fighter:allFighters){
+        if(fighter->IsAlive())
+        res.insert(std::make_pair(fighter->GetFighterType(),fighter->GetNode()));
+        // res[fighter->GetFighterType()]=fighter->GetNode();
+    }
+    return res;
+
 }
 
 NodeType Board::GetNodeType(int node){
@@ -168,3 +182,84 @@ int Board::Distance(int start, int target){
     return map.Distance(start,target);
 }
 
+
+void Board::ResetBoard(){
+    allFighters.clear();
+}
+
+void Board::AddFog(Fog* f,int node){
+    f->SetNode(node);
+    fogs.push_back(f);
+    // std::cout<<" Push backed\n";
+    // std::cout<<fogs.size()<<"sizs of fogs in board\n";
+}
+
+
+bool Board::IsFogHere(int ndoe){
+    for(auto fog :fogs){
+        if (fog->GetNode()==ndoe){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+std::vector<int> Board::GetReachbleNodesForFog(int node,int distance){
+std::vector <int >res;
+    res.push_back(node);
+    
+    std::vector<int > neighbors= map.GetNeighbors(node);
+    std::unordered_map <int,bool > visited(false);
+
+    std::queue<int> q;
+    visited[node]=true;
+    q.push(node);
+    int level=0;
+    int maxlevel=distance;
+
+    while (!q.empty() && level<=maxlevel ){
+        int levelsize=q.size();
+
+        for(int i{};i<levelsize;i++){
+            int curr = q.front();
+            q.pop();
+            // bool Isreachable=true;
+            // for(int node:AllyNodes)
+            //     if(curr==node) Isreachable =false;
+            // if(Isreachable && (!isOccupied(curr) || (isOccupied(curr) && curr==HeroNode)) )
+            if(!IsFogHere(curr))
+                res.push_back(curr);
+
+            for (int x:map.GetNeighbors(curr)){
+                    if(!visited[x]){
+                        visited[x]=true;
+                            q.push(x);
+                    }
+            }
+        }
+        level++;
+    }
+
+   
+    return res;
+
+}
+
+std::vector<int> Board::GetAllNodeWithoutFog(){
+     std::vector<int> res;
+    for(int i{1};i<=32;i++){
+        if(!IsFogHere(i))
+            res.push_back(i);
+    }
+    return res;
+}
+
+std::vector<int> Board::GetAllNodeWithoutFogAndFighters(){
+    std::vector<int> res;
+    for(int i{1};i<=32;i++){
+        if(!IsFogHere(i) && !isOccupied(i))
+            res.push_back(i);
+    }
+    return res;
+}

@@ -46,7 +46,14 @@ class ManeverUseCase : public IUseCase{
      ContinueResult BuildFightersMenu(EffectContext&);
      ContinueResult BuildNodesMenu(EffectContext&);
 
+     std::vector<Fighter*> GetFighters();
+     ManeverStep GetStep();
+     std::vector<int> GetRechbleNodes();
+     Fighter * SelectedFighter();
 
+
+     void SetStep(ManeverStep);
+     void SetSelectedFighter(Fighter*);
 
 };
 

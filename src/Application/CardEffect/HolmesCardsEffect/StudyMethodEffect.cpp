@@ -2,15 +2,23 @@
 #include "Application/interaction/EffectContext.h"
 
 ContinueResult StudyMethod::Continue(EffectContext & context){
-    if(context.combatcontext->Current->Won){
-        context.context.Gamestate->log.Add("Enemy Hand:");
-
-        for(auto card: context.combatcontext->Opponent->hero->GetHand()){
-            context.context.Gamestate->log.Add(card->GetName());
-        }
-    }
-
+    
     ContinueResult res;
+
+    if(context.context.Selected==-1){
+        context.context.Gamestate->handview=HandView::OPPONENTPLAYER;
+        res.menu_request.options.push_back("End turn");
+        res.menu_request.type=InputType::QUESTION;
+        context.context.Gamestate->log.Add("Answer Questoin");
+        res.status=ContinueStatus::NEEDMENU;
+        return res;
+    }
+    
+    if(context.context.Selected==0)
+        res.status=ContinueStatus::FINISHED;
+
+    context.context.Gamestate->handview=HandView::CURRENTPLAYER;
     res.status=ContinueStatus::FINISHED;
+
     return res;
 }

@@ -20,6 +20,16 @@
 #include "Application/CardEffect/HolmesCardsEffect/EducationNeverEndsEffect.h"
 #include "Application/CardEffect/NoneEffect.h"
 #include "Application/CardEffect/HolmesCardsEffect/StudyMethod.h"
+#include "Application/CardEffect/InvisibleCardsEffect/CodedNotesEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/DreamingOfRevengeEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/ImpossibleToSeeEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/IntoThinAirEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/ReignOfTerorrEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/LurkingEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/RollingFogEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/SlipAwayEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/StepLightlyEffect.h"
+#include "Application/CardEffect/InvisibleCardsEffect/EmergeFromMistEffect.h"
 
 std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     
@@ -91,8 +101,36 @@ std::unique_ptr<CardEffect> CardEffectFactory::CreatCardEffect(CardId id){
     case CardId::THE_GAME_IS_AFOOT:
         return std::move(std::make_unique<Move3Effect>());
         break;
-
-    
+    case CardId::CODED_NOTES:
+        return std::move(std::make_unique<CodedNotesEffect>());
+        break;
+    case CardId::DREAMIN_OF_REVENGE:
+        return std::move(std::make_unique<DreamingOfRevengeEffect>());
+        break;
+    case CardId::IMPOSSIBLE_TO_SEE:
+        return std::move(std::make_unique<ImpossibleToSeeEffect>());
+        break;
+    case CardId::INTO_THIN_AIR:
+        return std::move(std::make_unique<IntoThinAirEffect>());
+        break;
+    case CardId::REIGN_OF_TERROR:
+        return std::move(std::make_unique<ReignOfTerrorEffect>());
+        break;
+    case CardId::LURKING:
+        return std::move(std::make_unique<LurkingEffect>());
+        break;
+    case CardId::ROLLING_FOG:
+        return std::move(std::make_unique<RollingFogEffect>());
+        break;
+    case CardId::SLIP_AWAY:
+        return std::move(std::make_unique<SlipAwayEffect>());
+        break;
+    case CardId::STEP_LIGHTLY:
+        return std::move(std::make_unique<StepLightlyEffect>());
+        break;
+    case CardId::EMERGE_FROM_MIST:
+        return std::move(std::make_unique<EmergeFromMistEffect>());
+        break;
     default:
         break;
     }

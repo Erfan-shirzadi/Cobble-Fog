@@ -3,7 +3,7 @@
 #include "Application/UseCases/ManeverUseCase.h"
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/Ability/HeroAbilityFactory.h"
-#include <iostream>
+
 
 
 
@@ -23,6 +23,9 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
     case TurnStep::MANAGE_HAND_SIZE:
         return ManageHandSize(context);
         break;
+    case TurnStep::ASK_FOR_CONTINUE_REMOVE_CARD:
+        return AskRemoveMoreCard(context);
+        break;
     }
     ContinueResult a;
     a.status=ContinueStatus::FINISHED;
@@ -32,13 +35,18 @@ ContinueResult TurnUseCase::Continue(EffectContext& context){
 ContinueResult TurnUseCase::Start(EffectContext& context){
 
     ContinueResult result;
-    context.context.Gamestate->currnetPlayer->GetHero()->SetRemainingAction(2);
+    Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+    Board board=context.context.Gamestate->board;
+    hero->SetStartTurnOnfog(board.IsFogHere(hero->GetNode()));
+    hero->SetRemainingAction(2);
     step=TurnStep::CHOOSE_ACTION;
+    currentaction=ActoinType::NONE;
     return result;
 }
 
 ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 
+    
     ContinueResult result=CurrentUseCase->Continue(context);
     
     if(result.status ==ContinueStatus::FINISHED){
@@ -60,20 +68,20 @@ ContinueResult TurnUseCase::ExecuteAction(EffectContext& context){
 ContinueResult TurnUseCase::ChooseAction(EffectContext &context){
 
     if(context.context.Selected!=-1){
-        this->currentaction=possibleAction[context.context.Selected];
-        SetUseCase();
+        SetUseCase(context.context.Selected);
         CurrentUseCase->Start(context);
         context.context.Selected=-1;
-
+       
         step=TurnStep::EXECUTE_USECASE;
         ContinueResult a;
         a.status=ContinueStatus::CONTINUE;
         return a;
 
     }
-
+    
     ContinueResult result;
     result.status=ContinueStatus::NEEDMENU;
+    
     result.menu_request=BuildActionMenu(context);
     return result;
 }
@@ -99,17 +107,26 @@ ContinueResult TurnUseCase::FinishedResult(EffectContext & context){
     return result;
 }
 
-void TurnUseCase::SetUseCase(){
-    switch (currentaction)
+void TurnUseCase::SetUseCase(int selected){
+    switch (selected)
     {
-    case ActoinType::SCHEME:
-        this->CurrentUseCase= &scheme;
+    case 0:
+        
+        this->CurrentUseCase= &manever;
+        this->currentaction=ActoinType::MANEVER;
         break;
-    case ActoinType::MANEVER:
-         this->CurrentUseCase=& manever;
+    case 1:
+         this->CurrentUseCase=& scheme;
+        
+        this->currentaction=ActoinType::SCHEME;
+
         break;
-    case ActoinType::ATTACK:
+    case 2:
         this->CurrentUseCase=& attack;
+        
+        this->currentaction=ActoinType::ATTACK;
+
+
         break;
     }
 }   
@@ -119,47 +136,84 @@ MenuRequest TurnUseCase::BuildActionMenu(EffectContext & context){
     possibleAction.clear();
 
     temp.title="Action";
-    temp.options.push_back("Manever");
+    temp.options.push_back("MANEVER");
+    
     possibleAction.push_back(ActoinType::MANEVER);
-
     if(scheme.CanDoAction(context.context.Gamestate)){
-        temp.options.push_back("Scheme");
+        temp.options.push_back("SCHEME");
         possibleAction.push_back(ActoinType::SCHEME);
     }
     if(attack.CanAttack(context.context.Gamestate)){
-    temp.options.push_back("Attack");
+    temp.options.push_back("ATTACK");
     possibleAction.push_back(ActoinType::ATTACK);
     }
+    context.context.Gamestate->log.Add("Select Action");
+    temp.type=InputType::ACTION;
+    
+
     return temp;
 }
 
 ContinueResult TurnUseCase::ManageHandSize(EffectContext & context){
      ContinueResult result;
     Hero * hero=context.context.Gamestate->currnetPlayer->GetHero();
+
+   
     if(context.context.Selected==-1) return BuildHandMenu(hero);
 
-    if(context.context.Selected==hero->GetSizeHand()){
-        result.status=ContinueStatus::CONTINUE;
-        step=TurnStep::FINISHED;
+    hero->RemoveCardHand(context.context.Selected);
+
+     if(hero->GetSizeHand()<=7){
+        step=TurnStep::ASK_FOR_CONTINUE_REMOVE_CARD;
         context.context.Selected=-1;
+        result.status=ContinueStatus::CONTINUE;
         return result;
     }
-    hero->RemoveCardHand(context.context.Selected);
-   
+
     result.status=ContinueStatus::CONTINUE;
     context.context.Selected=-1;
     return result;
 }
 
+
+ContinueResult TurnUseCase::AskRemoveMoreCard(EffectContext & context){
+    ContinueResult result;
+    if(context.context.Selected==-1){
+        result.menu_request.options.push_back("Yes");
+        result.menu_request.options.push_back("No");
+        result.status=ContinueStatus::NEEDMENU;
+        result.menu_request.type=InputType::QUESTION;
+        return result;
+    }
+
+    if(context.context.Selected==0){
+        step=TurnStep::MANAGE_HAND_SIZE;
+        context.context.Selected=-1;
+        result.status=ContinueStatus::CONTINUE;
+        return result;
+    }
+
+    result.status=ContinueStatus::FINISHED;
+    context.context.Selected=-1;
+
+    return result;
+    
+
+}
+
+
 ContinueResult TurnUseCase::BuildHandMenu(Hero * hero){
     ContinueResult result;
     result.menu_request.title="Remove card please :";
     for(auto card: hero->GetHand()){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
-    if(hero->GetSizeHand()<=7)
+    if(hero->GetSizeHand()<=7){
         result.menu_request.options.push_back("End turn");
+
+    }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::CARD;
 
     return result;
 }
@@ -215,4 +269,33 @@ ContinueResult TurnUseCase::Ability(EffectContext & context){
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
     return res;
+}
+
+void TurnUseCase::Reset(EffectContext& context){
+    this->manever.Finished(context);
+    this->scheme.Finished(context);
+    this->attack.Finished(context);
+}
+
+
+ManeverUseCase & TurnUseCase::GetManeverUseCase(){
+    return this->manever;
+}
+SchemeUseCase & TurnUseCase::GetSchemeUseCase(){
+    return this->scheme;
+}
+AttackUseCase & TurnUseCase::GetAttackUseCase(){
+    return this->attack;
+}
+ActoinType TurnUseCase::CurrentAction(){
+    return this->currentaction;
+}
+
+TurnStep TurnUseCase::GetTurnUseCaseStep(){
+    return this->step;
+}
+
+void TurnUseCase::SetStep(TurnStep newstep){
+    
+    this->step=newstep;
 }

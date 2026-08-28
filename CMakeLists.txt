@@ -16,6 +16,7 @@ set(
     src/Domain/Entities/CombatCard.cpp
     src/Domain/Entities/Heroes/Dracula.cpp
     src/Domain/Entities/Heroes/Holmes.cpp
+    src/Domain/Entities/Heroes/InvisibleMan.cpp
     src/Domain/Player.cpp
     src/Domain/Entities/Deck.cpp
 
@@ -44,16 +45,32 @@ set(
     src/Domain/Entities/Cards/Holmes/MasterOfDisguise.cpp
     src/Domain/Entities/Cards/Holmes/AdministerAid.cpp
 
+
+    src/Domain/Entities/Cards/InvisibleMan/CodedNotes.cpp
+    src/Domain/Entities/Cards/InvisibleMan/DreamingOfRevenge.cpp
+    src/Domain/Entities/Cards/InvisibleMan/EmergeFromMist.cpp
+    src/Domain/Entities/Cards/InvisibleMan/ImpossibleToSee.cpp
+    src/Domain/Entities/Cards/InvisibleMan/IntoThinAir.cpp
+    src/Domain/Entities/Cards/InvisibleMan/Lurking.cpp
+    src/Domain/Entities/Cards/InvisibleMan/ReignOfTerror.cpp
+    src/Domain/Entities/Cards/InvisibleMan/RollingFog.cpp
+    src/Domain/Entities/Cards/InvisibleMan/SlipAway.cpp
+    src/Domain/Entities/Cards/InvisibleMan/StepLightly.cpp
+
+
+
+
     src/Application/UseCases/ManeverUseCase.cpp
     src/Application/UseCases/DrawingCardUseCase.cpp
-    src/Application/UseCases/DiscardingCardUseCase.cpp
-    src/Application/UseCases/PlaceMentUseCase.cpp
     src/Application/UseCases/CombatUseCase.cpp
     src/Application/UseCases/SetUpGameUseCase.cpp
     src/Application/UseCases/TurnUseCase.cpp
     src/Application/UseCases/SchemeUseCase.cpp
     src/Application/UseCases/AttackUseCase.cpp
     src/Application/UseCases/MoveUseCase.cpp
+    src/Application/UseCases/SaveUseCase.cpp
+    src/Application/UseCases/LoadUseCase.cpp
+    src/Application/UseCases/CreatCard.cpp
     src/Domain/Game/GameEngine.cpp
     src/Domain/Entities/Board.cpp
 
@@ -83,20 +100,33 @@ set(
     src/Application/CardEffect/HolmesCardsEffect/StudyMethodEffect.cpp
     src/Application/CardEffect/NoneEffect.cpp
 
+    src/Application/CardEffect/InvisibleManEffect/CodedNotesEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/DreamingOfRevengeEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/ImpossibleToSeeEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/IntoThinAirEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/ReignOfTerrorEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/LurkingEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/RollingFogEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/SlipAwayEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/StepLightlyEffect.cpp
+    src/Application/CardEffect/InvisibleManEffect/EmergeFromMistEffect.cpp
+
+
+
     src/Application/Ability/DraculaAbility.cpp
 
 
     src/presentation/console/GameView.cpp
+    src/presentation/console/MainMenu.cpp
+    src/presentation/console/SetUpView.cpp
     src/Domain/Game/GameLog.cpp
 
 )
-find_package(ftxui REQUIRED)
+find_package(raylib REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    ftxui::screen
-    ftxui::dom
-    ftxui::component
+    raylib
 )

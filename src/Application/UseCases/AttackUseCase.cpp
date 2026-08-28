@@ -1,7 +1,6 @@
 #include "Application/UseCases/AttackUseCase.h"
 #include "Application/UseCases/CombatUseCase.h"
 #include "Application/CardEffect/CardEffectFactory.h"
-#include <iostream>
 using namespace std;
 
 bool AttackUseCase::CanAttack(GameState * gamestate)const{
@@ -161,12 +160,14 @@ ContinueResult AttackUseCase::BuildAttakerMenu(EffectContext & context){
         if(IsInChanceAttack(fighter,Deffender,context.context.Gamestate->board)){
             if(attaker->IsExistCardOfFighterInhandForAttack(fighter->GetFighterType())){
             Attacker.push_back(fighter);
-            result.menu_request.options.push_back(fighter->GetName());
+            result.menu_request.nodes.push_back(fighter->GetNode());
             }
         }
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Fighters in Chance";
+    context.context.Gamestate->log.Add("Choose a Fighter");
 
     return result;
 
@@ -180,13 +181,14 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     combatcontext.Current=std::make_unique<CombatParticipant>();
     combatcontext.Opponent=std::make_unique<CombatParticipant>();
     context.combatcontext=&combatcontext;
+    
     combatcontext.board=&context.context.Gamestate->board;
     combatcontext.Opponent->hero=context.context.Gamestate->opponentPlayre->GetHero();
     combatcontext.Current->hero=context.context.Gamestate->currnetPlayer->GetHero();
     combatcontext.Current->fighter=Attacker[context.context.Selected];
     context.context.Selected=-1;
     context.context.Gamestate->log.Add("Attacker : "+context.combatcontext->Current->fighter->GetName());
-
+    context.context.Gamestate->combatsatat=&combatcontext;
     ContinueResult result;
     result.status=ContinueStatus::CONTINUE;
     setupstep=SetUpStep::CHOOSE_ATTACKER_CARD;
@@ -194,26 +196,41 @@ ContinueResult AttackUseCase::ChooseAttaker(EffectContext & context ){
     return result;
 }
 
-ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & ){
+ContinueResult AttackUseCase::BuildAttackerCardMenu(EffectContext & context ){
+   
     Hero * hero=combatcontext.Current->hero;
+    
     ContinueResult result;
     for(auto card: hero->GetHand()){
-        if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
+        if(card->GetCategory()==CardCategory::ATTACK || card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
             if(card->GetOwner()==combatcontext.Current->fighter->GetFighterType()||card->GetOwner()==FighterType::ANY){
-                result.menu_request.options.push_back(card->GetName());
+                result.menu_request.cards.push_back(card->GetCardId());
                 AttackerCards.push_back(card);
             }
+            if(card->GetOwner()==FighterType::SISTER && 
+                ((combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_1)
+                ||(combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_2)||
+                (combatcontext.Current->fighter->GetFighterType()==FighterType::SISTER_3))){
+                    result.menu_request.cards.push_back(card->GetCardId());
+                    AttackerCards.push_back(card);
+                }
+        }
     }
+   
     result.menu_request.title="Cards";
+    result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
+    context.context.Gamestate->log.Add("Choose a card");
+
     return result;
 }
 
 ContinueResult AttackUseCase::ChooseAttckerCard(EffectContext & context ){
     if(context.context.Selected==-1) return BuildAttackerCardMenu(context);
 
-    combatcontext.Current->card=dynamic_cast<CombatCard*>(AttackerCards[context.context.Selected]);
-    combatcontext.Current->hero->DiscardCard(AttackerCards[context.context.Selected]);
+    Card * card=combatcontext.Current->hero->GetCard(context.context.Selected);
+
+    combatcontext.Current->card=dynamic_cast<CombatCard*>(card);
 
     setupstep=SetUpStep::CHOOSE_DEFFENDER;
     context.context.Selected=-1;
@@ -269,8 +286,10 @@ ContinueResult AttackUseCase::ChooseDeffender(EffectContext & context){
 
     context.context.Selected=-1;
     ContinueResult result;
-    if(CanDeffendDffender())
+    if(CanDeffendDffender()){
         setupstep=SetUpStep::ASK_FOR_DEFFEND;
+        swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
+    }
     else{
         attackstep=AttackStep::COMBAT;
     }
@@ -282,25 +301,34 @@ ContinueResult AttackUseCase::ChooseDeffender(EffectContext & context){
 
 ContinueResult AttackUseCase::BuildDeffenderMenu(EffectContext & context){
     ContinueResult result;
-    this->GetFighterCanAttackIt(context.context.Gamestate->board);
+    if(enemiescanAttack.empty())
+        this->GetFighterCanAttackIt(context.context.Gamestate->board);
     for(auto fihgter:this->enemiescanAttack){
-        result.menu_request.options.push_back(fihgter->GetName());
+        result.menu_request.nodes.push_back(fihgter->GetNode());
     }
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
     result.menu_request.title="Enemies";
+    context.context.Gamestate->log.Add("Choose a Fighter to attack it");
+
     return result;
 }
 
 ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
-    if(context.context.Selected==-1) return BuildDeffenerCardMenu(context) ;
+    if(context.context.Selected==-1){
+        
+         return BuildDeffenerCardMenu(context) ;
+    }
 
-    combatcontext.Opponent->card=dynamic_cast<CombatCard*>(DeffenderCards[context.context.Selected]);
-    combatcontext.Opponent->hero->DiscardCard(DeffenderCards[context.context.Selected]);
-
+    Card * card=combatcontext.Opponent->hero->GetCard(context.context.Selected);
+    combatcontext.Opponent->card=dynamic_cast<CombatCard*>(card);
+    
+    
     ContinueResult result;
     context.context.Selected=-1;
     result.status=ContinueStatus::CONTINUE;
     this->attackstep=AttackStep::COMBAT;
+    swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
 
     return result;
 
@@ -309,11 +337,15 @@ ContinueResult AttackUseCase::ChooseDeffenderCard(EffectContext & context){
 
 ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
     ContinueResult result;
+    SetDeffenderCards();
     for(auto card: DeffenderCards){
-        result.menu_request.options.push_back(card->GetName());
+        result.menu_request.cards.push_back(card->GetCardId());
     }
     result.menu_request.title="cards";
+    result.menu_request.type=InputType::CARD;
     result.status=ContinueStatus::NEEDMENU;
+    context.context.Gamestate->log.Add("Choose a card to deffend");
+
     return result;
 
 }
@@ -321,13 +353,21 @@ ContinueResult AttackUseCase::BuildDeffenerCardMenu(EffectContext& context){
 void AttackUseCase::SetDeffenderCards(){
 
     Hero * hero=combatcontext.Opponent->hero;
+    DeffenderCards.clear();
 
     for(auto card: hero->GetHand()){
-        if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS)
-        if(combatcontext.Opponent->fighter->GetFighterType()==card->GetOwner() ||
-            card->GetOwner()==FighterType::ANY){
-                DeffenderCards.push_back(card);
-            
+        if(card->GetCategory()==CardCategory::DEFFENSE ||card->GetCategory()==CardCategory::ATTACKANDDEFFENS){
+            if(combatcontext.Opponent->fighter->GetFighterType()==card->GetOwner() ||
+                card->GetOwner()==FighterType::ANY){
+                    DeffenderCards.push_back(card);
+                
+            }
+            if(card->GetOwner()==FighterType::SISTER &&
+                ((combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_1)
+                ||(combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_2)||
+                (combatcontext.Opponent->fighter->GetFighterType()==FighterType::SISTER_3))){
+                    DeffenderCards.push_back(card);
+                }
         }
     }
 }
@@ -339,11 +379,17 @@ bool AttackUseCase::CanDeffendDffender(){
 
 
 ContinueResult AttackUseCase::AskForDeffend(EffectContext & context){
-    if(context.context.Selected==-1) return BuildAskDeffendMenu();
-    context.context.Gamestate->log.Add("Fuuuuuuuc it ");
+    if(context.context.Selected==-1) {
+        context.context.Gamestate->log.Add("Answer Question");
+        return BuildAskDeffendMenu();
+    }
+
     if(context.context.Selected==0)
         setupstep=SetUpStep::CHOOSE_DEFFENDER_CARD;
-    else if(context.context.Selected==1) attackstep=AttackStep::COMBAT;
+    else if(context.context.Selected==1){ 
+        swap(context.context.Gamestate->currnetPlayer,context.context.Gamestate->opponentPlayre);
+        attackstep=AttackStep::COMBAT;
+    }
 
     context.context.Selected=-1;
     ContinueResult res;
@@ -358,6 +404,9 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
     res.menu_request.options.push_back("Deffend");
     res.menu_request.options.push_back("Continue");
     res.status=ContinueStatus::NEEDMENU;
+    res.menu_request.type=InputType::QUESTION;
+
+
     return res;
 }
 
@@ -366,14 +415,34 @@ ContinueResult AttackUseCase::BuildAskDeffendMenu(){
 ContinueResult AttackUseCase::Finished(EffectContext & context){
     context.context.Selected=-1;
     this->Attacker.clear();
-    this->AttackerCards.clear();
-    this->DeffenderCards.clear();
+    // this->AttackerCards.clear();
+    // this->DeffenderCards.clear();
     this->enemiescanAttack.clear();
     context.combatcontext->Current.reset();
     context.combatcontext->Opponent.reset();
+    // context.combatcontext->attacker=nullptr;
+    // context.combatcontext->deffender=nullptr;
     context.combatcontext=nullptr;
+    context.context.Gamestate->combatsatat=nullptr;
     ContinueResult res;
     res.status=ContinueStatus::FINISHED;
     return res;
     
+}
+
+AttackStep AttackUseCase::GetStep(){
+    return this->attackstep;
+}
+SetUpStep AttackUseCase::GetStepSetup(){
+    return this->setupstep;
+}
+void AttackUseCase::SetStep(AttackStep step){
+    this->attackstep=step;
+}
+void AttackUseCase::SetSetupStep(SetUpStep step){
+    this->setupstep=step;
+}
+
+CombatContext & AttackUseCase::GetCombatcontext(){
+    return this->combatcontext;
 }

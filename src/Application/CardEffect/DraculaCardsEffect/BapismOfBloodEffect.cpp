@@ -6,11 +6,14 @@ ContinueResult BapismOfBloodEffect::Continue(EffectContext &  context){
     switch (this->bapismstep)
     {
     case BapismEffectStep::HEAL_DRACULA:{
+        // SetStep(static_cast<int>(bapismstep));
         context.context.Gamestate->currnetPlayer->GetHero()->Heal(2);
-        context.context.Gamestate->log.Add("Healed 2 Dracula ");
+        // context.context.Gamestate->log.Add("Healed 2 Dracula ");
         ContinueResult res; 
         res.status=ContinueStatus::CONTINUE;
         this->bapismstep=BapismEffectStep::RETURN_SISTER;
+        // SetStep(static_cast<int>(bapismstep));
+
 
     }
     case BapismEffectStep::RETURN_SISTER:
@@ -51,8 +54,10 @@ ContinueResult BapismOfBloodEffect::HealSister(EffectContext & context){
     sister=hero->GetDeadSideKick();
     if(sister){
         sister->Heal(1);
-        context.context.Gamestate->log.Add("Sister 1 Healed");
+        // context.context.Gamestate->log.Add("Sister 1 Healed");
         returnstep=ReturnSisterStep::CHOOSEDESTINATION;
+        SetStep(static_cast<int>(returnstep));
+
 
         ContinueResult res;
         res.status=ContinueStatus::CONTINUE;
@@ -71,7 +76,7 @@ ContinueResult BapismOfBloodEffect::HealSister(EffectContext & context){
 }
 ContinueResult BapismOfBloodEffect::ChooseDestinationSister(EffectContext& context){
     if(context.context.Selected==-1) return BuildDestinationMenu(context);
-    context.context.Gamestate->log.Add("Sister return");
+    // context.context.Gamestate->log.Add("Sister return");
     MoveUseCase::Move(sister,reachableNodes[context.context.Selected],context.context.Gamestate->log);
     context.context.Selected=-1;
     ContinueResult res;
@@ -89,11 +94,13 @@ ContinueResult BapismOfBloodEffect::BuildDestinationMenu(EffectContext context){
     reachableNodes=board.GetNodeofArea(hero->GetNode());
 
     for(auto x: reachableNodes){
-        result.menu_request.options.push_back(std::to_string(x));
+        result.menu_request.nodes.push_back(x);
     }
     result.menu_request.title=" reachable Nodes ";
+    context.context.Gamestate->log.Add("Select a node to return sister there");
 
     result.status=ContinueStatus::NEEDMENU;
+    result.menu_request.type=InputType::NODE;
 
     return result;
     
