@@ -65,15 +65,7 @@ Dracula::Dracula():Hero("Dracula",13,2,FighterType::DRACULA){
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
     AddCardToDeck(std::make_unique<ThirstForSustenance>());
 
-   
-
-
-    AddCardToDeck(std::make_unique<Exploit>());
-    AddCardToDeck(std::make_unique<BestForm>());
-    AddCardToDeck(std::make_unique<MistForm>());
-    AddCardToDeck(std::make_unique<RaveningSeduction>());
-    AddCardToDeck(std::make_unique<ThirstForSustenance>());
-
+ 
 
 
 

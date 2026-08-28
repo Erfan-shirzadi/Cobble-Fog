@@ -13,9 +13,6 @@
 
 
 InvisibleMan::InvisibleMan():Hero("InvisibleMan",15,2,FighterType::INVISIBLEMAN){
-    // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
-    // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
-    // SideKicks.push_back(std::make_unique<Fighter>("Fog",1,0,FighterType::FOG));
     fogs.push_back(std::make_unique<Fog>());
     fogs.push_back(std::make_unique<Fog>());
     fogs.push_back(std::make_unique<Fog>());
@@ -55,17 +52,7 @@ InvisibleMan::InvisibleMan():Hero("InvisibleMan",15,2,FighterType::INVISIBLEMAN)
     AddCardToDeck(std::make_unique<StepLightly>());
     AddCardToDeck(std::make_unique<StepLightly>());
 
-    AddCardToDeck(std::make_unique<CodedNotes>());
-
-    AddCardToDeck(std::make_unique<DreaminOfRevenge>());
-
-    AddCardToDeck(std::make_unique<Lurking>());
-    AddCardToDeck(std::make_unique<RollingFog>());
-    AddCardToDeck(std::make_unique<SlipAway>());
-    AddCardToDeck(std::make_unique<IntoThinAir>());
-    AddCardToDeck(std::make_unique<ReignOfTerror>());
-    AddCardToDeck(std::make_unique<StepLightly>());
-
+    
 
 
 }

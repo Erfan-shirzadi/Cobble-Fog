@@ -41,7 +41,6 @@ ContinueResult SetUpGameUseCase::ChooseHero(EffectContext & context){
         result.status=ContinueStatus::NEEDMENU;
         return result;
     }
-    // context.context.Gamestate->currnetPlayer->SetHero(CreateHero(context.context.Selected));
     std::swap(this->Heroes[context.context.Selected],this->Heroes.back());
     Heroes.pop_back();
     context.context.Selected=-1;
